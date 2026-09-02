@@ -26,11 +26,10 @@ export const profile: Profile = {
     'React, Vite & Tailwind CSS',
     'AI-assisted development',
     'Agile facilitation & mentorship',
-    'Game dev: Godot 4, Unity',
     'DevOps: Docker, Nginx, CI/CD, DigitalOcean',
   ],
   experienceBlurb:
-    '8+ years shipping software across healthcare, fintech, and enterprise ' +
+    '11+ years shipping software across healthcare, fintech, and enterprise ' +
     'platforms \u2014 from Booz Allen Hamilton to IBM. Full history on LinkedIn.',
   linkedinUrl: 'https://www.linkedin.com/in/ericclancy/',
   githubUrl: 'https://github.com/eclancy',

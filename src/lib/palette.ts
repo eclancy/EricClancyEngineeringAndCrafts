@@ -37,6 +37,18 @@ export const PALETTE = [
     ring: 'focus-visible:outline-rose-400',
     chip: 'border-rose-500/40 bg-rose-500/10 text-rose-300',
   },
+  {
+    border: 'border-sky-500/60',
+    text: 'text-sky-300',
+    ring: 'focus-visible:outline-sky-400',
+    chip: 'border-sky-500/40 bg-sky-500/10 text-sky-300',
+  },
+  {
+    border: 'border-lime-500/60',
+    text: 'text-lime-300',
+    ring: 'focus-visible:outline-lime-400',
+    chip: 'border-lime-500/40 bg-lime-500/10 text-lime-300',
+  },
 ]
 
 export function colorAt(index: number) {

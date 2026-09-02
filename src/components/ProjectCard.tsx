@@ -6,7 +6,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const [hero, ...gallery] = project.images ?? []
+  const [hero] = project.images ?? []
 
   return (
     <article className="flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20 transition hover:border-violet-500/60">
@@ -31,20 +31,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </li>
         ))}
       </ul>
-      {gallery.length > 0 && (
-        <ul className="flex flex-wrap gap-2" aria-label={`${project.name} screenshots`}>
-          {gallery.map((image) => (
-            <li key={image.src}>
-              <img
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                className="h-16 w-16 rounded-lg border border-slate-800 bg-slate-950 object-contain"
-              />
-            </li>
-          ))}
-        </ul>
-      )}
       <div className="mt-2 flex gap-4 text-sm font-medium">
         {project.repoUrl && (
           <a
