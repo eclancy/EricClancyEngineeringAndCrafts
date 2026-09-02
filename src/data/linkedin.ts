@@ -18,7 +18,7 @@ export interface Profile {
 // content-updater agent when role/skills change.
 export const profile: Profile = {
   name: 'Eric Clancy',
-  headline: 'Full Stack Developer, Production DBA, & AI Specialist',
+  headline: 'Full Stack Developer, Technical Lead, & AI Specialist',
   summary:
     'Full-stack developer who builds end-to-end with AI as a core part of the ' +
     'workflow, from game engines to web apps to the infrastructure that deploys ' +
@@ -62,7 +62,7 @@ export const profile: Profile = {
     },
     {
       title: 'DevOps: Docker, Nginx, CI/CD, DigitalOcean',
-      mantra: 'Automate the repetitive work, free up time to make life better for users.',
+      mantra: 'Automate the repetitive work, free up time for the important decisions.',
     },
   ],
   experienceBlurb:

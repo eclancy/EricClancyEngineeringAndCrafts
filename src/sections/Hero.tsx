@@ -16,7 +16,10 @@ export function Hero() {
         <span className="bg-gradient-to-r from-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
           {profile.name.split(' ')[0]}
         </span>{' '}
-        I build software with AI, start to finish.
+        <span role="img" aria-label="waving hand">
+          👋
+        </span>
+        . I build software with AI, start to finish.
       </h1>
       <p className="max-w-2xl text-lg leading-relaxed text-slate-400">
         {profile.summary}
