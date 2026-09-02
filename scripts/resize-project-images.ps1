@@ -85,8 +85,8 @@ Copy-Item "$screenshots\wizard wars\start-screen-transparent.png" "$dest\wizard-
 Resize-Image "$screenshots\wizard survivors\Screenshot 2026-09-02 152129.png" "$dest\wizard-survivors\meadow-battle.jpg" 900 jpeg 85
 Resize-Image "$screenshots\wizard survivors\Screenshot 2026-09-02 152408.png" "$dest\wizard-survivors\dungeon-battle.jpg" 900 jpeg 85
 
-Resize-Image "$screenshots\wizard wars\WizardWarsDemoGif.a7e6158d1cefb32a9702.gif" "$dest\wizard-wars\arena-battle.jpg" 900 jpeg 85 30
-Resize-Image "$screenshots\wizard wars\WizardWarsFireGif.50175a8b4258a0d4b9d6.gif" "$dest\wizard-wars\fire-spell.jpg" 900 jpeg 85 12
+Resize-Image "$screenshots\wizard wars\WizardWarsDemoGif.a7e6158d1cefb32a9702.gif" "$dest\wizard-wars\arena-battle.jpg" 900 jpeg 85 568
+Resize-Image "$screenshots\wizard wars\WizardWarsDemoGif.a7e6158d1cefb32a9702.gif" "$dest\wizard-wars\fire-spell.jpg" 900 jpeg 85 426
 
 Resize-Image "$screenshots\ericsminiatures\BigLogoColor.1152fe7fb6ed5af49e4f.png" "$dest\erics-miniatures\logo.png" 900 png
 Resize-Image "$screenshots\ericsminiatures\Screenshot 2026-09-02 151048.png" "$dest\erics-miniatures\showcase.jpg" 900 jpeg 85

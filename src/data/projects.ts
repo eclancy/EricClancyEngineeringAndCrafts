@@ -5,7 +5,6 @@ import wwStartScreen from '../assets/projects/wizard-wars/start-screen-transpare
 import wwArenaBattle from '../assets/projects/wizard-wars/arena-battle.jpg'
 import wwFireSpell from '../assets/projects/wizard-wars/fire-spell.jpg'
 import emLogo from '../assets/projects/erics-miniatures/logo.png'
-import emEscapeReality from '../assets/projects/erics-miniatures/escape-reality.jpg'
 import emTerrain from '../assets/projects/erics-miniatures/terrain.jpg'
 import emEscapeRealityFeature from '../assets/projects/erics-miniatures/escape-reality-feature.jpg'
 
@@ -34,11 +33,10 @@ export const projects: Project[] = [
     name: 'Wizard Survivors',
     tagline: 'A 2D roguelite auto-shooter built in Godot 4 with C#.',
     description:
-      'A Vampire Survivors-inspired roguelite where you build a wizard around 12 ' +
-      'elemental spell types, chaining upgrades and tier thresholds into emergent builds ' +
-      'across escalating waves of enemies.',
+      'A fast-paced survival game inspired by Vampire Survivors. Choose from 12 elemental ' +
+      'spells and upgrades to shape your wizard, then survive increasingly difficult waves ' +
+      'of enemies.',
     tech: ['Godot 4', 'C#', '.NET 9'],
-    repoUrl: 'https://github.com/Rhystus/wizard-survivors',
     images: [
       { src: wsTitleScreen, alt: 'Wizard Survivors title screen', fit: 'contain' },
       { src: wsMeadowBattle, alt: 'Wizard Survivors battle in a meadow' },
@@ -50,15 +48,15 @@ export const projects: Project[] = [
     name: 'Wizard Wars',
     tagline: 'A local multiplayer wizard battle arena for up to 4 players.',
     description:
-      'A couch-multiplayer party game where up to four wizards face off with ' +
-      'controller-driven elemental attacks (fire, ice, earth, and electric), each with ' +
-      'counters and combo potential across multiple arena stages.',
+      'A local party game for up to four players. Choose a wizard and battle with fire, ' +
+      'ice, earth, or lightning attacks across several arena stages. Each element can ' +
+      'counter another, rewarding quick decisions and teamwork.',
     tech: ['Unity', 'UnityScript'],
     repoUrl: 'https://github.com/eclancy/WizardWars',
     images: [
       { src: wwStartScreen, alt: 'Wizard Wars title screen', fit: 'contain' },
-      { src: wwArenaBattle, alt: 'Wizard Wars start menu' },
-      { src: wwFireSpell, alt: 'Wizard Wars fire spell combat' },
+      { src: wwArenaBattle, alt: 'Wizard Wars character select screen' },
+      { src: wwFireSpell, alt: 'Wizard Wars ring of fire attack' },
     ],
   },
   {
@@ -66,15 +64,14 @@ export const projects: Project[] = [
     name: "Eric's Miniatures",
     tagline: 'A personal arts & crafts showcase site.',
     description:
-      'A personal website for showcasing hand-painted miniatures and other arts and ' +
-      'crafts projects, built with a classic React + Material-UI stack.',
+      'A website that shares hand-painted miniatures and other handmade art projects. ' +
+      'Built with React, TypeScript, Material UI, and SASS.',
     tech: ['React', 'TypeScript', 'Material UI', 'SASS'],
     repoUrl: 'https://github.com/eclancy/EricsMiniatures',
     images: [
       { src: emLogo, alt: "Eric's Miniatures logo", fit: 'contain' },
-      { src: emEscapeReality, alt: "Eric's Miniatures Art That Escapes Reality page" },
-      { src: emTerrain, alt: "Eric's Miniatures Custom Built Terrain page" },
       { src: emEscapeRealityFeature, alt: "Eric's Miniatures Art That Escapes Reality feature" },
+      { src: emTerrain, alt: "Eric's Miniatures Custom Built Terrain page" },
     ],
   },
 ]

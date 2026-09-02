@@ -36,20 +36,47 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </li>
         ))}
       </ul>
-      {hasGallery && (
-        <div>
+      <div className="mt-2 flex flex-wrap gap-3 text-sm font-medium">
+        {hasGallery && (
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
-            className="text-sm font-medium text-cyan-300 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+            className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/60 px-3 py-2 text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
           >
-            {open ? 'Hide screenshots ▲' : 'See more screenshots ▼'}
+            Screenshots
+            <span aria-hidden="true">{open ? '▲' : '▼'}</span>
           </button>
+        )}
+        {project.repoUrl && (
+          <a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex items-center rounded-lg border border-violet-400/60 px-3 py-2 text-violet-200 transition hover:border-violet-300 hover:bg-violet-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+          >
+            View code
+          </a>
+        )}
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex items-center rounded-lg border border-violet-400/60 px-3 py-2 text-violet-200 transition hover:border-violet-300 hover:bg-violet-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+          >
+            Live demo
+          </a>
+        )}
+      </div>
+      {hasGallery && (
+        <div
+          className={`grid overflow-hidden transition-all duration-300 ease-out ${
+            open ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+          }`}
+        >
           <div
-            className={`grid overflow-hidden transition-all duration-300 ease-out ${
-              open ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-            }`}
+            className="overflow-hidden"
           >
             <ul
               className="grid grid-cols-2 gap-2 overflow-hidden"
@@ -69,28 +96,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
       )}
-      <div className="mt-2 flex gap-4 text-sm font-medium">
-        {project.repoUrl && (
-          <a
-            href={project.repoUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="text-violet-300 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
-          >
-            View code
-          </a>
-        )}
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="text-violet-300 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
-          >
-            Live demo
-          </a>
-        )}
-      </div>
     </article>
   )
 }
