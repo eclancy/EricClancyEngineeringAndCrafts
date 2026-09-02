@@ -26,15 +26,15 @@ export const profile: Profile = {
   skills: [
     {
       title: 'JavaScript & TypeScript',
-      mantra: "Fewer 2am 'wait, what type is this?' moments for everyone on the team.",
+      mantra: 'Clean, typed code today saves everyone a headache tomorrow.',
     },
     {
       title: '.NET, C# & Angular',
-      mantra: 'Old code deserves just as much love as the shiny new stuff.',
+      mantra: 'Reliable, battle-tested tools for the systems people actually depend on.',
     },
     {
       title: 'React, Vite & Tailwind CSS',
-      mantra: 'Quick feedback loops make for a happier team and a snappier app.',
+      mantra: "A fast, polished interface makes everyone's day a little easier.",
     },
     {
       title: 'AI-assisted development',
@@ -47,12 +47,13 @@ export const profile: Profile = {
     },
     {
       title: 'Team leadership & mentorship',
-      mantra: 'Helping a teammate level up beats shipping any feature solo.',
+      mantra:
+        'Growing other developers scales further than any one contribution I could make alone.',
     },
     {
       title: 'Cross-functional stakeholder comms',
       mantra:
-        'Turning engineer-speak into plain English keeps everyone rowing the same way.',
+        'Turning engineer-speak into plain English keeps everyone on the same page.',
     },
     {
       title: 'Accessibility-focused delivery',
