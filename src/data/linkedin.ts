@@ -61,7 +61,8 @@ export const profile: Profile = {
     },
     {
       title: 'DevOps: Docker, Nginx, CI/CD, DigitalOcean',
-      mantra: 'Automate the boring stuff so people can focus on the fun stuff.',
+      mantra:
+        'Automate the repetitive ops work so there is more time for decisions that actually make life better for users.',
     },
   ],
   experienceBlurb:
