@@ -1,6 +1,8 @@
 import wsTitleScreen from '../assets/projects/wizard-survivors/title-screen.jpg'
 import wwStartScreen from '../assets/projects/wizard-wars/start-screen.jpg'
 import emClockworkDragon from '../assets/projects/erics-miniatures/clockwork-dragon.jpg'
+import emPurpleWorm from '../assets/projects/erics-miniatures/purple-worm.jpg'
+import emMasterLich from '../assets/projects/erics-miniatures/master-lich.jpg'
 
 export interface ProjectImage {
   src: string
@@ -54,6 +56,10 @@ export const projects: Project[] = [
       'crafts projects, built with a classic React + Material-UI stack.',
     tech: ['React', 'TypeScript', 'Material UI', 'SASS'],
     repoUrl: 'https://github.com/eclancy/EricsMiniatures',
-    images: [{ src: emClockworkDragon, alt: 'Hand-painted clockwork dragon miniature' }],
+    images: [
+      { src: emClockworkDragon, alt: 'Hand-painted clockwork dragon miniature' },
+      { src: emPurpleWorm, alt: 'Hand-painted purple worm miniature' },
+      { src: emMasterLich, alt: 'Hand-painted master lich miniature' },
+    ],
   },
 ]

@@ -13,7 +13,7 @@ export function Hero() {
       </p>
       <h1 id="hero-heading" className="text-4xl font-bold text-slate-100 sm:text-6xl">
         Hi, I'm{' '}
-        <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
           {profile.name.split(' ')[0]}
         </span>{' '}
         — I build software with AI, start to finish.
