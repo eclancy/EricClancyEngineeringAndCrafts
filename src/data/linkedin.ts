@@ -43,7 +43,8 @@ export const profile: Profile = {
     },
     {
       title: 'Agile ceremony facilitation',
-      mantra: 'Good meetings are short, useful, and end with everyone smiling.',
+      mantra:
+        'A good meeting is short, has a clear point, and actually changes what happens next.',
     },
     {
       title: 'Team leadership & mentorship',
