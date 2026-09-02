@@ -49,6 +49,12 @@ export const PALETTE = [
     ring: 'focus-visible:outline-lime-400',
     chip: 'border-lime-500/40 bg-lime-500/10 text-lime-300',
   },
+  {
+    border: 'border-indigo-500/60',
+    text: 'text-indigo-300',
+    ring: 'focus-visible:outline-indigo-400',
+    chip: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-300',
+  },
 ]
 
 export function colorAt(index: number) {

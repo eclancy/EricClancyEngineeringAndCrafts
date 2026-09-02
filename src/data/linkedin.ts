@@ -20,11 +20,13 @@ export const profile: Profile = {
     'them. Comfortable owning a project from architecture through production.',
   skills: [
     'JavaScript & TypeScript',
-    'SQL & Production DBA',
     '.NET, C# & Angular',
     'React, Vite & Tailwind CSS',
     'AI-assisted development',
-    'Agile facilitation & mentorship',
+    'Agile ceremony facilitation',
+    'Team leadership & mentorship',
+    'Cross-functional stakeholder comms',
+    'Accessibility-focused delivery',
     'DevOps: Docker, Nginx, CI/CD, DigitalOcean',
   ],
   experienceBlurb:
