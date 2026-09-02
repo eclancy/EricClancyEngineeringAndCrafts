@@ -18,7 +18,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           src={hero.src}
           alt={hero.alt}
           loading="lazy"
-          className="mb-1 h-40 w-full rounded-xl object-cover"
+          className={`mb-1 aspect-[16/10] w-full rounded-xl bg-slate-950 ${
+            hero.fit === 'contain' ? 'object-contain' : 'object-cover'
+          }`}
         />
       )}
       <h3 className="text-xl font-semibold text-slate-100">{project.name}</h3>

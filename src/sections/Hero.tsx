@@ -19,7 +19,7 @@ export function Hero() {
         <span role="img" aria-label="waving hand">
           👋
         </span>
-        . I build software with AI, start to finish.
+        I build software with AI, start to finish.
       </h1>
       <p className="max-w-2xl text-lg leading-relaxed text-slate-400">
         {profile.summary}
