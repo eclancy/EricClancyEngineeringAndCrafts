@@ -17,8 +17,7 @@ export const profile: Profile = {
   summary:
     'Full-stack developer who builds end-to-end with AI as a core part of the ' +
     'workflow \u2014 from game engines to web apps to the infrastructure that deploys ' +
-    'them. Comfortable owning a project from architecture through production ' +
-    '(and having way too much fun doing it).',
+    'them. Comfortable owning a project from architecture through production.',
   skills: [
     'JavaScript & TypeScript',
     'SQL & Production DBA',
