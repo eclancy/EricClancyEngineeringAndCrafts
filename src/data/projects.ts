@@ -21,18 +21,18 @@ export const projects: Project[] = [
       'elemental spell types, chaining upgrades and tier thresholds into emergent builds ' +
       'across escalating waves of enemies.',
     tech: ['Godot 4', 'C#', '.NET 9'],
-    repoUrl: 'https://github.com/ericclancy/wizard-survivors',
+    repoUrl: 'https://github.com/Rhystus/wizard-survivors',
   },
   {
-    id: 'arcane-arena',
-    name: 'Arcane Arena',
-    tagline: 'An arena shooter where every player is a spellcasting wizard.',
+    id: 'wizard-wars',
+    name: 'Wizard Wars',
+    tagline: 'A local multiplayer wizard battle arena for up to 4 players.',
     description:
-      'A Quake-like arena shooter reimagined with wizard classes, combo-able spells, and ' +
-      'deep character builds, drawing inspiration from Deep Rock Galactic, Magicka, and ' +
-      'classic arena shooters.',
-    tech: ['Unity', 'C#'],
-    repoUrl: 'https://github.com/ericclancy/ArcaneArena',
+      'A couch-multiplayer party game where up to four wizards face off with ' +
+      'controller-driven elemental attacks — fire, ice, earth, and electric — each with ' +
+      'counters and combo potential across multiple arena stages.',
+    tech: ['Unity', 'UnityScript'],
+    repoUrl: 'https://github.com/eclancy/WizardWars',
   },
   {
     id: 'erics-miniatures',
@@ -42,6 +42,7 @@ export const projects: Project[] = [
       'A personal website for showcasing hand-painted miniatures and other arts and ' +
       'crafts projects, built with a classic React + Material-UI stack.',
     tech: ['React', 'TypeScript', 'Material UI', 'SASS'],
-    repoUrl: 'https://github.com/ericclancy/EricsMiniatures',
+    repoUrl: 'https://github.com/eclancy/EricsMiniatures',
   },
 ]
+

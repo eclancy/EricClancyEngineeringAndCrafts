@@ -8,7 +8,7 @@ import path from 'node:path'
 const GITHUB_ROOT = 'C:\\Users\\ericc\\Documents\\GitHub'
 
 const sources = [
-  { id: 'arcane-arena', dir: 'ArcaneArena', file: 'README.md' },
+  { id: 'wizard-wars', dir: 'WizardsArena', file: 'GAME_COMPLETION_PLAN.md' },
   { id: 'erics-miniatures', dir: 'EricsMiniatures', file: 'README.md' },
   { id: 'wizard-survivors', dir: 'wizard-survivors', file: '.ai/project-overview.md' },
 ]
