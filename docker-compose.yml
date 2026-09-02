@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    image: ecec-hub:latest
+    container_name: ecec-hub
+    restart: unless-stopped
+    ports:
+      # Bound to localhost only — host Nginx + certbot reverse-proxies and terminates TLS.
+      - '127.0.0.1:8080:80'
