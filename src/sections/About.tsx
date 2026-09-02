@@ -5,22 +5,24 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="border-t border-slate-800 py-20"
+      className="border-t border-cyan-500/20 py-20"
     >
       <h2 id="about-heading" className="text-3xl font-bold text-slate-100">
-        About
+        About 👋
       </h2>
       <div className="mt-6 max-w-3xl space-y-4 text-slate-400">
         <p>{profile.summary}</p>
-        {profile.experience.map((exp) => (
-          <div key={`${exp.organization}-${exp.role}`}>
-            <h3 className="font-semibold text-slate-200">
-              {exp.role} · {exp.organization}
-            </h3>
-            <p className="text-sm text-slate-500">{exp.period}</p>
-            <p>{exp.summary}</p>
-          </div>
-        ))}
+        <p>
+          {profile.experienceBlurb}{' '}
+          <a
+            href={profile.linkedinUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="font-medium text-cyan-300 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+          >
+            See the full history →
+          </a>
+        </p>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import type { Project } from '../data/projects'
+import { colorAt } from '../lib/palette'
 
 interface ProjectCardProps {
   project: Project
@@ -21,10 +22,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <p className="text-sm text-violet-300">{project.tagline}</p>
       <p className="text-sm leading-relaxed text-slate-400">{project.description}</p>
       <ul className="flex flex-wrap gap-2" aria-label={`${project.name} tech stack`}>
-        {project.tech.map((tech) => (
+        {project.tech.map((tech, index) => (
           <li
             key={tech}
-            className="rounded-full bg-slate-800 px-3 py-1 text-xs font-medium text-slate-300"
+            className={`rounded-full border px-3 py-1 text-xs font-medium ${colorAt(index).chip}`}
           >
             {tech}
           </li>
