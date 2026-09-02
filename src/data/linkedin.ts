@@ -89,4 +89,3 @@ export const profile: Profile = {
   linkedinUrl: 'https://www.linkedin.com/in/ericclancy/',
   githubUrl: 'https://github.com/eclancy',
 }
-
