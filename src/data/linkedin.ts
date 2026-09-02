@@ -21,52 +21,51 @@ export const profile: Profile = {
   headline: 'Full Stack Developer, Production DBA, & AI Specialist',
   summary:
     'Full-stack developer who builds end-to-end with AI as a core part of the ' +
-    'workflow \u2014 from game engines to web apps to the infrastructure that deploys ' +
+    'workflow, from game engines to web apps to the infrastructure that deploys ' +
     'them. Comfortable owning a project from architecture through production.',
   skills: [
     {
       title: 'JavaScript & TypeScript',
-      mantra: "Type-safety isn't bureaucracy \u2014 it's a note to your future self.",
+      mantra: "Fewer 2am 'wait, what type is this?' moments for everyone on the team.",
     },
     {
       title: '.NET, C# & Angular',
-      mantra: 'Legacy code deserves the same care and attention as anything new.',
+      mantra: 'Old code deserves just as much love as the shiny new stuff.',
     },
     {
       title: 'React, Vite & Tailwind CSS',
-      mantra: 'Fast feedback loops keep momentum \u2014 and morale \u2014 high.',
+      mantra: 'Quick feedback loops make for a happier team and a snappier app.',
     },
     {
       title: 'AI-assisted development',
       mantra:
-        'AI is a force multiplier, not a replacement for understanding the problem.',
+        'Let AI handle the busywork so people can focus on what users actually need.',
     },
     {
       title: 'Agile ceremony facilitation',
-      mantra: 'Good ceremonies create space for the team to actually talk to each other.',
+      mantra: 'Good meetings are short, useful, and end with everyone smiling.',
     },
     {
       title: 'Team leadership & mentorship',
-      mantra:
-        'Growing other developers scales further than any one contribution I could make alone.',
+      mantra: 'Helping a teammate level up beats shipping any feature solo.',
     },
     {
       title: 'Cross-functional stakeholder comms',
       mantra:
-        'Translating between engineers and stakeholders is half the job \u2014 and I love it.',
+        'Turning engineer-speak into plain English keeps everyone rowing the same way.',
     },
     {
       title: 'Accessibility-focused delivery',
-      mantra: "If it doesn't work for everyone, it doesn't really work.",
+      mantra: "If it doesn't work for everyone, it isn't actually done.",
     },
     {
       title: 'DevOps: Docker, Nginx, CI/CD, DigitalOcean',
-      mantra: 'Automate the boring stuff so people can focus on the interesting stuff.',
+      mantra: 'Automate the boring stuff so people can focus on the fun stuff.',
     },
   ],
   experienceBlurb:
     '11+ years shipping software across healthcare, fintech, and enterprise ' +
-    'platforms \u2014 from Booz Allen Hamilton to IBM. Full history on LinkedIn.',
+    'platforms, from Booz Allen Hamilton to IBM. Full history on LinkedIn.',
   linkedinUrl: 'https://www.linkedin.com/in/ericclancy/',
   githubUrl: 'https://github.com/eclancy',
 }

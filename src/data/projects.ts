@@ -41,7 +41,7 @@ export const projects: Project[] = [
     tagline: 'A local multiplayer wizard battle arena for up to 4 players.',
     description:
       'A couch-multiplayer party game where up to four wizards face off with ' +
-      'controller-driven elemental attacks — fire, ice, earth, and electric — each with ' +
+      'controller-driven elemental attacks (fire, ice, earth, and electric), each with ' +
       'counters and combo potential across multiple arena stages.',
     tech: ['Unity', 'UnityScript'],
     repoUrl: 'https://github.com/eclancy/WizardWars',

@@ -12,7 +12,7 @@ export function Contact() {
         Get in touch 📬
       </h2>
       <p className="mt-4 max-w-xl text-slate-400">
-        I'm open to full-stack and AI-focused roles — reach out on LinkedIn, check out my
+        I'm open to full-stack and AI-focused roles. Reach out on LinkedIn, check out my
         code on GitHub, or email me directly.
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-4">
