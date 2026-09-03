@@ -12,7 +12,16 @@ export function About() {
         About <AnimatedEmoji emoji="👋" animation="wave" label="waving hand" />
       </h2>
       <div className="mt-6 max-w-3xl space-y-4 text-slate-400">
-        <p>{profile.summary}</p>
+        <p>
+          My mantra is simple: we build software for humans. That means taking design into
+          account from day one, so the user experience is part of the engineering rather
+          than something added at the end.
+        </p>
+        <p>
+          My work in healthcare has made that especially clear. Software should be
+          intrinsic to use, responsive, and reliable enough to fade into the background,
+          giving users more attention for what matters.
+        </p>
         <p>
           {profile.experienceBlurb}{' '}
           <a
