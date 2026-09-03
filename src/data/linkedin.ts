@@ -21,7 +21,7 @@ export const profile: Profile = {
   headline: 'Full Stack Developer, Technical Lead, & AI Specialist',
   summary:
     'Full-stack developer who builds end-to-end with AI as a core part of the ' +
-    'workflow, from game engines to web apps to the infrastructure that deploys ' +
+    'workflow, from web apps to games to the infrastructure that deploys ' +
     'them. Comfortable owning a project from architecture through production.',
   skills: [
     {
