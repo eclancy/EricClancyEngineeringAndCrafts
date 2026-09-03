@@ -28,10 +28,10 @@ export function EcecLogo({
   )
   const descriptor = (
     <span
-      className="uppercase leading-snug text-slate-400"
-      style={{ fontSize: descriptorSize, letterSpacing: '0.17em' }}
+      className="leading-snug text-slate-400"
+      style={{ fontSize: descriptorSize, letterSpacing: '0.08em' }}
     >
-      Engineering and Crafts
+      Eric Clancy • Engineering &amp; Crafts
     </span>
   )
 
@@ -60,7 +60,7 @@ export function EcecLogo({
     )
 
   return href ? (
-    <a href={href} aria-label="ECEC - Eric Clancy, Engineering and Crafts" className={className}>
+    <a href={href} aria-label="ECEC — Eric Clancy Engineering & Crafts" className={className}>
       {inner}
     </a>
   ) : (

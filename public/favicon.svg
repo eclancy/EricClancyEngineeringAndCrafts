@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ECEC">
-  <title>ECEC</title>
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#8E51FF"/>
-    <stop offset="0.5" stop-color="#AD46FF"/>
-    <stop offset="1" stop-color="#E12AFB"/>
-    </linearGradient></defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="ECEC">
+  <title>ECEC — primary, gradient field</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8E51FF"/>
+      <stop offset="0.5" stop-color="#AD46FF"/>
+      <stop offset="1" stop-color="#E12AFB"/>
+    </linearGradient>
+  </defs>
   <path fill="url(#g)" d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z"/>
   <path fill="#020618" d="M26 26 H74 V37 H37 V63 H74 V74 H26 Z"/>
   <rect fill="#020618" x="42" y="44.5" width="28" height="11"/>
