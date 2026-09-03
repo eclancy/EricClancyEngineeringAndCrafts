@@ -1,4 +1,5 @@
 import { profile } from '../data/linkedin'
+import { EcecMark } from '../components/EcecMark'
 import { EcecLogo } from '../components/EcecLogo'
 import { SocialLinks } from '../components/SocialLinks'
 
@@ -19,7 +20,7 @@ export function Hero() {
           <span className="bg-gradient-to-r from-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
             {profile.name.split(' ')[0]}
           </span>
-          . I build software with AI, start to finish.
+          . I build software thoughtfully, for people who rely on it.
         </h1>
         <p className="mt-2 max-w-2xl text-lg leading-relaxed text-slate-400">
           {profile.summary}
@@ -27,8 +28,9 @@ export function Hero() {
         <div className="flex flex-wrap items-center gap-4 pt-2">
           <a
             href="#projects"
-            className="rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-3 text-sm font-semibold text-white transition hover:from-violet-400 hover:to-fuchsia-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-3 text-sm font-semibold text-white transition hover:from-violet-400 hover:to-fuchsia-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
           >
+            <EcecMark size={18} variant="solid" title={null} className="text-slate-950" />
             See my work
           </a>
           <SocialLinks profile={profile} />

@@ -1,6 +1,53 @@
 @import 'tailwindcss';
 @import './brand-tokens.css';
 
+.ecec-emoji {
+  display: inline-block;
+  transform-origin: center;
+}
+
+.ecec-emoji-wave:hover {
+  animation: ecec-wave 700ms ease-in-out;
+}
+
+.ecec-emoji-mailbox:hover {
+  animation: ecec-mailbox-shake 420ms ease-in-out;
+}
+
+.ecec-emoji-rocket:hover {
+  animation: ecec-rocket-takeoff 700ms ease-in-out;
+}
+
+.ecec-emoji-tools:hover {
+  animation: ecec-tools-pop 850ms ease-in-out;
+}
+
+@keyframes ecec-wave {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(18deg); }
+  40%, 80% { transform: rotate(-12deg); }
+}
+
+@keyframes ecec-mailbox-shake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+  75% { transform: rotate(-6deg); }
+}
+
+@keyframes ecec-rocket-takeoff {
+  0%, 100% { transform: translate(0) rotate(0); }
+  15%, 45% { transform: translate(-1px, 1px) rotate(-4deg); }
+  30%, 60% { transform: translate(1px, -1px) rotate(4deg); }
+  75% { transform: translate(5px, -5px) rotate(0); }
+}
+
+@keyframes ecec-tools-pop {
+  0%, 100% { transform: scale(1); }
+  55% { transform: scale(1.08); }
+  72% { transform: scale(1.32); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

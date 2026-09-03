@@ -42,7 +42,7 @@ export function Expertise() {
       className="border-t border-fuchsia-500/20 py-20"
     >
       <h2 id="expertise-heading" className="text-3xl font-bold text-slate-100">
-        What I bring 🛠️
+        What I bring <span className="ecec-emoji ecec-emoji-tools">🛠️</span>
       </h2>
       <ul className="mt-8 grid gap-6 sm:grid-cols-3">
         {profile.skills.map((skill, index) => (

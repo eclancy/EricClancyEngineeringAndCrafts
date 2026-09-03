@@ -1,5 +1,6 @@
 import { Hero } from './sections/Hero'
 import { Expertise } from './sections/Expertise'
+import { CareerHighlights } from './sections/CareerHighlights'
 import { Projects } from './sections/Projects'
 import { About } from './sections/About'
 import { Contact } from './sections/Contact'
@@ -17,6 +18,7 @@ function App() {
       <main className="mx-auto max-w-5xl px-6">
         <Hero />
         <Expertise />
+        <CareerHighlights />
         <Projects />
         <About />
         <Contact />

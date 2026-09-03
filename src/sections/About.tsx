@@ -8,7 +8,7 @@ export function About() {
       className="border-t border-cyan-500/20 py-20"
     >
       <h2 id="about-heading" className="text-3xl font-bold text-slate-100">
-        About 👋
+        About <span className="ecec-emoji ecec-emoji-wave">👋</span>
       </h2>
       <div className="mt-6 max-w-3xl space-y-4 text-slate-400">
         <p>{profile.summary}</p>
