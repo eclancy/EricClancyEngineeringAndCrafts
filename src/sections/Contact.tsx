@@ -1,4 +1,5 @@
 import { profile } from '../data/linkedin'
+import { AnimatedEmoji } from '../components/AnimatedEmoji'
 import { SocialLinks } from '../components/SocialLinks'
 
 export function Contact() {
@@ -9,7 +10,8 @@ export function Contact() {
       className="border-t border-amber-500/20 py-20"
     >
       <h2 id="contact-heading" className="text-3xl font-bold text-slate-100">
-        Get in touch <span className="ecec-emoji ecec-emoji-mailbox">📬</span>
+        Get in touch{' '}
+        <AnimatedEmoji emoji="📬" animation="mailbox-shake" label="mailbox" />
       </h2>
       <p className="mt-4 max-w-xl text-slate-400">
         I'm open to full-stack and AI-focused roles. Reach out on LinkedIn, check out my

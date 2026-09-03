@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { profile } from '../data/linkedin'
+import { AnimatedEmoji } from '../components/AnimatedEmoji'
 import type { Skill } from '../data/linkedin'
 import { colorAt } from '../lib/palette'
 
@@ -17,9 +18,19 @@ function SkillCard({ skill, color }: SkillCardProps) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className={`flex min-h-28 w-full flex-col justify-center rounded-2xl border bg-slate-900/60 p-6 text-left font-medium transition hover:-translate-y-0.5 ${color.border}`}
+        className={`group flex min-h-16 w-full cursor-pointer flex-col justify-center rounded-2xl border bg-slate-900/60 p-3 text-left font-medium transition hover:-translate-y-0.5 hover:bg-slate-800/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:min-h-20 sm:p-4 ${color.border}`}
       >
-        <span className={color.text}>{skill.title}</span>
+        <span className="flex items-center justify-between gap-3">
+          <span className={color.text}>{skill.title}</span>
+          <span
+            aria-hidden="true"
+            className={`flex size-6 shrink-0 items-center justify-center rounded-full border border-slate-600 text-xs text-slate-300 transition-transform group-hover:border-slate-400 ${
+              open ? 'rotate-180' : ''
+            }`}
+          >
+            ↓
+          </span>
+        </span>
         <div
           className={`grid overflow-hidden transition-all duration-300 ease-out ${
             open ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
@@ -42,7 +53,8 @@ export function Expertise() {
       className="border-t border-fuchsia-500/20 py-20"
     >
       <h2 id="expertise-heading" className="text-3xl font-bold text-slate-100">
-        What I bring <span className="ecec-emoji ecec-emoji-tools">🛠️</span>
+        What I bring{' '}
+        <AnimatedEmoji emoji="🛠️" animation="tools-pop" label="tools" />
       </h2>
       <ul className="mt-8 grid gap-6 sm:grid-cols-3">
         {profile.skills.map((skill, index) => (

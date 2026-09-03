@@ -1,3 +1,5 @@
+import { AnimatedEmoji } from '../components/AnimatedEmoji'
+
 export function CareerHighlights() {
   return (
     <section
@@ -7,7 +9,8 @@ export function CareerHighlights() {
     >
       <p className="text-sm font-semibold uppercase tracking-widest text-cyan-300">Experience</p>
       <h2 id="career-highlights-heading" className="mt-2 text-3xl font-bold text-slate-100">
-        What matters in my work <span className="ecec-emoji ecec-emoji-rocket">🚀</span>
+        What matters in my work{' '}
+        <AnimatedEmoji emoji="💡" animation="wave" label="lightbulb" />
       </h2>
       <p className="mt-5 max-w-3xl leading-relaxed text-slate-400">
         For 11+ years, I&apos;ve helped teams deliver software that people depend on. In my current

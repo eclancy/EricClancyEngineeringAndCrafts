@@ -25,15 +25,15 @@ export const profile: Profile = {
     'them. Comfortable owning a project from architecture through production.',
   skills: [
     {
-      title: 'JavaScript & TypeScript',
+      title: 'JavaScript + TypeScript',
       mantra: 'Clean, typed code today saves everyone a headache tomorrow.',
     },
     {
-      title: '.NET, C# & Angular',
+      title: '.NET + C# + Angular',
       mantra: 'Reliable, battle-tested tools for the systems people actually depend on.',
     },
     {
-      title: 'React, Vite & Tailwind CSS',
+      title: 'React + Vite + Tailwind',
       mantra: "A fast, polished interface makes everyone's day a little easier.",
     },
     {
@@ -42,26 +42,26 @@ export const profile: Profile = {
         'Let AI handle the busywork so people can focus on what users actually need.',
     },
     {
-      title: 'Agile ceremony facilitation',
+      title: 'Agile facilitation',
       mantra:
         'A good meeting is short, has a clear point, and actually changes what happens next.',
     },
     {
-      title: 'Team leadership & mentorship',
+      title: 'Team leadership',
       mantra:
         'Growing other developers scales further than any one contribution I could make alone.',
     },
     {
-      title: 'Cross-functional stakeholder comms',
+      title: 'Stakeholder comms',
       mantra:
         'Turning engineer-speak into plain English keeps everyone on the same page.',
     },
     {
-      title: 'Accessibility-focused delivery',
+      title: 'Accessible delivery',
       mantra: "If it doesn't work for everyone, it isn't actually done.",
     },
     {
-      title: 'DevOps: Docker, Nginx, CI/CD, DigitalOcean',
+      title: 'DevOps & delivery',
       mantra: 'Automate the repetitive work, free up time for the important decisions.',
     },
   ],

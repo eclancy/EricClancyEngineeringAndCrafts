@@ -1,4 +1,5 @@
 import { projects } from '../data/projects'
+import { AnimatedEmoji } from '../components/AnimatedEmoji'
 import { ProjectCard } from '../components/ProjectCard'
 
 export function Projects() {
@@ -9,7 +10,8 @@ export function Projects() {
       className="border-t border-violet-500/20 py-20"
     >
       <h2 id="projects-heading" className="text-3xl font-bold text-slate-100">
-        Featured (Personal) Projects <span className="ecec-emoji ecec-emoji-rocket">🚀</span>
+        Featured Personal Projects{' '}
+        <AnimatedEmoji emoji="🚀" animation="rocket" label="rocket" />
       </h2>
       <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (

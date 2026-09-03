@@ -4,6 +4,14 @@
 .ecec-emoji {
   display: inline-block;
   transform-origin: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.ecec-emoji:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--ecec-accent-lt);
+  outline-offset: 3px;
 }
 
 .ecec-emoji-wave:hover {
@@ -18,8 +26,17 @@
   animation: ecec-rocket-takeoff 700ms ease-in-out;
 }
 
-.ecec-emoji-tools:hover {
+.ecec-emoji-tools-pop:hover {
   animation: ecec-tools-pop 850ms ease-in-out;
+}
+
+.ecec-emoji-active {
+  animation-duration: 700ms;
+  animation-fill-mode: both;
+}
+
+.ecec-emoji-tools-pop.ecec-emoji-active {
+  animation-duration: 850ms;
 }
 
 @keyframes ecec-wave {

@@ -1,4 +1,5 @@
 import { profile } from '../data/linkedin'
+import { AnimatedEmoji } from '../components/AnimatedEmoji'
 
 export function About() {
   return (
@@ -8,7 +9,7 @@ export function About() {
       className="border-t border-cyan-500/20 py-20"
     >
       <h2 id="about-heading" className="text-3xl font-bold text-slate-100">
-        About <span className="ecec-emoji ecec-emoji-wave">👋</span>
+        About <AnimatedEmoji emoji="👋" animation="wave" label="waving hand" />
       </h2>
       <div className="mt-6 max-w-3xl space-y-4 text-slate-400">
         <p>{profile.summary}</p>
