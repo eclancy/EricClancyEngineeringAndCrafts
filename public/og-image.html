@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;width:1200px;height:630px;background:#020618;
+    font-family:"DejaVu Sans",sans-serif;overflow:hidden}
+  .glow{position:absolute;width:900px;height:900px;left:-260px;top:-220px;
+    background:radial-gradient(circle,rgba(142,81,255,0.20) 0%,rgba(2,6,24,0) 62%)}
+  .glow2{position:absolute;width:800px;height:800px;right:-240px;bottom:-320px;
+    background:radial-gradient(circle,rgba(225,42,251,0.16) 0%,rgba(2,6,24,0) 62%)}
+  .frame{position:relative;width:100%;height:100%;padding:86px 92px;
+    display:flex;flex-direction:column;justify-content:space-between}
+  .row{display:flex;align-items:center;gap:38px}
+  .mark{width:132px;height:132px;flex:none}
+  .name{font-size:96px;font-weight:700;letter-spacing:-4px;color:#F1F5F9;line-height:1}
+  .desc{font-size:20px;letter-spacing:5.5px;color:#90A1B9;text-transform:uppercase;margin-top:12px}
+  .line{font-size:44px;font-weight:700;color:#F1F5F9;line-height:1.28;letter-spacing:-1px;max-width:900px}
+  .line b{background:linear-gradient(135deg,#C4B4FF,#ED6AFF);-webkit-background-clip:text;
+    background-clip:text;color:transparent}
+  .rule{height:5px;width:190px;border-radius:3px;
+    background:linear-gradient(90deg,#8E51FF,#E12AFB)}
+  .foot{display:flex;justify-content:space-between;align-items:flex-end}
+  .url{font-family:"DejaVu Sans Mono",monospace;font-size:22px;color:#90A1B9;letter-spacing:2px}
+</style></head><body>
+<div class="glow"></div><div class="glow2"></div>
+<div class="frame">
+  <div class="row">
+    <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8E51FF"/><stop offset="0.5" stop-color="#AD46FF"/><stop offset="1" stop-color="#E12AFB"/></linearGradient></defs><path fill="url(#g)" fill-rule="evenodd" d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M26 26 H74 V37 H37 V63 H74 V74 H26 Z M42 44.5 H70 V55.5 H42 Z"/></svg></div>
+    <div><div class="name">ECEC</div><div class="desc">Engineering and Crafts</div></div>
+  </div>
+  <div class="line">Eric Clancy builds software<br>with <b>AI, start to finish.</b></div>
+  <div class="foot"><div class="rule"></div><div class="url">ecec.dev</div></div>
+</div></body></html>

@@ -1,4 +1,5 @@
 import { profile } from '../data/linkedin'
+import { EcecLogo } from '../components/EcecLogo'
 import { SocialLinks } from '../components/SocialLinks'
 
 export function Hero() {
@@ -8,22 +9,7 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="flex flex-col pb-20 pt-4 sm:pt-6"
     >
-      <div className="flex items-center gap-3" aria-label="Eric Clancy Engineering and Crafts">
-        <span
-          aria-hidden="true"
-          className="relative h-11 w-14 font-mono font-bold leading-none"
-        >
-          <span className="absolute bottom-0 left-0 h-px w-full bg-fuchsia-300/70" />
-          <span className="absolute bottom-0 left-1 h-9 w-px bg-cyan-300/70" />
-          <span className="absolute left-2 top-0 text-4xl text-cyan-200">E</span>
-          <span className="absolute left-7 top-1 text-3xl text-fuchsia-200">C</span>
-          <span className="absolute bottom-1 left-8 text-[10px] text-fuchsia-200">E</span>
-          <span className="absolute bottom-1 right-1 text-[10px] text-cyan-200">C</span>
-        </span>
-        <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
-          Eric Clancy Engineering &amp; Crafts
-        </span>
-      </div>
+      <EcecLogo layout="horizontal-descriptor" size={42} href="#home" />
       <div className="mt-12 flex flex-col gap-5 sm:mt-16">
         <p className="text-sm font-semibold uppercase tracking-widest text-fuchsia-400">
           {profile.headline}

@@ -1,0 +1,67 @@
+/* ==========================================================================
+   ECEC — brand tokens
+   Every value sampled from the live ecec.dev, so these are descriptive of
+   the site as built, not a new palette layered on top of it.
+   Tailwind v4 equivalents noted in comments.
+   ========================================================================== */
+
+:root {
+  /* --- Neutrals -------------------------------------------------------- */
+  --ecec-ground:      #020618;  /* slate-950 — page background            */
+  --ecec-surface:     #0F172B;  /* slate-900 — cards, chips, code blocks  */
+  --ecec-surface-2:   #1D293D;  /* slate-800 — raised surfaces, hovers    */
+  --ecec-line:        #314158;  /* slate-700 — borders and rules          */
+  --ecec-line-soft:   #1D293D;  /* slate-800 — quiet dividers             */
+  --ecec-text:        #F1F5F9;  /* slate-100 — headings, primary text     */
+  --ecec-text-dim:    #CAD5E2;  /* slate-300 — body copy                  */
+  --ecec-muted:       #90A1B9;  /* slate-400 — captions, metadata         */
+
+  /* --- Accent ---------------------------------------------------------- */
+  --ecec-violet:      #8E51FF;  /* violet-500  — gradient origin          */
+  --ecec-purple:      #AD46FF;  /* purple-500  — gradient midpoint        */
+  --ecec-fuchsia:     #E12AFB;  /* fuchsia-500 — gradient terminus        */
+  --ecec-accent-lt:   #C4B4FF;  /* violet-300  — emphasis, links on dark  */
+  --ecec-accent-hot:  #ED6AFF;  /* fuchsia-400 — eyebrows, small accents  */
+
+  /* --- Semantic (kept separate from the accent on purpose) ------------- */
+  --ecec-ok:          #00D492;  /* emerald-400 */
+  --ecec-warn:        #FFB900;  /* amber-400   */
+  --ecec-critical:    #FF637E;  /* rose-400    */
+
+  /* --- The signature --------------------------------------------------- */
+  --ecec-signature: linear-gradient(
+    135deg,
+    var(--ecec-violet)  0%,
+    var(--ecec-purple)  50%,
+    var(--ecec-fuchsia) 100%
+  );
+
+  /* Horizontal variant — matches the primary button on the live site. */
+  --ecec-signature-x: linear-gradient(
+    90deg,
+    var(--ecec-violet)  0%,
+    var(--ecec-fuchsia) 100%
+  );
+
+  /* --- Mark geometry, as usable values --------------------------------- */
+  --ecec-mark-radius-ratio: 0.22;  /* corner radius ÷ mark width */
+  --ecec-mark-min-size: 16px;      /* never render the mark smaller */
+  --ecec-mark-clear-ratio: 0.11;   /* clear space ÷ mark width */
+}
+
+/* --------------------------------------------------------------------------
+   Gradient text. Always provide the fallback color first — background-clip
+   text leaves the element invisible if the gradient fails to paint.
+   -------------------------------------------------------------------------- */
+.ecec-gradient-text {
+  color: var(--ecec-accent-lt);
+  background: var(--ecec-signature);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Accessibility note: --ecec-violet (#8E51FF) on --ecec-ground (#020618)
+   is roughly 5.0:1 — fine for large text and UI, thin for body copy.
+   Use --ecec-accent-lt (#C4B4FF, roughly 10:1) for anything set small.
+   Never put --ecec-fuchsia text directly on --ecec-ground below 18px. */
