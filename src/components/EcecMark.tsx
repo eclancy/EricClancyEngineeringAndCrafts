@@ -28,7 +28,14 @@ export function EcecMark({
 
   if (variant === 'glyph') {
     return (
-      <svg viewBox="26 26 48 48" width={size} height={size} xmlns="http://www.w3.org/2000/svg" {...a11y} {...rest}>
+      <svg
+        viewBox="26 26 48 48"
+        width={size}
+        height={size}
+        xmlns="http://www.w3.org/2000/svg"
+        {...a11y}
+        {...rest}
+      >
         <path fill="currentColor" d={GLYPH_PATH} />
         <rect fill="currentColor" x={42} y={44.5} width={28} height={11} />
       </svg>
@@ -36,7 +43,14 @@ export function EcecMark({
   }
 
   return (
-    <svg viewBox="0 0 100 100" width={size} height={size} xmlns="http://www.w3.org/2000/svg" {...a11y} {...rest}>
+    <svg
+      viewBox="0 0 100 100"
+      width={size}
+      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+      {...a11y}
+      {...rest}
+    >
       {variant === 'gradient' && (
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
@@ -46,7 +60,11 @@ export function EcecMark({
           </linearGradient>
         </defs>
       )}
-      <path fill={variant === 'gradient' ? `url(#${gradientId})` : 'currentColor'} fillRule="evenodd" d={FIELD_PATH} />
+      <path
+        fill={variant === 'gradient' ? `url(#${gradientId})` : 'currentColor'}
+        fillRule="evenodd"
+        d={FIELD_PATH}
+      />
     </svg>
   )
 }

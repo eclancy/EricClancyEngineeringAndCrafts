@@ -75,9 +75,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             open ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
           }`}
         >
-          <div
-            className="overflow-hidden"
-          >
+          <div className="overflow-hidden">
             <ul
               className="grid grid-cols-2 gap-2 overflow-hidden"
               aria-label={`${project.name} additional screenshots`}

@@ -15,7 +15,10 @@ export function Hero() {
         <p className="text-sm font-semibold uppercase tracking-widest text-fuchsia-400">
           {profile.headline}
         </p>
-        <h1 id="hero-heading" className="max-w-3xl text-2xl font-bold text-slate-100 sm:text-4xl">
+        <h1
+          id="hero-heading"
+          className="max-w-3xl text-2xl font-bold text-slate-100 sm:text-4xl"
+        >
           Hi, I'm{' '}
           <span className="bg-gradient-to-r from-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
             {profile.name.split(' ')[0]}

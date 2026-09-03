@@ -22,7 +22,10 @@ export function EcecLogo({
   const wordSize = Math.round(size * 0.82)
   const descriptorSize = Math.max(9, Math.round(size * 0.2))
   const wordmark = (
-    <span className="font-extrabold leading-none text-slate-100" style={{ fontSize: wordSize }}>
+    <span
+      className="font-extrabold leading-none text-slate-100"
+      style={{ fontSize: wordSize }}
+    >
       ECEC
     </span>
   )
@@ -60,7 +63,11 @@ export function EcecLogo({
     )
 
   return href ? (
-    <a href={href} aria-label="ECEC — Eric Clancy Engineering & Crafts" className={className}>
+    <a
+      href={href}
+      aria-label="ECEC — Eric Clancy Engineering & Crafts"
+      className={className}
+    >
       {inner}
     </a>
   ) : (

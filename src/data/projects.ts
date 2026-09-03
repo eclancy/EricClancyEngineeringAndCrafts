@@ -70,7 +70,10 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/eclancy/EricsMiniatures',
     images: [
       { src: emLogo, alt: "Eric's Miniatures logo", fit: 'contain' },
-      { src: emEscapeRealityFeature, alt: "Eric's Miniatures Art That Escapes Reality feature" },
+      {
+        src: emEscapeRealityFeature,
+        alt: "Eric's Miniatures Art That Escapes Reality feature",
+      },
       { src: emTerrain, alt: "Eric's Miniatures Custom Built Terrain page" },
     ],
   },

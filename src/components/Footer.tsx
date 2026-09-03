@@ -7,7 +7,8 @@ export function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col items-start gap-4 px-6">
         <EcecLogo layout="horizontal-descriptor" size={36} />
         <p>
-          &copy; {new Date().getFullYear()} {profile.name}. Built with React and TypeScript.
+          &copy; {new Date().getFullYear()} {profile.name}. Built with React and
+          TypeScript.
         </p>
       </div>
     </footer>
