@@ -39,4 +39,18 @@ jobs:
 
       - name: Verify deploy
         run: |
-          curl -fsS -o /dev/null -w '%{http_code}\n' "https://${{ secrets.DROPLET_HOST_NAME }}"
+          # `docker compose up -d` returns once the container has started, not
+          # once nginx inside it is serving, so poll instead of curling
+          # immediately -- a bare curl races the container and gets a 502.
+          url="https://${{ secrets.DROPLET_HOST_NAME }}"
+          for attempt in $(seq 1 15); do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 10 "$url" || echo 000)
+            if [ "$code" = "200" ]; then
+              echo "$url -> $code (attempt $attempt)"
+              exit 0
+            fi
+            echo "attempt $attempt: got $code, retrying in 4s"
+            sleep 4
+          done
+          echo "::error::$url did not return 200 after 15 attempts (last: $code)"
+          exit 1
