@@ -10,19 +10,41 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const [open, setOpen] = useState(false)
   const [hero, ...gallery] = project.images ?? []
   const hasGallery = gallery.length > 0
+  // The hero image doubles as the project's primary link: the live site when
+  // there is one, otherwise the source repo.
+  const heroUrl = project.liveUrl ?? project.repoUrl
+  const heroDestination = project.liveUrl ? 'website' : 'source on GitHub'
 
   return (
     <article className="flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20 transition hover:border-violet-500/60">
-      {hero && (
-        <img
-          src={hero.src}
-          alt={hero.alt}
-          loading="lazy"
-          className={`mb-1 aspect-[16/10] w-full rounded-xl bg-slate-950 ${
-            hero.fit === 'contain' ? 'object-contain' : 'object-cover'
-          }`}
-        />
-      )}
+      {hero &&
+        (heroUrl ? (
+          <a
+            href={heroUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label={`${project.name} \u2014 open the ${heroDestination}`}
+            className="mb-1 block rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+          >
+            <img
+              src={hero.src}
+              alt={hero.alt}
+              loading="lazy"
+              className={`aspect-[16/10] w-full rounded-xl bg-slate-950 transition hover:opacity-90 ${
+                hero.fit === 'contain' ? 'object-contain' : 'object-cover'
+              }`}
+            />
+          </a>
+        ) : (
+          <img
+            src={hero.src}
+            alt={hero.alt}
+            loading="lazy"
+            className={`mb-1 aspect-[16/10] w-full rounded-xl bg-slate-950 ${
+              hero.fit === 'contain' ? 'object-contain' : 'object-cover'
+            }`}
+          />
+        ))}
       <h3 className="text-xl font-semibold text-slate-100">{project.name}</h3>
       <p className="text-sm text-violet-300">{project.tagline}</p>
       <p className="text-sm leading-relaxed text-slate-400">{project.description}</p>
@@ -65,7 +87,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             rel="noreferrer noopener"
             className="inline-flex items-center rounded-lg border border-violet-400/60 px-3 py-2 text-violet-200 transition hover:border-violet-300 hover:bg-violet-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
           >
-            Live demo
+            {project.liveLabel ?? 'Live demo'}
           </a>
         )}
       </div>

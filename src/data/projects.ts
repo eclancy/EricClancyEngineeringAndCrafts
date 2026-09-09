@@ -22,6 +22,8 @@ export interface Project {
   tech: string[]
   repoUrl?: string
   liveUrl?: string
+  /** Label for the liveUrl button. Defaults to 'Live demo'. */
+  liveLabel?: string
   images?: ProjectImage[]
 }
 
@@ -37,6 +39,7 @@ export const projects: Project[] = [
       'spells and upgrades to shape your wizard, then survive increasingly difficult waves ' +
       'of enemies.',
     tech: ['Godot 4', 'C#', '.NET 9'],
+    repoUrl: 'https://github.com/eclancy/WizardSurvivors',
     images: [
       { src: wsTitleScreen, alt: 'Wizard Survivors title screen', fit: 'contain' },
       { src: wsMeadowBattle, alt: 'Wizard Survivors battle in a meadow' },
@@ -68,6 +71,8 @@ export const projects: Project[] = [
       'Built with React, TypeScript, Material UI, and SASS.',
     tech: ['React', 'TypeScript', 'Material UI', 'SASS'],
     repoUrl: 'https://github.com/eclancy/EricsMiniatures',
+    liveUrl: 'https://ericsminiatures.com',
+    liveLabel: 'Visit site',
     images: [
       { src: emLogo, alt: "Eric's Miniatures logo", fit: 'contain' },
       {

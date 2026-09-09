@@ -14,29 +14,24 @@
   outline-offset: 3px;
 }
 
-.ecec-emoji-wave:hover {
+.ecec-emoji-wave:hover,
+.ecec-emoji-wave.ecec-emoji-active {
   animation: ecec-wave 700ms ease-in-out;
 }
 
-.ecec-emoji-mailbox:hover {
+.ecec-emoji-mailbox-shake:hover,
+.ecec-emoji-mailbox-shake.ecec-emoji-active {
   animation: ecec-mailbox-shake 420ms ease-in-out;
 }
 
-.ecec-emoji-rocket:hover {
+.ecec-emoji-rocket:hover,
+.ecec-emoji-rocket.ecec-emoji-active {
   animation: ecec-rocket-takeoff 700ms ease-in-out;
 }
 
-.ecec-emoji-tools-pop:hover {
-  animation: ecec-tools-pop 850ms ease-in-out;
-}
-
-.ecec-emoji-active {
-  animation-duration: 700ms;
-  animation-fill-mode: both;
-}
-
+.ecec-emoji-tools-pop:hover,
 .ecec-emoji-tools-pop.ecec-emoji-active {
-  animation-duration: 850ms;
+  animation: ecec-tools-pop 850ms ease-in-out;
 }
 
 @keyframes ecec-wave {
