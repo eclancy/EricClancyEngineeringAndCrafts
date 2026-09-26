@@ -19,7 +19,7 @@ export function About() {
         </p>
         <p>
           My work in healthcare has made that especially clear. Software should be
-          intrinsic to use, responsive, and reliable enough to fade into the background,
+          intuitive to use, responsive, and reliable enough to fade into the background,
           giving users more attention for what matters.
         </p>
         <p>
