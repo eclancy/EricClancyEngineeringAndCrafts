@@ -21,8 +21,9 @@ export function CareerHighlights() {
       </h2>
       <p className="mt-5 max-w-3xl leading-relaxed text-slate-400">
         For 11+ years, I&apos;ve helped teams deliver software that people depend on. In
-        my current Booz Allen Hamilton role, the platforms I help modernize serve millions
-        of veterans, while tens of thousands of medical professionals use them every day.
+        my current Booz Allen Hamilton role, tens of thousands of medical professionals
+        use the platforms I help modernize every day, and in turn serve millions of
+        veterans.
       </p>
 
       <ul className="mt-8 grid gap-4 md:grid-cols-2">
