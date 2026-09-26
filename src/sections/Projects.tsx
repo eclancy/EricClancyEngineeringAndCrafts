@@ -9,7 +9,7 @@ export function Projects() {
       aria-labelledby="projects-heading"
       className="border-t border-violet-500/20 py-20"
     >
-      <h2 id="projects-heading" className="text-3xl font-bold text-slate-100">
+      <h2 id="projects-heading" className="heading-fluid font-bold text-slate-100">
         Featured Personal Projects{' '}
         <AnimatedEmoji emoji="🚀" animation="rocket" label="rocket" />
       </h2>

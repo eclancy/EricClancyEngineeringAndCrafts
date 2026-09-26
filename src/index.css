@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 @import './brand-tokens.css';
 
+/* Section headings long enough to wrap on a phone at text-3xl. Scale with the
+   viewport instead of stepping, capped at the text-3xl size the shorter
+   headings use so tablet and desktop are unchanged. */
+@utility heading-fluid {
+  font-size: clamp(1.125rem, 5.5vw, 1.875rem);
+}
+
 .ecec-emoji {
   display: inline-block;
   transform-origin: center;
