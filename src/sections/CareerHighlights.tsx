@@ -12,7 +12,9 @@ export function CareerHighlights() {
       </p>
       <h2
         id="career-highlights-heading"
-        className="mt-2 text-3xl font-bold text-slate-100"
+        // This heading is long enough to wrap at text-3xl on every phone width,
+        // so scale it with the viewport up to text-3xl instead of stepping.
+        className="mt-2 text-[clamp(1.125rem,5.5vw,1.875rem)] font-bold text-slate-100"
       >
         What matters in my work{' '}
         <AnimatedEmoji emoji="💡" animation="wave" label="lightbulb" />
