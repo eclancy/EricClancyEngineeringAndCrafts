@@ -2,6 +2,7 @@ import { profile } from '../data/linkedin'
 import { EcecMark } from '../components/EcecMark'
 import { EcecLogo } from '../components/EcecLogo'
 import { SocialLinks } from '../components/SocialLinks'
+import avatar from '../assets/avatar.jpg'
 
 export function Hero() {
   return (
@@ -12,6 +13,13 @@ export function Hero() {
     >
       <EcecLogo layout="horizontal-descriptor" size={42} href="#home" />
       <div className="mt-12 flex flex-col gap-5 sm:mt-16">
+        <img
+          src={avatar}
+          alt={profile.name}
+          width={400}
+          height={400}
+          className="size-20 rounded-full object-cover ring-2 ring-violet-500/30 sm:size-24"
+        />
         <p className="text-sm font-semibold uppercase tracking-widest text-fuchsia-400">
           {profile.headline}
         </p>
