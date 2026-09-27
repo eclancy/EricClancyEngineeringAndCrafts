@@ -13,16 +13,18 @@ export function Hero() {
     >
       <EcecLogo layout="horizontal-descriptor" size={42} href="#home" />
       <div className="mt-12 flex flex-col gap-5 sm:mt-16">
-        <img
-          src={avatar}
-          alt={profile.name}
-          width={400}
-          height={400}
-          className="size-20 rounded-full object-cover ring-2 ring-violet-500/30 sm:size-24"
-        />
-        <p className="text-sm font-semibold uppercase tracking-widest text-fuchsia-400">
-          {profile.headline}
-        </p>
+        <div className="flex items-center gap-4">
+          <img
+            src={avatar}
+            alt={profile.name}
+            width={400}
+            height={400}
+            className="size-14 shrink-0 rounded-full object-cover ring-2 ring-violet-500/30 sm:size-16"
+          />
+          <p className="text-sm font-semibold uppercase tracking-widest text-fuchsia-400">
+            {profile.headline}
+          </p>
+        </div>
         <h1
           id="hero-heading"
           className="max-w-3xl text-2xl font-bold text-slate-100 sm:text-4xl"
