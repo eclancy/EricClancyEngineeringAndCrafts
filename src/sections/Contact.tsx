@@ -19,7 +19,7 @@ export function Contact() {
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-4">
         <a
-          href="mailto:hello@ecec.dev"
+          href="mailto:eric@ecec.dev"
           className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 px-6 py-3 text-sm font-semibold text-white transition hover:from-amber-400 hover:to-rose-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300"
         >
           <svg
