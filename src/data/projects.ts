@@ -1,3 +1,6 @@
+import dfTitleScreen from '../assets/projects/drawfight/title-screen.jpg'
+import dfPoses from '../assets/projects/drawfight/poses.jpg'
+import dfStagePlains from '../assets/projects/drawfight/stage-plains.jpg'
 import wsTitleScreen from '../assets/projects/wizard-survivors/title-screen.jpg'
 import wsMeadowBattle from '../assets/projects/wizard-survivors/meadow-battle.jpg'
 import wsDungeonBattle from '../assets/projects/wizard-survivors/dungeon-battle.jpg'
@@ -30,6 +33,25 @@ export interface Project {
 // Curated from each project's README / design docs. Refresh via the
 // content-updater agent when a project's scope or stack changes.
 export const projects: Project[] = [
+  {
+    id: 'drawfight',
+    name: 'DrawFight',
+    tagline: "A platform fighter where every character is a kid's drawing.",
+    description:
+      'A local-multiplayer platform fighter with Smash-style percent, knockback, and ' +
+      'stocks. Every fighter starts as a drawing on paper, cut into body parts and ' +
+      'rigged to a shared skeleton, so the original linework is what moves on screen.',
+    tech: ['Godot 4.5', 'C#', '.NET 9'],
+    repoUrl: 'https://github.com/eclancy/DrawFight',
+    images: [
+      { src: dfTitleScreen, alt: 'DrawFight title screen', fit: 'contain' },
+      {
+        src: dfPoses,
+        alt: 'One DrawFight stick figure shown in ten animation poses',
+      },
+      { src: dfStagePlains, alt: 'DrawFight match on the Open Plains stage' },
+    ],
+  },
   {
     id: 'wizard-survivors',
     name: 'Wizard Survivors',

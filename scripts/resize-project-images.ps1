@@ -80,6 +80,13 @@ Copy-Item "$root\EricsMiniatures\src\Images\Miniatures\Clockwork Dragon\Clockwor
 Resize-Image "$root\EricsMiniatures\src\Images\BannerImages\FullBannerPurpleWorm.jpg" "$dest\erics-miniatures\purple-worm.jpg" 1400 jpeg 82
 Resize-Image "$root\EricsMiniatures\src\Images\Miniatures\MasterLich\MasterLich1.jpg" "$dest\erics-miniatures\master-lich.jpg" 1000 jpeg 82
 
+# DrawFight keeps its own web-ready images in the repo, so no Desktop staging folder.
+Resize-Image "$root\DrawFight\docs\images\title.png" "$dest\drawfight\title-screen.jpg" 1200 jpeg 82
+Resize-Image "$root\DrawFight\docs\images\poses.png" "$dest\drawfight\poses.jpg" 1200 jpeg 85
+# drawfight\stage-plains.jpg is docs\images\stage-plains.png cropped to y=168..753 before
+# resizing, to drop the debug readout and the input-help block. Resize-Image cannot crop, so
+# that one is redone by hand if the source is ever refreshed.
+
 $screenshots = "C:\Users\ericc\Desktop\screenshots for website"
 Copy-Item "$screenshots\wizard wars\start-screen-transparent.png" "$dest\wizard-wars\start-screen-transparent.png" -Force
 Resize-Image "$screenshots\wizard survivors\Screenshot 2026-09-02 152129.png" "$dest\wizard-survivors\meadow-battle.jpg" 900 jpeg 85
