@@ -27,11 +27,20 @@ ufw --force enable
 
 mkdir -p "$APP_DIR"
 
+# DrawFight fighter submissions (the intake container, uid 1000, writes here) and the intake's
+# secrets file (/etc/ecec/intake.env: RESEND_API_KEY=...). Both live outside $APP_DIR, which
+# every deploy rsyncs over with --delete.
+mkdir -p /var/lib/drawfight-submissions /etc/ecec
+chown 1000:1000 /var/lib/drawfight-submissions
+chmod 700 /etc/ecec
+
 # Host Nginx reverse-proxies to the Dockerized app on 127.0.0.1:8080.
 cat > /etc/nginx/sites-available/ecec.dev <<EOF
 server {
     listen 80;
     server_name ${DOMAIN} www.${DOMAIN};
+    # Photo uploads from the DrawFight form at /draw.
+    client_max_body_size 60m;
 
     location / {
         proxy_pass http://127.0.0.1:8080;

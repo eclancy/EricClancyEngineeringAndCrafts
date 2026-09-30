@@ -4,6 +4,27 @@ services:
     image: ecec-hub:latest
     container_name: ecec-hub
     restart: unless-stopped
+    depends_on:
+      - intake
     ports:
       # Bound to localhost only — host Nginx + certbot reverse-proxies and terminates TLS.
       - '127.0.0.1:8080:80'
+
+  # Receives DrawFight fighter submissions from ecec.dev/draw. Only reachable through the web
+  # container's nginx (/api/draw), never published on a port of its own.
+  intake:
+    build: ./intake
+    image: ecec-intake:latest
+    container_name: ecec-intake
+    restart: unless-stopped
+    environment:
+      DATA_DIR: /data
+      MAIL_TO: eric@ecec.dev
+    # RESEND_API_KEY lives only on the server, in this file (not in the repo). Without it,
+    # submissions are still saved; they just are not emailed.
+    env_file:
+      - path: /etc/ecec/intake.env
+        required: false
+    volumes:
+      # Outside /opt/ecec-hub, which every deploy rsyncs over with --delete.
+      - /var/lib/drawfight-submissions:/data

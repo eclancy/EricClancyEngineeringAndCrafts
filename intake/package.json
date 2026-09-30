@@ -1,0 +1,14 @@
+{
+  "name": "drawfight-intake",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Receives DrawFight fighter submissions from ecec.dev/draw",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0"
+  }
+}

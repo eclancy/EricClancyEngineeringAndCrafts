@@ -3,18 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Draw Your Fighter</title>
+    <title>Send Your Fighter · DrawFight</title>
     <meta
       name="description"
-      content="Draw a character and it becomes a fighter in DrawFight, a Smash-style game where every fighter is someone's drawing. Here's how to draw one that works, and where to send it."
+      content="Draw a character and it becomes a fighter in DrawFight, a Smash-style game where every fighter is someone's drawing. Send in your drawing and your fighter's moves here."
     />
 
-    <!-- The link preview. Chat apps read these tags from this page and do not follow the
-         redirect below, so the card shows this image rather than the artifact's own. -->
+    <!-- The link preview, for chat apps. -->
     <meta property="og:title" content="Draw Your Fighter" />
     <meta
       property="og:description"
-      content="Your drawing becomes a fighter in DrawFight. Here's how to draw one that works, and where to send it."
+      content="Your drawing becomes a fighter in DrawFight. Draw one, then send it in here."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ecec.dev/drawfight" />
@@ -30,39 +29,604 @@
     <meta name="twitter:title" content="Draw Your Fighter" />
     <meta
       name="twitter:description"
-      content="Your drawing becomes a fighter in DrawFight. Here's how to draw one that works, and where to send it."
+      content="Your drawing becomes a fighter in DrawFight. Draw one, then send it in here."
     />
     <meta name="twitter:image" content="https://ecec.dev/draw/preview.png?v=3" />
     <meta name="theme-color" content="#1668CC" />
 
-    <!-- People go straight on to the guide. -->
-    <meta
-      http-equiv="refresh"
-      content="0; url=https://claude.ai/artifact/DmdTZS491FFJs28Cj8g5qL"
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Lexend:wght@400;500;600;700&display=swap"
     />
-    <script>
-      location.replace('https://claude.ai/artifact/DmdTZS491FFJs28Cj8g5qL')
-    </script>
     <style>
+      :root {
+        --paper: #f5f6f1;
+        --card: #ffffff;
+        --grid: rgba(32, 58, 92, 0.072);
+        --ink: #15151b;
+        --soft: #585a62;
+        --faint: #8d8f96;
+        --rule: #d9dbd2;
+        --blue: #1668cc;
+        --blue-wash: rgba(22, 104, 204, 0.08);
+        --red: #d6382a;
+        --red-wash: rgba(214, 56, 42, 0.07);
+        --marker: #ffe45c;
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #f5f6f1;
-        color: #15151b;
-        font-family: system-ui, sans-serif;
-        padding-inline: 16px;
+        background-color: var(--paper);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 26px 26px;
+        color: var(--ink);
+        font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+        font-size: 17px;
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding-inline: 18px;
+        padding-block: 40px 72px;
+      }
+      h1,
+      h2,
+      .qn,
+      .submit {
+        font-family: 'Permanent Marker', 'Comic Sans MS', cursive;
+        font-weight: 400;
+      }
+      h1 {
+        font-size: clamp(2.4rem, 1.6rem + 4vw, 3.8rem);
+        line-height: 1.05;
+        margin: 0 0 14px;
+      }
+      h1 span {
+        background: linear-gradient(var(--marker), var(--marker)) no-repeat 0 100% / 100%
+          0.2em;
+      }
+      .eyebrow {
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--faint);
+        margin: 0 0 8px;
+      }
+      .lede {
+        color: var(--soft);
+        margin: 0 0 12px;
       }
       a {
-        color: #1668cc;
+        color: var(--blue);
+      }
+      .guide {
+        display: block;
+        border: 2.5px solid var(--blue);
+        background: var(--blue-wash);
+        border-radius: 3px;
+        padding: 14px 16px;
+        margin: 22px 0 8px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .guide b {
+        color: var(--blue);
+      }
+      form {
+        margin-top: 26px;
+        display: grid;
+        gap: 26px;
+      }
+      .card {
+        border: 2.5px solid var(--ink);
+        border-radius: 3px;
+        background: var(--card);
+        padding: 20px;
+        display: grid;
+        gap: 22px;
+      }
+      h2 {
+        font-size: 1.6rem;
+        margin: 0;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+      label,
+      .q {
+        font-weight: 600;
+        margin: 0;
+      }
+      .qn {
+        color: var(--blue);
+        margin-right: 6px;
+        font-weight: 400;
+      }
+      .hint {
+        font-size: 0.9rem;
+        color: var(--soft);
+        margin: 0;
+        font-weight: 400;
+      }
+      input[type='text'],
+      textarea {
+        font: inherit;
+        color: var(--ink);
+        background: var(--paper);
+        border: 2px solid var(--rule);
+        border-radius: 3px;
+        padding: 10px 12px;
+        width: 100%;
+      }
+      textarea {
+        min-height: 88px;
+        resize: vertical;
+      }
+      input:focus-visible,
+      textarea:focus-visible,
+      button:focus-visible,
+      .drop:focus-within {
+        outline: 3px solid var(--marker);
+        outline-offset: 2px;
+        border-color: var(--ink);
+      }
+      .job {
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin: 0;
+      }
+      .important {
+        border: 2.5px solid var(--red);
+        background: var(--red-wash);
+        border-radius: 3px;
+        padding: 10px 12px;
+        font-size: 0.92rem;
+        margin: 0;
+      }
+      .drop {
+        border: 2.5px dashed var(--blue);
+        background: var(--blue-wash);
+        border-radius: 3px;
+        padding: 22px 16px;
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+      }
+      .drop input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .drop strong {
+        font-family: 'Permanent Marker', cursive;
+        font-weight: 400;
+        font-size: 1.3rem;
+        color: var(--blue);
+      }
+      .thumbs {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 10px;
+      }
+      .thumbs:empty {
+        display: none;
+      }
+      .thumbs figure {
+        margin: 0;
+        position: relative;
+        border: 2px solid var(--ink);
+        border-radius: 3px;
+        background: var(--paper);
+        aspect-ratio: 1;
+        overflow: hidden;
+      }
+      .thumbs img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .thumbs .noprev {
+        display: grid;
+        place-items: center;
+        height: 100%;
+        font-size: 0.8rem;
+        padding: 6px;
+        text-align: center;
+        color: var(--soft);
+        word-break: break-all;
+      }
+      .thumbs button {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        font:
+          600 0.78rem 'Lexend',
+          sans-serif;
+        border: 2px solid var(--ink);
+        background: var(--card);
+        border-radius: 3px;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      .trap {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .submit {
+        font-size: 1.4rem;
+        color: var(--paper);
+        background: var(--blue);
+        border: 2.5px solid var(--ink);
+        border-radius: 3px;
+        padding: 12px 26px 10px;
+        cursor: pointer;
+        box-shadow: 3px 3px 0 var(--ink);
+        justify-self: start;
+      }
+      .submit:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      .status {
+        margin: 0;
+        font-weight: 600;
+      }
+      .status:empty {
+        display: none;
+      }
+      .status.error {
+        color: var(--red);
+      }
+      .done {
+        border: 2.5px solid var(--ink);
+        background: var(--card);
+        border-radius: 3px;
+        padding: 26px 20px;
+        margin-top: 26px;
+      }
+      .done h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
       }
     </style>
   </head>
   <body>
-    <p>
-      Taking you to
-      <a href="https://claude.ai/artifact/DmdTZS491FFJs28Cj8g5qL">Draw Your Fighter</a>…
-    </p>
+    <main class="wrap">
+      <p class="eyebrow">DrawFight</p>
+      <h1><span>Send Your Fighter</span></h1>
+      <p class="lede">
+        Drew a fighter? Send it in here: a photo of the drawing, and what your fighter can
+        do. It gets cut into pieces and put into the game, where it runs, jumps and fights
+        everyone else's drawings.
+      </p>
+      <a class="guide" href="https://claude.ai/artifact/DmdTZS491FFJs28Cj8g5qL">
+        <b>Haven't drawn it yet?</b> Read the drawing guide first. It shows how to draw a
+        fighter that works in the game. &rarr;
+      </a>
+
+      <form id="fighter" novalidate>
+        <section class="card" aria-labelledby="photos-h">
+          <h2 id="photos-h">The drawing</h2>
+          <div class="field">
+            <p class="hint">
+              A photo of your fighter (in bright light, from straight above), or the PNG
+              from your tablet. Add your moves page and anything else you drew too: pets,
+              sidekicks, fireballs. Up to 8 pictures.
+            </p>
+            <div class="drop">
+              <input
+                id="photos"
+                name="photos"
+                type="file"
+                accept="image/*"
+                multiple
+                aria-label="Add photos"
+              />
+              <strong>Add photos</strong>
+              <p class="hint">tap here, or drop them on</p>
+            </div>
+            <div class="thumbs" id="thumbs" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="sheet-h">
+          <h2 id="sheet-h">Your character sheet</h2>
+
+          <div class="field">
+            <label for="name"><span class="qn">1</span>What are they called?</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              maxlength="60"
+              required
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="field">
+            <label for="artist">Who drew it?</label>
+            <p class="hint">Just a first name, so we can say who made them.</p>
+            <input
+              id="artist"
+              name="artist"
+              type="text"
+              maxlength="40"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="field">
+            <label for="what"><span class="qn">2</span>What are they?</label>
+            <p class="hint">
+              A robot? A wizard? A shark with legs? One or two sentences.
+            </p>
+            <textarea id="what" name="what" maxlength="2000"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="amazing"
+              ><span class="qn">3</span>What are they AMAZING at?</label
+            >
+            <p class="hint">
+              Pick one thing. Strong? Fast? Jumps really high? Floats? Impossible to knock
+              over?
+            </p>
+            <textarea id="amazing" name="amazing" maxlength="2000"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="terrible"
+              ><span class="qn">4</span>What are they TERRIBLE at?</label
+            >
+            <p class="important">
+              This is the most important question. Every fighter is bad at something, and
+              that is what makes them fun to play and fun to fight. Slow? Easy to knock
+              off? Bad at jumping? Short arms?
+            </p>
+            <textarea id="terrible" name="terrible" maxlength="2000"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="coolest"
+              ><span class="qn">5</span>What is their COOLEST move?</label
+            >
+            <p class="hint">
+              The one they're famous for. What does it do, and what does it look like?
+              This one goes in the game as close to how you describe it as possible, so go
+              big.
+            </p>
+            <textarea id="coolest" name="coolest" maxlength="2000"></textarea>
+          </div>
+
+          <div class="field">
+            <p class="q"><span class="qn">6</span>3 more special moves</p>
+            <p class="hint">
+              Each one has a job. Just say what it does and what it looks like.
+            </p>
+          </div>
+          <div class="field">
+            <p class="job">A move for reaching someone far away</p>
+            <label class="hint" for="reach"
+              >A dash, a charge, a leap, something thrown.</label
+            >
+            <textarea id="reach" name="reach" maxlength="2000"></textarea>
+          </div>
+          <div class="field">
+            <p class="job">A move for getting back onto the stage</p>
+            <label class="hint" for="recover"
+              >This one has to go UP. Rocket boots, a huge jump, wings, a grappling
+              hook.</label
+            >
+            <textarea id="recover" name="recover" maxlength="2000"></textarea>
+          </div>
+          <div class="field">
+            <p class="job">A move that protects them</p>
+            <label class="hint" for="protect"
+              >A shield, a counter-attack, a trap, turning invisible for a second.</label
+            >
+            <textarea id="protect" name="protect" maxlength="2000"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="extra">Anything else?</label>
+            <p class="hint">
+              A catchphrase, a pet or sidekick you drew, what their taunt should be...
+            </p>
+            <textarea id="extra" name="extra" maxlength="2000"></textarea>
+          </div>
+
+          <div class="trap" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+        </section>
+
+        <button class="submit" id="send" type="submit">Send my fighter</button>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </form>
+
+      <section class="done" id="done" hidden>
+        <h2>Got it!</h2>
+        <p id="done-text">Your fighter is on its way into the game.</p>
+        <p><a href="/draw">Send another fighter</a></p>
+      </section>
+    </main>
+
+    <script>
+      ;(function () {
+        var MAX_PHOTOS = 8
+        var MAX_SIDE = 2600
+        var photos = []
+        var input = document.getElementById('photos')
+        var thumbs = document.getElementById('thumbs')
+        var form = document.getElementById('fighter')
+        var status = document.getElementById('status')
+        var send = document.getElementById('send')
+
+        function say(text, error) {
+          status.textContent = text
+          status.className = 'status' + (error ? ' error' : '')
+        }
+
+        function render() {
+          thumbs.innerHTML = ''
+          photos.forEach(function (file, i) {
+            var fig = document.createElement('figure')
+            if (/^image\/(jpeg|png|webp|gif)$/.test(file.type)) {
+              var img = document.createElement('img')
+              img.alt = 'Photo ' + (i + 1)
+              img.src = URL.createObjectURL(file)
+              fig.appendChild(img)
+            } else {
+              var note = document.createElement('div')
+              note.className = 'noprev'
+              note.textContent = file.name
+              fig.appendChild(note)
+            }
+            var remove = document.createElement('button')
+            remove.type = 'button'
+            remove.textContent = 'remove'
+            remove.setAttribute('aria-label', 'Remove photo ' + (i + 1))
+            remove.onclick = function () {
+              photos.splice(i, 1)
+              render()
+            }
+            fig.appendChild(remove)
+            thumbs.appendChild(fig)
+          })
+        }
+
+        input.addEventListener('change', function () {
+          var added = 0
+          Array.prototype.forEach.call(input.files, function (f) {
+            if (photos.length < MAX_PHOTOS) {
+              photos.push(f)
+              added++
+            }
+          })
+          say(
+            added < input.files.length
+              ? 'Only ' + MAX_PHOTOS + ' photos can be sent.'
+              : '',
+            added < input.files.length,
+          )
+          input.value = ''
+          render()
+        })
+
+        // Big phone photos are shrunk before sending, so the upload is quick. PNGs stay PNGs, so a
+        // see-through tablet drawing keeps its see-through background. Anything the browser cannot
+        // draw (an iPhone HEIC, on some browsers) is sent as it is.
+        function shrink(file) {
+          return new Promise(function (resolve) {
+            if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return resolve(file)
+            var img = new Image()
+            img.onload = function () {
+              var scale = Math.min(
+                1,
+                MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight),
+              )
+              if (scale === 1 && file.size < 8 * 1024 * 1024) return resolve(file)
+              var canvas = document.createElement('canvas')
+              canvas.width = Math.round(img.naturalWidth * scale)
+              canvas.height = Math.round(img.naturalHeight * scale)
+              canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height)
+              var type = file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png'
+              canvas.toBlob(
+                function (blob) {
+                  resolve(blob ? new File([blob], file.name, { type: type }) : file)
+                },
+                type,
+                0.92,
+              )
+            }
+            img.onerror = function () {
+              resolve(file)
+            }
+            img.src = URL.createObjectURL(file)
+          })
+        }
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault()
+          var name = document.getElementById('name')
+          if (!name.value.trim()) {
+            say('Your fighter needs a name (question 1).', true)
+            name.focus()
+            return
+          }
+          if (photos.length === 0) {
+            say('Add at least one photo of the drawing.', true)
+            return
+          }
+          send.disabled = true
+          say('Sending... (this can take a moment with big photos)')
+
+          Promise.all(photos.map(shrink))
+            .then(function (ready) {
+              var data = new FormData(form)
+              data.delete('photos')
+              ready.forEach(function (f) {
+                data.append('photos', f, f.name)
+              })
+              return fetch('/api/draw', { method: 'POST', body: data })
+            })
+            .then(function (res) {
+              return res
+                .json()
+                .catch(function () {
+                  return {}
+                })
+                .then(function (body) {
+                  if (!res.ok)
+                    throw new Error(
+                      body.error ||
+                        'Something went wrong (' + res.status + '). Please try again.',
+                    )
+                })
+            })
+            .then(function () {
+              document.getElementById('done-text').textContent =
+                name.value.trim() +
+                ' is on the way into DrawFight. Thank you for drawing!'
+              form.hidden = true
+              document.getElementById('done').hidden = false
+              window.scrollTo(0, 0)
+            })
+            .catch(function (err) {
+              say(
+                (err && err.message) ||
+                  'Could not send. Check your connection and try again.',
+                true,
+              )
+              send.disabled = false
+            })
+        })
+      })()
+    </script>
   </body>
 </html>

@@ -71,3 +71,27 @@ ssh root@<droplet-ip> "certbot certificates"
 
 Certbot's systemd timer renews certificates automatically; `certbot renew --dry-run`
 on the droplet can be used to sanity-check renewal.
+
+## 6. DrawFight fighter submissions (ecec.dev/draw)
+
+`/draw` (and `/drawfight`) is a form where people send in a drawing and their fighter's moves.
+The page is `public/draw/index.html`; it posts to `/api/draw`, which the site's nginx hands to
+the `intake` container (`intake/server.js`, built by `docker compose` alongside the site).
+
+- Each submission is saved on the droplet as a folder under `/var/lib/drawfight-submissions/`:
+  the photos, `answers.json` and a readable `sheet.md`. That folder is outside `/opt/ecec-hub`
+  on purpose, so deploys never touch it.
+- It is also emailed to eric@ecec.dev, through Resend (DigitalOcean blocks outgoing SMTP). The
+  key lives only on the droplet, in `/etc/ecec/intake.env`:
+
+  ```
+  RESEND_API_KEY=re_...
+  ```
+
+  then `cd /opt/ecec-hub && docker compose up -d intake`. Without the key, submissions are still
+  saved; they just are not emailed. The ecec.dev domain must be verified in Resend for the
+  `drawfight@ecec.dev` sender.
+- DrawFight's `tools/intake/pull_submissions.sh` copies new submissions down to
+  `fighters/incoming/` for Claude Code.
+- Limits: 8 photos, 12 MB each (the page shrinks big photos first), 5 submissions an hour per
+  address, and a hidden trap field for bots. Host nginx allows 60 MB request bodies.
