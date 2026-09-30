@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "og": "node scripts/render-og.mjs",
+    "short-links": "node scripts/build-short-links.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

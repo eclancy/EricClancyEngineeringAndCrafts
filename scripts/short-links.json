@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "house",
+    "target": "https://claude.ai/artifact/FWhCzraQtx5w3VHBs5atfb",
+    "eyebrow": "Under contract · Falmouth, Maine",
+    "title": "The house",
+    "sub": "Deal terms, condition, key dates, and what's still outstanding.",
+    "url": "ecec.dev/house"
+  },
+  {
+    "slug": "reno",
+    "target": "https://claude.ai/artifact/GeJ5a9qmE1HHMMvQBSgfbv",
+    "eyebrow": "Working folder",
+    "title": "Renovation planning",
+    "sub": "Four projects, cost ranges, contractor leads, and what to measure once we have the keys.",
+    "url": "ecec.dev/reno"
+  },
+  {
+    "slug": "our-projects",
+    "target": "https://claude.ai/artifact/PRd1aXCdGXoakQxau5DnS8",
+    "eyebrow": "Four projects",
+    "title": "What we'd do first",
+    "sub": "The basement, the primary bath, heat pumps and the deck — and what each one costs.",
+    "url": "ecec.dev/our-projects"
+  },
+  {
+    "slug": "checklist",
+    "target": "https://claude.ai/artifact/LSk4LfszEdW7fje4J7CK8U",
+    "eyebrow": "Before closing",
+    "title": "Mortgage checklist",
+    "sub": "What underwriting still needs, in the order it blocks the loan.",
+    "url": "ecec.dev/checklist"
+  }
+]
