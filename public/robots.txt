@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+# The /house, /reno, /our-projects and /checklist short links are deliberately
+# NOT disallowed here. A Disallow would stop link-preview crawlers fetching them
+# at all -- facebookexternalhit (which is what iMessage and several others use),
+# Slack and Discord all honour robots.txt -- and the previews are the whole point
+# of those pages. They carry <meta name="robots" content="noindex"> instead,
+# which lets a crawler read the page and still keeps it out of search results.
+
 Sitemap: https://ecec.dev/sitemap.xml

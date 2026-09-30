@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1200px;
+        height: 630px;
+        background: #020618;
+        font-family: 'DejaVu Sans', sans-serif;
+        overflow: hidden;
+        /* Anchor the glows to the card, not the viewport, so they do not shift
+           with the render window and leave an unlit band at the bottom. */
+        position: relative;
+      }
+      .glow {
+        position: absolute;
+        width: 900px;
+        height: 900px;
+        left: -260px;
+        top: -220px;
+        background: radial-gradient(
+          circle,
+          rgba(142, 81, 255, 0.2) 0%,
+          rgba(2, 6, 24, 0) 62%
+        );
+      }
+      .glow2 {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        right: -240px;
+        bottom: -320px;
+        background: radial-gradient(
+          circle,
+          rgba(225, 42, 251, 0.16) 0%,
+          rgba(2, 6, 24, 0) 62%
+        );
+      }
+      .frame {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 70px 92px 78px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .mark {
+        width: 76px;
+        height: 76px;
+        flex: none;
+      }
+      .mark svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .name {
+        font-size: 34px;
+        font-weight: 700;
+        color: #f1f5f9;
+        letter-spacing: 0.06em;
+        line-height: 1.1;
+      }
+      .desc {
+        font-size: 19px;
+        color: #90a1b9;
+        letter-spacing: 0.02em;
+        margin-top: 3px;
+      }
+      .eyebrow {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        background: linear-gradient(90deg, #8e51ff, #e12afb);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 20px;
+      }
+      .title {
+        font-size: 74px;
+        font-weight: 700;
+        color: #f1f5f9;
+        line-height: 1.04;
+        letter-spacing: -0.025em;
+        max-width: 950px;
+      }
+      .sub {
+        font-size: 27px;
+        color: #90a1b9;
+        line-height: 1.38;
+        margin-top: 24px;
+        max-width: 880px;
+      }
+      .foot {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .rule {
+        height: 3px;
+        flex: 1;
+        background: linear-gradient(
+          90deg,
+          #8e51ff,
+          #e12afb 60%,
+          rgba(225, 42, 251, 0) 100%
+        );
+        border-radius: 2px;
+      }
+      .url {
+        font-size: 25px;
+        line-height: 1.5;
+        color: #f1f5f9;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        flex: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <div class="glow2"></div>
+    <div class="frame">
+      <div class="row">
+        <div class="mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8E51FF" />
+                <stop offset="0.5" stop-color="#AD46FF" />
+                <stop offset="1" stop-color="#E12AFB" />
+              </linearGradient>
+            </defs>
+            <path
+              fill="url(#g)"
+              fill-rule="evenodd"
+              d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M26 26 H74 V37 H37 V63 H74 V74 H26 Z M42 44.5 H70 V55.5 H42 Z"
+            />
+          </svg>
+        </div>
+        <div>
+          <div class="name">ECEC</div>
+          <div class="desc">Engineering and Crafts</div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow" data-og="eyebrow"></div>
+        <div class="title" data-og="title"></div>
+        <div class="sub" data-og="sub"></div>
+      </div>
+      <div class="foot">
+        <div class="rule"></div>
+        <div class="url" data-og="url"></div>
+      </div>
+    </div>
+  </body>
+</html>
