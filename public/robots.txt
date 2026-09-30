@@ -1,11 +1,14 @@
 User-agent: *
 Allow: /
 
-# The /house, /reno, /our-projects and /checklist short links are deliberately
-# NOT disallowed here. A Disallow would stop link-preview crawlers fetching them
-# at all -- facebookexternalhit (which is what iMessage and several others use),
-# Slack and Discord all honour robots.txt -- and the previews are the whole point
-# of those pages. They carry <meta name="robots" content="noindex"> instead,
-# which lets a crawler read the page and still keeps it out of search results.
+# Nothing here is disallowed, on purpose. The /house, /reno, /our-projects and
+# /checklist short links exist to produce link previews, and a preview only
+# happens if the crawler is allowed to fetch the page and read its tags.
+#
+# They also carry no "noindex". Google Messages generates its previews through
+# Google's own infrastructure, which honours noindex -- so a noindex meant to
+# keep four thin pages out of search results can cost the preview instead. The
+# pages hold nothing the preview does not already show: a title, one line of
+# description, and a link. Being indexable is the cheaper side of that trade.
 
 Sitemap: https://ecec.dev/sitemap.xml
