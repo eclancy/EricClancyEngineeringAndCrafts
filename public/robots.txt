@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
 
+# Short links to private Claude artifacts. They resolve to a permission wall for
+# anyone without access, but there is no reason for them to sit in a search index.
+Disallow: /draw
+Disallow: /house
+Disallow: /reno
+Disallow: /our-projects
+Disallow: /checklist
+
 Sitemap: https://ecec.dev/sitemap.xml
