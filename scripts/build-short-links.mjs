@@ -54,7 +54,6 @@ for (const link of links) {
     <title>${esc(title)} · ECEC</title>
     <meta name="description" content="${esc(sub)}" />
     <link rel="canonical" href="${canonical}" />
-    <meta name="robots" content="noindex, follow" />
     <meta name="theme-color" content="#8E51FF" />
 
     <meta property="og:type" content="website" />
