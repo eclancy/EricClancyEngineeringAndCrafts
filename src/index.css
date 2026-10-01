@@ -41,6 +41,68 @@
   animation: ecec-tools-pop 850ms ease-in-out;
 }
 
+/* Headline call-to-action on a project card: a moving gradient with a
+   pulsing glow, so it reads as the one thing to click. */
+.ecec-cta {
+  background-image: linear-gradient(
+    110deg,
+    #d946ef 0%,
+    #f97316 25%,
+    #8b5cf6 50%,
+    #22d3ee 75%,
+    #d946ef 100%
+  );
+  background-size: 250% 100%;
+  animation:
+    ecec-cta-shift 6s linear infinite,
+    ecec-cta-glow 2.4s ease-in-out infinite;
+}
+
+.ecec-cta:hover .ecec-cta-emoji,
+.ecec-cta:focus-visible .ecec-cta-emoji {
+  animation: ecec-cta-scribble 600ms ease-in-out infinite;
+}
+
+.ecec-cta-emoji {
+  display: inline-block;
+}
+
+@keyframes ecec-cta-shift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 250% 50%;
+  }
+}
+
+@keyframes ecec-cta-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 12px rgb(217 70 239 / 0.45),
+      0 0 0 1px rgb(255 255 255 / 0.15) inset;
+  }
+  50% {
+    box-shadow:
+      0 0 28px rgb(34 211 238 / 0.6),
+      0 0 0 1px rgb(255 255 255 / 0.25) inset;
+  }
+}
+
+@keyframes ecec-cta-scribble {
+  0%,
+  100% {
+    transform: rotate(0) translate(0);
+  }
+  25% {
+    transform: rotate(-14deg) translate(-2px, 1px);
+  }
+  75% {
+    transform: rotate(10deg) translate(2px, -1px);
+  }
+}
+
 @keyframes ecec-wave {
   0%,
   100% {

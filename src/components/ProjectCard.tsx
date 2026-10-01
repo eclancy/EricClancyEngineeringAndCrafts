@@ -47,22 +47,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         ))}
       <h3 className="text-xl font-semibold text-slate-100">{project.name}</h3>
       <p className="text-sm text-violet-300">{project.tagline}</p>
-      <p className="text-sm leading-relaxed text-slate-400">
-        {project.description}
-        {project.descriptionLink && (
-          <>
-            {' '}
-            <a
-              href={project.descriptionLink.href}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="font-medium text-cyan-300 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
-            >
-              {project.descriptionLink.label}
-            </a>
-          </>
-        )}
-      </p>
+      <p className="text-sm leading-relaxed text-slate-400">{project.description}</p>
       <ul className="flex flex-wrap gap-2" aria-label={`${project.name} tech stack`}>
         {project.tech.map((tech, index) => (
           <li
@@ -73,6 +58,29 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </li>
         ))}
       </ul>
+      {project.callToAction && (
+        <a
+          href={project.callToAction.href}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="ecec-cta group mt-2 flex items-center justify-center gap-2.5 whitespace-nowrap rounded-xl px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
+        >
+          {project.callToAction.emoji && (
+            <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
+              {project.callToAction.emoji}
+            </span>
+          )}
+          <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+            {project.callToAction.label}
+          </span>
+          <span
+            aria-hidden="true"
+            className="text-xl transition-transform group-hover:translate-x-1"
+          >
+            →
+          </span>
+        </a>
+      )}
       <div className="mt-2 flex flex-wrap gap-3 text-sm font-medium">
         {hasGallery && (
           <button

@@ -27,8 +27,8 @@ export interface Project {
   liveUrl?: string
   /** Label for the liveUrl button. Defaults to 'Live demo'. */
   liveLabel?: string
-  /** Optional link rendered inline at the end of the description paragraph. */
-  descriptionLink?: { href: string; label: string }
+  /** Optional headline action, rendered as a standout button above the others. */
+  callToAction?: { href: string; label: string; emoji?: string }
   images?: ProjectImage[]
 }
 
@@ -45,9 +45,10 @@ export const projects: Project[] = [
       'rigged to a shared skeleton, so the original linework is what moves on screen.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
     repoUrl: 'https://github.com/eclancy/DrawFight',
-    descriptionLink: {
+    callToAction: {
       href: 'https://ecec.dev/draw',
-      label: 'Submit a character →',
+      label: 'Submit your fighter!',
+      emoji: '✏️',
     },
     images: [
       { src: dfTitleScreen, alt: 'DrawFight title screen', fit: 'contain' },
