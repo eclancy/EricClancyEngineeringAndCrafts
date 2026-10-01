@@ -91,6 +91,7 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
   then `cd /opt/ecec-hub && docker compose up -d intake`. Without the key, submissions are still
   saved; they just are not emailed. The ecec.dev domain must be verified in Resend for the
   `drawfight@ecec.dev` sender.
+
 - DrawFight's `tools/intake/pull_submissions.sh` copies new submissions down to
   `fighters/incoming/` for Claude Code.
 - Limits: 8 photos, 12 MB each (the page shrinks big photos first), 5 submissions an hour per
