@@ -46,7 +46,7 @@ export const projects: Project[] = [
     tech: ['Godot 4.5', 'C#', '.NET 9'],
     repoUrl: 'https://github.com/eclancy/DrawFight',
     descriptionLink: {
-      href: 'https://claude.ai/artifact/DmdTZS491FFJs28Cj8g5qL',
+      href: 'https://ecec.dev/draw',
       label: 'Submit a character →',
     },
     images: [
