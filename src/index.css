@@ -67,6 +67,26 @@
   display: inline-block;
 }
 
+/* The banner's emoji bounces now and then - enough to catch the eye, not enough to nag. */
+.ecec-banner-emoji {
+  display: inline-block;
+  animation: ecec-banner-hop 3.2s ease-in-out infinite;
+}
+
+@keyframes ecec-banner-hop {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  78% {
+    transform: translateY(-5px) rotate(-12deg);
+  }
+  86% {
+    transform: translateY(0) rotate(8deg);
+  }
+}
+
 @keyframes ecec-cta-shift {
   from {
     background-position: 0% 50%;

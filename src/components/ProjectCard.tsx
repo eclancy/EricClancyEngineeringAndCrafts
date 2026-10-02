@@ -58,28 +58,31 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </li>
         ))}
       </ul>
-      {project.callToAction && (
-        <a
-          href={project.callToAction.href}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="ecec-cta group mt-2 flex items-center justify-center gap-2.5 whitespace-nowrap rounded-xl px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
-        >
-          {project.callToAction.emoji && (
-            <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
-              {project.callToAction.emoji}
-            </span>
-          )}
-          <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-            {project.callToAction.label}
-          </span>
-          <span
-            aria-hidden="true"
-            className="text-xl transition-transform group-hover:translate-x-1"
-          >
-            →
-          </span>
-        </a>
+      {project.callsToAction && project.callsToAction.length > 0 && (
+        <div className="mt-2 grid gap-3">
+          {project.callsToAction.map((cta) => (
+            <a
+              key={cta.href}
+              href={cta.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="ecec-cta group flex items-center justify-center gap-2.5 whitespace-nowrap rounded-xl px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
+            >
+              {cta.emoji && (
+                <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
+                  {cta.emoji}
+                </span>
+              )}
+              <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">{cta.label}</span>
+              <span
+                aria-hidden="true"
+                className="text-xl transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </a>
+          ))}
+        </div>
       )}
       <div className="mt-2 flex flex-wrap gap-3 text-sm font-medium">
         {hasGallery && (

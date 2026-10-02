@@ -5,6 +5,7 @@ import { Projects } from './sections/Projects'
 import { About } from './sections/About'
 import { Contact } from './sections/Contact'
 import { Footer } from './components/Footer'
+import { AnnouncementBanner } from './components/AnnouncementBanner'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       >
         Skip to content
       </a>
+      <AnnouncementBanner />
       <main className="mx-auto max-w-5xl px-6">
         <Hero />
         <Expertise />
