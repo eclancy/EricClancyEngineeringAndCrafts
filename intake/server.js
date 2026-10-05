@@ -180,9 +180,12 @@ async function email(fields, files, id) {
       })),
     }),
   })
-  return response.ok
-    ? 'sent'
-    : `failed (${response.status}: ${(await response.text()).slice(0, 200)})`
+  // Resend's id for the email goes in the log: "sent" only means Resend took it, and the id is
+  // what finds it on resend.com/emails to see whether it was delivered or bounced.
+  if (!response.ok)
+    return `failed (${response.status}: ${(await response.text()).slice(0, 200)})`
+  const { id: resendId } = await response.json().catch(() => ({}))
+  return `sent to ${MAIL_TO} (resend id ${resendId || 'unknown'})`
 }
 
 async function handle(req, res) {

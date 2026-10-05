@@ -81,16 +81,23 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
 - Each submission is saved on the droplet as a folder under `/var/lib/drawfight-submissions/`:
   the photos, `answers.json` and a readable `sheet.md`. That folder is outside `/opt/ecec-hub`
   on purpose, so deploys never touch it.
-- It is also emailed to eric@ecec.dev, through Resend (DigitalOcean blocks outgoing SMTP). The
-  key lives only on the droplet, in `/etc/ecec/intake.env`:
+- It is also emailed through Resend (DigitalOcean blocks outgoing SMTP). The key, and the
+  address to send to, live only on the droplet, in `/etc/ecec/intake.env`:
 
   ```
   RESEND_API_KEY=re_...
+  MAIL_TO=you@example.com
   ```
 
   then `cd /opt/ecec-hub && docker compose up -d intake`. Without the key, submissions are still
-  saved; they just are not emailed. The ecec.dev domain must be verified in Resend for the
-  `drawfight@ecec.dev` sender.
+  saved; they just are not emailed. Without `MAIL_TO` they go to eric@ecec.dev. The ecec.dev
+  domain must be verified in Resend for the `drawfight@ecec.dev` sender.
+
+- Send straight to the inbox that reads them, not to an ecec.dev address: ecec.dev mail is
+  forwarded on by Forward Email, and the first real submission's email was accepted by Resend
+  and never arrived. Each submission's log line (`docker compose logs intake`) has its Resend id,
+  which finds it on resend.com/emails to see whether it was delivered or bounced. The server's
+  key is send-only, so that status cannot be read back with it.
 
 - DrawFight's `tools/intake/pull_submissions.sh` copies new submissions down to
   `fighters/incoming/` for Claude Code.

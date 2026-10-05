@@ -19,9 +19,9 @@ services:
     restart: unless-stopped
     environment:
       DATA_DIR: /data
-      MAIL_TO: eric@ecec.dev
     # RESEND_API_KEY lives only on the server, in this file (not in the repo). Without it,
-    # submissions are still saved; they just are not emailed.
+    # submissions are still saved; they just are not emailed. MAIL_TO, where they are emailed,
+    # is set there too (server.js falls back to eric@ecec.dev) - set here, it would override it.
     env_file:
       - path: /etc/ecec/intake.env
         required: false
