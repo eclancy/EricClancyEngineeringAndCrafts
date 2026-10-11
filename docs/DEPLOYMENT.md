@@ -101,5 +101,9 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
 
 - DrawFight's `tools/intake/pull_submissions.sh` copies new submissions down to
   `fighters/incoming/` for Claude Code.
-- Limits: 8 photos, 12 MB each (the page shrinks big photos first), 5 submissions an hour per
-  address, and a hidden trap field for bots. Host nginx allows 60 MB request bodies.
+- Each picture is saved as `photo-1`, `photo-2`... in the order sent, followed by the name it
+  came with (`photo-3-fighter-front-arm.png`). The DrawFight game sends a fighter drawn in it as
+  one picture per layer, named after the body part on it, and the importer matches by name.
+- Limits: 24 pictures (the page itself takes 8; the game sends more), 12 MB each (the page
+  shrinks big photos first), 5 submissions an hour per address, and a hidden trap field for
+  bots. Host nginx allows 60 MB request bodies, and the game keeps a submission under that.

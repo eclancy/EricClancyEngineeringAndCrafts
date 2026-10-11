@@ -20,7 +20,10 @@ const MAIL_TO = process.env.MAIL_TO || 'eric@ecec.dev'
 const MAIL_FROM = process.env.MAIL_FROM || 'DrawFight <drawfight@ecec.dev>'
 const RESEND_API_KEY = process.env.RESEND_API_KEY || ''
 
-const MAX_FILES = 8
+// The form itself sends at most 8 photos. The DrawFight game sends more: a fighter drawn in it
+// can go as one picture per layer, a body part on each, plus pages for the things it uses. Host
+// nginx caps a whole request at 60 MB, and the game keeps under that.
+const MAX_FILES = 24
 const MAX_FILE_BYTES = 12 * 1024 * 1024
 const MAX_FIELD_CHARS = 2000
 const IMAGE_TYPES = {
@@ -60,14 +63,22 @@ function rateLimited(ip) {
   return false
 }
 
-function slug(text) {
+function slug(text, fallback = 'fighter') {
   return (
-    String(text || 'fighter')
+    String(text || '')
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '')
-      .slice(0, 40) || 'fighter'
+      .slice(0, 40) || fallback
   )
+}
+
+// photo-1.png, photo-2.png ... in the order sent, each keeping the name it came with after its
+// number: photo-1-fighter-head.png. The DrawFight game names every layer after the body part on
+// it, and the importer matches parts to bones by name, so the name is worth more than the number.
+function pictureName(file, i) {
+  const name = slug(String(file.original || '').replace(/\.[a-z0-9]+$/i, ''), '')
+  return `photo-${i + 1}${name ? `-${name}` : ''}${file.ext}`
 }
 
 function send(res, status, body) {
@@ -176,7 +187,7 @@ async function email(fields, files, id) {
       subject: `New DrawFight fighter: ${fields.name || 'Unnamed'}${fields.artist ? ` (by ${fields.artist})` : ''}`,
       html,
       attachments: files.map((f, i) => ({
-        filename: `photo-${i + 1}${f.ext}`,
+        filename: pictureName(f, i),
         content: f.data.toString('base64'),
       })),
     }),
@@ -222,7 +233,7 @@ async function handle(req, res) {
   const dir = path.join(DATA, id)
   await fs.mkdir(dir, { recursive: true })
   await Promise.all(
-    files.map((f, i) => fs.writeFile(path.join(dir, `photo-${i + 1}${f.ext}`), f.data)),
+    files.map((f, i) => fs.writeFile(path.join(dir, pictureName(f, i)), f.data)),
   )
   const answers = Object.fromEntries(QUESTIONS.map(([k]) => [k, fields[k] || '']))
   await fs.writeFile(
