@@ -45,6 +45,7 @@ const QUESTIONS = [
   ['reach', 'Move for reaching someone far away (side special)'],
   ['recover', 'Move for getting back onto the stage (up special)'],
   ['protect', 'Move that protects them (down special)'],
+  ['story', 'Their story (why they fight for a place on the fridge)'],
   ['catchphrase', 'Catchphrase (said when they taunt)'],
   ['extra', 'Anything else'],
 ]
