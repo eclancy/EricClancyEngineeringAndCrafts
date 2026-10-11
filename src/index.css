@@ -1,6 +1,27 @@
 @import 'tailwindcss';
 @import './brand-tokens.css';
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* A project card reached by its #project-… link (e.g. from the banner) glows briefly so the
+   eye lands on it. */
+.ecec-project-card:target {
+  animation: ecec-card-arrive 1.8s ease-out;
+}
+
+@keyframes ecec-card-arrive {
+  0%,
+  30% {
+    border-color: rgb(232 121 249);
+    box-shadow: 0 0 0 3px rgb(232 121 249 / 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(232 121 249 / 0);
+  }
+}
+
 /* Section headings long enough to wrap on a phone at text-3xl. Scale with the
    viewport instead of stepping, capped at the text-3xl size the shorter
    headings use so tablet and desktop are unchanged. */

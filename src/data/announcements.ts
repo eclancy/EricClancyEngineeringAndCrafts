@@ -5,6 +5,9 @@ export interface Announcement {
   emoji?: string
   text: string
   link?: { href: string; label: string }
+  /** Where a click anywhere else on the banner goes, e.g. '#project-drawfight' to scroll to
+   *  that project's card. */
+  href?: string
   /** Optional last day to show it, as YYYY-MM-DD. Omit to show it until it is removed. */
   until?: string
 }
@@ -17,5 +20,6 @@ export const announcements: Announcement[] = [
     emoji: '🎮',
     text: 'DrawFight is out! Download it free and fight your friends.',
     link: { href: '/drawfight/download', label: 'Download & play' },
+    href: '#project-drawfight',
   },
 ]

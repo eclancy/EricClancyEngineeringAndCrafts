@@ -16,7 +16,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const heroDestination = project.liveUrl ? 'website' : 'source on GitHub'
 
   return (
-    <article className="flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20 transition hover:border-violet-500/60">
+    <article
+      id={`project-${project.id}`}
+      className="ecec-project-card flex scroll-mt-6 flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20 transition hover:border-violet-500/60"
+    >
       {hero &&
         (heroUrl ? (
           <a
