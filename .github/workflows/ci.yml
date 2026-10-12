@@ -19,3 +19,11 @@ jobs:
       - run: npm run lint
       - run: npm run format:check
       - run: npm run build
+      # The deploy restarts nginx with this config and nothing checks it first, so a typo would
+      # take the site down. Same image as the Dockerfile; intake is the compose service it
+      # proxies to, which nginx resolves on start.
+      - name: Check nginx.conf
+        run: >
+          docker run --rm --add-host intake:127.0.0.1
+          -v "$PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+          nginx:1.27-alpine nginx -t
