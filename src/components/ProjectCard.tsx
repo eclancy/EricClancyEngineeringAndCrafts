@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Project } from '../data/projects'
+import { gamePath, type Project } from '../data/projects'
 import { colorAt } from '../lib/palette'
 
 interface ProjectCardProps {
@@ -10,10 +10,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const [open, setOpen] = useState(false)
   const [hero, ...gallery] = project.images ?? []
   const hasGallery = gallery.length > 0
-  // The hero image doubles as the project's primary link: the live site when
-  // there is one, otherwise the source repo.
-  const heroUrl = project.liveUrl ?? project.repoUrl
-  const heroDestination = project.liveUrl ? 'website' : 'source on GitHub'
+  // The hero image doubles as the project's primary link: a game's own page, then the
+  // live site, then the source repo. Only the game page opens in the same tab.
+  const pageUrl = project.game ? gamePath(project) : undefined
+  const heroUrl = pageUrl ?? project.liveUrl ?? project.repoUrl
+  const heroDestination = pageUrl
+    ? 'game page'
+    : project.liveUrl
+      ? 'website'
+      : 'source on GitHub'
+  const newTab = pageUrl ? {} : { target: '_blank', rel: 'noreferrer noopener' }
 
   return (
     <article
@@ -24,8 +30,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         (heroUrl ? (
           <a
             href={heroUrl}
-            target="_blank"
-            rel="noreferrer noopener"
+            {...newTab}
             aria-label={`${project.name} \u2014 open the ${heroDestination}`}
             className="mb-1 block rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
           >
@@ -48,7 +53,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
             }`}
           />
         ))}
-      <h3 className="text-xl font-semibold text-slate-100">{project.name}</h3>
+      <h3 className="text-xl font-semibold text-slate-100">
+        {pageUrl ? (
+          <a
+            href={pageUrl}
+            className="underline-offset-4 hover:text-violet-200 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+          >
+            {project.name}
+          </a>
+        ) : (
+          project.name
+        )}
+      </h3>
       <p className="text-sm text-violet-300">{project.tagline}</p>
       <p className="text-sm leading-relaxed text-slate-400">{project.description}</p>
       <ul className="flex flex-wrap gap-2" aria-label={`${project.name} tech stack`}>
@@ -88,6 +104,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       )}
       <div className="mt-2 flex flex-wrap gap-3 text-sm font-medium">
+        {pageUrl && (
+          <a
+            href={pageUrl}
+            className="inline-flex items-center rounded-lg border border-fuchsia-400/60 px-3 py-2 text-fuchsia-200 transition hover:border-fuchsia-300 hover:bg-fuchsia-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-400"
+          >
+            Game page
+          </a>
+        )}
         {hasGallery && (
           <button
             type="button"

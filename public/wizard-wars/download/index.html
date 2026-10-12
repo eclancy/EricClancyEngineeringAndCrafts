@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Download Wizard Wars</title>
+    <meta
+      name="description"
+      content="Download Wizard Wars, a party battle game for up to four wizards. Free, for Windows, and it keeps itself up to date."
+    />
+
+    <!-- The link preview, for chat apps. -->
+    <meta property="og:title" content="Play Wizard Wars" />
+    <meta
+      property="og:description"
+      content="Fire, frost, earth or lightning: a wizard battle for up to four players. Free for Windows."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ecec.dev/wizard-wars/download" />
+    <meta property="og:site_name" content="ECEC" />
+    <meta
+      property="og:image"
+      content="https://ecec.dev/wizard-wars/download/title-screen.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="851" />
+    <meta property="og:image:alt" content="The Wizard Wars title screen." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Play Wizard Wars" />
+    <meta
+      name="twitter:description"
+      content="Fire, frost, earth or lightning: a wizard battle for up to four players. Free for Windows."
+    />
+    <meta
+      name="twitter:image"
+      content="https://ecec.dev/wizard-wars/download/title-screen.jpg"
+    />
+    <meta name="theme-color" content="#7a1f1f" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Lexend:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      :root {
+        --parchment: #f3e6c8;
+        --page: #fbf4e2;
+        --ink: #2b1d12;
+        --soft: #5e4a36;
+        --faint: #8f7a62;
+        --red: #9b2423;
+        --red-dark: #5f1413;
+        --gold: #c99a2e;
+        --red-wash: rgba(155, 36, 35, 0.07);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.55), transparent 55%),
+          radial-gradient(ellipse at 50% 120%, rgba(120, 72, 20, 0.25), transparent 60%),
+          var(--parchment);
+        color: var(--ink);
+        font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+        font-size: 17px;
+        line-height: 1.55;
+        min-height: 100vh;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding-inline: 18px;
+        padding-block: 40px 72px;
+      }
+      h1,
+      h2,
+      .big {
+        font-family: 'Cinzel Decorative', Georgia, serif;
+        font-weight: 900;
+      }
+      h1 {
+        font-size: clamp(2.1rem, 1.3rem + 4vw, 3.4rem);
+        line-height: 1.1;
+        margin: 0 0 14px;
+      }
+      h1 span {
+        color: var(--red);
+      }
+      h2 {
+        font-size: 1.45rem;
+        margin: 0 0 12px;
+      }
+      .eyebrow {
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--faint);
+        margin: 0 0 8px;
+      }
+      .lede {
+        color: var(--soft);
+        margin: 0 0 22px;
+      }
+      a {
+        color: var(--red);
+      }
+      .shot {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 3px solid var(--ink);
+        border-radius: 10px;
+        background: var(--page);
+        box-shadow: 0 14px 40px rgba(60, 30, 5, 0.25);
+      }
+      .big {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin: 26px 0 8px;
+        padding: 16px 20px;
+        font-size: 1.35rem;
+        color: var(--page);
+        background: linear-gradient(var(--red), var(--red-dark));
+        border: 3px solid var(--gold);
+        border-radius: 10px;
+        box-shadow:
+          0 0 0 3px var(--ink),
+          0 8px 20px rgba(95, 20, 19, 0.35);
+        text-decoration: none;
+        transition: transform 100ms ease;
+      }
+      .big:hover {
+        transform: translateY(-2px);
+      }
+      .big:active {
+        transform: translateY(1px);
+      }
+      .big:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 6px;
+      }
+      .big.soon {
+        background: var(--page);
+        color: var(--soft);
+        border-color: var(--faint);
+      }
+      .meta {
+        text-align: center;
+        color: var(--faint);
+        font-size: 0.88rem;
+        margin: 0 0 30px;
+      }
+      .card {
+        border: 2.5px solid var(--ink);
+        border-radius: 10px;
+        background: var(--page);
+        padding: 20px;
+        margin-top: 22px;
+      }
+      ol {
+        margin: 0;
+        padding-left: 1.4em;
+        display: grid;
+        gap: 10px;
+      }
+      li::marker {
+        font-family: 'Cinzel Decorative', serif;
+        color: var(--red);
+        font-weight: 900;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        margin-top: 6px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 6px 8px;
+        border-bottom: 1px solid rgba(43, 29, 18, 0.15);
+      }
+      th {
+        color: var(--faint);
+        font-weight: 600;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .note {
+        border: 2.5px solid var(--red);
+        background: var(--red-wash);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin: 14px 0 0;
+        font-size: 0.94rem;
+      }
+      .note b {
+        color: var(--red);
+      }
+      footer {
+        margin-top: 34px;
+        font-size: 0.85rem;
+        color: var(--faint);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <p class="eyebrow">Wizard Wars · free · Windows · 1–4 players</p>
+      <h1>Play <span>Wizard Wars</span></h1>
+      <p class="lede">
+        Pick a wizard of fire, frost, earth or electricity and be the last one standing,
+        or team up in Red vs Blue. Grab some controllers, or face the computer on your
+        own.
+      </p>
+
+      <img
+        class="shot"
+        src="/wizard-wars/download/title-screen.jpg"
+        width="1200"
+        height="851"
+        alt="The Wizard Wars title screen."
+      />
+
+      <a
+        class="big"
+        id="download"
+        href="https://github.com/eclancy/WizardWars/releases/latest/download/WizardWars-windows.zip"
+      >
+        <span aria-hidden="true">🔥</span> Download for Windows
+      </a>
+      <p class="meta" id="meta">Free · it updates itself</p>
+
+      <section class="card" aria-labelledby="how">
+        <h2 id="how">How to play</h2>
+        <ol>
+          <li>Unzip the download somewhere like Documents or your Desktop.</li>
+          <li>
+            Open the <b>WizardWars</b> folder and double-click <b>WizardWars.exe</b>.
+          </li>
+          <li>
+            Plug in up to four controllers. Each player presses <b>Start</b> on Character
+            Select to join. Player one can use the keyboard.
+          </li>
+        </ol>
+        <table aria-label="Controls">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Controller</th>
+              <th scope="col">Keyboard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Move</td>
+              <td>Left stick</td>
+              <td>W A S D</td>
+            </tr>
+            <tr>
+              <td>Aim</td>
+              <td>Right stick</td>
+              <td>Arrow keys</td>
+            </tr>
+            <tr>
+              <td>Basic attack</td>
+              <td>RT</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Abilities</td>
+              <td>LT, RB</td>
+              <td>2, 3</td>
+            </tr>
+            <tr>
+              <td>Ultimate</td>
+              <td>X</td>
+              <td>5</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          <b>Windows might say "Windows protected your PC".</b> That's because this game
+          isn't from a big company. Click <b>More info</b>, then <b>Run anyway</b>.
+        </p>
+        <p class="note">
+          <b>It keeps itself up to date.</b> Each time it starts, it checks for new
+          wizards and fixes and installs them by itself.
+        </p>
+      </section>
+
+      <footer>
+        Made by <a href="/">ECEC</a> · <a href="/games/wizard-wars">about the game</a> ·
+        <a href="https://github.com/eclancy/WizardWars">source code</a> ·
+        <a href="https://github.com/eclancy/WizardWars/releases">all versions</a>
+      </footer>
+    </main>
+    <script>
+      // The version and size of the newest release. GitHub's API allows cross-site reads; if it
+      // is slow or rate-limited the line above just keeps its default wording. A 404 means
+      // nothing is published yet, so the button says so instead of linking to a missing file.
+      fetch('https://api.github.com/repos/eclancy/WizardWars/releases/latest')
+        .then((r) => {
+          if (r.status === 404) {
+            const button = document.getElementById('download')
+            button.classList.add('soon')
+            button.href = '/games/wizard-wars'
+            button.innerHTML = '<span aria-hidden="true">⏳</span> Coming soon'
+            document.getElementById('meta').textContent =
+              'The first version is on its way'
+          }
+          return r.ok ? r.json() : Promise.reject()
+        })
+        .then((release) => {
+          const zip = (release.assets || []).find(
+            (a) => a.name === 'WizardWars-windows.zip',
+          )
+          const mb = zip ? Math.round(zip.size / 1048576) + ' MB · ' : ''
+          const version = String(release.tag_name || '').replace(/^v/, '')
+          if (version) {
+            document.getElementById('meta').textContent =
+              'Version ' + version + ' · ' + mb + 'it updates itself'
+          }
+        })
+        .catch(() => {})
+    </script>
+  </body>
+</html>

@@ -3,4 +3,22 @@
   <url>
     <loc>https://ecec.dev/</loc>
   </url>
+  <url>
+    <loc>https://ecec.dev/games/drawfight</loc>
+  </url>
+  <url>
+    <loc>https://ecec.dev/games/wizard-survivors</loc>
+  </url>
+  <url>
+    <loc>https://ecec.dev/games/wizard-wars</loc>
+  </url>
+  <url>
+    <loc>https://ecec.dev/drawfight/download</loc>
+  </url>
+  <url>
+    <loc>https://ecec.dev/wizard-survivors/download</loc>
+  </url>
+  <url>
+    <loc>https://ecec.dev/wizard-wars/download</loc>
+  </url>
 </urlset>
