@@ -41,6 +41,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </li>
         ))}
       </ul>
+      {/* Takes up any spare height, so the buttons sit at the bottom of every card in a row. */}
+      <div className="-mt-3 flex-1" aria-hidden="true" />
       {project.callsToAction && project.callsToAction.length > 0 && (
         <div className="mt-2 grid gap-3">
           {project.callsToAction.map((cta) => (
