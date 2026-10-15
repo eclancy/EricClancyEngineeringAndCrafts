@@ -7,15 +7,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  // The picture doubles as the project's primary link: a game's own page, then the
-  // live site, then the source repo. Only the game page opens in the same tab.
   const pageUrl = project.game ? gamePath(project) : undefined
-  const heroUrl = pageUrl ?? project.liveUrl ?? project.repoUrl
-  const heroDestination = pageUrl
-    ? 'game page'
-    : project.liveUrl
-      ? 'website'
-      : 'source on GitHub'
 
   return (
     <article
@@ -23,14 +15,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="ecec-project-card flex scroll-mt-6 flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20 transition hover:border-violet-500/60"
     >
       {project.images && (
-        <ImageCarousel
-          images={project.images}
-          name={project.name}
-          href={heroUrl}
-          hrefLabel={heroUrl && `${project.name} — open the ${heroDestination}`}
-          newTab={!pageUrl}
-          className="mb-1"
-        />
+        <ImageCarousel images={project.images} name={project.name} className="mb-1" />
       )}
       <h3 className="text-xl font-semibold text-slate-100">
         {pageUrl ? (

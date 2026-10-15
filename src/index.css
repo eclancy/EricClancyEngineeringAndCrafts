@@ -5,15 +5,13 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Each picture in a carousel fades in as it is switched to. */
-.ecec-fade-in {
-  animation: ecec-fade-in 220ms ease-out;
+/* The carousel's strip scrolls by swipe or by its arrows, never by a visible scrollbar. */
+.ecec-no-scrollbar {
+  scrollbar-width: none;
 }
 
-@keyframes ecec-fade-in {
-  from {
-    opacity: 0.25;
-  }
+.ecec-no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* A project card reached by its #project-… link (e.g. from the banner) glows briefly so the

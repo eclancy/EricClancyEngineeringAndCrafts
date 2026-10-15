@@ -10,7 +10,7 @@ import dpDrawHead from '../assets/projects/drawpets/draw-head.jpg'
 import dpHomeAtNight from '../assets/projects/drawpets/home-at-night.jpg'
 import dpBathDay from '../assets/projects/drawpets/bath-day.jpg'
 import wsTitleScreen from '../assets/projects/wizard-survivors/title-screen.jpg'
-import wsHordeFight from '../assets/projects/wizard-survivors/horde-fight.jpg'
+import wsForestSpells from '../assets/projects/wizard-survivors/forest-spells.jpg'
 import wsBossElderbark from '../assets/projects/wizard-survivors/boss-elderbark.jpg'
 import wsSketchbook from '../assets/projects/wizard-survivors/sketchbook.jpg'
 import wsLevelUp from '../assets/projects/wizard-survivors/level-up.jpg'
@@ -219,20 +219,20 @@ export const projects: Project[] = [
         alt: 'Wizard Survivors title screen: a pixel-art wizard in a glowing golden circle in a moonlit forest',
       },
       {
-        src: wsHordeFight,
-        alt: 'A wizard surrounded by skeletons, ghouls and shadow creatures, with fire bolts and arcane missiles flying',
+        src: wsForestSpells,
+        alt: 'A wizard in the Enchanted Forest fires crossing scorching rays as meteors and black tentacles burst among a few skeletons and a ghost',
       },
       {
         src: wsBossElderbark,
-        alt: 'Boss fight against Elderbark, a giant dark tree towering over the wizard',
+        alt: 'Boss fight with Elderbark, the Treant: a scorching ray and exploding meteors strike the giant tree',
       },
       {
         src: wsSketchbook,
-        alt: 'The Sketchbook chapter: a lined-paper arena full of crayon monsters drawn by children',
+        alt: 'The Sketchbook chapter: ice spikes and chain lightning among crayon monsters drawn by children on lined paper',
       },
       {
         src: wsLevelUp,
-        alt: 'The level-up screen offering Cone of Cold, Cyclone Slash and Arcane Explosion',
+        alt: 'The level-up screen offering upgrades to Cone of Cold, Black Tentacles and Solar Flare',
       },
     ],
   },
