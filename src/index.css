@@ -5,6 +5,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Each picture in a carousel fades in as it is switched to. */
+.ecec-fade-in {
+  animation: ecec-fade-in 220ms ease-out;
+}
+
+@keyframes ecec-fade-in {
+  from {
+    opacity: 0.25;
+  }
+}
+
 /* A project card reached by its #project-… link (e.g. from the banner) glows briefly so the
    eye lands on it. */
 .ecec-project-card:target {

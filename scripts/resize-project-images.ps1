@@ -2,6 +2,10 @@
 # One-off helper: resizes/re-encodes source project screenshots down to web-friendly
 # sizes and copies them into src/assets/projects/. Not run in CI; rerun by hand if
 # source images change.
+#
+# Superseded for the games (October 2026): their screenshots are now captured from the games
+# themselves at 1280x720 and copied in as-is, so the game lines below describe images that
+# have since been replaced or removed.
 Add-Type -AssemblyName System.Drawing
 
 function Resize-Image {

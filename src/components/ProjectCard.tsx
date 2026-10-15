@@ -1,16 +1,13 @@
-import { useState } from 'react'
 import { gamePath, type Project } from '../data/projects'
 import { colorAt } from '../lib/palette'
+import { ImageCarousel } from './ImageCarousel'
 
 interface ProjectCardProps {
   project: Project
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const [open, setOpen] = useState(false)
-  const [hero, ...gallery] = project.images ?? []
-  const hasGallery = gallery.length > 0
-  // The hero image doubles as the project's primary link: a game's own page, then the
+  // The picture doubles as the project's primary link: a game's own page, then the
   // live site, then the source repo. Only the game page opens in the same tab.
   const pageUrl = project.game ? gamePath(project) : undefined
   const heroUrl = pageUrl ?? project.liveUrl ?? project.repoUrl
@@ -19,40 +16,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
     : project.liveUrl
       ? 'website'
       : 'source on GitHub'
-  const newTab = pageUrl ? {} : { target: '_blank', rel: 'noreferrer noopener' }
 
   return (
     <article
       id={`project-${project.id}`}
       className="ecec-project-card flex scroll-mt-6 flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20 transition hover:border-violet-500/60"
     >
-      {hero &&
-        (heroUrl ? (
-          <a
-            href={heroUrl}
-            {...newTab}
-            aria-label={`${project.name} \u2014 open the ${heroDestination}`}
-            className="mb-1 block rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
-          >
-            <img
-              src={hero.src}
-              alt={hero.alt}
-              loading="lazy"
-              className={`aspect-[16/10] w-full rounded-xl bg-slate-950 transition hover:opacity-90 ${
-                hero.fit === 'contain' ? 'object-contain' : 'object-cover'
-              }`}
-            />
-          </a>
-        ) : (
-          <img
-            src={hero.src}
-            alt={hero.alt}
-            loading="lazy"
-            className={`mb-1 aspect-[16/10] w-full rounded-xl bg-slate-950 ${
-              hero.fit === 'contain' ? 'object-contain' : 'object-cover'
-            }`}
-          />
-        ))}
+      {project.images && (
+        <ImageCarousel
+          images={project.images}
+          name={project.name}
+          href={heroUrl}
+          hrefLabel={heroUrl && `${project.name} — open the ${heroDestination}`}
+          newTab={!pageUrl}
+          className="mb-1"
+        />
+      )}
       <h3 className="text-xl font-semibold text-slate-100">
         {pageUrl ? (
           <a
@@ -103,6 +82,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
       )}
+      {project.game?.comingSoon && (
+        <p className="mt-2 rounded-xl border border-dashed border-fuchsia-400/50 px-4 py-3 text-center text-sm font-semibold text-fuchsia-200">
+          <span aria-hidden="true">⏳</span> Coming soon
+        </p>
+      )}
       <div className="mt-2 flex flex-wrap gap-3 text-sm font-medium">
         {pageUrl && (
           <a
@@ -111,17 +95,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           >
             Game page
           </a>
-        )}
-        {hasGallery && (
-          <button
-            type="button"
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-            className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/60 px-3 py-2 text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
-          >
-            Screenshots
-            <span aria-hidden="true">{open ? '▲' : '▼'}</span>
-          </button>
         )}
         {project.repoUrl && (
           <a
@@ -144,31 +117,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </a>
         )}
       </div>
-      {hasGallery && (
-        <div
-          className={`grid overflow-hidden transition-all duration-300 ease-out ${
-            open ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-          }`}
-        >
-          <div className="overflow-hidden">
-            <ul
-              className="grid grid-cols-2 gap-2 overflow-hidden"
-              aria-label={`${project.name} additional screenshots`}
-            >
-              {gallery.map((image) => (
-                <li key={image.src}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    loading="lazy"
-                    className="h-24 w-full rounded-lg object-cover"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
     </article>
   )
 }

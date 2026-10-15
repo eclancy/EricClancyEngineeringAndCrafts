@@ -3,6 +3,8 @@ import { downloadPath, type GameInfo, type Project } from '../data/projects'
 import { colorAt } from '../lib/palette'
 import { EcecLogo } from '../components/EcecLogo'
 import { Footer } from '../components/Footer'
+import { ImageCarousel } from '../components/ImageCarousel'
+import { Lightbox } from '../components/Lightbox'
 
 interface Release {
   version: string
@@ -30,8 +32,11 @@ function playerNotes(body: string | null): string {
 // Newest first, from GitHub's API, which allows cross-site reads. Anything going wrong (offline,
 // rate limited) reads as "no releases yet" rather than an error; the download page still works.
 function useReleases(game: GameInfo): Releases {
-  const [releases, setReleases] = useState<Releases>({ state: 'loading' })
+  const [releases, setReleases] = useState<Releases>(
+    game.comingSoon ? { state: 'none' } : { state: 'loading' },
+  )
   useEffect(() => {
+    if (game.comingSoon) return
     let live = true
     fetch(`https://api.github.com/repos/eclancy/${game.repo}/releases?per_page=8`)
       .then((r) => (r.ok ? r.json() : Promise.reject()))
@@ -65,7 +70,7 @@ function useReleases(game: GameInfo): Releases {
     return () => {
       live = false
     }
-  }, [game.repo])
+  }, [game.repo, game.comingSoon])
   return releases
 }
 
@@ -79,7 +84,9 @@ const formatDate = (iso: string) =>
 export function GamePage({ project }: { project: Project & { game: GameInfo } }) {
   const { game } = project
   const releases = useReleases(game)
-  const [hero, ...shots] = project.images ?? []
+  const images = project.images ?? []
+  const shots = images.slice(1)
+  const [expanded, setExpanded] = useState<number | null>(null)
   const latest = releases.state === 'ok' ? releases.list[0] : undefined
   const extras = (project.callsToAction ?? []).filter(
     (c) => !c.href.endsWith('/download'),
@@ -108,7 +115,7 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
         >
           <div className="flex flex-col gap-4">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-fuchsia-300">
-              Free · Windows · {game.players}
+              Free · {game.platform ?? 'Windows'} · {game.players}
             </p>
             <h1
               id="game-heading"
@@ -130,32 +137,40 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
                 </li>
               ))}
             </ul>
-            <a
-              href={downloadPath(project)}
-              className="ecec-cta group mt-2 flex items-center justify-center gap-3 rounded-xl px-5 py-4 text-lg font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300 sm:max-w-sm"
-            >
-              <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
-                🎮
-              </span>
-              <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-                Download & play
-              </span>
-              <span
-                aria-hidden="true"
-                className="text-xl transition-transform group-hover:translate-x-1"
+            {game.comingSoon ? (
+              <p className="mt-2 rounded-xl border border-dashed border-fuchsia-400/50 px-5 py-4 text-center text-lg font-bold text-fuchsia-200 sm:max-w-sm">
+                <span aria-hidden="true">⏳</span> Coming soon
+              </p>
+            ) : (
+              <a
+                href={downloadPath(project)}
+                className="ecec-cta group mt-2 flex items-center justify-center gap-3 rounded-xl px-5 py-4 text-lg font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300 sm:max-w-sm"
               >
-                →
-              </span>
-            </a>
-            <p className="text-sm text-slate-500" aria-live="polite">
-              {latest
-                ? `Version ${latest.version} · ${formatDate(latest.date)}${
-                    latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''
-                  } · updates itself`
-                : releases.state === 'none'
-                  ? 'Keeps itself up to date once installed'
-                  : ' '}
-            </p>
+                <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
+                  🎮
+                </span>
+                <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                  Download & play
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="text-xl transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </a>
+            )}
+            {!game.comingSoon && (
+              <p className="text-sm text-slate-500" aria-live="polite">
+                {latest
+                  ? `Version ${latest.version} · ${formatDate(latest.date)}${
+                      latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''
+                    } · updates itself`
+                  : releases.state === 'none'
+                    ? 'Keeps itself up to date once installed'
+                    : ' '}
+              </p>
+            )}
             {extras.map((cta) => (
               <a
                 key={cta.href}
@@ -167,15 +182,11 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
               </a>
             ))}
           </div>
-          {hero && (
-            <img
-              src={hero.src}
-              alt={hero.alt}
-              className={`aspect-[16/10] w-full rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl shadow-violet-950/40 ${
-                hero.fit === 'contain' ? 'object-contain' : 'object-cover'
-              }`}
-            />
-          )}
+          <ImageCarousel
+            images={images}
+            name={project.name}
+            className="rounded-2xl border border-slate-800 shadow-2xl shadow-violet-950/40"
+          />
         </section>
 
         <div className="grid gap-12 border-t border-violet-500/20 pt-12 lg:grid-cols-[3fr_2fr]">
@@ -188,24 +199,26 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <p className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium">
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="text-violet-300 underline-offset-4 hover:underline"
-              >
-                Source code on GitHub →
-              </a>
-              <a
-                href={`https://github.com/eclancy/${game.repo}/releases`}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="text-violet-300 underline-offset-4 hover:underline"
-              >
-                Every version →
-              </a>
-            </p>
+            {project.repoUrl && (
+              <p className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium">
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="text-violet-300 underline-offset-4 hover:underline"
+                >
+                  Source code on GitHub →
+                </a>
+                <a
+                  href={`https://github.com/eclancy/${game.repo}/releases`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="text-violet-300 underline-offset-4 hover:underline"
+                >
+                  Every version →
+                </a>
+              </p>
+            )}
           </section>
 
           <section aria-labelledby="versions-heading">
@@ -217,7 +230,9 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
             )}
             {releases.state === 'none' && (
               <p className="mt-4 text-slate-400">
-                No versions published yet. The first one is on its way.
+                {game.comingSoon
+                  ? `${project.name} is still being made. Check back soon.`
+                  : 'No versions published yet. The first one is on its way.'}
               </p>
             )}
             {releases.state === 'ok' && (
@@ -267,17 +282,31 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
               Screenshots
             </h2>
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-              {shots.map((image) => (
+              {shots.map((image, i) => (
                 <li key={image.src}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    loading="lazy"
-                    className="aspect-[16/10] w-full rounded-xl border border-slate-800 bg-slate-900 object-cover"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setExpanded(i + 1)}
+                    aria-label={`View full screen: ${image.alt}`}
+                    className="block w-full overflow-hidden rounded-xl border border-slate-800 transition hover:border-violet-400/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+                  >
+                    <img
+                      src={image.src}
+                      alt=""
+                      loading="lazy"
+                      className="aspect-[16/10] w-full bg-slate-900 object-cover transition duration-300 hover:scale-[1.03]"
+                    />
+                  </button>
                 </li>
               ))}
             </ul>
+            <Lightbox
+              images={images}
+              index={expanded}
+              onIndexChange={setExpanded}
+              onClose={() => setExpanded(null)}
+              label={`${project.name} pictures`}
+            />
           </section>
         )}
       </main>
