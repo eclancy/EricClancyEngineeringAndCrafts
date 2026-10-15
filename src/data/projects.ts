@@ -1,12 +1,24 @@
 import dfTitleScreen from '../assets/projects/drawfight/title-screen.jpg'
 import dfPoses from '../assets/projects/drawfight/poses.jpg'
-import dfStagePlains from '../assets/projects/drawfight/stage-plains.jpg'
+import dfRooftops from '../assets/projects/drawfight/rooftops.jpg'
+import dfLaser from '../assets/projects/drawfight/laser.jpg'
+import dfBigShow from '../assets/projects/drawfight/big-show.jpg'
+import dfCharacterSelect from '../assets/projects/drawfight/character-select.jpg'
+import dpCuddle from '../assets/projects/drawpets/cuddle.jpg'
+import dpHome from '../assets/projects/drawpets/home.jpg'
+import dpDrawHead from '../assets/projects/drawpets/draw-head.jpg'
+import dpHomeAtNight from '../assets/projects/drawpets/home-at-night.jpg'
+import dpBathDay from '../assets/projects/drawpets/bath-day.jpg'
 import wsTitleScreen from '../assets/projects/wizard-survivors/title-screen.jpg'
-import wsMeadowBattle from '../assets/projects/wizard-survivors/meadow-battle.jpg'
-import wsDungeonBattle from '../assets/projects/wizard-survivors/dungeon-battle.jpg'
-import wwStartScreen from '../assets/projects/wizard-wars/start-screen-transparent.png'
-import wwArenaBattle from '../assets/projects/wizard-wars/arena-battle.jpg'
-import wwFireSpell from '../assets/projects/wizard-wars/fire-spell.jpg'
+import wsHordeFight from '../assets/projects/wizard-survivors/horde-fight.jpg'
+import wsBossElderbark from '../assets/projects/wizard-survivors/boss-elderbark.jpg'
+import wsSketchbook from '../assets/projects/wizard-survivors/sketchbook.jpg'
+import wsLevelUp from '../assets/projects/wizard-survivors/level-up.jpg'
+import wwTitleScreen from '../assets/projects/wizard-wars/title-screen.jpg'
+import wwWoodlandBattle from '../assets/projects/wizard-wars/woodland-battle.jpg'
+import wwMeteorStorm from '../assets/projects/wizard-wars/meteor-storm.jpg'
+import wwFrostTundra from '../assets/projects/wizard-wars/frost-tundra.jpg'
+import wwCharacterSelect from '../assets/projects/wizard-wars/character-select.jpg'
 import emLogo from '../assets/projects/erics-miniatures/logo.png'
 import emTerrain from '../assets/projects/erics-miniatures/terrain.jpg'
 import emEscapeRealityFeature from '../assets/projects/erics-miniatures/escape-reality-feature.jpg'
@@ -42,6 +54,10 @@ export interface GameInfo {
   players: string
   /** Longer than the card's description; one string per paragraph. */
   about: string[]
+  /** Defaults to 'Windows'. */
+  platform?: string
+  /** Not downloadable yet: no download button or release history, a "Coming soon" note instead. */
+  comingSoon?: boolean
 }
 
 export const gamePath = (project: Project) => `/games/${project.id}`
@@ -88,12 +104,83 @@ export const projects: Project[] = [
       },
     ],
     images: [
-      { src: dfTitleScreen, alt: 'DrawFight title screen', fit: 'contain' },
+      {
+        src: dfTitleScreen,
+        alt: 'DrawFight title screen on lined notebook paper: a punk rocker lunges at a construction worker',
+      },
+      {
+        src: dfRooftops,
+        alt: 'DoomBot, a hand-drawn red robot, punches Circy, a yellow smiley face on stick legs, on the City Rooftops stage',
+      },
+      {
+        src: dfLaser,
+        alt: 'Circy fires a giant hand-drawn laser across the Open Plains while Triguy leaps over it',
+      },
+      {
+        src: dfBigShow,
+        alt: "DoomBot's fiery blast launches a burning Triguy across the Big Show concert stage",
+      },
+      {
+        src: dfCharacterSelect,
+        alt: 'Character select: six fighters drawn on paper cards',
+      },
       {
         src: dfPoses,
         alt: 'One DrawFight stick figure shown in ten animation poses',
       },
-      { src: dfStagePlains, alt: 'DrawFight match on the Open Plains stage' },
+    ],
+  },
+  {
+    id: 'drawpets',
+    name: 'DrawPets',
+    tagline: 'Draw a creature, part by part, then watch it come alive and look after it.',
+    description:
+      'A virtual-pet game where every pet is a creature a kid drew inside the game, one ' +
+      'part at a time. Legs step, tails wag and eyes blink because of the parts it has, ' +
+      'and then you feed it, play with it, decorate its home and give it a bath.',
+    tech: ['Godot 4.5', 'GDScript', 'Android'],
+    game: {
+      repo: 'DrawPets',
+      players: '1 player',
+      platform: 'Android',
+      comingSoon: true,
+      about: [
+        'Kids choose what their creature has - heads, arms, legs, wings, a tail, anything - ' +
+          'and draw each part on its own sheet, starting from a red dot that marks where it ' +
+          'joins on. They drag the parts onto the body and it comes alive: every kind of ' +
+          'part has its own way of moving, so whatever they invent walks, flaps, wags and ' +
+          'blinks the first time.',
+        'Then it is theirs to look after, a bit like Nintendogs. Pet it, feed it the food ' +
+          'they drew for it, throw its favourite toy, take it on walks and give it a bath ' +
+          'once a week. Toys and furniture behave by the words the kid picks for them - a ' +
+          'bouncy ball gets fetched, a cozy bed is for napping. Pets never get sick, run ' +
+          'away or die.',
+        'Every picture in the game is a coloured-pencil or marker drawing, and there is no ' +
+          'AI and no photos anywhere. A sibling of DrawFight, for Android phones and ' +
+          'tablets.',
+      ],
+    },
+    images: [
+      {
+        src: dpCuddle,
+        alt: 'A drawn creature alive in its meadow, hugging its teddy bear with a heart above it',
+      },
+      {
+        src: dpDrawHead,
+        alt: "Drawing a creature's head on its own sheet, starting from a red dot at the neck",
+      },
+      {
+        src: dpHomeAtNight,
+        alt: 'The pet asleep on its bed at night in a decorated yard with a trampoline and lamp',
+      },
+      {
+        src: dpBathDay,
+        alt: 'Bath day: the pet scrubbed with a soapy sponge in a bubbly tub',
+      },
+      {
+        src: dpHome,
+        alt: 'The DrawPets home screen, with the pet in its den and a Draw a new pet button',
+      },
     ],
   },
   {
@@ -127,9 +214,26 @@ export const projects: Project[] = [
       },
     ],
     images: [
-      { src: wsTitleScreen, alt: 'Wizard Survivors title screen', fit: 'contain' },
-      { src: wsMeadowBattle, alt: 'Wizard Survivors battle in a meadow' },
-      { src: wsDungeonBattle, alt: 'Wizard Survivors battle in a dungeon' },
+      {
+        src: wsTitleScreen,
+        alt: 'Wizard Survivors title screen: a pixel-art wizard in a glowing golden circle in a moonlit forest',
+      },
+      {
+        src: wsHordeFight,
+        alt: 'A wizard surrounded by skeletons, ghouls and shadow creatures, with fire bolts and arcane missiles flying',
+      },
+      {
+        src: wsBossElderbark,
+        alt: 'Boss fight against Elderbark, a giant dark tree towering over the wizard',
+      },
+      {
+        src: wsSketchbook,
+        alt: 'The Sketchbook chapter: a lined-paper arena full of crayon monsters drawn by children',
+      },
+      {
+        src: wsLevelUp,
+        alt: 'The level-up screen offering Cone of Cold, Cyclone Slash and Arcane Explosion',
+      },
     ],
   },
   {
@@ -163,9 +267,26 @@ export const projects: Project[] = [
       },
     ],
     images: [
-      { src: wwStartScreen, alt: 'Wizard Wars title screen', fit: 'contain' },
-      { src: wwArenaBattle, alt: 'Wizard Wars character select screen' },
-      { src: wwFireSpell, alt: 'Wizard Wars ring of fire attack' },
+      {
+        src: wwTitleScreen,
+        alt: 'Wizard Wars title screen: four cartoon wizards rise from an open spellbook',
+      },
+      {
+        src: wwWoodlandBattle,
+        alt: 'Four wizards battle in the Woodland arena, one frozen in ice, one crackling with lightning',
+      },
+      {
+        src: wwMeteorStorm,
+        alt: 'A Meteor Storm ultimate explodes on the Storm Plateau beside lightning rods and an earthquake ring',
+      },
+      {
+        src: wwFrostTundra,
+        alt: 'A battle on the Frost Tundra stage with an ice patch, a mud patch and flames',
+      },
+      {
+        src: wwCharacterSelect,
+        alt: 'Character Select with four players joined and their wizards locked in',
+      },
     ],
   },
   {
