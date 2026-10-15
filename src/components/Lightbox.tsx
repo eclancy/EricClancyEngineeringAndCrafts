@@ -33,9 +33,9 @@ export function Lightbox({
     onIndexChange((index + delta + images.length) % images.length)
   }
 
-  // Arrow keys step through the pictures, and a click on the empty space around the picture
-  // (which lands on the dialog itself) closes it. Listened for directly because the dialog is
-  // not itself a control.
+  // Arrow keys and a sideways swipe step through the pictures, and a click on the empty space
+  // around the picture (which lands on the dialog itself) closes it. Listened for directly
+  // because the dialog is not itself a control.
   useEffect(() => {
     const el = dialog.current
     if (!el) return
@@ -44,11 +44,26 @@ export function Lightbox({
       if (e.key === 'ArrowRight') step(1)
     }
     const onClick = (e: MouseEvent) => e.target === el && el.close()
+    let startX = 0
+    let startY = 0
+    const onTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX
+      startY = e.touches[0].clientY
+    }
+    const onTouchEnd = (e: TouchEvent) => {
+      const dx = e.changedTouches[0].clientX - startX
+      const dy = e.changedTouches[0].clientY - startY
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1)
+    }
     el.addEventListener('keydown', onKey)
     el.addEventListener('click', onClick)
+    el.addEventListener('touchstart', onTouchStart, { passive: true })
+    el.addEventListener('touchend', onTouchEnd)
     return () => {
       el.removeEventListener('keydown', onKey)
       el.removeEventListener('click', onClick)
+      el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchend', onTouchEnd)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- step is rebuilt each render from these
   }, [index, images.length, onIndexChange])
@@ -98,23 +113,30 @@ export function Lightbox({
   )
 }
 
+// Phones and tablets swipe instead, so the arrows are only for a mouse. revealOnHover keeps
+// them hidden until the pointer is over the surrounding `group` (or one is keyboard-focused).
 export function ArrowButton({
   direction,
   onClick,
   large = false,
+  revealOnHover = false,
 }: {
   direction: 'previous' | 'next'
   onClick: () => void
   large?: boolean
+  revealOnHover?: boolean
 }) {
   const side = direction === 'previous' ? 'left-2' : 'right-2'
   const size = large ? 'size-12 text-2xl' : 'size-9 text-lg'
+  const reveal = revealOnHover
+    ? 'opacity-0 group-hover:opacity-100 focus-visible:opacity-100'
+    : ''
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={direction === 'previous' ? 'Previous picture' : 'Next picture'}
-      className={`absolute top-1/2 ${side} ${size} grid -translate-y-1/2 place-items-center rounded-full bg-slate-950/70 font-bold text-white ring-1 ring-white/20 backdrop-blur-sm transition hover:scale-110 hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-fuchsia-300`}
+      className={`absolute top-1/2 ${side} ${size} ${reveal} pointer-coarse:hidden grid -translate-y-1/2 place-items-center rounded-full bg-slate-950/70 font-bold text-white ring-1 ring-white/20 backdrop-blur-sm transition hover:scale-110 hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-fuchsia-300`}
     >
       <span aria-hidden="true">{direction === 'previous' ? '‹' : '›'}</span>
     </button>
