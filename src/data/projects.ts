@@ -58,6 +58,16 @@ export interface GameInfo {
   platform?: string
   /** Not downloadable yet: no download button or release history, a "Coming soon" note instead. */
   comingSoon?: boolean
+  /** A second headline action for the game page: a big button under Download, and a band
+   *  explaining it below the intro. */
+  feature?: {
+    title: string
+    text: string
+    href: string
+    label: string
+    emoji: string
+    more?: { href: string; label: string }
+  }
 }
 
 export const gamePath = (project: Project) => `/games/${project.id}`
@@ -71,14 +81,23 @@ export const projects: Project[] = [
     name: 'DrawFight',
     tagline: "A platform fighter where every character is a kid's drawing.",
     description:
-      'A local-multiplayer platform fighter with Smash-style percent, knockback, and ' +
-      'stocks. Every fighter starts as a drawing on paper, cut into body parts and ' +
-      'rigged to a shared skeleton, so the original linework is what moves on screen.',
+      'Smash-style percent, knockback and stocks, with every fighter cut from a paper ' +
+      'drawing and animated line for line.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
     repoUrl: 'https://github.com/eclancy/DrawFight',
     game: {
       repo: 'DrawFight',
       players: '1–2 players, local',
+      feature: {
+        title: 'Be in the game!',
+        text:
+          'Draw your own fighter on paper, snap a photo and send it in. Fighters sent in ' +
+          'can end up in DrawFight: Triguy got in that way.',
+        href: '/draw',
+        label: 'Submit your fighter',
+        emoji: '✏️',
+        more: { href: '/draw/guide', label: 'Read the drawing guide first' },
+      },
       about: [
         'You draw a character on paper. It gets cut into pieces, hung on a skeleton, and ' +
           "put in a fighting game. Then it runs, jumps, and knocks other people's drawings " +
@@ -96,11 +115,6 @@ export const projects: Project[] = [
         href: 'https://ecec.dev/drawfight/download',
         label: 'Download & play',
         emoji: '🎮',
-      },
-      {
-        href: 'https://ecec.dev/draw',
-        label: 'Submit your fighter!',
-        emoji: '✏️',
       },
     ],
     images: [
@@ -133,11 +147,10 @@ export const projects: Project[] = [
   {
     id: 'drawpets',
     name: 'DrawPets',
-    tagline: 'Draw a creature, part by part, then watch it come alive and look after it.',
+    tagline: 'Draw a creature, then watch it come alive.',
     description:
-      'A virtual-pet game where every pet is a creature a kid drew inside the game, one ' +
-      'part at a time. Legs step, tails wag and eyes blink because of the parts it has, ' +
-      'and then you feed it, play with it, decorate its home and give it a bath.',
+      'A virtual pet you draw part by part, then feed, play with and give a home of its ' +
+      'own.',
     tech: ['Godot 4.5', 'GDScript', 'Android'],
     game: {
       repo: 'DrawPets',
@@ -186,11 +199,10 @@ export const projects: Project[] = [
   {
     id: 'wizard-survivors',
     name: 'Wizard Survivors',
-    tagline: 'A 2D roguelite auto-shooter built in Godot 4 with C#.',
+    tagline: 'A roguelite auto-shooter in the Vampire Survivors mold.',
     description:
-      'A fast-paced survival game inspired by Vampire Survivors. Choose from 30 elemental ' +
-      'spells and upgrades to shape your wizard, then survive increasingly difficult waves ' +
-      'of enemies.',
+      'Build your wizard from 30 spells and survive the horde. Every sprite and sound is ' +
+      'made by code.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
     repoUrl: 'https://github.com/eclancy/WizardSurvivors',
     game: {
@@ -239,11 +251,10 @@ export const projects: Project[] = [
   {
     id: 'wizard-wars',
     name: 'Wizard Wars',
-    tagline: 'A local multiplayer wizard battle arena for up to 4 players.',
+    tagline: 'A wizard battle arena for up to four players.',
     description:
-      'A local party game for up to four players. Choose a wizard and battle with fire, ' +
-      'ice, earth, or lightning attacks across several arena stages. Each element can ' +
-      'counter another, rewarding quick decisions and teamwork.',
+      'Fire, frost, earth or lightning: be the last wizard standing, or team up in Red ' +
+      'vs Blue.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
     repoUrl: 'https://github.com/eclancy/WizardWars',
     game: {
@@ -292,10 +303,9 @@ export const projects: Project[] = [
   {
     id: 'erics-miniatures',
     name: "Eric's Miniatures",
-    tagline: 'A personal arts & crafts showcase site.',
+    tagline: 'A showcase for hand-painted miniatures.',
     description:
-      'A website that shares hand-painted miniatures and other handmade art projects. ' +
-      'Built with React, TypeScript, Material UI, and SASS.',
+      'Painted miniatures, custom terrain and other handmade art, on a site of its own.',
     tech: ['React', 'TypeScript', 'Material UI', 'SASS'],
     repoUrl: 'https://github.com/eclancy/EricsMiniatures',
     liveUrl: 'https://ericsminiatures.com',

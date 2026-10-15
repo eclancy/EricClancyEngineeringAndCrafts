@@ -88,9 +88,6 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
   const shots = images.slice(1)
   const [expanded, setExpanded] = useState<number | null>(null)
   const latest = releases.state === 'ok' ? releases.list[0] : undefined
-  const extras = (project.callsToAction ?? []).filter(
-    (c) => !c.href.endsWith('/download'),
-  )
 
   useEffect(() => {
     document.title = `${project.name} | ECEC`
@@ -171,16 +168,25 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
                     : ' '}
               </p>
             )}
-            {extras.map((cta) => (
+            {game.feature && (
               <a
-                key={cta.href}
-                href={cta.href}
-                className="inline-flex w-fit items-center gap-2 rounded-lg border border-cyan-400/60 px-3 py-2 text-sm font-medium text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+                href={game.feature.href}
+                className="ecec-cta-alt group flex items-center justify-center gap-3 rounded-xl px-5 py-4 text-lg font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:max-w-sm"
               >
-                {cta.emoji && <span aria-hidden="true">{cta.emoji}</span>}
-                {cta.label} →
+                <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
+                  {game.feature.emoji}
+                </span>
+                <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                  {game.feature.label}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="text-xl transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
               </a>
-            ))}
+            )}
           </div>
           <ImageCarousel
             images={images}
@@ -188,6 +194,36 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
             className="rounded-2xl border border-slate-800 shadow-2xl shadow-violet-950/40"
           />
         </section>
+
+        {game.feature && (
+          <section
+            aria-labelledby="feature-heading"
+            className="ecec-paper mb-12 flex flex-col items-start gap-5 rounded-2xl py-8 pl-12 pr-7 text-slate-900 shadow-2xl shadow-black/40 sm:flex-row sm:items-center sm:justify-between sm:pl-14"
+          >
+            <div className="max-w-xl">
+              <h2 id="feature-heading" className="text-3xl font-extrabold">
+                <span aria-hidden="true">{game.feature.emoji}</span> {game.feature.title}
+              </h2>
+              <p className="mt-2 text-base leading-relaxed text-slate-700">
+                {game.feature.text}
+              </p>
+              {game.feature.more && (
+                <a
+                  href={game.feature.more.href}
+                  className="mt-3 inline-block text-sm font-semibold text-blue-700 underline-offset-4 hover:underline"
+                >
+                  {game.feature.more.label} →
+                </a>
+              )}
+            </div>
+            <a
+              href={game.feature.href}
+              className="shrink-0 rounded-md border-[2.5px] border-slate-900 bg-blue-600 px-6 py-4 text-xl font-extrabold text-white shadow-[4px_4px_0_#0f172a] transition hover:-translate-x-px hover:-translate-y-px hover:shadow-[5px_5px_0_#0f172a] active:translate-x-[3px] active:translate-y-[3px] active:shadow-[1px_1px_0_#0f172a] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-yellow-300"
+            >
+              {game.feature.label} →
+            </a>
+          </section>
+        )}
 
         <div className="grid gap-12 border-t border-violet-500/20 pt-12 lg:grid-cols-[3fr_2fr]">
           <section aria-labelledby="about-heading">
