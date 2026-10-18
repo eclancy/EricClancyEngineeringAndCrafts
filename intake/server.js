@@ -190,7 +190,8 @@ function escapeHtml(s) {
 
 async function email(fields, files, id, kind = KINDS.fighter) {
   if (!RESEND_API_KEY) return 'skipped (no RESEND_API_KEY)'
-  const rows = kind.questions.filter(([k]) => k !== 'name')
+  const rows = kind.questions
+    .filter(([k]) => k !== 'name')
     .map(
       ([k, label]) =>
         `<h3 style="margin:18px 0 4px;font-family:sans-serif">${escapeHtml(label)}</h3>` +
@@ -252,7 +253,10 @@ async function suggestion(fields, res) {
     try {
       const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
-        headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           from: MAIL_FROM,
           to: [MAIL_TO],
@@ -313,7 +317,11 @@ async function handle(req, res) {
   const answers = Object.fromEntries(kind.questions.map(([k]) => [k, fields[k] || '']))
   await fs.writeFile(
     path.join(dir, 'answers.json'),
-    JSON.stringify({ id, kind: kind.noun, submitted: new Date().toISOString(), ...answers }, null, 2),
+    JSON.stringify(
+      { id, kind: kind.noun, submitted: new Date().toISOString(), ...answers },
+      null,
+      2,
+    ),
   )
   await fs.writeFile(path.join(dir, 'sheet.md'), sheet(fields, id, kind))
 
