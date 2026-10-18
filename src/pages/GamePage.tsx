@@ -54,7 +54,11 @@ function useReleases(game: GameInfo): Releases {
           const list = data
             .filter((r) => !r.draft)
             .map((r) => {
-              const zip = r.assets.find((a) => a.name === `${game.repo}-windows.zip`)
+              // The installer is what the download button gives; releases made before it
+              // existed only have the zip.
+              const zip =
+                r.assets.find((a) => a.name === `${game.repo}-Setup.exe`) ??
+                r.assets.find((a) => a.name === `${game.repo}-windows.zip`)
               return {
                 version: r.tag_name.replace(/^v/, ''),
                 date: r.published_at,
