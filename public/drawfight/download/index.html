@@ -196,6 +196,12 @@
       .draw b {
         color: var(--blue);
       }
+      .portable {
+        text-align: center;
+        font-size: 0.85rem;
+        margin: -22px 0 30px;
+        opacity: 0.85;
+      }
       footer {
         margin-top: 34px;
         font-size: 0.85rem;
@@ -223,17 +229,28 @@
 
       <a
         class="big"
-        href="https://github.com/eclancy/DrawFight/releases/latest/download/DrawFight-windows.zip"
+        id="download"
+        href="https://github.com/eclancy/DrawFight/releases/latest/download/DrawFight-Setup.exe"
       >
         <span aria-hidden="true">🎮</span> Download for Windows
       </a>
-      <p class="meta" id="meta">About 72 MB · it updates itself</p>
+      <p class="meta" id="meta">Free · it updates itself</p>
+      <p class="portable">
+        Rather not install anything?
+        <a
+          href="https://github.com/eclancy/DrawFight/releases/latest/download/DrawFight-windows.zip"
+          >Get the portable zip</a
+        >, unzip it somewhere like Documents and run <b>DrawFight.exe</b>.
+      </p>
 
       <section class="card" aria-labelledby="how">
         <h2 id="how">How to play</h2>
         <ol>
-          <li>Unzip the download somewhere like Documents or your Desktop.</li>
-          <li>Open the <b>DrawFight</b> folder and double-click <b>DrawFight.exe</b>.</li>
+          <li>
+            Run <b>DrawFight-Setup.exe</b>. It installs in a few seconds, with no admin
+            password needed.
+          </li>
+          <li>Start <b>DrawFight</b> from the desktop shortcut or the Start menu.</li>
           <li>Plug in a controller (Xbox pads work best), or use the keyboard.</li>
         </ol>
         <p class="note">
@@ -262,10 +279,14 @@
       fetch('https://api.github.com/repos/eclancy/DrawFight/releases/latest')
         .then((r) => (r.ok ? r.json() : Promise.reject()))
         .then((release) => {
-          const zip = (release.assets || []).find(
-            (a) => a.name === 'DrawFight-windows.zip',
-          )
-          const mb = zip ? Math.round(zip.size / 1048576) + ' MB · ' : ''
+          const assets = release.assets || []
+          const setup = assets.find((a) => a.name === 'DrawFight-Setup.exe')
+          if (!setup) {
+            document.getElementById('download').href =
+              'https://github.com/eclancy/DrawFight/releases/latest/download/DrawFight-windows.zip'
+          }
+          const file = setup || assets.find((a) => a.name === 'DrawFight-windows.zip')
+          const mb = file ? Math.round(file.size / 1048576) + ' MB · ' : ''
           const version = String(release.tag_name || '').replace(/^v/, '')
           if (version) {
             document.getElementById('meta').textContent =
