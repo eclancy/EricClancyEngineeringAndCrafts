@@ -81,6 +81,10 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
 - Each submission is saved on the droplet as a folder under `/var/lib/drawfight-submissions/`:
   the photos, `answers.json` and a readable `sheet.md`. That folder is outside `/opt/ecec-hub`
   on purpose, so deploys never touch it.
+- The DrawFight game posts here too: a fighter drawn in it to `/api/draw` (filed like any other),
+  a stage drawn in it to `/api/draw/stage` (saved under `stages/`), and a suggestion typed in it
+  to `/api/draw/suggest` (saved under `suggestions/`, no photos). Each is emailed the same way.
+  DrawFight's `tools/intake/pull_submissions.sh` copies all three down.
 - It is also emailed through Resend (DigitalOcean blocks outgoing SMTP). The key, and the
   address to send to, live only on the droplet, in `/etc/ecec/intake.env`:
 
