@@ -1,0 +1,2534 @@
+/* Wizard Wars: the page is an open cartoon spellbook on a night sky. Everything is scoped
+   under .ww. Chunky ink outlines and hard drop shadows, as in the game's art. */
+
+.ww {
+  --ink: #2a1a12;
+  --page: #f7e8c3;
+  --page-deep: #e6cf98;
+  --cover: #a3122b;
+  --cover-deep: #6e0a1b;
+  --gold: #f6bd16;
+  --gold-deep: #a87400;
+  --cream: #fbf0d4;
+  --title-red: #e0213f;
+  --fire: #e8352b;
+  --fire-hi: #ffb21e;
+  --frost: #2c6ee6;
+  --frost-hi: #bfe6ff;
+  --earth: #8a5527;
+  --earth-hi: #d7a46a;
+  --electricity: #8b46d8;
+  --electricity-hi: #ffe14d;
+  --team-green: #2f9e44;
+  --team-pink: #e04d9c;
+  --display: 'Luckiest Guy', 'Arial Black', Impact, sans-serif;
+  --body: 'Alegreya', Georgia, 'Times New Roman', serif;
+  --fancy: 'Cinzel Decorative', Georgia, serif;
+  --runic: 'Noto Sans Runic', 'Segoe UI Historic', sans-serif;
+
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.5;
+  background-color: #1b1240;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 72% 8%, #fffa 50%, transparent 51%),
+    radial-gradient(2px 2px at 88% 42%, #ffe9a088 50%, transparent 51%),
+    radial-gradient(1px 1px at 33% 64%, #fff9 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 56% 86%, #fff7 50%, transparent 51%),
+    radial-gradient(1px 1px at 6% 92%, #fffa 50%, transparent 51%),
+    linear-gradient(180deg, #160f38 0%, #2a1858 40%, #3a1f63 70%, #24154a 100%);
+  background-size:
+    320px 300px,
+    260px 340px,
+    410px 380px,
+    300px 280px,
+    360px 420px,
+    280px 260px,
+    100% 100%;
+  overflow-x: clip;
+}
+
+.ww *,
+.ww *::before,
+.ww *::after {
+  box-sizing: border-box;
+}
+
+.ww :focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--gold);
+}
+
+.ww-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ww-skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 20;
+  padding: 8px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ww-skip:focus {
+  top: 12px;
+}
+
+/* ---------- Top bar ---------- */
+
+.ww-topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 16px;
+}
+
+.ww-toplink {
+  color: var(--cream);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.ww-toplink:hover {
+  border-bottom-color: var(--gold);
+}
+
+main#ww-main {
+  padding: 0 16px 40px;
+}
+
+/* ---------- The book ---------- */
+
+.ww-book {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 30% 20%, #c7223f 0%, transparent 60%),
+    linear-gradient(160deg, var(--cover), var(--cover-deep));
+  box-shadow:
+    inset 0 0 0 3px #e9b44c55,
+    8px 10px 0 rgb(0 0 0 / 0.45);
+}
+
+.ww-spread {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--page);
+  box-shadow:
+    0 3px 0 #efdcae,
+    0 5px 0 var(--ink),
+    0 8px 0 #e3cb92,
+    0 10px 0 var(--ink);
+}
+
+.ww-page {
+  position: relative;
+  min-width: 0;
+  padding: 22px 18px;
+  background:
+    radial-gradient(circle at 20% 15%, #fff6dc 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, #ecd59f66 0%, transparent 40%), var(--page);
+}
+
+.ww-page + .ww-page {
+  border-top: 2px dashed #c9ab6c;
+}
+
+@media (min-width: 860px) {
+  .ww-spread {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ww-spread--single {
+    grid-template-columns: 1fr;
+  }
+
+  .ww-page {
+    padding: 34px 40px;
+  }
+
+  .ww-page + .ww-page {
+    border-top: 0;
+  }
+
+  .ww-page--left {
+    border-radius: 6px 0 0 6px;
+    background:
+      radial-gradient(circle at 20% 15%, #fff6dc 0%, transparent 45%),
+      linear-gradient(90deg, var(--page) 78%, var(--page-deep) 100%);
+  }
+
+  .ww-page--right {
+    border-radius: 0 6px 6px 0;
+    background:
+      radial-gradient(circle at 80% 15%, #fff6dc 0%, transparent 45%),
+      linear-gradient(270deg, var(--page) 78%, var(--page-deep) 100%);
+  }
+
+  /* The gutter: a soft fold down the middle of every two-page spread. */
+  .ww-spread:not(.ww-spread--single)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 2px);
+    width: 4px;
+    background: linear-gradient(90deg, #00000010, #0000003a, #00000010);
+    pointer-events: none;
+  }
+}
+
+/* Bookmark ribbons hanging out of the bottom of a book. */
+.ww-deco-ribbon {
+  position: absolute;
+  bottom: -54px;
+  width: 26px;
+  height: 70px;
+  border: 3px solid var(--ink);
+  border-top: 0;
+  background: var(--el, var(--gold));
+  clip-path: polygon(-10% 0, 110% 0, 110% 100%, 50% 78%, -10% 100%);
+  z-index: 0;
+}
+
+.ww-deco-ribbon[data-side='left'] {
+  left: 22%;
+}
+
+.ww-deco-ribbon[data-side='right'] {
+  left: 26%;
+  height: 56px;
+  bottom: -40px;
+}
+
+[data-el='fire'] {
+  --el: var(--fire);
+  --el-hi: var(--fire-hi);
+  --el-tint: #fde0cf;
+}
+
+[data-el='frost'] {
+  --el: var(--frost);
+  --el-hi: var(--frost-hi);
+  --el-tint: #dcebff;
+}
+
+[data-el='earth'] {
+  --el: var(--earth);
+  --el-hi: var(--earth-hi);
+  --el-tint: #f0dcc0;
+}
+
+[data-el='electricity'] {
+  --el: var(--electricity);
+  --el-hi: var(--electricity-hi);
+  --el-tint: #eadcfb;
+}
+
+/* ---------- Hero ---------- */
+
+.ww-hero {
+  padding: 8px 0 40px;
+}
+
+.ww-book--hero {
+  margin-bottom: 0;
+}
+
+.ww-spread--hero .ww-page--left {
+  text-align: center;
+}
+
+.ww-runes {
+  margin: 0 0 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--runic);
+  font-size: 18px;
+  letter-spacing: 0.15em;
+  color: #2a1a1255;
+}
+
+.ww-runes--foot {
+  margin: 14px 0 0;
+}
+
+.ww-kicker {
+  margin: 4px 0 0;
+  font-family: var(--fancy);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  color: var(--cover);
+}
+
+.ww-title {
+  margin: 4px 0 8px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(58px, 17vw, 112px);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--title-red);
+  -webkit-text-stroke: 0.07em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.05em 0.07em 0 var(--ink);
+}
+
+.ww-title span {
+  display: inline-block;
+}
+
+.ww-title span:first-child {
+  transform: rotate(-4deg);
+}
+
+.ww-title span:last-child {
+  transform: rotate(3deg) translateY(4px);
+}
+
+.ww-tagline {
+  max-width: 30em;
+  margin: 10px auto 14px;
+  font-size: 19px;
+}
+
+.ww-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ww-facts li {
+  padding: 3px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--cream);
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.ww-spread--hero .ww-page--right {
+  display: grid;
+  place-items: center;
+  padding-bottom: 70px;
+}
+
+.ww-cluster {
+  position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 1 / 0.88;
+}
+
+.ww-cluster-art {
+  position: absolute;
+  width: 54%;
+  height: auto;
+  filter: drop-shadow(4px 5px 0 rgb(42 26 18 / 0.35));
+  animation: ww-bob 3.2s ease-in-out infinite;
+}
+
+.ww-cluster-art[data-el='fire'] {
+  left: 23%;
+  top: 0;
+  z-index: 1;
+}
+
+.ww-cluster-art[data-el='frost'] {
+  right: -4%;
+  top: 26%;
+  z-index: 2;
+  animation-delay: -0.8s;
+}
+
+.ww-cluster-art[data-el='electricity'] {
+  left: -4%;
+  top: 24%;
+  z-index: 2;
+  animation-delay: -1.6s;
+}
+
+.ww-cluster-art[data-el='earth'] {
+  left: 24%;
+  top: 44%;
+  z-index: 3;
+  animation-delay: -2.4s;
+}
+
+@keyframes ww-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* The crystal-ball START, as on the title screen: the download button. */
+.ww-orb-wrap {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -74px;
+}
+
+.ww-orb {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 176px;
+  aspect-ratio: 1;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, #fff 0 7%, transparent 8%),
+    radial-gradient(ellipse 30% 14% at 62% 82%, #ffffff8c 0 60%, transparent 62%),
+    radial-gradient(circle at 40% 35%, #e9f8ff 0%, #a9dcf5 45%, #6fb5e0 80%, #4d93c4 100%);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow:
+    6px 8px 0 rgb(0 0 0 / 0.4),
+    inset -8px -12px 0 rgb(0 40 80 / 0.12);
+  transition: transform 0.15s ease;
+  animation: ww-orb-glow 2.4s ease-in-out infinite;
+}
+
+.ww-orb:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.ww-orb:active {
+  transform: scale(0.97);
+}
+
+.ww-orb-start {
+  font-family: var(--display);
+  font-size: 46px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #e8225a;
+  -webkit-text-stroke: 0.08em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.04em 0.06em 0 var(--ink);
+  transform: rotate(-8deg);
+}
+
+.ww-orb-sub {
+  margin-top: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #ffffffb0;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+@keyframes ww-orb-glow {
+  0%,
+  100% {
+    box-shadow:
+      6px 8px 0 rgb(0 0 0 / 0.4),
+      inset -8px -12px 0 rgb(0 40 80 / 0.12),
+      0 0 0 0 #9fe3ff00;
+  }
+  50% {
+    box-shadow:
+      6px 8px 0 rgb(0 0 0 / 0.4),
+      inset -8px -12px 0 rgb(0 40 80 / 0.12),
+      0 0 28px 6px #9fe3ffaa;
+  }
+}
+
+.ww-version {
+  min-height: 1.5em;
+  margin: 14px 0 0;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: #00000040;
+  color: var(--cream);
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (min-width: 860px) {
+  .ww-hero {
+    padding: 16px 0 60px;
+  }
+
+  .ww-spread--hero .ww-page--left {
+    text-align: left;
+    padding-bottom: 60px;
+  }
+
+  .ww-spread--hero .ww-tagline {
+    margin-left: 0;
+  }
+
+  .ww-spread--hero .ww-facts {
+    justify-content: flex-start;
+  }
+
+  .ww-spread--hero .ww-page--right {
+    padding-bottom: 60px;
+  }
+
+  .ww-orb-wrap {
+    margin-top: -120px;
+  }
+
+  .ww-orb {
+    width: 210px;
+  }
+
+  .ww-orb-start {
+    font-size: 56px;
+  }
+}
+
+/* ---------- Chapters ---------- */
+
+.ww-chapter {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 44px 0 20px;
+}
+
+.ww-chapter-head {
+  max-width: 44em;
+  margin: 0 auto 26px;
+  text-align: center;
+  color: var(--cream);
+}
+
+.ww-chapter-n {
+  margin: 0;
+  font-family: var(--fancy);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+
+.ww-chapter-n::before,
+.ww-chapter-n::after {
+  content: 'ᛟ';
+  margin: 0 10px;
+  font-family: var(--runic);
+  color: #f6bd1699;
+}
+
+.ww-chapter-head h2 {
+  margin: 4px 0 10px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(36px, 9vw, 58px);
+  line-height: 1;
+  color: var(--cream);
+  -webkit-text-stroke: 0.08em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.05em 0.07em 0 var(--title-red);
+}
+
+.ww-chapter-lede {
+  margin: 0;
+  font-size: 18px;
+  color: #efe2c4;
+}
+
+.ww-aside {
+  max-width: 40em;
+  margin: 34px auto 0;
+  text-align: center;
+  font-style: italic;
+  color: #e9dbbd;
+}
+
+.ww-center {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.ww-chip-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.12s ease;
+}
+
+.ww-chip-btn:hover {
+  transform: translate(-1px, -2px);
+}
+
+/* ---------- Chapter I: the spellbook chooser ---------- */
+
+.ww-ribbons {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: -34px 0 -12px;
+}
+
+.ww-ribbon {
+  display: flex;
+  flex: 1 1 0;
+  max-width: 150px;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 4px 24px;
+  border: 0;
+  border-radius: 6px 6px 0 0;
+  background: var(--el);
+  color: #fff;
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  box-shadow: inset 0 0 0 3px var(--ink);
+  text-shadow:
+    1px 1px 0 var(--ink),
+    -1px 1px 0 var(--ink),
+    1px -1px 0 var(--ink),
+    -1px -1px 0 var(--ink);
+  transform: translateY(-10px);
+  transition:
+    transform 0.2s ease,
+    padding 0.2s ease;
+}
+
+.ww-ribbon .ww-glyph {
+  width: 26px;
+  height: 26px;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--cream);
+}
+
+.ww-ribbon:hover {
+  transform: translateY(-4px);
+}
+
+.ww-ribbon[aria-selected='true'] {
+  padding-bottom: 34px;
+  transform: translateY(0);
+}
+
+/* The ribbon is clipped to its notched shape, so focus is shown inside it. */
+.ww-ribbon:focus-visible {
+  outline: 0;
+  box-shadow:
+    inset 0 0 0 3px var(--ink),
+    inset 0 0 0 7px var(--gold);
+}
+
+.ww-ribbon span {
+  overflow-wrap: anywhere;
+}
+
+.ww-spread--chooser {
+  transition: background-color 0.3s;
+}
+
+.ww-spread--chooser .ww-page--left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.ww-portrait {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 170px;
+  aspect-ratio: 1;
+}
+
+.ww-portrait::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--el-hi) 0%, var(--el) 100%);
+  box-shadow: 4px 5px 0 var(--ink);
+}
+
+.ww-portrait-art {
+  position: relative;
+  width: 100%;
+  height: auto;
+  animation:
+    ww-pop-in 0.35s cubic-bezier(0.3, 1.6, 0.5, 1) both,
+    ww-bob 3s ease-in-out 0.4s infinite;
+}
+
+@keyframes ww-pop-in {
+  from {
+    transform: scale(0.6) rotate(-8deg);
+    opacity: 0;
+  }
+}
+
+.ww-wizard-name {
+  margin: 6px 0 2px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.05;
+  color: var(--el);
+  -webkit-text-stroke: 0.07em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.04em 0.06em 0 var(--ink);
+}
+
+.ww-motto {
+  max-width: 26em;
+  margin: 4px 0 16px;
+  font-style: italic;
+}
+
+.ww-page-kicker {
+  margin: 0 0 12px;
+  font-family: var(--fancy);
+  font-size: 16px;
+  text-align: center;
+  color: var(--cover);
+}
+
+.ww-spells {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ww-spell {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 3px 4px 0 var(--ink);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.15s;
+}
+
+.ww-spell:hover {
+  background: var(--el-tint);
+  transform: translate(-1px, -2px);
+  box-shadow: 4px 6px 0 var(--ink);
+}
+
+.ww-spell:active {
+  transform: translate(2px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.ww-pad {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 34px;
+  margin-top: 2px;
+  border: 3px solid var(--ink);
+  border-radius: 12px 12px 8px 8px;
+  background: #3b3f4a;
+  color: #fff;
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.ww-pad--x {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #2b6fe0;
+  font-size: 19px;
+}
+
+.ww-spell-body {
+  display: grid;
+  gap: 2px;
+}
+
+.ww-spell-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  font-family: var(--display);
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--el);
+  -webkit-text-stroke: 0.05em var(--ink);
+  paint-order: stroke fill;
+}
+
+.ww-spell-slot {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #6b5844;
+  -webkit-text-stroke: 0;
+  text-transform: uppercase;
+}
+
+.ww-spell-text {
+  font-size: 15.5px;
+  line-height: 1.35;
+}
+
+.ww-spell--ult {
+  border-color: var(--ink);
+  background:
+    repeating-linear-gradient(135deg, #0000 0 10px, #a8740014 10px 20px), #f3e2b4;
+}
+
+.ww-spell--ult[aria-disabled='true'] .ww-spell-name,
+.ww-spell--ult[aria-disabled='true'] .ww-pad {
+  opacity: 0.6;
+}
+
+.ww-spell--ult[data-ready] {
+  background: linear-gradient(120deg, #ffe48a, #ffd03a 50%, #ffe9a6);
+  animation: ww-ready 1s ease-in-out infinite;
+}
+
+@keyframes ww-ready {
+  50% {
+    box-shadow:
+      3px 4px 0 var(--ink),
+      0 0 0 5px #ffd23f99,
+      0 0 22px 6px #ffcf3a;
+  }
+}
+
+.ww-goldbar-wrap {
+  margin-top: 16px;
+}
+
+.ww-goldbar-label {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--display);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--gold-deep);
+}
+
+.ww-goldbar {
+  height: 22px;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #3a2a18;
+  box-shadow: 2px 3px 0 var(--ink);
+}
+
+.ww-goldbar span {
+  display: block;
+  height: 100%;
+  background:
+    linear-gradient(180deg, #fff3b0 0 30%, transparent 31%),
+    linear-gradient(90deg, #e09c00, var(--gold) 60%, #ffe066);
+  transition: width 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.ww-goldbar[data-full] span {
+  animation: ww-shimmer 0.9s linear infinite;
+  background-size:
+    100% 100%,
+    200% 100%;
+}
+
+@keyframes ww-shimmer {
+  to {
+    background-position:
+      0 0,
+      -200% 0;
+  }
+}
+
+.ww-hint {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+  font-style: italic;
+  color: #5c4a36;
+}
+
+/* ---------- The practice floor ---------- */
+
+.ww-arena-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.ww-arena {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 4px 5px 0 var(--ink);
+  container-type: inline-size;
+}
+
+/* Each wizard practises on a stage of their own element. */
+.ww-arena[data-stage='earth'] {
+  background:
+    linear-gradient(62deg, transparent 38%, #e2c27c 38.5% 46%, transparent 46.5%),
+    radial-gradient(ellipse at 90% 90%, #2f8a3a 0 30%, transparent 31%),
+    radial-gradient(ellipse at 5% 10%, #3c9b42 0 22%, transparent 23%), #58b84a;
+}
+
+.ww-arena[data-stage='frost'] {
+  background:
+    radial-gradient(ellipse at 20% 30%, #ffffff 0 18%, transparent 19%),
+    radial-gradient(ellipse at 75% 75%, #f4fbff 0 22%, transparent 23%), #d3e9fb;
+}
+
+.ww-arena[data-stage='fire'] {
+  background:
+    repeating-radial-gradient(ellipse at 50% 120%, #0000 0 22px, #c97a3a33 23px 25px),
+    #eba760;
+}
+
+.ww-arena[data-stage='electricity'] {
+  background:
+    repeating-linear-gradient(35deg, #0000 0 38px, #4b4268 39px 41px),
+    repeating-linear-gradient(-55deg, #0000 0 46px, #4b4268 47px 49px), #6c6190;
+}
+
+.ww-caster {
+  position: absolute;
+  left: 18%;
+  top: 60%;
+  width: 17%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(2px 3px 0 rgb(0 0 0 / 0.3));
+  z-index: 2;
+}
+
+.ww-caster[data-speed] {
+  animation: ww-dash 0.9s ease-in-out;
+}
+
+@keyframes ww-dash {
+  40% {
+    transform: translate(60%, -50%) skewX(-12deg);
+  }
+  70% {
+    transform: translate(-80%, -50%) skewX(10deg);
+  }
+}
+
+.ww-arena[data-ult='buildup'] .ww-caster {
+  filter: drop-shadow(0 0 6px var(--el)) drop-shadow(0 0 14px var(--el-hi));
+  animation: ww-shake 0.12s linear infinite;
+}
+
+.ww-dummy {
+  position: absolute;
+  width: 8%;
+  height: auto;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 95%;
+  z-index: 1;
+}
+
+.ww-dummy[data-n='0'] {
+  left: 78%;
+  top: 60%;
+  width: 9%;
+}
+
+.ww-dummy[data-n='1'] {
+  left: 62%;
+  top: 28%;
+}
+
+.ww-dummy[data-n='2'] {
+  left: 88%;
+  top: 24%;
+}
+
+.ww-dummy[data-hit] {
+  animation: ww-wobble 0.55s ease-out var(--hit-delay, 0.3s) both;
+}
+
+@keyframes ww-wobble {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+    filter: none;
+  }
+  15% {
+    transform: translate(-50%, -50%) rotate(14deg);
+    filter: brightness(1.2) sepia(1) saturate(6) hue-rotate(-30deg);
+  }
+  40% {
+    transform: translate(-50%, -50%) rotate(-9deg);
+  }
+  70% {
+    transform: translate(-50%, -50%) rotate(4deg);
+    filter: none;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+}
+
+@keyframes ww-shake {
+  25% {
+    translate: 1px -1px;
+  }
+  75% {
+    translate: -1px 1px;
+  }
+}
+
+/* ---------- Spell effects. Each element's resting style is where it lands, so with
+   reduced motion the effect simply appears; the animation is the flight there. ---------- */
+
+.ww-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.ww-fx > *,
+.ww-fx .ww-flame,
+.ww-fx .ww-spark,
+.ww-fx .ww-bubble {
+  position: absolute;
+}
+
+.ww-fx * {
+  animation-fill-mode: both;
+}
+
+/* Bolts: fireball, icicle, mudball, electricity ball. */
+.ww-bolt {
+  left: 76%;
+  top: 52%;
+  width: 4.6%;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ww-fly 0.42s ease-in;
+}
+
+@keyframes ww-fly {
+  from {
+    left: 24%;
+  }
+  95% {
+    opacity: 1;
+  }
+  to {
+    left: 76%;
+    opacity: 0;
+  }
+}
+
+.ww-fx[data-el='fire'] .ww-bolt {
+  background: radial-gradient(
+    circle at 60% 40%,
+    #fff6a0 0 20%,
+    #ffb21e 45%,
+    #e8352b 100%
+  );
+  box-shadow:
+    -14px 0 0 -4px #ffb21eaa,
+    -26px 0 0 -8px #e8352b77;
+}
+
+.ww-fx[data-el='frost'] .ww-bolt {
+  width: 7%;
+  aspect-ratio: 3 / 1;
+  border-radius: 0;
+  border: 0;
+  background: linear-gradient(180deg, #ffffff, #8fd3ff 60%, #3b8bd9);
+  clip-path: polygon(0 50%, 30% 0, 100% 50%, 30% 100%);
+  filter: drop-shadow(0 0 1px var(--ink)) drop-shadow(0 0 1px var(--ink));
+}
+
+.ww-fx[data-el='earth'] .ww-bolt {
+  width: 5.4%;
+  background: radial-gradient(circle at 35% 35%, #a77445 0 25%, #6b4423 70%, #4a2d16);
+  box-shadow: -10px 4px 0 -6px #6b4423;
+}
+
+.ww-fx[data-el='electricity'] .ww-bolt {
+  background: radial-gradient(circle, #fffbe0 0 25%, #ffe14d 45%, #8b46d8 100%);
+  box-shadow:
+    0 0 10px 3px #ffe14d,
+    -12px 0 0 -5px #c79bff;
+  animation:
+    ww-fly 0.42s ease-in,
+    ww-jitter 0.06s steps(2) infinite;
+}
+
+@keyframes ww-jitter {
+  50% {
+    margin-top: 3px;
+  }
+}
+
+.ww-impact {
+  left: 77%;
+  top: 52%;
+  width: 11%;
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    #fff 0 18%,
+    var(--el-hi) 40%,
+    var(--el) 70%,
+    transparent 72%
+  );
+  clip-path: polygon(
+    50% 0,
+    61% 33%,
+    96% 25%,
+    70% 52%,
+    94% 80%,
+    58% 68%,
+    50% 100%,
+    40% 68%,
+    6% 80%,
+    30% 52%,
+    4% 25%,
+    39% 33%
+  );
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  animation: ww-burst 0.45s ease-out 0.4s;
+}
+
+.ww-impact--big {
+  top: 58%;
+  width: 22%;
+  animation-delay: 0.6s;
+  background: radial-gradient(
+    circle,
+    #fff6a0 0 18%,
+    #ffb21e 40%,
+    #e8352b 68%,
+    transparent 70%
+  );
+}
+
+@keyframes ww-burst {
+  from {
+    transform: translate(-50%, -50%) scale(0.2) rotate(0);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.3) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+/* Flames: Ring of Fire, and the fire Meteor Strike leaves behind. */
+.ww-ring {
+  inset: 0;
+  --cx: 78%;
+  --cy: 62%;
+  --rx: 13%;
+  --ry: 22%;
+  --n: 12;
+}
+
+.ww-ring--small {
+  --rx: 7%;
+  --ry: 12%;
+  --n: 5;
+  --cy: 64%;
+}
+
+.ww-flame {
+  left: calc(var(--cx) + var(--rx) * cos(var(--i) * 360deg / var(--n)));
+  top: calc(var(--cy) + var(--ry) * sin(var(--i) * 360deg / var(--n)));
+  width: 3.2%;
+  aspect-ratio: 2 / 3;
+  border: 2px solid var(--ink);
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  background: linear-gradient(180deg, #fff36b, #ffb21e 45%, #e8352b);
+  transform: translate(-50%, -100%);
+  transform-origin: 50% 100%;
+  animation:
+    ww-flame-up 0.25s ease-out calc(var(--i) * 25ms + 0.15s),
+    ww-flicker 0.3s ease-in-out calc(var(--i) * 25ms + 0.4s) infinite alternate;
+}
+
+.ww-ring--small .ww-flame {
+  animation-delay: calc(var(--i) * 40ms + 0.7s), calc(var(--i) * 40ms + 0.95s);
+}
+
+@keyframes ww-flame-up {
+  from {
+    transform: translate(-50%, -100%) scaleY(0);
+  }
+}
+
+@keyframes ww-flicker {
+  to {
+    transform: translate(-50%, -100%) scale(0.9, 1.12) skewX(-6deg);
+  }
+}
+
+/* Flamethrower: a stream of puffs from the staff to the dummy. */
+.ww-puff {
+  left: 74%;
+  top: 56%;
+  width: 6%;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff36b 0 25%, #ffb21e 55%, #e8352b);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: ww-puff 0.55s ease-out calc(var(--i) * 70ms);
+}
+
+@keyframes ww-puff {
+  from {
+    left: 25%;
+    top: 54%;
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  to {
+    left: 76%;
+    top: calc(52% + (var(--i) - 6) * 1%);
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Meteor Strike: one rock falls out of the sky. */
+.ww-meteor {
+  left: 78%;
+  top: 58%;
+  width: 8%;
+  aspect-ratio: 1;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffb21e 0 15%, #b5452b 40%, #5a2416);
+  transform: translate(-50%, -50%);
+  box-shadow:
+    14px -14px 0 -4px #ffb21ecc,
+    26px -26px 0 -10px #e8352b99;
+  opacity: 0;
+  animation: ww-fall 0.6s ease-in;
+}
+
+@keyframes ww-fall {
+  from {
+    left: 104%;
+    top: -20%;
+    opacity: 1;
+  }
+  96% {
+    opacity: 1;
+  }
+  to {
+    left: 78%;
+    top: 58%;
+    opacity: 0;
+  }
+}
+
+/* Patches: Ice Patch and Mud Patch spread out under the dummy. */
+.ww-patch {
+  left: 78%;
+  top: 72%;
+  width: 30%;
+  aspect-ratio: 2.3 / 1;
+  border: 3px solid var(--ink);
+  border-radius: 58% 42% 55% 45% / 52% 60% 40% 48%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  animation: ww-spread 0.35s cubic-bezier(0.3, 1.5, 0.5, 1) 0.15s;
+}
+
+.ww-fx--ice-patch,
+.ww-fx--mud-patch {
+  z-index: 0;
+}
+
+.ww-patch--ice {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      #ffffffcc 31% 34%,
+      transparent 35% 52%,
+      #ffffff99 53% 55%,
+      transparent 56%
+    ),
+    #4fb3f5;
+}
+
+.ww-patch--mud {
+  background:
+    radial-gradient(circle at 30% 40%, #8a5a33 0 10%, transparent 11%),
+    radial-gradient(circle at 66% 62%, #8a5a33 0 8%, transparent 9%), #5d3518;
+}
+
+@keyframes ww-spread {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+.ww-bubble {
+  left: calc(22% + var(--i) * 18%);
+  top: calc(30% + (var(--i) * 17%) - (var(--i) * var(--i) * 5%));
+  width: 8%;
+  aspect-ratio: 1;
+  border: 2px solid #2a1a12aa;
+  border-radius: 50%;
+  background: #7a4b27;
+  animation: ww-bubble 0.6s ease-out calc(0.4s + var(--i) * 0.25s) infinite;
+}
+
+@keyframes ww-bubble {
+  from {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Ice Wave: a fan of frost sweeping out, and the dummy frozen in a block. */
+.ww-wave {
+  left: 22%;
+  top: 22%;
+  width: 60%;
+  height: 72%;
+  background: linear-gradient(90deg, #ffffffee, #9fd8ff99 70%, #bfe6ff00);
+  clip-path: polygon(0 48%, 100% 0, 100% 100%, 0 52%);
+  opacity: 0;
+  animation: ww-sweep 0.5s ease-out;
+}
+
+@keyframes ww-sweep {
+  from {
+    width: 0;
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  to {
+    width: 60%;
+    opacity: 0;
+  }
+}
+
+.ww-iceblock {
+  left: 78%;
+  top: 56%;
+  width: 12%;
+  height: 40%;
+  border: 3px solid #1d4f7c;
+  border-radius: 6px;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 18%,
+      #ffffffcc 19% 26%,
+      transparent 27% 58%,
+      #ffffff88 59% 63%,
+      transparent 64%
+    ),
+    #a9defbaa;
+  transform: translate(-50%, -50%);
+  animation: ww-freeze 0.25s cubic-bezier(0.3, 1.6, 0.5, 1) 0.42s;
+}
+
+.ww-iceblock--late {
+  animation-delay: 0.8s;
+}
+
+@keyframes ww-freeze {
+  from {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Deep Freeze: frost gathers on the target first. */
+.ww-gather {
+  inset: 0;
+}
+
+.ww-spark {
+  left: 78%;
+  top: 56%;
+  width: 2.4%;
+  aspect-ratio: 1;
+  background: #fff;
+  clip-path: polygon(
+    50% 0,
+    62% 38%,
+    100% 50%,
+    62% 62%,
+    50% 100%,
+    38% 62%,
+    0 50%,
+    38% 38%
+  );
+  filter: drop-shadow(0 0 2px #3b8bd9);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: ww-gather 0.75s ease-in;
+}
+
+@keyframes ww-gather {
+  from {
+    transform: translate(-50%, -50%) rotate(calc(var(--i) * 45deg)) translateY(-500%)
+      rotate(calc(var(--i) * -45deg));
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+/* Rock Wall: a slab of stone shoulders up out of the ground. */
+.ww-wall {
+  left: 49%;
+  top: 60%;
+  width: 9%;
+  height: 46%;
+  border: 3px solid var(--ink);
+  border-radius: 40% 46% 10% 10% / 22% 26% 6% 6%;
+  background:
+    linear-gradient(100deg, #0000 40%, #00000026 41% 43%, #0000 44%),
+    linear-gradient(10deg, #0000 55%, #00000022 56% 58%, #0000 59%),
+    linear-gradient(180deg, #b07a4c, #8a5527 60%, #6b3f1c);
+  box-shadow: 4px 4px 0 #00000040;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 100%;
+  animation: ww-rise 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) 0.1s;
+}
+
+@keyframes ww-rise {
+  from {
+    transform: translate(-50%, -50%) scaleY(0);
+  }
+}
+
+/* Tremor: shock rings and cracks around the stamping caster. */
+.ww-shock {
+  left: 18%;
+  top: 68%;
+  width: 90%;
+  aspect-ratio: 2.4 / 1;
+  border: 4px solid #6b3f1c;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  animation: ww-shock 0.7s ease-out calc(var(--i) * 0.15s);
+}
+
+@keyframes ww-shock {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+.ww-cracks {
+  left: 18%;
+  top: 68%;
+  width: 46%;
+  height: 46%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+}
+
+.ww-cracks path {
+  fill: none;
+  stroke: #3b2412;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 160;
+  stroke-dashoffset: 0;
+  animation: ww-draw 0.35s ease-out;
+}
+
+@keyframes ww-draw {
+  from {
+    stroke-dashoffset: 160;
+  }
+}
+
+/* Lightning Rod: a rod planted by the dummy that zaps on a beat. */
+.ww-rod {
+  left: 68%;
+  top: 52%;
+  width: 1.6%;
+  height: 30%;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: linear-gradient(90deg, #6e5a3a, #a08560);
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 100%;
+  animation: ww-rise 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.ww-rod::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -14%;
+  width: 260%;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 20%, #c79bff 50%, #8b46d8);
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px 3px #ffe14d;
+}
+
+.ww-zapring {
+  left: 68%;
+  top: 66%;
+  width: 34%;
+  aspect-ratio: 2.4 / 1;
+  border: 3px dashed #ffe14d;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: ww-zap 0.5s ease-out calc(0.25s + var(--i) * 0.5s);
+}
+
+@keyframes ww-zap {
+  from {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Speed Up: streaks behind the dashing caster. */
+.ww-streak {
+  left: 4%;
+  top: calc(46% + var(--i) * 6%);
+  width: 30%;
+  height: 1.4%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffe14d00, #ffe14d);
+  opacity: 0;
+  animation: ww-streak 0.5s ease-out calc(var(--i) * 0.08s) 2;
+}
+
+@keyframes ww-streak {
+  from {
+    transform: translateX(-30%) scaleX(0.3);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(60%) scaleX(1);
+    opacity: 0;
+  }
+}
+
+/* Chain Lightning: one jagged bolt hopping dummy to dummy. */
+.ww-chain {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ww-chain polyline {
+  fill: none;
+  stroke: #ffe14d;
+  stroke-width: 1.1;
+  stroke-linejoin: bevel;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 0.4px var(--ink)) drop-shadow(0 0 1.2px #8b46d8);
+  opacity: 0;
+  animation: ww-chain 0.8s ease-out;
+}
+
+@keyframes ww-chain {
+  from {
+    stroke-dashoffset: 200;
+    opacity: 1;
+  }
+  35% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.3;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+/* The words that float up: damage and status. */
+.ww-pop {
+  left: 78%;
+  top: 22%;
+  font-family: var(--display);
+  font-size: clamp(15px, 4.4cqw, 30px);
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff;
+  -webkit-text-stroke: 0.14em var(--ink);
+  paint-order: stroke fill;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: ww-pop 1.3s ease-out 0.4s;
+  z-index: 4;
+}
+
+.ww-pop--caster {
+  left: 22%;
+  top: 22%;
+}
+
+.ww-pop--wall {
+  left: 49%;
+  top: 18%;
+}
+
+.ww-fx--meteor .ww-pop,
+.ww-fx--deep-freeze .ww-pop {
+  animation-delay: 0.75s;
+}
+
+@keyframes ww-pop {
+  from {
+    transform: translate(-50%, 0) scale(0.4);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -110%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* The ultimate's build-up: the floor darkens and its name pops up, as in the game. */
+.ww-buildup {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    circle at 18% 60%,
+    color-mix(in srgb, var(--el) 50%, transparent),
+    #000a 60%
+  );
+  animation: ww-fade-in 0.3s ease-out both;
+}
+
+.ww-buildup span {
+  font-family: var(--display);
+  font-size: clamp(26px, 9cqw, 64px);
+  color: var(--el-hi);
+  -webkit-text-stroke: 0.1em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.05em 0.07em 0 var(--ink);
+  animation: ww-name 1.2s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+
+@keyframes ww-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ww-name {
+  from {
+    transform: scale(0.2) rotate(-10deg);
+  }
+  30% {
+    transform: scale(1.1) rotate(-4deg);
+  }
+  to {
+    transform: scale(1) rotate(-4deg);
+  }
+}
+
+.ww-ult-clip {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: #000;
+}
+
+.ww-ult-clip video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ww-ult-clip .ww-chip-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+/* ---------- Chapter II: moving pictures ---------- */
+
+.ww-plates {
+  display: grid;
+  gap: 28px;
+}
+
+@media (min-width: 860px) {
+  .ww-plates {
+    grid-template-columns: 1fr 1fr;
+    gap: 34px 30px;
+  }
+
+  .ww-plate:first-child {
+    grid-column: 1 / -1;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+}
+
+.ww-plate {
+  margin: 0;
+  padding: 12px 12px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  background: var(--page);
+  box-shadow: 7px 8px 0 rgb(0 0 0 / 0.45);
+}
+
+.ww-plate[data-tilt='0'] {
+  transform: rotate(-0.6deg);
+}
+
+.ww-plate[data-tilt='1'] {
+  transform: rotate(0.9deg);
+}
+
+.ww-plate[data-tilt='2'] {
+  transform: rotate(-1deg);
+}
+
+.ww-plate-frame {
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  outline: 3px solid var(--gold);
+  outline-offset: -9px;
+  background: #000;
+}
+
+.ww-plate-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 6px solid var(--gold);
+  pointer-events: none;
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.ww-plate figcaption {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.ww-plate figcaption strong {
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  color: var(--cover);
+}
+
+/* ---------- Chapter III: the party ---------- */
+
+.ww-party {
+  display: grid;
+  gap: 18px;
+}
+
+.ww-mode {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.ww-mode-btn {
+  padding: 8px 18px;
+  border: 3px solid var(--ink);
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.ww-mode-btn:first-child {
+  border-radius: 999px 0 0 999px;
+  border-right-width: 1.5px;
+}
+
+.ww-mode-btn:last-child {
+  border-radius: 0 999px 999px 0;
+  border-left-width: 1.5px;
+}
+
+.ww-mode-btn[aria-pressed='true'] {
+  background: var(--gold);
+  box-shadow: inset 0 -4px 0 #00000026;
+}
+
+.ww-seats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 860px) {
+  .ww-seats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+.ww-seat {
+  position: relative;
+  display: flex;
+  min-height: 236px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 8px 10px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  background: var(--el-tint, #efe0bb);
+  box-shadow: 4px 5px 0 var(--ink);
+  text-align: center;
+}
+
+.ww-seat:not([data-el]) {
+  border-style: dashed;
+  box-shadow: none;
+  background: #f1e3bf;
+}
+
+.ww-seat[data-team='green'] {
+  box-shadow:
+    0 0 0 5px var(--team-green),
+    4px 5px 0 5px var(--ink);
+}
+
+.ww-seat[data-team='pink'] {
+  box-shadow:
+    0 0 0 5px var(--team-pink),
+    4px 5px 0 5px var(--ink);
+}
+
+.ww-seat-tag {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  padding: 0 10px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--display);
+  font-size: 15px;
+  transform: translateX(-50%);
+}
+
+.ww-join {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  background: none;
+  color: #6b5844;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ww-join-start {
+  padding: 6px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  color: #e8225a;
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 400;
+  animation: ww-blink 1.4s ease-in-out infinite;
+}
+
+.ww-join:hover .ww-join-start {
+  background: var(--gold);
+}
+
+@keyframes ww-blink {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.ww-seat-art {
+  width: 110px;
+  height: auto;
+  animation: ww-pop-in 0.3s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+
+.ww-seat-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 2px 0 0;
+  font-family: var(--display);
+  font-size: 16px;
+  line-height: 1.1;
+  color: var(--el);
+  -webkit-text-stroke: 0.06em var(--ink);
+  paint-order: stroke fill;
+}
+
+.ww-seat-name .ww-glyph {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+.ww-seat-team {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ww-seat-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.ww-seat-btn {
+  width: 38px;
+  height: 34px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.ww-seat-btn:hover {
+  background: var(--gold);
+}
+
+.ww-seat-btn--leave {
+  color: var(--cover);
+}
+
+.ww-party-summary {
+  min-height: 3em;
+  margin: 0;
+  font-size: 18px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ---------- Chapter IV: stages ---------- */
+
+.ww-stages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ww-stage {
+  position: relative;
+  padding: 16px 16px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  color: var(--ink);
+  box-shadow: 5px 6px 0 rgb(0 0 0 / 0.45);
+}
+
+.ww-stage h3 {
+  margin: 0 0 6px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 24px;
+  color: #fff;
+  -webkit-text-stroke: 0.1em var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0.04em 0.06em 0 var(--ink);
+}
+
+.ww-stage p {
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #fffbeedd;
+  font-size: 15.5px;
+}
+
+.ww-stage p + p {
+  margin-top: 6px;
+}
+
+.ww-stage-label {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cover);
+}
+
+.ww-stage[data-tone='woodland'] {
+  background:
+    linear-gradient(62deg, transparent 50%, #e2c27c 50.5% 58%, transparent 58.5%), #58b84a;
+}
+
+.ww-stage[data-tone='tundra'] {
+  background: radial-gradient(ellipse at 80% 20%, #fff 0 25%, transparent 26%), #cde6fa;
+}
+
+.ww-stage[data-tone='canyon'] {
+  background:
+    repeating-radial-gradient(ellipse at 50% 130%, #0000 0 18px, #c97a3a40 19px 21px),
+    #eba760;
+}
+
+.ww-stage[data-tone='plateau'] {
+  background: repeating-linear-gradient(35deg, #0000 0 30px, #4b4268 31px 33px), #6c6190;
+}
+
+.ww-stage[data-tone='volcano'] {
+  background:
+    linear-gradient(90deg, transparent 72%, #ff8a1e 72% 80%, transparent 80%), #4a3a33;
+}
+
+.ww-stage[data-tone='swamp'] {
+  background:
+    radial-gradient(ellipse at 82% 30%, #3e5a3a 0 18%, transparent 19%),
+    radial-gradient(ellipse at 70% 80%, #3e5a3a 0 14%, transparent 15%), #6f8f4e;
+}
+
+/* ---------- Illustrations ---------- */
+
+.ww-shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 860px) {
+  .ww-shots {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+.ww-shots li:first-child {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 860px) {
+  .ww-shots li:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+.ww-shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  background: var(--cream);
+  cursor: zoom-in;
+  box-shadow: 5px 6px 0 rgb(0 0 0 / 0.45);
+  transition: transform 0.15s ease;
+}
+
+.ww-shot:hover {
+  transform: rotate(-1deg) scale(1.02);
+}
+
+.ww-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+}
+
+/* ---------- About + controls ---------- */
+
+.ww-prose p {
+  margin: 0 0 12px;
+}
+
+.ww-dropcap::first-letter {
+  float: left;
+  margin: 6px 8px 0 0;
+  font-family: var(--fancy);
+  font-size: 58px;
+  line-height: 0.8;
+  color: var(--cover);
+}
+
+.ww-subhead {
+  margin: 18px 0 10px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 0.02em;
+  color: var(--cover);
+}
+
+.ww-page--right > .ww-subhead:first-child {
+  margin-top: 0;
+}
+
+.ww-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ww-tech li {
+  padding: 2px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.ww-table-wrap {
+  overflow-x: auto;
+}
+
+.ww-controls {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.ww-controls th,
+.ww-controls td {
+  padding: 5px 6px;
+  border-bottom: 1.5px dashed #c9ab6c;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.ww-controls thead th {
+  border-bottom: 3px solid var(--ink);
+  font-family: var(--fancy);
+  font-size: 13px;
+  color: var(--cover);
+}
+
+.ww-controls tbody th {
+  font-weight: 400;
+}
+
+.ww-controls kbd {
+  display: inline-block;
+  padding: 0 7px;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background: #fff;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 13.5px;
+  white-space: nowrap;
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+/* ---------- What's new ---------- */
+
+.ww-releases {
+  display: grid;
+  gap: 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.ww-release {
+  padding: 14px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: var(--page);
+  box-shadow: 5px 6px 0 rgb(0 0 0 / 0.45);
+}
+
+.ww-release p {
+  margin: 0;
+}
+
+.ww-release p + p {
+  margin-top: 6px;
+}
+
+.ww-release-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-bottom: 4px !important;
+}
+
+.ww-release-head a {
+  font-family: var(--display);
+  font-size: 22px;
+  color: var(--cover);
+  text-decoration: none;
+}
+
+.ww-release-head a:hover {
+  text-decoration: underline;
+}
+
+.ww-release-head span {
+  font-size: 14px;
+  color: #6b5844;
+}
+
+/* ---------- Finale + footer ---------- */
+
+.ww-finale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0 20px;
+}
+
+.ww-finale-wizards {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ww-finale-wizards span {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  aspect-ratio: 1;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--el);
+  box-shadow: 3px 3px 0 var(--ink);
+  animation: ww-bob 2.6s ease-in-out infinite;
+}
+
+.ww-finale-wizards span:nth-child(2) {
+  animation-delay: -0.6s;
+}
+
+.ww-finale-wizards span:nth-child(3) {
+  animation-delay: -1.2s;
+}
+
+.ww-finale-wizards span:nth-child(4) {
+  animation-delay: -1.8s;
+}
+
+.ww-finale-wizards .ww-glyph {
+  width: 28px;
+  height: 28px;
+}
+
+.ww-big-btn {
+  padding: 14px 30px;
+  border: 4px solid var(--ink);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff4a5f, var(--title-red) 60%, #b5122c);
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(22px, 6vw, 32px);
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-decoration: none;
+  -webkit-text-stroke: 0.06em var(--ink);
+  paint-order: stroke fill;
+  box-shadow: 5px 6px 0 var(--ink);
+  transition: transform 0.12s ease;
+}
+
+.ww-big-btn:hover {
+  transform: translate(-1px, -3px) rotate(-1deg);
+}
+
+.ww-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 26px;
+  padding: 26px 16px 40px;
+  border-top: 2px dashed #f6bd1655;
+  font-weight: 700;
+}
+
+.ww-footer a {
+  color: var(--cream);
+  text-decoration: none;
+  border-bottom: 2px solid #f6bd1688;
+}
+
+.ww-footer a:hover {
+  border-bottom-color: var(--gold);
+}
+
+.ww-glyph {
+  display: block;
+}
+
+/* ---------- Less motion: effects simply appear where they land. ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ww *,
+  .ww *::before,
+  .ww *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ww-pop,
+  .ww-impact,
+  .ww-chain polyline,
+  .ww-zapring {
+    opacity: 1;
+  }
+
+  .ww-pop {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ---------- Fixes for small screens and the plate grid ---------- */
+
+.ww-book:has(.ww-ribbons) {
+  margin-top: 56px;
+}
+
+@media (max-width: 520px) {
+  .ww-ribbons {
+    gap: 4px;
+  }
+
+  .ww-ribbon {
+    padding-inline: 2px;
+    font-size: 11.5px;
+    letter-spacing: 0;
+  }
+
+  .ww-ribbon[aria-selected='true'] {
+    padding-bottom: 30px;
+  }
+
+  .ww-page {
+    padding: 20px 14px;
+  }
+
+  .ww-controls {
+    font-size: 14px;
+  }
+
+  .ww-controls th,
+  .ww-controls td {
+    padding: 5px 3px;
+  }
+
+  .ww-controls kbd {
+    white-space: normal;
+  }
+}
+
+@media (min-width: 860px) {
+  .ww-shots {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ww-shots li:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .ww-shots li:first-child .ww-shot img {
+    aspect-ratio: auto;
+  }
+}
+
+/* Effect tuning after a look at the captures. */
+.ww-fx[data-el='frost'] .ww-bolt {
+  width: 9%;
+}
+
+.ww-rod {
+  width: 2.2%;
+  background: linear-gradient(90deg, #8a7550, #c9b089 50%, #8a7550);
+}
+
+.ww-rod::before {
+  top: auto;
+  bottom: 100%;
+  width: max(16px, 280%);
+  margin-bottom: -4px;
+}
+
+.ww-zapring {
+  border: 4px solid #ffe14d;
+  box-shadow:
+    0 0 0 2px var(--ink),
+    inset 0 0 0 2px var(--ink);
+}
+
+.ww-chain polyline {
+  stroke-width: 1.6;
+  stroke: #fff27a;
+}
