@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Download DrawPets</title>
+    <meta
+      name="description"
+      content="Download DrawPets, a virtual pet you draw part by part, then look after. Free, for Windows and Android, with no ads, no accounts and no AI."
+    />
+
+    <!-- The link preview, for chat apps. -->
+    <meta property="og:title" content="Play DrawPets" />
+    <meta
+      property="og:description"
+      content="Draw a creature part by part, then watch it come alive. Free for Windows and Android."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ecec.dev/drawpets/download" />
+    <meta property="og:site_name" content="ECEC" />
+    <meta property="og:image" content="https://ecec.dev/drawpets/download/title-screen.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta
+      property="og:image:alt"
+      content="A creature a kid drew, cuddling its teddy bear in a sunny meadow by its house."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Play DrawPets" />
+    <meta
+      name="twitter:description"
+      content="Draw a creature part by part, then watch it come alive. Free for Windows and Android."
+    />
+    <meta name="twitter:image" content="https://ecec.dev/drawpets/download/title-screen.jpg" />
+    <meta name="theme-color" content="#f6f1e4" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
+    />
+    <style>
+      /* The game's own paper, ink and marker orange (scripts/ui.gd in eclancy/DrawPets). */
+      :root {
+        --paper: #f6f1e4;
+        --card: #fffdf6;
+        --ink: #3b3566;
+        --soft: #6b6593;
+        --line: #d9cfb8;
+        --accent: #ff8a5c;
+        --accent-edge: #c95f36;
+        --mint: #8fd8c0;
+        --mint-edge: #4f9c84;
+        --pink: #f2557a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+        font-size: 17px;
+        line-height: 1.55;
+        min-height: 100vh;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding-inline: 16px;
+        padding-block: 36px 72px;
+      }
+      h1,
+      h2 {
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      h1 {
+        font-size: clamp(2.2rem, 1.5rem + 3.6vw, 3.4rem);
+        line-height: 1.05;
+        margin: 0 0 12px;
+      }
+      h1 span {
+        color: var(--accent-edge);
+      }
+      h2 {
+        font-size: 1.45rem;
+        margin: 0 0 12px;
+      }
+      .eyebrow {
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--soft);
+        margin: 0 0 8px;
+      }
+      .lede {
+        color: var(--soft);
+        margin: 0 0 22px;
+      }
+      a {
+        color: var(--accent-edge);
+      }
+      .shot {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 4px solid var(--ink);
+        border-radius: 14px;
+        box-shadow: 0 6px 0 var(--line);
+      }
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin: 26px 0 8px;
+      }
+      .big {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px 20px;
+        font-size: clamp(1.15rem, 0.85rem + 1.6vw, 1.45rem);
+        font-weight: 800;
+        color: var(--ink);
+        background: var(--accent);
+        border: 4px solid var(--ink);
+        border-radius: 16px;
+        box-shadow: 0 5px 0 var(--ink);
+        text-decoration: none;
+        transition:
+          transform 80ms ease,
+          box-shadow 80ms ease;
+      }
+      .big.second {
+        background: var(--mint);
+      }
+      .big:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 0 var(--ink);
+      }
+      .big:active {
+        transform: translateY(4px);
+        box-shadow: 0 1px 0 var(--ink);
+      }
+      .big:focus-visible {
+        outline: 3px solid var(--pink);
+        outline-offset: 3px;
+      }
+      .big.soon {
+        background: var(--card);
+        color: var(--soft);
+        border-color: var(--line);
+        box-shadow: none;
+      }
+      .meta {
+        text-align: center;
+        color: var(--soft);
+        font-size: 0.88rem;
+        margin: 4px 0 6px;
+      }
+      .portable {
+        text-align: center;
+        font-size: 0.85rem;
+        margin: 0 0 26px;
+        color: var(--soft);
+      }
+      .card {
+        border: 3px solid var(--ink);
+        border-radius: 16px;
+        background: var(--card);
+        padding: 20px;
+        margin-top: 22px;
+      }
+      ol {
+        margin: 0;
+        padding-left: 1.4em;
+        display: grid;
+        gap: 10px;
+      }
+      li::marker {
+        font-weight: 800;
+        color: var(--accent-edge);
+      }
+      .note {
+        border: 2px solid var(--line);
+        background: var(--paper);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin: 14px 0 0;
+        font-size: 0.94rem;
+      }
+      .note b {
+        color: var(--ink);
+      }
+      ul.promise {
+        margin: 0;
+        padding-left: 1.2em;
+        display: grid;
+        gap: 6px;
+      }
+      footer {
+        margin-top: 34px;
+        font-size: 0.85rem;
+        color: var(--soft);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <p class="eyebrow">DrawPets · free · Windows and Android</p>
+      <h1>Play <span>DrawPets</span></h1>
+      <p class="lede">
+        Draw a creature part by part - a head, legs, wings, a tail, anything - and it comes
+        alive. Then it's yours to look after: feed it, play with it, take it for walks and
+        give it a home of its own.
+      </p>
+
+      <img
+        class="shot"
+        src="/drawpets/download/title-screen.jpg"
+        width="1200"
+        height="675"
+        alt="A creature a kid drew, cuddling its teddy bear in a sunny meadow by its house."
+      />
+
+      <!-- On a phone the Android button comes first (the script below swaps them). -->
+      <div class="buttons" id="buttons">
+        <a
+          class="big"
+          id="windows"
+          href="https://github.com/eclancy/DrawPets/releases/latest/download/DrawPets-Setup.exe"
+        >
+          <span aria-hidden="true">🖥️</span> Download for Windows
+        </a>
+        <a
+          class="big second"
+          id="android"
+          href="https://github.com/eclancy/DrawPets/releases/latest/download/DrawPets.apk"
+        >
+          <span aria-hidden="true">📱</span> Download for Android
+        </a>
+      </div>
+      <p class="meta" id="meta">Free · no ads · nothing to buy</p>
+      <p class="portable">
+        On Windows and rather not install anything?
+        <a href="https://github.com/eclancy/DrawPets/releases/latest/download/DrawPets-windows.zip"
+          >Get the portable zip</a
+        >, unzip it somewhere like Documents and run <b>DrawPets.exe</b>.
+      </p>
+
+      <section class="card" aria-labelledby="android-how">
+        <h2 id="android-how">On an Android phone or tablet</h2>
+        <p style="margin: 0 0 12px; color: var(--soft)">For a grown-up - it takes a minute.</p>
+        <ol>
+          <li>On the phone or tablet, open this page and tap <b>Download for Android</b>.</li>
+          <li>When it has downloaded, tap <b>DrawPets.apk</b> to open it.</li>
+          <li>
+            Android asks whether your browser may install apps. Tap <b>Settings</b>, turn on
+            <b>Allow from this source</b>, go back, and tap <b>Install</b>.
+          </li>
+          <li>Open <b>DrawPets</b> from the home screen.</li>
+        </ol>
+        <p class="note">
+          <b>Android might say it doesn't recognise the app.</b> That's because it comes from
+          this page rather than the Play Store. Tap <b>More details</b>, then
+          <b>Install anyway</b>.
+        </p>
+        <p class="note">
+          <b>Updates:</b> when a new version is out, DrawPets says so on its home screen.
+          Download it here again and install it over the top - the pets stay.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="windows-how">
+        <h2 id="windows-how">On Windows</h2>
+        <ol>
+          <li>
+            Run <b>DrawPets-Setup.exe</b>. It installs in a few seconds, with no admin
+            password needed.
+          </li>
+          <li>Start <b>DrawPets</b> from the desktop shortcut or the Start menu.</li>
+          <li>The mouse is your finger: click to tap, and hold the button to draw and stroke.</li>
+        </ol>
+        <p class="note">
+          <b>Windows might say "Windows protected your PC".</b> That's because this game isn't
+          from a big company. Click <b>More info</b>, then <b>Run anyway</b>.
+        </p>
+        <p class="note">
+          <b>It keeps itself up to date.</b> Each time it starts, it checks for a new version
+          and installs it by itself.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="grown-ups">
+        <h2 id="grown-ups">For grown-ups</h2>
+        <ul class="promise">
+          <li>No ads, no accounts, and nothing to buy with real money.</li>
+          <li>Everything a kid draws or records stays on their own device.</li>
+          <li>
+            Kids can swap pets with a friend who is right next to them - phone to phone, never
+            through the internet.
+          </li>
+          <li>
+            The only thing the game asks the internet is whether there's a newer version.
+          </li>
+          <li>No AI anywhere: every pet is the kid's own drawing.</li>
+        </ul>
+      </section>
+
+      <footer>
+        Made by <a href="/">ECEC</a> · <a href="/games/drawpets">about the game</a> ·
+        <a href="https://github.com/eclancy/DrawPets">source code</a> ·
+        <a href="https://github.com/eclancy/DrawPets/releases">all versions</a>
+      </footer>
+    </main>
+    <script>
+      // A phone or tablet sees the Android button first.
+      if (/Android/i.test(navigator.userAgent)) {
+        const buttons = document.getElementById('buttons')
+        buttons.insertBefore(document.getElementById('android'), buttons.firstChild)
+        document.getElementById('android').classList.remove('second')
+        document.getElementById('windows').classList.add('second')
+      }
+      // The version and sizes of the newest release. GitHub's API allows cross-site reads; if it
+      // is slow or rate-limited the line keeps its default wording. A 404 means nothing is
+      // published yet, so the buttons say so instead of linking to missing files.
+      fetch('https://api.github.com/repos/eclancy/DrawPets/releases/latest')
+        .then((r) => {
+          if (r.status === 404) {
+            for (const id of ['windows', 'android']) {
+              const button = document.getElementById(id)
+              button.classList.add('soon')
+              button.href = '/games/drawpets'
+            }
+            document.getElementById('windows').innerHTML =
+              '<span aria-hidden="true">⏳</span> Coming soon'
+            document.getElementById('android').remove()
+            document.getElementById('meta').textContent = 'The first version is on its way'
+          }
+          return r.ok ? r.json() : Promise.reject()
+        })
+        .then((release) => {
+          const assets = release.assets || []
+          const size = (name) => {
+            const file = assets.find((a) => a.name === name)
+            return file ? Math.round(file.size / 1048576) + ' MB' : ''
+          }
+          const version = String(release.tag_name || '').replace(/^v/, '')
+          if (version) {
+            const win = size('DrawPets-Setup.exe')
+            const apk = size('DrawPets.apk')
+            document.getElementById('meta').textContent =
+              'Version ' +
+              version +
+              (win ? ' · Windows ' + win : '') +
+              (apk ? ' · Android ' + apk : '') +
+              ' · no ads · nothing to buy'
+          }
+        })
+        .catch(() => {})
+    </script>
+  </body>
+</html>

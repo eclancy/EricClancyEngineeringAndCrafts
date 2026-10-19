@@ -151,12 +151,11 @@ export const projects: Project[] = [
     description:
       'A virtual pet you draw part by part, then feed, play with and give a home of its ' +
       'own.',
-    tech: ['Godot 4.5', 'GDScript', 'Android'],
+    tech: ['Godot 4.5', 'GDScript', 'Windows', 'Android'],
     game: {
       repo: 'DrawPets',
       players: '1 player',
-      platform: 'Android',
-      comingSoon: true,
+      platform: 'Windows and Android',
       about: [
         'Kids choose what their creature has - heads, arms, legs, wings, a tail, anything - ' +
           'and draw each part on its own sheet, starting from a red dot that marks where it ' +
@@ -169,8 +168,8 @@ export const projects: Project[] = [
           'bouncy ball gets fetched, a cozy bed is for napping. Pets never get sick, run ' +
           'away or die.',
         'Every picture in the game is a coloured-pencil or marker drawing, and there is no ' +
-          'AI and no photos anywhere. A sibling of DrawFight, for Android phones and ' +
-          'tablets.',
+          'AI and no photos anywhere. A sibling of DrawFight, for Windows and for Android ' +
+          'phones and tablets.',
       ],
     },
     images: [
