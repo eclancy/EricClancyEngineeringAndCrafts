@@ -87,7 +87,7 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/eclancy/DrawFight',
     game: {
       repo: 'DrawFight',
-      players: '1–2 players, local',
+      players: '1–4 players, local',
       feature: {
         title: 'Be in the game!',
         text:
@@ -105,9 +105,10 @@ export const projects: Project[] = [
         'The drawing is never redrawn or cleaned up: the same pixels are rotated about their ' +
           'joints, so if a limb is lumpy, the limb is lumpy in the game. Every fighter rigs ' +
           'to one shared skeleton, so a new drawing is an afternoon of work, not a week.',
-        'Smash-style percent, knockback and stocks, 17 moves per fighter, four stages, and ' +
-          'thirty art-supply items, from a giant pencil to a glitter bomb. Play a friend with ' +
-          'Xbox pads or the keyboard, or take on the computer.',
+        'Smash-style percent, knockback and stocks, 17 moves per fighter, seven stages, and ' +
+          'thirty art-supply items, from a giant pencil to a glitter bomb. Up to four players ' +
+          'with Xbox pads or the keyboard, in teams or every fighter for themselves, against ' +
+          'the computer on Easy, Medium or Hard, or through a story for every fighter.',
       ],
     },
     callsToAction: [
@@ -152,6 +153,7 @@ export const projects: Project[] = [
       'A virtual pet you draw part by part, then feed, play with and give a home of its ' +
       'own.',
     tech: ['Godot 4.5', 'GDScript', 'Windows', 'Android'],
+    repoUrl: 'https://github.com/eclancy/DrawPets',
     game: {
       repo: 'DrawPets',
       players: '1 player',
@@ -252,8 +254,8 @@ export const projects: Project[] = [
     name: 'Wizard Wars',
     tagline: 'A wizard battle arena for up to four players.',
     description:
-      'Fire, frost, earth or lightning: be the last wizard standing, or team up in Red ' +
-      'vs Blue.',
+      'Fire, frost, earth or lightning: be the last wizard standing, or team up in ' +
+      'Green vs Pink.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
     repoUrl: 'https://github.com/eclancy/WizardWars',
     game: {
@@ -261,9 +263,9 @@ export const projects: Project[] = [
       players: '1–4 players, local',
       about: [
         'Pick a wizard of fire, frost, earth or electricity and fight to be the last one ' +
-          'standing, or team up in Red vs Blue. Playing alone? You face a computer-controlled ' +
-          'wizard.',
-        'Each wizard has a free basic attack, two abilities and an ultimate that charges as ' +
+          'standing, or team up in Green vs Pink. Playing alone? You face a computer wizard ' +
+          'on Easy, Normal or Hard.',
+        'Each wizard has a free basic attack, three abilities and an ultimate that charges as ' +
           'you fight. Everyone joins from Character Select with a controller, and player one ' +
           'can use the keyboard.',
         'It started life as a Unity game and was rebuilt in Godot 4.5 with C#.',

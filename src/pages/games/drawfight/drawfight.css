@@ -1,0 +1,1429 @@
+/* DrawFight's page: a page torn out of a school notebook. Everything is scoped under .df-page. */
+
+.df-page {
+  --paper: #fbfaf3;
+  --rule: rgba(84, 140, 205, 0.26);
+  --margin-line: #ee8b8b;
+  --ink: #1c2230;
+  --pencil: #555b68;
+  --faint: #8a8f99;
+  --blue: #1668cc;
+  --blue-dark: #0e4f9e;
+  --red: #e0412f;
+  --marker: #ffe45c;
+  --green: #3aa655;
+  --tape: rgba(246, 233, 182, 0.82);
+  --line: 32px;
+  --margin: 22px;
+  --gutter: 34px;
+  --hand: 'Patrick Hand', 'Comic Sans MS', cursive;
+  --marker-font: 'Permanent Marker', 'Comic Sans MS', cursive;
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  color: var(--ink);
+  background-color: var(--paper);
+  /* the red margin line, then the blue rules, one every line */
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent calc(var(--margin) - 1px),
+      var(--margin-line) calc(var(--margin) - 1px),
+      var(--margin-line) calc(var(--margin) + 1px),
+      transparent calc(var(--margin) + 1px)
+    ),
+    linear-gradient(
+      transparent calc(var(--line) - 1px),
+      var(--rule) calc(var(--line) - 1px)
+    );
+  background-size:
+    100% 100%,
+    100% var(--line);
+  background-position:
+    0 0,
+    0 12px;
+  font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+  font-size: 16.5px;
+  line-height: 1.6;
+}
+
+@media (min-width: 760px) {
+  .df-page {
+    --margin: 72px;
+    --gutter: 104px;
+    font-size: 17px;
+  }
+  /* binder holes down the left edge */
+  .df-page::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 18px;
+    width: 26px;
+    background-image: radial-gradient(
+      circle at 13px 13px,
+      #e4e1d6 0 11px,
+      rgba(0, 0, 0, 0.12) 11px 12.5px,
+      transparent 13px
+    );
+    background-size: 26px 300px;
+    background-position: 0 120px;
+    pointer-events: none;
+  }
+}
+
+.df-page *,
+.df-page *::before,
+.df-page *::after {
+  box-sizing: border-box;
+}
+
+.df-page a {
+  color: var(--blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.df-page a:hover {
+  color: var(--blue-dark);
+}
+.df-page :focus-visible {
+  outline: 3px dashed var(--blue);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.df-page h1,
+.df-page h2,
+.df-page h3,
+.df-page h4 {
+  font-family: var(--marker-font);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.df-page mark {
+  color: inherit;
+  background: linear-gradient(
+      100deg,
+      transparent 0.2em,
+      rgba(255, 228, 92, 0.85) 0.35em,
+      rgba(255, 228, 92, 0.75) calc(100% - 0.3em),
+      transparent calc(100% - 0.15em)
+    )
+    no-repeat 0 60% / 100% 0.85em;
+  padding-inline: 0.1em;
+}
+
+.df-skip {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 20;
+  background: var(--ink);
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+.df-skip:focus {
+  left: 12px;
+}
+
+.df-page main,
+.df-top,
+.df-foot {
+  position: relative;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-left: var(--gutter);
+  padding-right: 18px;
+}
+@media (min-width: 1300px) {
+  .df-page main,
+  .df-top,
+  .df-foot {
+    padding-left: calc(var(--gutter) + 20px);
+  }
+}
+
+/* ------------------------------------------------------------------ top bar */
+.df-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  padding-bottom: 6px;
+  font-family: var(--hand);
+  font-size: 1.2rem;
+}
+.df-top .df-back {
+  color: var(--pencil);
+  text-decoration: none;
+}
+.df-top nav {
+  display: none;
+  gap: 20px;
+}
+.df-top nav a {
+  color: var(--pencil);
+  text-decoration: none;
+}
+.df-top nav a:hover,
+.df-top .df-back:hover {
+  color: var(--blue);
+  text-decoration: underline wavy;
+}
+@media (min-width: 760px) {
+  .df-top nav {
+    display: flex;
+  }
+}
+
+/* ------------------------------------------------------------------ hero */
+.df-hero {
+  position: relative;
+  display: grid;
+  gap: 34px;
+  padding-top: 18px;
+  padding-bottom: 40px;
+}
+@media (min-width: 980px) {
+  .df-hero {
+    grid-template-columns: 1fr 1.05fr;
+    align-items: center;
+    gap: 48px;
+    padding-top: 40px;
+    padding-bottom: 72px;
+  }
+}
+
+.df-eyebrow {
+  display: inline-block;
+  margin: 0 0 10px;
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  color: var(--pencil);
+  transform: rotate(-1.5deg);
+}
+
+.df-logo {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  font-size: clamp(3rem, 1.2rem + 9vw, 6.6rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  margin: 0 0 14px !important;
+}
+.df-logo-draw {
+  color: var(--blue);
+  transform: rotate(-4deg) translateY(4px);
+  display: inline-block;
+}
+.df-logo-fight {
+  color: var(--red);
+  display: inline-block;
+  transform: rotate(3deg);
+  text-shadow: 3px 3px 0 var(--marker);
+}
+.df-logo-star {
+  position: absolute;
+  width: 0.5em;
+  right: -0.48em;
+  top: -0.18em;
+  transform: rotate(14deg);
+}
+
+.df-tagline {
+  font-family: var(--hand);
+  font-size: clamp(1.55rem, 1.2rem + 1.2vw, 2rem);
+  line-height: 1.25;
+  margin: 0 0 12px;
+  max-width: 26ch;
+}
+.df-lede {
+  color: var(--pencil);
+  margin: 0 0 26px;
+  max-width: 44ch;
+}
+
+.df-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  align-items: center;
+}
+.df-ctas-center {
+  justify-content: center;
+}
+
+.df-download,
+.df-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--marker-font);
+  font-size: 1.45rem;
+  line-height: 1;
+  text-decoration: none !important;
+  padding: 16px 26px 15px;
+  border: 3px solid var(--ink);
+  border-radius: 14px 10px 16px 9px / 10px 16px 9px 14px;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.df-download {
+  color: #fff !important;
+  background: var(--blue);
+  box-shadow: 5px 6px 0 var(--ink);
+  transform: rotate(-1.2deg);
+}
+.df-submit {
+  color: var(--ink) !important;
+  background: var(--marker);
+  box-shadow: 4px 5px 0 var(--ink);
+  transform: rotate(1.4deg);
+  font-size: 1.25rem;
+}
+.df-download:hover,
+.df-submit:hover {
+  transform: rotate(0deg) translate(-2px, -2px);
+  box-shadow: 8px 9px 0 var(--ink);
+}
+.df-download:active,
+.df-submit:active {
+  transform: translate(3px, 4px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.df-download span,
+.df-submit span {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.1em;
+}
+
+.df-version {
+  margin: 16px 0 0;
+  font-family: var(--hand);
+  font-size: 1.15rem;
+  color: var(--pencil);
+}
+.df-soon {
+  font-family: var(--marker-font);
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+/* polaroids, taped on */
+.df-polaroid {
+  position: relative;
+  margin: 0;
+  background: #fff;
+  padding: 10px 10px 0;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.08),
+    0 10px 24px -8px rgba(30, 40, 60, 0.35);
+  border-radius: 2px;
+}
+.df-polaroid video {
+  background: #dfe5ea;
+}
+.df-polaroid figcaption {
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  line-height: 1.25;
+  padding: 10px 6px 12px;
+  text-align: center;
+  color: var(--ink);
+}
+.df-hero-clip {
+  transform: rotate(1.8deg);
+  max-width: 640px;
+  justify-self: center;
+  width: 100%;
+}
+
+.df-tape {
+  position: absolute;
+  z-index: 2;
+  width: 96px;
+  height: 28px;
+  background: var(--tape);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  /* torn ends */
+  clip-path: polygon(
+    0 8%,
+    5% 0,
+    10% 10%,
+    16% 2%,
+    84% 0,
+    90% 9%,
+    95% 1%,
+    100% 10%,
+    98% 92%,
+    92% 100%,
+    86% 90%,
+    12% 100%,
+    6% 91%,
+    0 98%
+  );
+}
+.df-tape-l {
+  top: -12px;
+  left: -22px;
+  transform: rotate(-32deg);
+}
+.df-tape-r {
+  top: -12px;
+  right: -22px;
+  transform: rotate(30deg);
+}
+.df-tape-c {
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.df-margin-note {
+  font-family: var(--hand);
+  color: var(--blue);
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin: 0;
+}
+.df-note-hero {
+  position: relative;
+  max-width: 300px;
+  justify-self: end;
+  margin-top: -18px;
+  padding-left: 46px;
+  transform: rotate(-2deg);
+}
+.df-note-arrow {
+  position: absolute;
+  left: 0;
+  top: -26px;
+  width: 44px;
+  transform: scaleX(-1) rotate(10deg);
+}
+@media (min-width: 980px) {
+  .df-hero {
+    grid-template-rows: auto auto;
+  }
+  .df-hero-text {
+    grid-row: 1 / 3;
+  }
+  .df-note-hero {
+    grid-column: 2;
+    margin-top: -36px;
+    align-self: start;
+  }
+}
+
+/* ------------------------------------------------------------------ be in the game */
+.df-feature {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  align-items: center;
+  margin: 18px 0 64px;
+}
+@media (min-width: 860px) {
+  .df-feature {
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
+  }
+}
+.df-sticky {
+  position: relative;
+  background: linear-gradient(170deg, #fff38f, #ffe45c 60%, #f9d93e);
+  padding: 34px 24px 28px;
+  box-shadow:
+    0 2px 2px rgba(0, 0, 0, 0.06),
+    0 18px 30px -14px rgba(90, 70, 0, 0.45);
+  transform: rotate(-1.2deg);
+  border-bottom-right-radius: 26px 8px;
+}
+@media (min-width: 760px) {
+  .df-sticky {
+    padding: 40px 40px 34px;
+  }
+}
+.df-sticky h2 {
+  font-size: clamp(2.3rem, 1.6rem + 3vw, 3.4rem);
+  color: var(--red);
+  margin-bottom: 10px;
+  transform: rotate(-1.5deg);
+}
+.df-sticky > p {
+  font-size: 1.1rem;
+  margin: 0 0 16px;
+  max-width: 52ch;
+}
+.df-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: grid;
+  gap: 6px;
+  font-family: var(--hand);
+  font-size: 1.35rem;
+  counter-reset: step;
+}
+.df-steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.df-steps li::before {
+  content: counter(step);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2.5px solid var(--ink);
+  border-radius: 50% 46% 52% 48%;
+  font-family: var(--marker-font);
+  font-size: 1rem;
+  background: #fff8;
+}
+.df-steps b {
+  font-weight: 400;
+  color: var(--blue);
+}
+.df-feature-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: center;
+}
+.df-submit-big {
+  background: #fff;
+  font-size: 1.45rem;
+  transform: rotate(-1deg);
+}
+.df-more {
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  color: var(--ink) !important;
+}
+.df-feature-fig {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.df-feature-fig svg {
+  width: min(230px, 60vw);
+  height: auto;
+  overflow: visible;
+}
+.df-feature-fig figcaption {
+  position: relative;
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  color: var(--blue);
+  text-align: center;
+  max-width: 250px;
+  transform: rotate(2deg);
+}
+.df-feature-arrow {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ sections */
+.df-section {
+  position: relative;
+  padding: 24px 0 56px;
+}
+.df-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  margin-bottom: 26px;
+}
+.df-title h2 {
+  position: relative;
+  display: inline-block;
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.1rem);
+  color: var(--ink);
+  padding-bottom: 6px;
+}
+.df-underline {
+  position: absolute;
+  left: -4px;
+  right: -10px;
+  bottom: -8px;
+  width: calc(100% + 14px);
+  height: 16px;
+  color: var(--red);
+}
+.df-title-note {
+  margin: 0;
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  color: var(--faint);
+}
+.df-sub {
+  font-size: 1.8rem;
+  margin: 48px 0 18px !important;
+}
+
+/* clips */
+.df-clips {
+  display: grid;
+  gap: 40px 34px;
+}
+@media (min-width: 720px) {
+  .df-clips {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.df-clip-0 {
+  transform: rotate(-1.6deg);
+}
+.df-clip-1 {
+  transform: rotate(1.2deg);
+}
+.df-clip-2 {
+  transform: rotate(0.9deg);
+}
+.df-clip-3 {
+  transform: rotate(-1.1deg);
+}
+
+/* ------------------------------------------------------------------ the toy */
+.df-smack-intro {
+  display: grid;
+  gap: 4px 36px;
+  margin-bottom: 22px;
+}
+@media (min-width: 900px) {
+  .df-smack-intro {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: start;
+  }
+}
+.df-smack-intro p {
+  margin: 0 0 10px;
+  max-width: 60ch;
+}
+.df-hint {
+  font-family: var(--hand);
+  font-size: 1.3rem;
+  line-height: 1.3;
+  color: var(--blue);
+}
+
+.df-toy {
+  position: relative;
+  background: #fffef9;
+  border: 3px solid var(--ink);
+  border-radius: 18px 12px 20px 10px / 12px 20px 10px 18px;
+  box-shadow: 6px 7px 0 var(--ink);
+  padding: 14px;
+  /* graph paper, like the game's own menus */
+  background-image:
+    linear-gradient(rgba(32, 58, 92, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32, 58, 92, 0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+@media (min-width: 760px) {
+  .df-toy {
+    padding: 20px 24px 22px;
+  }
+}
+.df-toy-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.df-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 6px;
+}
+.df-tab {
+  display: grid;
+  font-family: var(--marker-font);
+  font-size: 1.1rem;
+  line-height: 1.1;
+  padding: 8px 14px 7px;
+  border: 2.5px solid var(--ink);
+  border-radius: 10px 8px 12px 7px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  min-height: 44px;
+}
+.df-tab small {
+  font-family: var(--hand);
+  font-size: 0.85rem;
+  color: var(--pencil);
+}
+.df-tab[aria-pressed='true'] {
+  background: var(--marker);
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(-1.5deg);
+}
+.df-tab:hover {
+  background: #fff6c2;
+}
+
+.df-hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.df-hud-name {
+  font-family: var(--hand);
+  font-size: 1.15rem;
+  color: var(--pencil);
+}
+.df-hud-pct {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  min-width: 3.4ch;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15);
+  transition: color 0.2s;
+}
+.df-hud-pct small {
+  font-size: 0.55em;
+}
+.df-hud-stocks {
+  display: flex;
+  gap: 4px;
+}
+.df-hud-stocks i {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: transparent;
+}
+.df-hud-stocks i.on {
+  background: var(--red);
+}
+
+.df-stage {
+  position: relative;
+  margin: 8px -6px 0;
+}
+.df-stage svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+.df-readout {
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  margin: 0;
+  font-family: var(--hand);
+  font-size: 1.15rem;
+  color: var(--pencil);
+  pointer-events: none;
+}
+
+.df-page .df-ground {
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+}
+.df-page .df-ground-hatch {
+  stroke: rgba(28, 34, 48, 0.28);
+  stroke-width: 1.6;
+  fill: none;
+}
+.df-page .df-tick line {
+  stroke: var(--blue);
+  stroke-width: 2;
+}
+.df-page .df-tick text,
+.df-page .df-edge {
+  font-family: var(--hand);
+  font-size: 21px;
+  fill: var(--blue);
+  text-anchor: middle;
+}
+.df-page .df-edge {
+  fill: var(--red);
+  text-anchor: end;
+}
+.df-page .df-trail {
+  fill: none;
+  stroke: var(--pencil);
+  stroke-width: 2;
+  stroke-dasharray: 2 7;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.df-page .df-ghost {
+  stroke: var(--red);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.df-page .df-shadow {
+  fill: rgba(28, 34, 48, 0.14);
+}
+.df-page .df-bone line {
+  stroke: var(--blue);
+  stroke-width: 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.9;
+}
+.df-page .df-bone circle {
+  fill: #fff;
+  stroke: var(--red);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+.df-page .df-blink {
+  animation: df-blink 0.16s steps(2) infinite;
+}
+@keyframes df-blink {
+  50% {
+    opacity: 0.45;
+  }
+}
+.df-page .df-pop {
+  font-family: var(--marker-font);
+  font-size: 22px;
+  fill: var(--red);
+  stroke: #fff;
+  stroke-width: 4px;
+  paint-order: stroke;
+}
+.df-page .df-pop.big {
+  font-size: 30px;
+}
+.df-page .df-impact {
+  fill: var(--marker);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.df-page .df-pencil .eraser {
+  fill: #f49ab0;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.df-page .df-pencil .ferrule {
+  fill: #c9ccd3;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.df-page .df-pencil .body {
+  fill: #ffcc33;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.df-page .df-pencil .facets {
+  stroke: #d99a00;
+  stroke-width: 2;
+}
+.df-page .df-pencil .wood {
+  fill: #f3d2a2;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.df-page .df-pencil .lead {
+  fill: var(--ink);
+}
+.df-page .df-swoosh {
+  fill: none;
+  stroke: var(--pencil);
+  stroke-width: 3;
+  stroke-dasharray: 10 6;
+  stroke-linecap: round;
+}
+.df-page .df-bomb {
+  fill: #a479e8;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.df-page .df-fuse {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+}
+.df-page .df-spark {
+  fill: var(--marker);
+  stroke: var(--red);
+  stroke-width: 2;
+}
+.df-page .df-glitter-ring {
+  fill: none;
+  stroke: #ff5ea8;
+  stroke-width: 3;
+  stroke-dasharray: 4 6;
+}
+.df-page .df-ray-r {
+  fill: var(--red);
+}
+.df-page .df-ray-y {
+  fill: #ffd23f;
+}
+.df-page .df-burst-r {
+  fill: var(--red);
+}
+.df-page .df-burst-y {
+  fill: #ffd23f;
+}
+.df-page .df-burst-w {
+  fill: #fff;
+}
+.df-page .df-ko {
+  font-family: var(--marker-font);
+  font-size: 40px;
+  fill: var(--ink);
+  stroke: #fff;
+  stroke-width: 6px;
+  paint-order: stroke;
+}
+.df-page .df-over text {
+  font-family: var(--marker-font);
+  font-size: 64px;
+  fill: var(--red);
+  stroke: var(--ink);
+  stroke-width: 2px;
+}
+.df-page .df-over .df-over-sub {
+  font-family: var(--hand);
+  font-size: 22px;
+  fill: var(--ink);
+  stroke: none;
+}
+
+.df-controls {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+.df-attacks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.df-attack {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  font-family: var(--marker-font);
+  font-size: clamp(1rem, 0.8rem + 1vw, 1.35rem);
+  line-height: 1.1;
+  color: var(--ink);
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 14px 10px 16px 9px / 10px 16px 9px 14px;
+  box-shadow: 4px 5px 0 var(--ink);
+  padding: 12px 6px 10px;
+  min-height: 64px;
+  cursor: pointer;
+  transition:
+    transform 0.08s,
+    box-shadow 0.08s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.df-attack small {
+  font-family: var(--hand);
+  font-size: 1rem;
+  color: var(--pencil);
+}
+.df-attack kbd {
+  display: none;
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.75rem;
+  padding: 0 5px;
+  border: 1.5px solid var(--pencil);
+  border-radius: 4px;
+  margin-left: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .df-attack kbd {
+    display: inline-block;
+  }
+}
+.df-attack-poke {
+  background: #e6f0ff;
+}
+.df-attack-smash {
+  background: var(--marker);
+}
+.df-attack-glitter {
+  background: #ffd9ec;
+}
+.df-attack:hover {
+  transform: translate(-1px, -2px);
+  box-shadow: 6px 7px 0 var(--ink);
+}
+.df-attack:active,
+.df-attack[aria-disabled='true'] {
+  transform: translate(3px, 4px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.df-attack[aria-disabled='true'] {
+  cursor: default;
+}
+
+.df-extras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+  font-family: var(--hand);
+  font-size: 1.15rem;
+}
+.df-poses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.df-poses button,
+.df-reset {
+  font-family: var(--hand);
+  font-size: 1.1rem;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid var(--pencil);
+  border-radius: 999px;
+  padding: 4px 13px;
+  min-height: 36px;
+  cursor: pointer;
+}
+.df-poses button[aria-pressed='true'] {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+.df-reset {
+  border-color: var(--red);
+  color: var(--red);
+}
+.df-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-height: 36px;
+}
+.df-switch input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--blue);
+}
+.df-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.df-note-bones {
+  margin-top: 18px;
+  max-width: 46ch;
+  transform: rotate(-1deg);
+}
+
+/* narrow phones: three fighter tabs in a row, and every pixel for the stage */
+@media (max-width: 520px) {
+  .df-tabs {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .df-tab {
+    padding: 6px 8px 5px;
+    font-size: 0.95rem;
+  }
+  .df-tab small {
+    font-size: 0.78rem;
+  }
+  .df-toy {
+    padding: 10px;
+  }
+  .df-stage {
+    margin-inline: -4px;
+  }
+}
+
+/* ------------------------------------------------------------------ about */
+.df-about-grid {
+  display: grid;
+  gap: 30px 48px;
+}
+@media (min-width: 900px) {
+  .df-about-grid {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+  }
+}
+.df-about-text p {
+  margin: 0 0 16px;
+  max-width: 62ch;
+}
+.df-about-text p:first-child {
+  font-size: 1.12em;
+}
+.df-checklist {
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 22px 22px 14px;
+  transform: rotate(1.2deg);
+  box-shadow: 5px 6px 0 rgba(28, 34, 48, 0.85);
+}
+.df-checklist h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+.df-checklist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--hand);
+  font-size: 1.3rem;
+  line-height: 1.35;
+}
+.df-checklist li {
+  position: relative;
+  padding-left: 36px;
+  margin-bottom: 8px;
+}
+/* a drawn box with a tick in it */
+.df-checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--ink);
+  border-radius: 3px 5px 2px 4px;
+}
+.df-checklist li::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: -2px;
+  width: 9px;
+  height: 18px;
+  border: solid var(--green);
+  border-width: 0 4px 4px 0;
+  transform: rotate(40deg);
+  border-radius: 2px;
+}
+
+.df-roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
+}
+.df-card {
+  background: #fff;
+  border: 1px solid #d9dde3;
+  border-top: 26px solid #ffb3b8;
+  padding: 12px 16px 10px;
+  box-shadow: 0 6px 14px -8px rgba(30, 40, 60, 0.4);
+  background-image: linear-gradient(transparent 27px, rgba(84, 140, 205, 0.25) 27px);
+  background-size: 100% 28px;
+  line-height: 28px;
+}
+.df-card-0 {
+  transform: rotate(-1deg);
+}
+.df-card-1 {
+  transform: rotate(0.8deg);
+  border-top-color: #9fd0ff;
+}
+.df-card-2 {
+  transform: rotate(-0.4deg);
+  border-top-color: #b8e6a0;
+}
+.df-card h4 {
+  font-size: 1.5rem;
+  line-height: 28px;
+  padding-top: 2px;
+}
+.df-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.df-card .df-by {
+  font-family: var(--hand);
+  font-size: 1.15rem;
+  color: var(--pencil);
+}
+.df-kid {
+  margin-left: 8px;
+  padding: 0 6px;
+  background: var(--marker);
+  color: var(--ink);
+  border-radius: 3px;
+  transform: rotate(-3deg);
+  display: inline-block;
+  line-height: 1.4;
+}
+
+/* ------------------------------------------------------------------ screenshots */
+.df-shots {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 34px 28px;
+}
+.df-shot button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: #fff;
+  border: 0;
+  cursor: zoom-in;
+  box-shadow: 0 10px 20px -10px rgba(30, 40, 60, 0.45);
+  transition: transform 0.15s;
+}
+.df-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.df-shot:nth-child(3n + 1) button {
+  transform: rotate(-1.4deg);
+}
+.df-shot:nth-child(3n + 2) button {
+  transform: rotate(1deg);
+}
+.df-shot:nth-child(3n) button {
+  transform: rotate(-0.5deg);
+}
+.df-shot button:hover {
+  transform: rotate(0) scale(1.02);
+}
+/* the ten-pose strip is long and thin: give it the whole row */
+.df-shot-5 {
+  grid-column: 1 / -1;
+}
+@media (min-width: 900px) {
+  .df-shots {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  /* the title screen big on the left, four smaller ones beside it */
+  .df-shot-0 {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+/* ------------------------------------------------------------------ controls */
+.df-controls-grid {
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 900px) {
+  .df-controls-grid {
+    grid-template-columns: 1.25fr 1fr;
+    align-items: start;
+  }
+}
+.df-index {
+  background: #fff;
+  border: 1px solid #d9dde3;
+  border-top: 30px solid #9fd0ff;
+  padding: 18px 20px 16px;
+  box-shadow: 0 8px 18px -10px rgba(30, 40, 60, 0.45);
+}
+.df-index + .df-index {
+  border-top-color: #ffb3b8;
+}
+.df-index h3 {
+  font-size: 1.55rem;
+  margin-bottom: 10px;
+}
+.df-index h4 {
+  font-family: var(--hand);
+  font-size: 1.2rem;
+  color: var(--pencil);
+  margin: 6px 0 6px;
+}
+.df-pad {
+  margin: 0;
+}
+.df-pad div {
+  display: grid;
+  grid-template-columns: 7.5em 1fr;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px dashed #cfd5dc;
+}
+.df-pad div:last-child {
+  border-bottom: 0;
+}
+.df-pad dt {
+  font-family: var(--marker-font);
+  color: var(--blue);
+}
+.df-pad dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.df-keys ul {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 0.95rem;
+}
+.df-page kbd {
+  font-family: 'Lexend', sans-serif;
+}
+.df-keys kbd {
+  display: inline-block;
+  min-width: 1.9em;
+  text-align: center;
+  padding: 2px 7px;
+  border: 2px solid var(--ink);
+  border-bottom-width: 4px;
+  border-radius: 6px;
+  background: #f7f7f2;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.df-small {
+  font-size: 0.92rem;
+  color: var(--pencil);
+  margin: 6px 0 0;
+}
+
+/* ------------------------------------------------------------------ what's new */
+.df-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.df-log > li {
+  display: grid;
+  gap: 2px 24px;
+  padding: 14px 0 18px;
+  border-bottom: 2px dashed rgba(84, 140, 205, 0.35);
+}
+@media (min-width: 760px) {
+  .df-log > li {
+    grid-template-columns: 11em 1fr;
+  }
+}
+.df-log-date {
+  margin: 0;
+  font-family: var(--hand);
+  font-size: 1.2rem;
+  color: var(--red);
+}
+.df-log h3 {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+.df-log h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.df-log h3 a:hover {
+  text-decoration: underline wavy var(--red);
+}
+.df-latest {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 0 10px;
+  font-family: var(--hand);
+  font-size: 1.05rem;
+  background: var(--marker);
+  transform: rotate(-4deg);
+  vertical-align: middle;
+}
+.df-notes {
+  margin: 0;
+  max-width: 70ch;
+}
+.df-notes p {
+  margin: 0 0 6px;
+}
+ul.df-notes {
+  padding-left: 20px;
+}
+ul.df-notes li {
+  margin-bottom: 4px;
+}
+
+/* ------------------------------------------------------------------ end + footer */
+.df-end {
+  text-align: center;
+  padding: 30px 0 60px;
+}
+.df-end h2 {
+  font-size: clamp(2.2rem, 1.6rem + 2.5vw, 3.2rem);
+  color: var(--blue);
+  margin-bottom: 22px;
+  transform: rotate(-2deg);
+}
+.df-foot {
+  padding-top: 10px;
+  padding-bottom: 42px;
+  font-family: var(--hand);
+  font-size: 1.2rem;
+  color: var(--pencil);
+}
+.df-foot-scribble {
+  display: block;
+  width: 100%;
+  height: 26px;
+  color: var(--faint);
+  margin-bottom: 14px;
+}
+.df-foot p {
+  margin: 0 0 8px;
+}
+.df-foot nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .df-page *,
+  .df-page *::before,
+  .df-page *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.df-older summary {
+  margin-top: 16px;
+  font-family: var(--hand);
+  font-size: 1.3rem;
+  color: var(--blue);
+  cursor: pointer;
+}
