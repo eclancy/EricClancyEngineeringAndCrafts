@@ -1250,3 +1250,11 @@
 .ws-signup .updates-signup__status {
   color: #ff8a80;
 }
+
+/* One line on any phone: the label never wraps, and shrinks with the screen. */
+.ws-btn {
+  white-space: nowrap;
+}
+.ws-btn--big {
+  font-size: min(24px, 6.4vw);
+}

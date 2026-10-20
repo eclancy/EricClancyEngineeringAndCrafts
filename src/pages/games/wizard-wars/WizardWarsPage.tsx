@@ -386,7 +386,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
             ))}
           </div>
           <a href={downloadPath(project)} className="ww-big-btn">
-            Download Wizard Wars
+            Play {project.name}
           </a>
           <p className="ww-version">{versionLine}</p>
         </section>
