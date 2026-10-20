@@ -1496,3 +1496,10 @@ ul.df-notes li {
     padding-inline: 14px;
   }
 }
+
+.df-page .df-updates-link {
+  font-family: var(--hand);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--blue);
+}

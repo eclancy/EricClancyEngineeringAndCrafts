@@ -6,6 +6,7 @@ import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
 import { UpdatesSignup } from '../../../components/UpdatesSignup'
+import { UpdatesLink } from '../../../components/UpdatesLink'
 import { CurlyArrow, DoodleFilters, Heart, Sparkle, Squiggle, Star } from './Doodles'
 import { PartMaker } from './PartMaker'
 import { PetMe } from './PetMe'
@@ -197,6 +198,7 @@ export default function DrawPetsPage({ project }: GamePageProps) {
                 <p className="dp-version" aria-live="polite">
                   {versionLine}
                 </p>
+                <UpdatesLink className="dp-updates-link" />
               </div>
             )}
           </div>

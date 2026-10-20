@@ -54,7 +54,7 @@ export function UpdatesSignup({ game, name, className = '' }: UpdatesSignupProps
 
   if (status.state === 'sent') {
     return (
-      <div className={`updates-signup ${className}`} role="status">
+      <div id="get-updates" className={`updates-signup ${className}`} role="status">
         <p className="updates-signup__title">Check your inbox!</p>
         <p className="updates-signup__fine">
           We sent a link to confirm. Once you click it, you&apos;ll get an email when{' '}
@@ -65,7 +65,7 @@ export function UpdatesSignup({ game, name, className = '' }: UpdatesSignupProps
   }
 
   return (
-    <form className={`updates-signup ${className}`} onSubmit={submit}>
+    <form id="get-updates" className={`updates-signup ${className}`} onSubmit={submit}>
       <p className="updates-signup__title">Get an email when {name} updates</p>
       <p className="updates-signup__fine">
         For grown-ups. Only for new versions worth telling you about, and every email has

@@ -6,6 +6,7 @@ import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
 import { UpdatesSignup } from '../../../components/UpdatesSignup'
+import { UpdatesLink } from '../../../components/UpdatesLink'
 import { TitleArt } from './TitleArt'
 import { SurviveDemo } from './SurviveDemo'
 import { Grimoire } from './Grimoire'
@@ -146,6 +147,7 @@ export default function WizardSurvivorsPage({ project }: GamePageProps) {
             <span aria-hidden="true"> · </span>
             {game.platform ?? 'Windows'} · {game.players} · keyboard or controller
           </p>
+          <UpdatesLink className="ws-updates-link" />
         </div>
       </header>
 

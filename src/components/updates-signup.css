@@ -115,3 +115,33 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* The jump link near the top of a page (UpdatesLink.tsx), and room above the form it lands on. */
+.updates-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+/* An inline-block is not underlined by its parent, so the bell stays clean. */
+.updates-link > span {
+  display: inline-block;
+}
+.updates-link:hover {
+  text-decoration-thickness: 2.5px;
+}
+.updates-link:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+#get-updates {
+  scroll-margin-top: 32px;
+}
