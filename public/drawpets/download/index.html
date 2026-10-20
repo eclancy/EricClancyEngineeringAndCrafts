@@ -219,6 +219,11 @@
         color: var(--soft);
         text-align: center;
       }
+      /* One line on any phone: the label never wraps, and shrinks with the screen. */
+      .big {
+        white-space: nowrap;
+        font-size: min(clamp(1.15rem, 0.85rem + 1.6vw, 1.45rem), 5.3vw);
+      }
     </style>
   </head>
   <body>

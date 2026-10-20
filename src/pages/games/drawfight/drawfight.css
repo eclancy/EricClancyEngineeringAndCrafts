@@ -1476,3 +1476,23 @@ ul.df-notes li {
   font-family: var(--marker-font);
   font-weight: 400;
 }
+
+/* One line on any phone: the label never wraps, and shrinks with the screen. */
+.df-page .df-download,
+.df-page .df-submit {
+  white-space: nowrap;
+}
+.df-page .df-download {
+  font-size: min(1.45rem, 6.2vw);
+}
+.df-page .df-submit {
+  font-size: min(1.25rem, 4.9vw);
+}
+.df-page .df-submit-big {
+  font-size: min(1.45rem, 4.6vw);
+}
+@media (max-width: 480px) {
+  .df-page .df-submit-big {
+    padding-inline: 14px;
+  }
+}

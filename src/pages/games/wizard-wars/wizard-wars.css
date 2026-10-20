@@ -2566,3 +2566,17 @@ main#ww-main {
   font-weight: 400;
   letter-spacing: 0.04em;
 }
+
+/* One line on any phone: the label never wraps, and shrinks with the screen. */
+.ww-big-btn,
+.ww-mode-btn {
+  white-space: nowrap;
+}
+.ww-big-btn {
+  font-size: min(22px, 5.6vw);
+  padding-inline: min(30px, 5vw);
+}
+.ww-mode-btn {
+  font-size: min(18px, 4.8vw);
+  padding-inline: clamp(10px, 3.5vw, 18px);
+}
