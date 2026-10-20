@@ -158,7 +158,7 @@ export default function DrawPetsPage({ project }: GamePageProps) {
               <li className="dp-tag is-orange">Free</li>
               <li className="dp-tag is-blue">{platform.replace(' and ', ' & ')}</li>
               <li className="dp-tag is-mint">{game.players}</li>
-              <li className="dp-tag is-pink">Ages 10–12</li>
+              <li className="dp-tag is-pink">Ages 7+</li>
             </ul>
             <h1 id="dp-title" className="dp-title">
               <span className="dp-sr">{project.name}</span>
