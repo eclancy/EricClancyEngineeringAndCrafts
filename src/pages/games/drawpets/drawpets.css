@@ -1797,3 +1797,29 @@
     display: none;
   }
 }
+
+/* The update-email sign-up, at the foot of the What's new card. */
+.dp-page .dp-signup {
+  --su-ink: var(--dp-ink);
+  --su-muted: var(--dp-soft);
+  --su-field: var(--dp-card);
+  --su-line: var(--dp-ink);
+  --su-accent: var(--dp-orange);
+  --su-on-accent: var(--dp-ink);
+  --su-font: var(--dp-body);
+  --su-title-font: var(--dp-display);
+  --su-radius: 14px;
+
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 2px dashed color-mix(in srgb, var(--dp-ink) 30%, transparent);
+}
+.dp-page .dp-signup .updates-signup__fine,
+.dp-page .dp-signup .updates-signup__check {
+  font-family: var(--dp-hand);
+  font-size: 1rem;
+}
+.dp-page .dp-signup .updates-signup__button {
+  border-color: var(--dp-ink);
+  box-shadow: 0 3px 0 var(--dp-ink);
+}

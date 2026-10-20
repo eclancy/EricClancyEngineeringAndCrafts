@@ -1219,3 +1219,34 @@
   outline: 2px solid var(--gold-2);
   outline-offset: -2px;
 }
+
+/* The update-email sign-up, at the foot of the What's new panel: bone text, a stone field and
+   the gold button. */
+.ws-signup {
+  --su-ink: var(--bone-0);
+  --su-muted: var(--bone-2);
+  --su-field: var(--occ);
+  --su-line: var(--stone-1);
+  --su-accent: var(--gold-1);
+  --su-on-accent: var(--gold-4);
+  --su-font: var(--serif);
+  --su-title-font: var(--pixel);
+  --su-radius: 0;
+
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 2px solid var(--stone-2);
+}
+.ws-signup .updates-signup__title {
+  color: var(--gold-0);
+  font-weight: 700;
+}
+.ws-signup .updates-signup__button {
+  font-family: var(--pixel);
+  box-shadow:
+    inset -3px -3px 0 var(--gold-2),
+    inset 3px 3px 0 var(--gold-0);
+}
+.ws-signup .updates-signup__status {
+  color: #ff8a80;
+}

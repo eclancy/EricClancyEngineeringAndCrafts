@@ -5,6 +5,7 @@ import { formatDate, useReleases } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
+import { UpdatesSignup } from '../../../components/UpdatesSignup'
 import { TitleArt } from './TitleArt'
 import { SurviveDemo } from './SurviveDemo'
 import { Grimoire } from './Grimoire'
@@ -318,6 +319,7 @@ export default function WizardSurvivorsPage({ project }: GamePageProps) {
             >
               Every version →
             </a>
+            <UpdatesSignup game={project.id} name={project.name} className="ws-signup" />
           </div>
         </section>
 

@@ -1,0 +1,117 @@
+/* The update-email sign-up (UpdatesSignup.tsx). Each game page dresses it in its own look by
+   setting these on its class:
+     --su-ink, --su-muted        text and the small print
+     --su-field, --su-line       the email box's fill and border
+     --su-accent, --su-on-accent the button
+     --su-font, --su-title-font  body and title type
+     --su-radius                 corners
+   Everything else follows from them. */
+
+.updates-signup {
+  --su-ink: #1e1b2e;
+  --su-muted: #5f5a75;
+  --su-field: #fff;
+  --su-line: #c9c4dc;
+  --su-accent: #7c3aed;
+  --su-on-accent: #fff;
+  --su-font: inherit;
+  --su-title-font: inherit;
+  --su-radius: 10px;
+
+  display: grid;
+  gap: 10px;
+  color: var(--su-ink);
+  font-family: var(--su-font);
+}
+
+.updates-signup p {
+  margin: 0;
+}
+
+.updates-signup__title {
+  font-family: var(--su-title-font);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.updates-signup__fine {
+  font-size: 0.9rem;
+  color: var(--su-muted);
+  line-height: 1.45;
+}
+
+.updates-signup__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.updates-signup__input {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--su-ink);
+  background: var(--su-field);
+  border: 2px solid var(--su-line);
+  border-radius: var(--su-radius);
+}
+
+.updates-signup__input:focus-visible,
+.updates-signup__button:focus-visible,
+.updates-signup__check input:focus-visible {
+  outline: 3px solid var(--su-accent);
+  outline-offset: 2px;
+}
+
+.updates-signup__button {
+  flex: 0 0 auto;
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--su-on-accent);
+  background: var(--su-accent);
+  border: 2px solid transparent;
+  border-radius: var(--su-radius);
+  cursor: pointer;
+}
+
+.updates-signup__button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.updates-signup__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.updates-signup__check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--su-accent);
+}
+
+.updates-signup__status:empty {
+  display: none;
+}
+
+.updates-signup__status {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #c0262d;
+}
+
+.updates-signup__sr,
+.updates-signup__trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
