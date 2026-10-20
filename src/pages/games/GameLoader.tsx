@@ -24,7 +24,7 @@ const loaders: Record<string, { caption: string; art: ReactNode }> = {
     ),
   },
   'wizard-survivors': {
-    caption: 'Lighting the circle…',
+    caption: 'Beginning the ritual…',
     art: (
       <span className="gl-ws-circle" aria-hidden="true">
         <span />
