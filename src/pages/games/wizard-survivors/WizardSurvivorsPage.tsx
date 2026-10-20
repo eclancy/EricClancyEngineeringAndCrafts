@@ -37,7 +37,7 @@ const clips = [
   {
     name: 'sketchbook',
     title: 'The Sketchbook',
-    text: 'One chapter on lined paper, its monsters drawn by my kids and used exactly as drawn.',
+    text: 'One chapter on lined paper, its monsters drawn by kids and used exactly as drawn.',
     label:
       'Gameplay: the Sketchbook chapter, a lined-paper world with doodled houses and stick figures, where the Frostweaver casts ice spikes and lightning at crayon monsters drawn by children.',
   },
