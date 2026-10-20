@@ -204,14 +204,14 @@
 .ws-plaque {
   position: relative;
   z-index: 2;
-  max-width: 760px;
+  /* 760px at most, 16px clear of each edge on a phone, and centred either way. */
+  width: min(760px, 100% - 32px);
   margin: -72px auto 0;
   padding: 26px 22px 22px;
   text-align: center;
   border: 24px solid transparent;
   border-image: url('/games/wizard-survivors/art/panel.png') 24 fill / 24px round;
   image-rendering: pixelated;
-  margin-inline: max(16px, calc(50% - 440px));
 }
 .ws-plaque__tag {
   margin: 0;
