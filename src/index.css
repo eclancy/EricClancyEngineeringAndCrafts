@@ -135,6 +135,13 @@ html {
   animation: ecec-banner-hop 3.2s ease-in-out infinite;
 }
 
+/* On the narrowest phones the emoji goes, so the banner stays on one line. */
+@media (max-width: 359px) {
+  .ecec-banner-emoji {
+    display: none;
+  }
+}
+
 @keyframes ecec-banner-hop {
   0%,
   70%,
