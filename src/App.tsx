@@ -2,6 +2,7 @@ import { Hero } from './sections/Hero'
 import { Expertise } from './sections/Expertise'
 import { CareerHighlights } from './sections/CareerHighlights'
 import { Projects } from './sections/Projects'
+import { Crafts } from './sections/Crafts'
 import { About } from './sections/About'
 import { Contact } from './sections/Contact'
 import { Footer } from './components/Footer'
@@ -22,6 +23,7 @@ function App() {
         <Expertise />
         <CareerHighlights />
         <Projects />
+        <Crafts />
         <About />
         <Contact />
       </main>

@@ -161,7 +161,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
                 <p className="df-soon">Coming soon</p>
               ) : (
                 <a className="df-download" href={downloadPath(project)}>
-                  <span aria-hidden="true">⬇</span> Download &amp; play
+                  <span aria-hidden="true">⬇</span> Play {project.name}
                 </a>
               )}
               {feature && (
@@ -407,7 +407,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
           <div className="df-ctas df-ctas-center">
             {!game.comingSoon && (
               <a className="df-download" href={downloadPath(project)}>
-                <span aria-hidden="true">⬇</span> Download &amp; play
+                <span aria-hidden="true">⬇</span> Play {project.name}
               </a>
             )}
             {feature && (
@@ -421,9 +421,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
 
       <footer className="df-foot">
         <Scribble className="df-foot-scribble" />
-        <p>
-          {project.name} is made with {project.tech.join(', ')}, and drawings by kids.
-        </p>
+        <p>Made by Eric Clancy, with drawings by kids.</p>
         <nav aria-label="More">
           <a href="/">ecec.dev</a>
           {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}

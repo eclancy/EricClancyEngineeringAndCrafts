@@ -1,4 +1,4 @@
-import { gamePath, type Project } from '../data/projects'
+import { gamePath, platformsOf, type Project } from '../data/projects'
 import { colorAt } from '../lib/palette'
 import { prefetchGamePage } from '../pages/games/loaders'
 import { ImageCarousel } from './ImageCarousel'
@@ -39,8 +39,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </h3>
       <p className="text-sm text-violet-300">{project.tagline}</p>
       <p className="text-sm leading-relaxed text-slate-400">{project.description}</p>
-      <ul className="flex flex-wrap gap-2" aria-label={`${project.name} tech stack`}>
-        {project.tech.map((tech, index) => (
+      {/* Games show where they run; other projects show what they're built with. */}
+      <ul
+        className="flex flex-wrap gap-2"
+        aria-label={
+          project.game ? `${project.name} platforms` : `${project.name} tech stack`
+        }
+      >
+        {(project.game ? platformsOf(project) : project.tech).map((tech, index) => (
           <li
             key={tech}
             className={`rounded-full border px-3 py-1 text-xs font-medium ${colorAt(index).chip}`}
@@ -59,10 +65,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
               href={cta.href}
               target="_blank"
               rel="noreferrer noopener"
-              className="ecec-cta group flex items-center justify-center gap-2.5 whitespace-nowrap rounded-xl px-4 py-3.5 text-base font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
+              className="ecec-cta group flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-3.5 text-base font-extrabold text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
             >
               {cta.emoji && (
-                <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
+                <span aria-hidden="true" className="ecec-cta-emoji text-xl">
                   {cta.emoji}
                 </span>
               )}
@@ -82,37 +88,31 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <span aria-hidden="true">⏳</span> Coming soon
         </p>
       )}
-      <div className="mt-2 flex flex-wrap gap-3 text-sm font-medium">
-        {pageUrl && (
-          <a
-            href={pageUrl}
-            {...prefetch}
-            className="inline-flex items-center rounded-lg border border-fuchsia-400/60 px-3 py-2 text-fuchsia-200 transition hover:border-fuchsia-300 hover:bg-fuchsia-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-400"
-          >
-            Game page
-          </a>
-        )}
-        {project.repoUrl && (
-          <a
-            href={project.repoUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex items-center rounded-lg border border-violet-400/60 px-3 py-2 text-violet-200 transition hover:border-violet-300 hover:bg-violet-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
-          >
-            View code
-          </a>
-        )}
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex items-center rounded-lg border border-violet-400/60 px-3 py-2 text-violet-200 transition hover:border-violet-300 hover:bg-violet-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
-          >
-            {project.liveLabel ?? 'Live demo'}
-          </a>
-        )}
-      </div>
+      {/* Games keep their source link on their own page; the card's title opens that page. */}
+      {!project.game && (
+        <div className="mt-2 flex flex-wrap gap-3 text-sm font-medium">
+          {project.repoUrl && (
+            <a
+              href={project.repoUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center rounded-lg border border-violet-400/60 px-3 py-2 text-violet-200 transition hover:border-violet-300 hover:bg-violet-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+            >
+              View code
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center rounded-lg border border-violet-400/60 px-3 py-2 text-violet-200 transition hover:border-violet-300 hover:bg-violet-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+            >
+              {project.liveLabel ?? 'Live demo'}
+            </a>
+          )}
+        </div>
+      )}
     </article>
   )
 }
