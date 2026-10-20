@@ -227,10 +227,24 @@ async function email(fields, files, id, kind = KINDS.fighter) {
   return `sent to ${MAIL_TO} (resend id ${resendId || 'unknown'})`
 }
 
+// Which game a report came from, for its subject line. An allowlist rather than the raw field, so a
+// form on the open internet cannot write its own email subject. A report without one is DrawFight's,
+// which sent no game field before this existed, and keeps exactly the subject it always had.
+const REPORT_GAMES = {
+  'Wizard Survivors': 'Wizard Survivors bug report',
+  DrawFight: 'DrawFight suggestion',
+  DrawPets: 'DrawPets bug report',
+  'Wizard Wars': 'Wizard Wars bug report',
+}
+
 // A suggestion typed in the game: who sent it, if they said, and the idea - saved, and emailed.
 async function suggestion(fields, res) {
   const idea = fields.suggestion || ''
   if (!idea) return send(res, 400, { error: 'Write your idea first.' })
+  const game = Object.prototype.hasOwnProperty.call(REPORT_GAMES, fields.game)
+    ? fields.game
+    : 'DrawFight'
+  const title = REPORT_GAMES[game]
   const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
   const id = `${stamp}-${slug(fields.name, 'someone')}-${crypto.randomBytes(3).toString('hex')}`
   const dir = path.join(DATA, 'suggestions', id)
@@ -241,11 +255,12 @@ async function suggestion(fields, res) {
     name: fields.name || '',
     suggestion: idea,
     version: fields.version || '',
+    game,
   }
   await fs.writeFile(path.join(dir, 'suggestion.json'), JSON.stringify(record, null, 2))
   await fs.writeFile(
     path.join(dir, 'suggestion.md'),
-    `# Suggestion from ${record.name || 'someone'}\n\nSubmitted ${record.submitted} (${id}), game version ${record.version || 'unknown'}\n\n${idea}\n`,
+    `# ${title} from ${record.name || 'someone'}\n\nSubmitted ${record.submitted} (${id}), game version ${record.version || 'unknown'}\n\n${idea}\n`,
   )
 
   let mail = 'skipped (no RESEND_API_KEY)'
@@ -260,9 +275,9 @@ async function suggestion(fields, res) {
         body: JSON.stringify({
           from: MAIL_FROM,
           to: [MAIL_TO],
-          subject: `DrawFight suggestion${record.name ? ` from ${record.name}` : ''}`,
+          subject: `${title}${record.name ? ` from ${record.name}` : ''}`,
           html:
-            `<h2 style="font-family:sans-serif">A DrawFight suggestion${record.name ? ` from ${escapeHtml(record.name)}` : ''}</h2>` +
+            `<h2 style="font-family:sans-serif">${escapeHtml(title)}${record.name ? ` from ${escapeHtml(record.name)}` : ''}</h2>` +
             `<p style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(idea)}</p>` +
             `<p style="font-family:sans-serif;color:#666;margin-top:24px">Sent from the game, version ${escapeHtml(record.version || 'unknown')}. Saved on the server as <code>suggestions/${id}</code>.</p>`,
         }),
