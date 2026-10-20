@@ -6,6 +6,7 @@ import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
 import { UpdatesSignup } from '../../../components/UpdatesSignup'
+import { UpdatesLink } from '../../../components/UpdatesLink'
 import { SpellBook } from './SpellBook'
 import { PartySelect } from './PartySelect'
 import { Glyph } from './Glyph'
@@ -177,6 +178,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
               <p className="ww-version" aria-live="polite">
                 {versionLine}
               </p>
+              <UpdatesLink className="ww-updates-link" />
             </div>
           </div>
         </section>

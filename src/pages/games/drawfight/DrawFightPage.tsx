@@ -6,6 +6,7 @@ import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
 import { UpdatesSignup } from '../../../components/UpdatesSignup'
+import { UpdatesLink } from '../../../components/UpdatesLink'
 import { PracticePage } from './PracticePage'
 import { Puppet } from './Puppet'
 import { rigs } from './rigs'
@@ -172,6 +173,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
               )}
             </div>
             {!game.comingSoon && <VersionLine release={latest} state={releases.state} />}
+            {!game.comingSoon && <UpdatesLink className="df-updates-link" />}
           </div>
 
           <figure className="df-polaroid df-hero-clip">

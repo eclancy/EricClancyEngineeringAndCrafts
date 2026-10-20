@@ -1823,3 +1823,9 @@
   border-color: var(--dp-ink);
   box-shadow: 0 3px 0 var(--dp-ink);
 }
+
+.dp-page .dp-updates-link {
+  font-family: var(--dp-hand);
+  font-size: 1.05rem;
+  color: var(--dp-ink);
+}

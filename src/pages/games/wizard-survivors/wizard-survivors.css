@@ -1258,3 +1258,10 @@
 .ws-btn--big {
   font-size: min(24px, 6.4vw);
 }
+
+.ws-updates-link {
+  margin-top: 10px;
+  font-family: var(--pixel);
+  font-weight: 400;
+  color: var(--gold-0);
+}
