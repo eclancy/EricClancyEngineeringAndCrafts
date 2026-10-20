@@ -6,7 +6,7 @@
     <title>Download DrawPets</title>
     <meta
       name="description"
-      content="Download DrawPets, a virtual pet you draw part by part, then look after. Free, for Windows and Android, with no ads, no accounts and no AI."
+      content="Play DrawPets, a virtual pet you draw part by part, then look after. Free, for Windows, Android and any browser - iPads too - with no ads, no accounts and no AI."
     />
 
     <!-- The link preview, for chat apps. -->
@@ -146,6 +146,9 @@
       .big.second {
         background: var(--mint);
       }
+      .big.third {
+        background: #c9b8f2;
+      }
       .big:hover {
         transform: translateY(-1px);
         box-shadow: 0 6px 0 var(--ink);
@@ -220,7 +223,7 @@
   </head>
   <body>
     <main class="wrap">
-      <p class="eyebrow">DrawPets · free · Windows and Android</p>
+      <p class="eyebrow">DrawPets · free · Windows, Android and your browser</p>
       <h1>Play <span>DrawPets</span></h1>
       <p class="lede">
         Draw a creature part by part - a head, legs, wings, a tail, anything - and it
@@ -251,6 +254,9 @@
           href="https://github.com/eclancy/DrawPets/releases/latest/download/DrawPets.apk"
         >
           <span aria-hidden="true">📱</span> Download for Android
+        </a>
+        <a class="big third" id="web" href="/drawpets/play/">
+          <span aria-hidden="true">🌐</span> Play in your browser
         </a>
       </div>
       <p class="meta" id="meta">Free · no ads · nothing to buy</p>
@@ -286,6 +292,33 @@
         <p class="note">
           <b>Updates:</b> when a new version is out, DrawPets says so on its home screen.
           Download it here again and install it over the top - the pets stay.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="web-how">
+        <h2 id="web-how">On an iPad, iPhone, Chromebook or Mac</h2>
+        <p style="margin: 0 0 12px; color: var(--soft)">
+          Nothing to install - it plays in the browser. One step for a grown-up keeps the
+          pets safe:
+        </p>
+        <ol>
+          <li>Tap <b>Play in your browser</b> and wait for DrawPets to load.</li>
+          <li>
+            On an iPad or iPhone, tap the <b>Share</b> button, then
+            <b>Add to Home Screen</b>. On a Chromebook or computer, use the browser's
+            <b>Install</b> button by the web address.
+          </li>
+          <li>From then on, open <b>DrawPets</b> from the Home Screen or app list.</li>
+        </ol>
+        <p class="note">
+          <b>Why the Home Screen matters:</b> a browser keeps a web game's pets in its own
+          storage. Safari clears a website's storage if it isn't visited for a week -
+          unless it was added to the Home Screen. Clearing the browser's data deletes the
+          pets too.
+        </p>
+        <p class="note">
+          <b>Swapping pets</b> works between two browsers on the same Wi-Fi: one shows a
+          code, the other scans it. The pets go straight from one device to the other.
         </p>
       </section>
 
@@ -335,13 +368,16 @@
       </footer>
     </main>
     <script>
-      // A phone or tablet sees the Android button first.
-      if (/Android/i.test(navigator.userAgent)) {
+      // Each device sees its own way first: Android the APK, an iPad, iPhone, Chromebook or Mac
+      // the browser version (an iPad says it is a Mac, but has a touch screen). Windows keeps
+      // the installer first.
+      const ua = navigator.userAgent
+      const first = (id) => {
         const buttons = document.getElementById('buttons')
-        buttons.insertBefore(document.getElementById('android'), buttons.firstChild)
-        document.getElementById('android').classList.remove('second')
-        document.getElementById('windows').classList.add('second')
+        buttons.insertBefore(document.getElementById(id), buttons.firstChild)
       }
+      if (/Android/i.test(ua)) first('android')
+      else if (/iPhone|iPad|CrOS|Macintosh/.test(ua)) first('web')
       // The version and sizes of the newest release. GitHub's API allows cross-site reads; if it
       // is slow or rate-limited the line keeps its default wording. A 404 means nothing is
       // published yet, so the buttons say so instead of linking to missing files.
@@ -356,6 +392,7 @@
             document.getElementById('windows').innerHTML =
               '<span aria-hidden="true">⏳</span> Coming soon'
             document.getElementById('android').remove()
+            document.getElementById('web').remove()
             document.getElementById('meta').textContent =
               'The first version is on its way'
           }
@@ -366,6 +403,10 @@
           const size = (name) => {
             const file = assets.find((a) => a.name === name)
             return file ? Math.round(file.size / 1048576) + ' MB' : ''
+          }
+          // The browser version only exists from the release that first carried it.
+          if (!assets.some((a) => a.name === 'DrawPets-web.zip')) {
+            document.getElementById('web')?.remove()
           }
           const version = String(release.tag_name || '').replace(/^v/, '')
           if (version) {

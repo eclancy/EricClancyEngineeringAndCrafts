@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 dist
+# DrawPets' web version: fetched from its GitHub Release at deploy time (deploy.yml), ~60 MB.
+public/drawpets/play
 dist-ssr
 *.local
 

@@ -6,9 +6,19 @@ services:
     restart: unless-stopped
     depends_on:
       - intake
+      - meet
     ports:
       # Bound to localhost only — host Nginx + certbot reverse-proxies and terminates TLS.
       - '127.0.0.1:8080:80'
+
+  # DrawPets' meeting point (meet/server.js): introduces two devices whose kids are swapping pets
+  # side by side, then steps away. Keeps nothing - no volume, no logs of rooms or addresses.
+  # Only reachable through the web container's nginx (/api/meet).
+  meet:
+    build: ./meet
+    image: ecec-meet:latest
+    container_name: ecec-meet
+    restart: unless-stopped
 
   # Receives DrawFight fighter submissions from ecec.dev/draw. Only reachable through the web
   # container's nginx (/api/draw), never published on a port of its own.

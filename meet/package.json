@@ -1,0 +1,11 @@
+{
+  "name": "drawpets-meet",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Introduces two DrawPets devices swapping pets side by side, then steps away",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
