@@ -111,3 +111,29 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
 - Limits: 24 pictures (the page itself takes 8; the game sends more), 12 MB each (the page
   shrinks big photos first), 5 submissions an hour per address, and a hidden trap field for
   bots. Host nginx allows 60 MB request bodies, and the game keeps a submission under that.
+
+## 7. Game update emails (the sign-up on each game page)
+
+Each game page (`/games/<id>`) has an "Email me updates" form (`src/components/UpdatesSignup.tsx`)
+that posts to `/api/updates/subscribe`. The site's nginx hands `/api/updates/` to the `updates`
+container (`updates/server.js`).
+
+- **Who:** grown-ups only - the form asks for "13 or older", because these pages are visited by
+  kids. Every sign-up gets a confirm email first; only confirmed addresses get updates.
+- **When it emails:** it checks each game's newest GitHub Release every 10 minutes. A release
+  with player-facing notes (`release.sh X.Y.Z "what changed"`) emails everyone confirmed for that
+  game; a release without notes sends nothing. The first time it sees a game it only remembers
+  the current release, so a fresh deploy never emails anyone.
+- **Unsubscribing:** every email has a link and the one-click `List-Unsubscribe` header. Opening
+  the link shows a page with a button, so email scanners can't unsubscribe people by accident.
+- **Storage:** `/data/subscribers.json` in the Docker named volume `updates-data` - kept across
+  deploys, deleted only by `docker compose down -v`. Just emails, tokens and dates; no IPs, and
+  nothing about subscribers goes in the logs. To see the list:
+  `docker compose exec updates cat /data/subscribers.json`.
+- **Sending:** through Resend with the same `RESEND_API_KEY` as the intake (it reads
+  `/etc/ecec/intake.env`), from `ECEC Games <updates@ecec.dev>` (set `UPDATES_MAIL_FROM` there to
+  change it). Optional: `GITHUB_TOKEN` there raises GitHub's rate limit; `POLL_MINUTES` changes
+  how often it checks. Without the key, it prints emails to its log instead of sending them.
+- **Locally:** `node updates/server.js` (dry run, no key needed) and `npm run dev` - Vite
+  forwards `/api/updates` to it.
+- **A new game:** add it to `GAMES` at the top of `updates/server.js`.

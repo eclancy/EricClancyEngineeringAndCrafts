@@ -5,6 +5,7 @@ import { formatDate, useReleases, type Release } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
+import { UpdatesSignup } from '../../../components/UpdatesSignup'
 import { PracticePage } from './PracticePage'
 import { Puppet } from './Puppet'
 import { rigs } from './rigs'
@@ -399,6 +400,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
               list={releases.state === 'ok' ? releases.list : []}
               repo={project.repoUrl}
             />
+            <UpdatesSignup game={project.id} name={project.name} className="df-signup" />
           </section>
         )}
 

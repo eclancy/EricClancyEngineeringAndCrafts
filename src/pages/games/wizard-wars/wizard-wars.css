@@ -2533,3 +2533,36 @@ main#ww-main {
   stroke-width: 1.6;
   stroke: #fff27a;
 }
+
+/* The update-email sign-up: a parchment page with an ink outline and the red cover's button. */
+.ww-signup {
+  --su-ink: var(--ink);
+  --su-muted: #6b4f36;
+  --su-field: var(--cream);
+  --su-line: var(--ink);
+  --su-accent: var(--cover);
+  --su-on-accent: var(--cream);
+  --su-font: var(--body);
+  --su-title-font: var(--display);
+  --su-radius: 12px;
+
+  max-width: 560px;
+  margin: 28px auto 0;
+  padding: 22px 20px 18px;
+  background: var(--page);
+  border: 4px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 0 6px 0 var(--ink);
+}
+.ww-signup .updates-signup__title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--title-red);
+  letter-spacing: 0.02em;
+}
+.ww-signup .updates-signup__button {
+  border-color: var(--ink);
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}

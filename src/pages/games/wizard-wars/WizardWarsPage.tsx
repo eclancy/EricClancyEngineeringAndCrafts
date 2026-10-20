@@ -5,6 +5,7 @@ import { formatDate, useReleases } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
+import { UpdatesSignup } from '../../../components/UpdatesSignup'
 import { SpellBook } from './SpellBook'
 import { PartySelect } from './PartySelect'
 import { Glyph } from './Glyph'
@@ -372,6 +373,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
                 Every version
               </a>
             </p>
+            <UpdatesSignup game={project.id} name={project.name} className="ww-signup" />
           </section>
         )}
 

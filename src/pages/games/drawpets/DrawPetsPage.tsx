@@ -5,6 +5,7 @@ import { formatDate, useReleases } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
+import { UpdatesSignup } from '../../../components/UpdatesSignup'
 import { CurlyArrow, DoodleFilters, Heart, Sparkle, Squiggle, Star } from './Doodles'
 import { PartMaker } from './PartMaker'
 import { PetMe } from './PetMe'
@@ -400,6 +401,13 @@ export default function DrawPetsPage({ project }: GamePageProps) {
               <a href={`${repoUrl}/releases`} className="dp-link">
                 All versions
               </a>
+              {!game.comingSoon && (
+                <UpdatesSignup
+                  game={project.id}
+                  name={project.name}
+                  className="dp-signup"
+                />
+              )}
             </article>
           </div>
         </section>

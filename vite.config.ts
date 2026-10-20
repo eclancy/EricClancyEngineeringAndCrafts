@@ -5,4 +5,9 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    // In development, the update-email sign-ups go to updates/server.js run locally
+    // (`node updates/server.js` - with no RESEND_API_KEY it prints emails instead of sending).
+    proxy: { '/api/updates': 'http://localhost:3002' },
+  },
 })

@@ -1,0 +1,11 @@
+{
+  "name": "ecec-updates",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Game update emails: sign-ups from the game pages, and an email when a game has a release with notes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

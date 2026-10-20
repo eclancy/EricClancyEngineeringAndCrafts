@@ -7,6 +7,7 @@ services:
     depends_on:
       - intake
       - meet
+      - updates
     ports:
       # Bound to localhost only — host Nginx + certbot reverse-proxies and terminates TLS.
       - '127.0.0.1:8080:80'
@@ -38,3 +39,26 @@ services:
     volumes:
       # Outside /opt/ecec-hub, which every deploy rsyncs over with --delete.
       - /var/lib/drawfight-submissions:/data
+
+  # Game update emails (updates/server.js): sign-ups from the game pages, confirmed by email, and
+  # an email to them when a game has a release with notes. Only reachable through the web
+  # container's nginx (/api/updates/). Shares intake's secrets file for RESEND_API_KEY; PORT and
+  # DATA_DIR are set here so nothing in that file can change them.
+  updates:
+    build: ./updates
+    image: ecec-updates:latest
+    container_name: ecec-updates
+    restart: unless-stopped
+    environment:
+      PORT: 3002
+      DATA_DIR: /data
+    env_file:
+      - path: /etc/ecec/intake.env
+        required: false
+    volumes:
+      # A named volume: Docker keeps it across every deploy (only `docker compose down -v`
+      # deletes it), and it starts owned by the container's user, so the server needs no setup.
+      - updates-data:/data
+
+volumes:
+  updates-data:
