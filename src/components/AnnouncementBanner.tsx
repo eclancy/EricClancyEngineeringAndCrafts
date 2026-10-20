@@ -43,7 +43,7 @@ export function AnnouncementBanner() {
   return (
     <aside
       aria-label="Announcement"
-      className="ecec-cta relative flex items-center justify-center gap-x-3 gap-y-1 px-12 py-2.5 text-center text-sm font-bold text-white sm:text-base"
+      className="ecec-cta relative flex items-center justify-center gap-x-3 gap-y-1 px-10 py-2.5 sm:px-12 text-center text-sm font-bold text-white sm:text-base"
     >
       {/* Covers the whole banner so any click lands somewhere; the pill link and the
           dismiss button sit above it and keep their own targets. */}
@@ -54,7 +54,7 @@ export function AnnouncementBanner() {
           className="absolute inset-0 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white"
         />
       )}
-      <p className="pointer-events-none flex flex-wrap items-center justify-center gap-x-3 gap-y-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+      <p className="pointer-events-none flex flex-wrap items-center justify-center gap-x-2 gap-y-1 sm:gap-x-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
         {announcement.emoji && (
           <span aria-hidden="true" className="ecec-banner-emoji text-xl">
             {announcement.emoji}

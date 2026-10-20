@@ -18,8 +18,8 @@ export const announcements: Announcement[] = [
   {
     id: 'games-download-2026-10',
     emoji: '🎮',
-    text: 'Three of my games are out! Download them free and play.',
-    link: { href: '#projects', label: 'Pick a game' },
+    text: 'Try my free games',
+    link: { href: '#projects', label: 'Pick one' },
     href: '#projects',
   },
 ]
