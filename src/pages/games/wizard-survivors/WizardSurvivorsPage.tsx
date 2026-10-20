@@ -348,8 +348,8 @@ export default function WizardSurvivorsPage({ project }: GamePageProps) {
           <a href={`https://github.com/eclancy/${game.repo}/releases`}>All versions</a>
         </p>
         <p className="ws-footer__small">
-          Made by Eric Clancy, in Godot and C#. The code is source-available; the art,
-          least of all the Sketchbook&rsquo;s, is not for reuse.
+          Made by Eric Clancy. The code is source-available; the art, least of all the
+          Sketchbook&rsquo;s, is not for reuse.
         </p>
       </footer>
     </div>

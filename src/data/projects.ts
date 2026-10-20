@@ -72,6 +72,9 @@ export interface GameInfo {
 
 export const gamePath = (project: Project) => `/games/${project.id}`
 export const downloadPath = (project: Project) => `/${project.id}/download`
+/** Where a game runs, from its `platform` ('Windows and Android' -> ['Windows', 'Android']). */
+export const platformsOf = (project: Project) =>
+  (project.game?.platform ?? 'Windows').split(/\s+and\s+|,\s*/)
 
 // Curated from each project's README / design docs. Refresh via the
 // content-updater agent when a project's scope or stack changes.
@@ -114,7 +117,7 @@ export const projects: Project[] = [
     callsToAction: [
       {
         href: 'https://ecec.dev/drawfight/download',
-        label: 'Download & play',
+        label: 'Play DrawFight',
         emoji: '🎮',
       },
     ],
@@ -154,6 +157,13 @@ export const projects: Project[] = [
       'own.',
     tech: ['Godot 4.5', 'GDScript', 'Windows', 'Android'],
     repoUrl: 'https://github.com/eclancy/DrawPets',
+    callsToAction: [
+      {
+        href: 'https://ecec.dev/drawpets/download',
+        label: 'Play DrawPets',
+        emoji: '🎮',
+      },
+    ],
     game: {
       repo: 'DrawPets',
       players: '1 player',
@@ -222,7 +232,7 @@ export const projects: Project[] = [
     callsToAction: [
       {
         href: 'https://ecec.dev/wizard-survivors/download',
-        label: 'Download & play',
+        label: 'Play Wizard Survivors',
         emoji: '🎮',
       },
     ],
@@ -268,13 +278,12 @@ export const projects: Project[] = [
         'Each wizard has a free basic attack, three abilities and an ultimate that charges as ' +
           'you fight. Everyone joins from Character Select with a controller, and player one ' +
           'can use the keyboard.',
-        'It started life as a Unity game and was rebuilt in Godot 4.5 with C#.',
       ],
     },
     callsToAction: [
       {
         href: 'https://ecec.dev/wizard-wars/download',
-        label: 'Download & play',
+        label: 'Play Wizard Wars',
         emoji: '🎮',
       },
     ],

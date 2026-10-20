@@ -171,7 +171,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
             <div className="ww-orb-wrap">
               <a href={downloadPath(project)} className="ww-orb">
                 <span className="ww-orb-start">Start</span>
-                <span className="ww-orb-sub">Download &amp; play</span>
+                <span className="ww-orb-sub">Play {project.name}</span>
               </a>
               <p className="ww-version" aria-live="polite">
                 {versionLine}
@@ -304,12 +304,6 @@ export default function WizardWarsPage({ project }: GamePageProps) {
                     {p}
                   </p>
                 ))}
-                <h3 className="ww-subhead">Bound with</h3>
-                <ul className="ww-tech" aria-label="Built with">
-                  {project.tech.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
               </div>
               <div className="ww-page ww-page--right">
                 <h3 className="ww-subhead" id="ww-controls">

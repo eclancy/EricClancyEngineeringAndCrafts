@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { formatDate, useReleases } from '../lib/releases'
 import { downloadPath, type GameInfo, type Project } from '../data/projects'
-import { colorAt } from '../lib/palette'
 import { EcecLogo } from '../components/EcecLogo'
 import { Footer } from '../components/Footer'
 import { ImageCarousel } from '../components/ImageCarousel'
@@ -47,19 +46,6 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
               {project.name}
             </h1>
             <p className="text-lg text-violet-300">{project.tagline}</p>
-            <ul
-              className="flex flex-wrap gap-2"
-              aria-label={`${project.name} tech stack`}
-            >
-              {project.tech.map((tech, index) => (
-                <li
-                  key={tech}
-                  className={`rounded-full border px-3 py-1 text-xs font-medium ${colorAt(index).chip}`}
-                >
-                  {tech}
-                </li>
-              ))}
-            </ul>
             {game.comingSoon ? (
               <p className="mt-2 rounded-xl border border-dashed border-fuchsia-400/50 px-5 py-4 text-center text-lg font-bold text-fuchsia-200 sm:max-w-sm">
                 <span aria-hidden="true">⏳</span> Coming soon
@@ -73,7 +59,7 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
                   🎮
                 </span>
                 <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-                  Download & play
+                  Play {project.name}
                 </span>
                 <span
                   aria-hidden="true"
