@@ -2004,6 +2004,7 @@ main#ww-main {
 .ww-seat-name {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   margin: 2px 0 0;
   font-family: var(--display);
