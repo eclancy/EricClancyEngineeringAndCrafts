@@ -164,7 +164,7 @@ export const projects: Project[] = [
           'joins on. They drag the parts onto the body and it comes alive: every kind of ' +
           'part has its own way of moving, so whatever they invent walks, flaps, wags and ' +
           'blinks the first time.',
-        'Then it is theirs to look after, a bit like Nintendogs. Pet it, feed it the food ' +
+        'Then it is theirs to look after. Pet it, feed it the food ' +
           'they drew for it, throw its favourite toy, take it on walks and give it a bath ' +
           'once a week. Toys and furniture behave by the words the kid picks for them - a ' +
           'bouncy ball gets fetched, a cozy bed is for napping. Pets never get sick, run ' +
