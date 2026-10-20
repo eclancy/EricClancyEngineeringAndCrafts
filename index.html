@@ -27,6 +27,20 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content="https://ecec.dev/og-image.png" />
     <title>Eric Clancy | ECEC</title>
+    <script>
+      // Paint the page's own backdrop before the app's script arrives, so neither the home page
+      // nor a game page flashes white first. Colours match each page (and GameLoader).
+      ;(function () {
+        var game = (location.pathname.match(/^\/games\/([^/]+)\/?$/) || [])[1]
+        var colours = {
+          drawfight: '#fbfaf3',
+          drawpets: '#fbf6ea',
+          'wizard-survivors': '#05070c',
+          'wizard-wars': '#1b1240',
+        }
+        document.documentElement.style.backgroundColor = colours[game] || '#020618'
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

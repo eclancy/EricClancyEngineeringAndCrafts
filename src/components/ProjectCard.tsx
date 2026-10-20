@@ -1,5 +1,6 @@
 import { gamePath, type Project } from '../data/projects'
 import { colorAt } from '../lib/palette'
+import { prefetchGamePage } from '../pages/games/loaders'
 import { ImageCarousel } from './ImageCarousel'
 
 interface ProjectCardProps {
@@ -8,6 +9,12 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const pageUrl = project.game ? gamePath(project) : undefined
+  // Start downloading the game page's own code as soon as a link to it is aimed at.
+  const prefetch = {
+    onPointerEnter: () => prefetchGamePage(project.id),
+    onFocus: () => prefetchGamePage(project.id),
+    onTouchStart: () => prefetchGamePage(project.id),
+  }
 
   return (
     <article
@@ -21,6 +28,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {pageUrl ? (
           <a
             href={pageUrl}
+            {...prefetch}
             className="underline-offset-4 hover:text-violet-200 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
           >
             {project.name}
@@ -78,6 +86,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {pageUrl && (
           <a
             href={pageUrl}
+            {...prefetch}
             className="inline-flex items-center rounded-lg border border-fuchsia-400/60 px-3 py-2 text-fuchsia-200 transition hover:border-fuchsia-300 hover:bg-fuchsia-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-400"
           >
             Game page
