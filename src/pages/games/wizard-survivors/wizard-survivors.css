@@ -1061,7 +1061,10 @@
   text-align: center;
   font-family: var(--pixel);
 }
+/* Tailwind's base makes images blocks, which text-align cannot centre - so centre it by margin. */
 .ws-footer img {
+  display: block;
+  margin: 0 auto;
   image-rendering: pixelated;
 }
 .ws-footer p {

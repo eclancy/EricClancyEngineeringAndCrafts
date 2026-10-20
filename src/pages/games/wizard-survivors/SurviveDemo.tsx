@@ -521,7 +521,9 @@ export function SurviveDemo() {
       if (len) {
         g.x = Math.min(W - 14, Math.max(14, g.x + (mx / len) * 82 * dt))
         g.y = Math.min(H - 6, Math.max(30, g.y + (my / len) * 82 * dt))
-        if (Math.abs(mx) > 0.1) g.flip = mx < 0
+        // The Stormcaller's sheets face left (the game special-cases her in
+        // CharacterVisuals.SpriteFacesLeft), so she is mirrored when walking right.
+        if (Math.abs(mx) > 0.1) g.flip = mx > 0
         g.walk += dt * 10
       }
       g.hurt = Math.max(0, g.hurt - dt)
