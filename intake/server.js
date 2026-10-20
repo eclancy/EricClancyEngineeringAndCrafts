@@ -3,7 +3,8 @@
 //
 // The DrawFight game sends three things here: a fighter (POST /api/draw, the same as the form), a
 // stage drawn in the game (POST /api/draw/stage), and a suggestion typed in the game (POST
-// /api/draw/suggest). Fighters are saved at the top of /data as always; stages under
+// /api/draw/suggest). DrawPets sends a grown-up's bug report or idea (POST /api/draw/pets), saved
+// under /data/drawpets-feedback. Fighters are saved at the top of /data as always; stages under
 // /data/stages, suggestions under /data/suggestions. Each one is emailed to Eric.
 //
 // Runs as its own container next to the site (see docker-compose.yml). The site's nginx
@@ -291,6 +292,58 @@ async function suggestion(fields, res) {
   return send(res, 200, { ok: true })
 }
 
+// DrawPets' feedback (its FeedbackScreen): a bug or an idea from a grown-up. DrawPets is for kids,
+// so the game asks for no name and nothing personal (DrawPets .ai/sharing.md), and this keeps
+// only the message, its kind and the game's version and platform - no address, no name.
+const PET_KINDS = { bug: 'bug report', idea: 'idea', other: 'message' }
+const PETS_FROM = 'DrawPets <drawpets@ecec.dev>'
+
+async function petsFeedback(fields, res) {
+  const message = fields.message || ''
+  if (!message) return send(res, 400, { error: 'Write a message first.' })
+  const kind = PET_KINDS[fields.kind] ? fields.kind : 'other'
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
+  const id = `${stamp}-${kind}-${crypto.randomBytes(3).toString('hex')}`
+  const dir = path.join(DATA, 'drawpets-feedback', id)
+  await fs.mkdir(dir, { recursive: true })
+  const record = {
+    id,
+    submitted: new Date().toISOString(),
+    kind,
+    message,
+    version: (fields.version || '').slice(0, 20),
+    platform: (fields.platform || '').slice(0, 20),
+  }
+  await fs.writeFile(path.join(dir, 'feedback.json'), JSON.stringify(record, null, 2))
+
+  let mail = 'skipped (no RESEND_API_KEY)'
+  if (RESEND_API_KEY) {
+    try {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: PETS_FROM,
+          to: [MAIL_TO],
+          subject: `DrawPets ${PET_KINDS[kind]}`,
+          html:
+            `<h2 style="font-family:sans-serif">A DrawPets ${PET_KINDS[kind]}</h2>` +
+            `<p style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(message)}</p>` +
+            `<p style="font-family:sans-serif;color:#666;margin-top:24px">Sent from DrawPets ${escapeHtml(record.version || 'unknown')} on ${escapeHtml(record.platform || 'unknown')}. Saved on the server as <code>drawpets-feedback/${id}</code>.</p>`,
+        }),
+      })
+      mail = response.ok ? `sent to ${MAIL_TO}` : `failed (${response.status})`
+    } catch (err) {
+      mail = `failed (${err.message})`
+    }
+  }
+  console.log(`saved drawpets feedback ${id}, email ${mail}`)
+  return send(res, 200, { ok: true })
+}
+
 async function handle(req, res) {
   if (req.method === 'GET' && req.url === '/api/draw/health')
     return send(res, 200, { ok: true })
@@ -317,6 +370,7 @@ async function handle(req, res) {
   // The hidden "website" field is invisible to people; only bots fill it in. Pretend it worked.
   if (fields.website) return send(res, 200, { ok: true })
   if (route === '/api/draw/suggest') return suggestion(fields, res)
+  if (route === '/api/draw/pets') return petsFeedback(fields, res)
   const kind = route === '/api/draw/stage' ? KINDS.stage : KINDS.fighter
   if (!fields.name) return send(res, 400, { error: `Your ${kind.noun} needs a name.` })
   if (files.length === 0)
