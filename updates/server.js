@@ -30,6 +30,9 @@ const MAIL_FROM = process.env.UPDATES_MAIL_FROM || 'ECEC Games <updates@ecec.dev
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || ''
 // Where to tell Eric about each new confirmed sign-up: the same MAIL_TO the intake uses.
 const MAIL_TO = process.env.MAIL_TO || 'eric@ecec.dev'
+// Where a subscriber's reply goes. updates@ecec.dev itself receives nothing (only eric@ is
+// forwarded), so without this a reply to an update email would be lost.
+const REPLY_TO = process.env.UPDATES_REPLY_TO || 'eric@ecec.dev'
 const POLL_MS = Number(process.env.POLL_MINUTES || 10) * 60_000
 
 // Keep in step with the `game` entries in src/data/projects.ts.
@@ -118,6 +121,7 @@ function confirmEmail(email, game, token) {
   return {
     from: MAIL_FROM,
     to: [email],
+    reply_to: REPLY_TO,
     subject: `Confirm: ${name} update emails`,
     text: `Someone (hopefully you) asked for an email whenever ${name} has an update.\n\nConfirm here: ${link}\n\nIf it wasn't you, ignore this - nothing more will be sent.`,
     html: htmlEmail(
@@ -161,6 +165,7 @@ function releaseEmail(sub, game, version, notes) {
   return {
     from: MAIL_FROM,
     to: [sub.email],
+    reply_to: REPLY_TO,
     subject: `${name} ${version} is out`,
     headers: {
       'List-Unsubscribe': `<${unsubscribe}>`,
