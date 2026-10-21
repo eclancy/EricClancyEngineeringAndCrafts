@@ -134,7 +134,8 @@ container (`updates/server.js`).
   `docker compose exec updates cat /data/subscribers.json`.
 - **Sending:** through Resend with the same `RESEND_API_KEY` as the intake (it reads
   `/etc/ecec/intake.env`), from `ECEC Games <updates@ecec.dev>` (set `UPDATES_MAIL_FROM` there to
-  change it). Optional: `GITHUB_TOKEN` there raises GitHub's rate limit; `POLL_MINUTES` changes
+  change it). Replies go to `eric@ecec.dev` (Reply-To; `UPDATES_REPLY_TO` changes it), because
+  `updates@ecec.dev` itself receives nothing - only `eric@` is forwarded. Optional: `GITHUB_TOKEN` there raises GitHub's rate limit; `POLL_MINUTES` changes
   how often it checks. Without the key, it prints emails to its log instead of sending them.
 - **Locally:** `node updates/server.js` (dry run, no key needed) and `npm run dev` - Vite
   forwards `/api/updates` to it.
