@@ -219,6 +219,7 @@ export const projects: Project[] = [
     game: {
       repo: 'WizardSurvivors',
       players: '1 player',
+      platform: 'Windows and Android',
       about: [
         'You move; your spells fire themselves. Every run asks the same question: what did ' +
           'you pick, and where did you stand?',

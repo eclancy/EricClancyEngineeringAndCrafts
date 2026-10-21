@@ -145,7 +145,7 @@ export default function WizardSurvivorsPage({ project }: GamePageProps) {
               'Free'
             )}
             <span aria-hidden="true"> · </span>
-            {game.platform ?? 'Windows'} · {game.players} · keyboard or controller
+            {game.platform ?? 'Windows'} · {game.players} · keyboard, controller or touch
           </p>
           <UpdatesLink className="ws-updates-link" />
         </div>
@@ -327,7 +327,7 @@ export default function WizardSurvivorsPage({ project }: GamePageProps) {
 
         <section className="ws-section ws-final" aria-labelledby="ws-final-title">
           <h2 id="ws-final-title">Step into the circle</h2>
-          <p>Free for Windows. It keeps itself up to date.</p>
+          <p>Free for Windows and Android.</p>
           <a className="ws-btn ws-btn--gold ws-btn--big" href={downloadPath(project)}>
             <span className="ws-btn__glyph" aria-hidden="true">
               ⬇

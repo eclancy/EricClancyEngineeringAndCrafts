@@ -6,14 +6,14 @@
     <title>Download Wizard Survivors</title>
     <meta
       name="description"
-      content="Download Wizard Survivors, a roguelite auto-shooter where your spells fire themselves. Free, for Windows, and it keeps itself up to date."
+      content="Download Wizard Survivors, a roguelite auto-shooter where your spells fire themselves. Free, for Windows and Android."
     />
 
     <!-- The link preview, for chat apps. -->
     <meta property="og:title" content="Play Wizard Survivors" />
     <meta
       property="og:description"
-      content="Move, survive, and let your spells do the rest. A free roguelite for Windows."
+      content="Move, survive, and let your spells do the rest. A free roguelite for Windows and Android."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ecec.dev/wizard-survivors/download" />
@@ -29,7 +29,7 @@
     <meta name="twitter:title" content="Play Wizard Survivors" />
     <meta
       name="twitter:description"
-      content="Move, survive, and let your spells do the rest. A free roguelite for Windows."
+      content="Move, survive, and let your spells do the rest. A free roguelite for Windows and Android."
     />
     <meta
       name="twitter:image"
@@ -56,6 +56,8 @@
         --gold-ink: #2a1a00;
         --violet: #a98bff;
         --violet-wash: rgba(169, 139, 255, 0.1);
+        --violet-ink: #1a0f3a;
+        --violet-edge: #5b3fb8;
       }
       * {
         box-sizing: border-box;
@@ -127,12 +129,17 @@
         image-rendering: pixelated;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
       }
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin: 26px 0 8px;
+      }
       .big {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 12px;
-        margin: 26px 0 8px;
         padding: 16px 20px;
         font-size: 1.6rem;
         color: var(--gold-ink);
@@ -152,6 +159,20 @@
       .big:active {
         transform: translateY(4px);
         box-shadow: 0 1px 0 #a8730f;
+      }
+      /* The second platform's button: the same shape in the page's violet, so the two read
+         as a pair and neither looks like the "real" one. */
+      .big.second {
+        color: var(--violet-ink);
+        background: var(--violet);
+        border-color: var(--violet-ink);
+        box-shadow: 0 5px 0 var(--violet-edge);
+      }
+      .big.second:hover {
+        box-shadow: 0 6px 0 var(--violet-edge);
+      }
+      .big.second:active {
+        box-shadow: 0 1px 0 var(--violet-edge);
       }
       .big:focus-visible {
         outline: 3px solid var(--violet);
@@ -218,7 +239,7 @@
   </head>
   <body>
     <main class="wrap">
-      <p class="eyebrow">Wizard Survivors · free · Windows</p>
+      <p class="eyebrow">Wizard Survivors · free · Windows and Android</p>
       <h1>Play <span>Wizard Survivors</span></h1>
       <p class="lede">
         You move; your spells fire themselves. Pick your upgrades, choose where to stand,
@@ -233,16 +254,26 @@
         alt="The Wizard Survivors title screen."
       />
 
-      <a
-        class="big"
-        id="download"
-        href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-Setup.exe"
-      >
-        <span aria-hidden="true">🧙</span> Download for Windows
-      </a>
-      <p class="meta" id="meta">Free · it updates itself</p>
+      <!-- On a phone the Android button comes first (the script below swaps them). -->
+      <div class="buttons" id="buttons">
+        <a
+          class="big"
+          id="windows"
+          href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-Setup.exe"
+        >
+          <span aria-hidden="true">🧙</span> Download for Windows
+        </a>
+        <a
+          class="big second"
+          id="android"
+          href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-android.apk"
+        >
+          <span aria-hidden="true">📱</span> Download for Android
+        </a>
+      </div>
+      <p class="meta" id="meta">Free for Windows and Android</p>
       <p class="portable">
-        Rather not install anything?
+        On Windows and rather not install anything?
         <a
           href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-windows.zip"
           >Get the portable zip</a
@@ -250,7 +281,7 @@
       </p>
 
       <section class="card" aria-labelledby="how">
-        <h2 id="how">How to play</h2>
+        <h2 id="how">On Windows</h2>
         <ol>
           <li>
             Run <b>WizardSurvivors-Setup.exe</b>. It installs in a few seconds, with no
@@ -274,6 +305,33 @@
         </p>
       </section>
 
+      <section class="card" id="android-card" aria-labelledby="android-how">
+        <h2 id="android-how">On an Android phone</h2>
+        <ol>
+          <li>On the phone, open this page and tap <b>Download for Android</b>.</li>
+          <li>
+            When it has downloaded, tap <b>WizardSurvivors-android.apk</b> to open it.
+          </li>
+          <li>
+            Android asks whether your browser may install apps. Tap <b>Settings</b>, turn
+            on <b>Allow from this source</b>, go back, and tap <b>Install</b>.
+          </li>
+          <li>
+            Open <b>Wizard Survivors</b> from the home screen. Put your thumb anywhere on
+            the screen and drag to move.
+          </li>
+        </ol>
+        <p class="note">
+          <b>It isn't on the Play Store yet,</b> so Android might say it doesn't recognise
+          the app. Tap <b>More details</b>, then <b>Install anyway</b>.
+        </p>
+        <p class="note">
+          <b>Updates:</b> when a new version is out, the game tells you on its title
+          screen. Tap <b>Download</b> there and install it over the top - your progress
+          stays.
+        </p>
+      </section>
+
       <footer>
         Made by <a href="/">ECEC</a> ·
         <a href="/games/wizard-survivors">about the game</a> ·
@@ -282,16 +340,23 @@
       </footer>
     </main>
     <script>
-      // The version and size of the newest release. GitHub's API allows cross-site reads; if it
+      // A phone sees its own download first; everything else keeps Windows first.
+      if (/Android/i.test(navigator.userAgent)) {
+        const buttons = document.getElementById('buttons')
+        buttons.insertBefore(document.getElementById('android'), buttons.firstChild)
+      }
+      // The version and sizes of the newest release. GitHub's API allows cross-site reads; if it
       // is slow or rate-limited the line above just keeps its default wording. A 404 means
-      // nothing is published yet, so the button says so instead of linking to a missing file.
+      // nothing is published yet, so the buttons say so instead of linking to missing files.
       fetch('https://api.github.com/repos/eclancy/WizardSurvivors/releases/latest')
         .then((r) => {
           if (r.status === 404) {
-            const button = document.getElementById('download')
+            const button = document.getElementById('windows')
             button.classList.add('soon')
             button.href = '/games/wizard-survivors'
             button.innerHTML = '<span aria-hidden="true">⏳</span> Coming soon'
+            document.getElementById('android').remove()
+            document.getElementById('android-card').remove()
             document.getElementById('meta').textContent =
               'The first version is on its way'
           }
@@ -299,18 +364,36 @@
         })
         .then((release) => {
           const assets = release.assets || []
+          const sizeOf = (file) => (file ? Math.round(file.size / 1048576) + ' MB' : '')
           const setup = assets.find((a) => a.name === 'WizardSurvivors-Setup.exe')
           if (!setup) {
-            document.getElementById('download').href =
+            document.getElementById('windows').href =
               'https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-windows.zip'
           }
-          const file =
-            setup || assets.find((a) => a.name === 'WizardSurvivors-windows.zip')
-          const mb = file ? Math.round(file.size / 1048576) + ' MB · ' : ''
+          const win = sizeOf(
+            setup || assets.find((a) => a.name === 'WizardSurvivors-windows.zip'),
+          )
+          // The APK exists from the first release that carried it. Before that the button
+          // would link to a missing file, so it says it is coming instead.
+          const apkFile = assets.find((a) => a.name === 'WizardSurvivors-android.apk')
+          if (!apkFile) {
+            const button = document.getElementById('android')
+            button.classList.add('soon')
+            button.href = '/games/wizard-survivors'
+            button.innerHTML = '<span aria-hidden="true">⏳</span> Android: coming soon'
+            document.getElementById('android-card').remove()
+            // Never ahead of a download that works, even on a phone.
+            document.getElementById('buttons').appendChild(button)
+          }
+          const apk = sizeOf(apkFile)
           const version = String(release.tag_name || '').replace(/^v/, '')
           if (version) {
             document.getElementById('meta').textContent =
-              'Version ' + version + ' · ' + mb + 'it updates itself'
+              'Version ' +
+              version +
+              (win ? ' · Windows ' + win : '') +
+              (apk ? ' · Android ' + apk : '') +
+              ' · free'
           }
         })
         .catch(() => {})
