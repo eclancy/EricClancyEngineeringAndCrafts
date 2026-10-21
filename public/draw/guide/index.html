@@ -168,12 +168,14 @@
       .hook figure {
         margin: 0;
       }
-      .hook img {
+      .hook img,
+      .hook svg {
         display: block;
+        color: var(--ink);
         width: 100%;
         height: auto;
       }
-      .hook .shot-a img {
+      .hook .shot-a svg {
         max-width: 170px;
         margin-inline: auto;
       }
@@ -214,6 +216,9 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
         margin-top: 14px;
+      }
+      .compare.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .card {
         border: 2.5px solid currentColor;
@@ -429,20 +434,106 @@
         </p>
       </header>
 
+      <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+        <defs>
+          <!-- the stick figure's head, three-quarter view facing right, centred on 0,0 -->
+          <g id="head3q">
+            <circle r="21" />
+            <path d="M-6 -21 L -9 -30 M0 -21 L 0 -31 M6 -20 L 10 -29" />
+            <path d="M17 -2 L 31 6 L 17 11 Z" fill="currentColor" stroke="none" />
+            <circle cx="4" cy="-5" r="3.4" fill="currentColor" stroke="none" />
+            <circle cx="15" cy="-5.5" r="2.7" fill="currentColor" stroke="none" />
+            <path d="M-3 11 Q 4 16 11 11" stroke-width="3.5" />
+          </g>
+        </defs>
+      </svg>
+
       <div class="hook">
         <figure class="shot-a">
-          <img
-            src="/draw/guide/img/drawing.png"
-            alt="A stick figure drawn in black marker, seen from the side, facing right."
-          />
+          <svg
+            viewBox="0 0 150 190"
+            role="img"
+            aria-label="A stick figure drawn in black marker, turned a little toward us but facing right."
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <use href="#head3q" x="70" y="40" />
+              <path d="M70 61 L 70 120" />
+              <path d="M59 78 L 81 75" />
+              <path d="M81 75 L 102 94 L 126 84" />
+              <path d="M59 78 L 46 102 L 41 126" />
+              <path d="M70 120 L 93 149 L 97 176 L 109 176" />
+              <path d="M70 120 L 52 151 L 36 172 L 47 175" />
+            </g>
+          </svg>
           <figcaption>One drawing...</figcaption>
         </figure>
         <p class="arrow">&darr;</p>
         <figure>
-          <img
-            src="/draw/guide/img/poses.png"
-            alt="The same stick figure standing, running, jumping, falling, landing, blocking, getting hit, winding up and punching."
-          />
+          <svg
+            viewBox="0 0 600 200"
+            role="img"
+            aria-label="The same stick figure standing, running, jumping, blocking and punching."
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <!-- standing -->
+              <g transform="translate(60 44)">
+                <use href="#head3q" />
+                <path d="M0 21 V 82 M-10 38 L 10 36" />
+                <path d="M-10 38 L -16 62 L -14 86 M10 36 L 16 60 L 18 84" />
+                <path
+                  d="M0 82 L -8 112 L -10 140 L -1 141 M0 82 L 9 112 L 11 140 L 20 141"
+                />
+              </g>
+              <!-- running -->
+              <g transform="translate(175 44) rotate(8 0 82)">
+                <use href="#head3q" />
+                <path d="M0 21 V 82 M-10 38 L 10 36" />
+                <path d="M-10 38 L -26 56 L -36 74 M10 36 L 28 52 L 44 44" />
+                <path
+                  d="M0 82 L -16 106 L -36 122 L -30 130 M0 82 L 22 104 L 22 136 L 33 137"
+                />
+              </g>
+              <!-- jumping -->
+              <g transform="translate(290 34)">
+                <use href="#head3q" />
+                <path d="M0 21 V 82 M-10 38 L 10 36" />
+                <path d="M-10 38 L -24 22 L -30 2 M10 36 L 26 20 L 34 2" />
+                <path
+                  d="M0 82 L -16 104 L -6 124 L 4 125 M0 82 L 20 98 L 16 120 L 26 121"
+                />
+              </g>
+              <!-- blocking -->
+              <g transform="translate(405 44)">
+                <use href="#head3q" />
+                <path d="M0 21 V 82 M-10 38 L 10 36" />
+                <path d="M-10 38 L 6 56 L 26 34 M10 36 L 30 50 L 40 28" />
+                <path
+                  d="M0 82 L -14 110 L -22 140 L -12 141 M0 82 L 14 110 L 20 140 L 30 141"
+                />
+              </g>
+              <!-- punching -->
+              <g transform="translate(515 44)">
+                <use href="#head3q" />
+                <path d="M0 21 V 82 M-10 38 L 10 36" />
+                <path d="M-10 38 L 18 46 L 50 42 M10 36 L 4 58 L 16 66" />
+                <path
+                  d="M0 82 L -18 108 L -34 136 L -24 138 M0 82 L 22 106 L 28 138 L 39 139"
+                />
+              </g>
+            </g>
+          </svg>
           <figcaption>...that runs, jumps, blocks and punches.</figcaption>
         </figure>
       </div>
@@ -580,17 +671,47 @@
       <div class="rule">
         <div class="num">2</div>
         <div class="rule-body">
-          <h2>From the side, facing right.</h2>
+          <h2>Three-quarter view, facing right.</h2>
           <p class="say">
-            One eye, nose pointing right. The game turns it around for you.
+            Turn it a little toward you, but facing right: both eyes, nose pointing right.
+            The game turns it around for you.
           </p>
-          <div class="compare">
+          <div class="compare three">
             <div class="card do">
               <p class="stamp">YES</p>
               <svg
                 viewBox="0 0 150 190"
                 role="img"
-                aria-label="A stick figure seen from the side, facing right."
+                aria-label="A stick figure turned a little toward us but facing right: both eyes showing, crowded to the right, and the nose pointing right."
+              >
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="5.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="70" cy="34" r="21" />
+                  <path d="M87 32 L 101 40 L 87 45 Z" fill="currentColor" stroke="none" />
+                  <circle cx="74" cy="29" r="3.4" fill="currentColor" stroke="none" />
+                  <circle cx="85" cy="28.5" r="2.7" fill="currentColor" stroke="none" />
+                  <path d="M67 45 Q 74 50 81 45" stroke-width="3.5" />
+                  <path d="M70 55 L 70 116" />
+                  <path d="M59 73 L 81 70" />
+                  <path d="M81 70 L 103 88 L 126 78" />
+                  <path d="M59 73 L 45 98 L 40 123" />
+                  <path d="M70 116 L 94 146 L 98 174 L 110 174" />
+                  <path d="M70 116 L 52 148 L 36 170 L 47 173" />
+                </g>
+              </svg>
+              <p class="note">Turned a bit, facing right</p>
+            </div>
+            <div class="card dont">
+              <p class="stamp">NO</p>
+              <svg
+                viewBox="0 0 150 190"
+                role="img"
+                aria-label="A stick figure seen flat from the side, with only one eye."
               >
                 <g
                   fill="none"
@@ -610,7 +731,7 @@
                   <path d="M70 116 L 50 149 L 31 172" />
                 </g>
               </svg>
-              <p class="note">Side view</p>
+              <p class="note">Flat side view</p>
             </div>
             <div class="card dont">
               <p class="stamp">NO</p>
@@ -629,6 +750,7 @@
                   <circle cx="75" cy="34" r="21" />
                   <circle cx="67" cy="30" r="3.4" fill="currentColor" stroke="none" />
                   <circle cx="83" cy="30" r="3.4" fill="currentColor" stroke="none" />
+                  <path d="M68 43 Q 75 48 82 43" stroke-width="3.5" />
                   <path d="M75 55 L 75 66" />
                   <path d="M75 66 L 75 116" />
                   <path d="M75 78 L 108 92 L 126 82" />
@@ -637,7 +759,7 @@
                   <path d="M75 116 L 52 148 L 48 176" />
                 </g>
               </svg>
-              <p class="note">Facing you</p>
+              <p class="note">Flat, facing you</p>
             </div>
           </div>
         </div>
@@ -665,8 +787,10 @@
                   stroke-linejoin="round"
                 >
                   <circle cx="70" cy="34" r="21" />
-                  <path d="M91 30 L 106 37 L 91 44 Z" fill="currentColor" stroke="none" />
-                  <circle cx="79" cy="28" r="3.4" fill="currentColor" stroke="none" />
+                  <path d="M87 32 L 101 40 L 87 45 Z" fill="currentColor" stroke="none" />
+                  <circle cx="74" cy="29" r="3.4" fill="currentColor" stroke="none" />
+                  <circle cx="85" cy="28.5" r="2.7" fill="currentColor" stroke="none" />
+                  <path d="M67 45 Q 74 50 81 45" stroke-width="3.5" />
                   <path d="M70 55 L 70 66" />
                   <path d="M70 66 L 70 116" />
                   <path d="M70 76 L 99 92 L 127 80" />
@@ -692,8 +816,10 @@
                   stroke-linejoin="round"
                 >
                   <circle cx="72" cy="34" r="21" />
-                  <path d="M93 30 L 108 37 L 93 44 Z" fill="currentColor" stroke="none" />
-                  <circle cx="81" cy="28" r="3.4" fill="currentColor" stroke="none" />
+                  <path d="M89 32 L 103 40 L 89 45 Z" fill="currentColor" stroke="none" />
+                  <circle cx="76" cy="29" r="3.4" fill="currentColor" stroke="none" />
+                  <circle cx="87" cy="28.5" r="2.7" fill="currentColor" stroke="none" />
+                  <path d="M69 45 Q 76 50 83 45" stroke-width="3.5" />
                   <path d="M72 55 L 72 62" />
                   <path d="M72 62 L 72 116" />
                   <path d="M72 74 L 65 96 L 66 118" />
