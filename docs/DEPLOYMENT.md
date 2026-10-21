@@ -124,6 +124,8 @@ container (`updates/server.js`).
   with player-facing notes (`release.sh X.Y.Z "what changed"`) emails everyone confirmed for that
   game; a release without notes sends nothing. The first time it sees a game it only remembers
   the current release, so a fresh deploy never emails anyone.
+- **Telling Eric:** each new confirmed sign-up emails `MAIL_TO` (the same address the intake
+  uses, from `/etc/ecec/intake.env`): who signed up, for which game, and that game's total.
 - **Unsubscribing:** every email has a link and the one-click `List-Unsubscribe` header. Opening
   the link shows a page with a button, so email scanners can't unsubscribe people by accident.
 - **Storage:** `/data/subscribers.json` in the Docker named volume `updates-data` - kept across

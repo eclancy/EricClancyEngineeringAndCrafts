@@ -7,6 +7,8 @@
 //   GET  /api/updates/unsubscribe?t=…  page with an Unsubscribe button (link scanners can't do it)
 //   POST /api/updates/unsubscribe?t=…  unsubscribes (the button, and email clients' one-click)
 //
+// Each new confirmed sign-up is also emailed to Eric (MAIL_TO).
+//
 // Every few minutes it checks each game's newest GitHub Release. The first time it sees a game it
 // only remembers the tag, so a deploy never emails anyone about a release they already had.
 //
@@ -26,6 +28,8 @@ const SITE = process.env.SITE_URL || 'https://ecec.dev'
 const RESEND_API_KEY = process.env.RESEND_API_KEY || ''
 const MAIL_FROM = process.env.UPDATES_MAIL_FROM || 'ECEC Games <updates@ecec.dev>'
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || ''
+// Where to tell Eric about each new confirmed sign-up: the same MAIL_TO the intake uses.
+const MAIL_TO = process.env.MAIL_TO || 'eric@ecec.dev'
 const POLL_MS = Number(process.env.POLL_MINUTES || 10) * 60_000
 
 // Keep in step with the `game` entries in src/data/projects.ts.
@@ -123,6 +127,29 @@ function confirmEmail(email, game, token) {
       ],
       { href: link, label: 'Yes, email me updates' },
       "If it wasn't you, ignore this email - nothing more will be sent.",
+    ),
+  }
+}
+
+// To Eric, when someone confirms: who, which game, and how many that game has now.
+function ownerEmail(sub, game, count) {
+  const { name } = GAMES[game]
+  const total = `${count} confirmed for ${name}`
+  return {
+    from: MAIL_FROM,
+    to: [MAIL_TO],
+    subject: `New ${name} update sign-up`,
+    text: `${sub.email} signed up for ${name} update emails and confirmed.
+
+${total} now.`,
+    html: htmlEmail(
+      `New ${escape(name)} sign-up`,
+      [
+        `<b>${escape(sub.email)}</b> signed up for ${escape(name)} update emails and confirmed.`,
+        `${total} now.`,
+      ],
+      null,
+      'From the update-email sign-up on ecec.dev/games.',
     ),
   }
 }
@@ -321,6 +348,11 @@ async function handle(req, res) {
       found.sub.confirmed = true
       found.sub.confirmedAt = new Date().toISOString()
       await save()
+      // Best effort: a failed note to Eric never stops the sign-up.
+      const count = found.entry.subscribers.filter((s) => s.confirmed).length
+      send([ownerEmail(found.sub, found.game, count)]).catch((err) =>
+        console.error(`owner email failed: ${err.message}`),
+      )
     }
     const { name } = GAMES[found.game]
     return page(
