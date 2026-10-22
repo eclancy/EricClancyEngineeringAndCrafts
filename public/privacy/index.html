@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy and cookies | ECEC</title>
+    <meta
+      name="description"
+      content="What ecec.dev collects: Google Analytics cookies to count visits, and what you send in its forms."
+    />
+    <link rel="canonical" href="https://ecec.dev/privacy" />
+    <meta name="theme-color" content="#020618" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Linked from the cookie banner (public/analytics.js) and every page's footer. Its
+         "Change my cookie answer" button works through analytics.js too. Keep it in step
+         with what the site actually does: analytics.js, updates/server.js, intake/server.js. -->
+    <style>
+      :root {
+        --bg: #020618;
+        --ink: #f1f5f9;
+        --muted: #94a3b8;
+        --line: #1e293b;
+        --accent: #c4b4ff;
+        --violet: #8e51ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+        line-height: 1.6;
+      }
+      main {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 3rem 1rem 4rem;
+      }
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 1.6rem;
+        font-weight: 800;
+      }
+      .logo img {
+        width: 2.25rem;
+        height: 2.25rem;
+      }
+      h1 {
+        margin: 2.5rem 0 0.5rem;
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
+        line-height: 1.2;
+      }
+      h2 {
+        margin: 2.5rem 0 0.5rem;
+        font-size: 1.2rem;
+      }
+      p,
+      li {
+        color: var(--muted);
+      }
+      p {
+        margin: 0.75rem 0 0;
+      }
+      ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.25rem;
+      }
+      li + li {
+        margin-top: 0.5rem;
+      }
+      strong {
+        color: var(--ink);
+      }
+      a {
+        color: var(--accent);
+      }
+      button {
+        margin-top: 1rem;
+        padding: 0.65rem 1.25rem;
+        border: 1px solid var(--violet);
+        border-radius: 999px;
+        background: #1e1b4b;
+        color: #fff;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #312e81;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+      footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+    </style>
+    <script async src="/analytics.js"></script>
+  </head>
+  <body>
+    <main>
+      <a class="logo" href="/"><img src="/favicon.svg" alt="" />ECEC</a>
+      <h1>Privacy and cookies</h1>
+      <p>
+        ecec.dev is Eric Clancy's site, with his games on it. Here is everything it
+        collects, and why.
+      </p>
+
+      <h2>Google Analytics</h2>
+      <p>
+        The site uses Google Analytics to count visits and see which pages and games
+        people look at. It stores cookies in your browser so that a visit from someone who
+        came before can be told apart from a new one.
+      </p>
+      <ul>
+        <li>
+          <strong>Nothing is used for ads.</strong> Advertising features and Google
+          signals are turned off, so nothing here builds a profile of you for advertising.
+        </li>
+        <li>
+          <strong>Google Analytics doesn't store IP addresses.</strong> It uses them for a
+          rough location, like a country or city, and then discards them.
+        </li>
+        <li>
+          <strong>In the EU, the EEA, the UK and Switzerland,</strong> the cookies stay
+          off unless you say yes. Everywhere else they are on unless you say no.
+        </li>
+      </ul>
+      <button type="button" data-cookie-settings>Change my cookie answer</button>
+      <p>
+        Saying no deletes the analytics cookies the site has already set. Your answer is
+        kept in your browser, so clearing your browser's data asks you again.
+      </p>
+
+      <h2>What you send in</h2>
+      <ul>
+        <li>
+          <strong>Update emails.</strong> Signing up for a game's update emails keeps your
+          email address and the game you picked, so the emails can be sent. Every email
+          has an unsubscribe link, which removes your address.
+        </li>
+        <li>
+          <strong>DrawFight fighters.</strong> The fighter form, and DrawFight's own
+          drawing screen, send the drawings, photos and answers you give them to Eric, to
+          make fighters for the game from. They ask for the artist's first name, so the
+          game can say who drew each fighter, and never for an email address.
+        </li>
+      </ul>
+      <p>
+        Neither is sold, shared or used for anything else. Emails go out through Resend,
+        an email delivery service.
+      </p>
+
+      <h2>Server logs</h2>
+      <p>
+        Like most websites, the server keeps ordinary logs of the pages it serves,
+        including IP addresses, for security and fixing problems.
+      </p>
+
+      <h2>Questions</h2>
+      <p>
+        Email <a href="mailto:eric@ecec.dev">eric@ecec.dev</a> about anything here, or to
+        have something you sent in deleted.
+      </p>
+
+      <footer><a href="/">Back to ecec.dev</a></footer>
+    </main>
+  </body>
+</html>

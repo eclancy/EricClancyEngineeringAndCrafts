@@ -399,6 +399,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
         <a href="/">ecec.dev</a>
         {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}
         <a href={`https://github.com/eclancy/${game.repo}/releases`}>All versions</a>
+        <a href="/privacy">Privacy</a>
       </footer>
     </div>
   )

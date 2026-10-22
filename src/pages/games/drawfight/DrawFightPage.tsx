@@ -431,6 +431,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
           <a href="/">ecec.dev</a>
           {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}
           {project.repoUrl && <a href={`${project.repoUrl}/releases`}>All versions</a>}
+          <a href="/privacy">Privacy</a>
         </nav>
       </footer>
     </div>
