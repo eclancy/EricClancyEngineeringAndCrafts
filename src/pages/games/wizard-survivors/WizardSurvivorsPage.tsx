@@ -10,6 +10,7 @@ import { UpdatesLink } from '../../../components/UpdatesLink'
 import { TitleArt } from './TitleArt'
 import { SurviveDemo } from './SurviveDemo'
 import { Grimoire } from './Grimoire'
+import { gameSeo } from '../../../data/seo'
 import './wizard-survivors.css'
 
 const CLIPS = '/games/wizard-survivors/clips/'
@@ -71,7 +72,7 @@ export default function WizardSurvivorsPage({ project }: GamePageProps) {
   ])
 
   useEffect(() => {
-    document.title = 'Wizard Survivors | ECEC'
+    document.title = gameSeo['wizard-survivors'].title
   }, [])
 
   // The starfield drifts at a fraction of the scroll, behind everything.

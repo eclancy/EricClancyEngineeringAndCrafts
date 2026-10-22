@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { formatDate, useReleases } from '../lib/releases'
 import { downloadPath, type GameInfo, type Project } from '../data/projects'
+import { gameSeo } from '../data/seo'
 import { EcecLogo } from '../components/EcecLogo'
 import { Footer } from '../components/Footer'
 import { ImageCarousel } from '../components/ImageCarousel'
@@ -15,8 +16,8 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
   const latest = releases.state === 'ok' ? releases.list[0] : undefined
 
   useEffect(() => {
-    document.title = `${project.name} | ECEC`
-  }, [project.name])
+    document.title = gameSeo[project.id]?.title ?? `${project.name} | ECEC`
+  }, [project.id, project.name])
 
   return (
     <div className="min-h-screen bg-slate-950">

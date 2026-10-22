@@ -11,6 +11,7 @@ import { SpellBook } from './SpellBook'
 import { PartySelect } from './PartySelect'
 import { Glyph } from './Glyph'
 import { clipPath, wizards } from './wizards'
+import { gameSeo } from '../../../data/seo'
 import './wizard-wars.css'
 
 // Elder Futhark, for the rune margins: the game's Storm Plateau obelisks are carved with them.
@@ -97,7 +98,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
   ])
 
   useEffect(() => {
-    document.title = 'Wizard Wars | ECEC'
+    document.title = gameSeo['wizard-wars'].title
   }, [])
 
   const versionLine = latest
