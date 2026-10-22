@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found | ECEC</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#020618" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- nginx answers any address it has nothing for with this page (error_page in
+         nginx.conf), so it stands alone: no build step, no script, links that are absolute. -->
+    <style>
+      :root {
+        --bg: #020618;
+        --ink: #f1f5f9;
+        --muted: #94a3b8;
+        --line: #1e293b;
+        --accent: #c4b4ff;
+        --violet: #8e51ff;
+        --fuchsia: #e12afb;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+        line-height: 1.5;
+      }
+      main {
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 4rem;
+      }
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 1.6rem;
+        font-weight: 800;
+      }
+      .logo img {
+        width: 2.25rem;
+        height: 2.25rem;
+      }
+      h1 {
+        margin: 3rem 0 0.75rem;
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
+        line-height: 1.2;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.1rem;
+      }
+      .home {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--violet), var(--fuchsia));
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .home:hover {
+        filter: brightness(1.1);
+      }
+      h2 {
+        margin: 3rem 0 1rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--line);
+        font-size: 1.1rem;
+      }
+      ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+        gap: 0.75rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      li a {
+        display: block;
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 0.75rem;
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      li a:hover {
+        border-color: var(--violet);
+        background: rgb(142 81 255 / 0.12);
+      }
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="logo" href="/"><img src="/favicon.svg" alt="" />ECEC</a>
+      <h1>Page not found</h1>
+      <p>
+        There's nothing at this address. The link may have a typo, or the page has moved.
+      </p>
+      <a class="home" href="/">Go to the home page</a>
+      <h2>Or play one of my games</h2>
+      <ul>
+        <li><a href="/games/drawfight">DrawFight</a></li>
+        <li><a href="/games/drawpets">DrawPets</a></li>
+        <li><a href="/games/wizard-survivors">Wizard Survivors</a></li>
+        <li><a href="/games/wizard-wars">Wizard Wars</a></li>
+      </ul>
+    </main>
+  </body>
+</html>

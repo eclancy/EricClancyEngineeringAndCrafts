@@ -3,6 +3,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor jumps land below the home page's sticky header (SiteHeader, 4rem tall). */
+  scroll-padding-top: 5rem;
 }
 
 /* Ruled notebook paper with a red margin line, the look of DrawFight's own pages. */
