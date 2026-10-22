@@ -7,6 +7,7 @@ import { About } from './sections/About'
 import { Contact } from './sections/Contact'
 import { Footer } from './components/Footer'
 import { AnnouncementBanner } from './components/AnnouncementBanner'
+import { SiteHeader } from './components/SiteHeader'
 
 function App() {
   return (
@@ -18,12 +19,13 @@ function App() {
         Skip to content
       </a>
       <AnnouncementBanner />
+      <SiteHeader />
       <main className="mx-auto max-w-5xl px-6">
         <Hero />
-        <Expertise />
-        <CareerHighlights />
         <Projects />
         <Crafts />
+        <Expertise />
+        <CareerHighlights />
         <About />
         <Contact />
       </main>
