@@ -12,6 +12,7 @@ import { Puppet } from './Puppet'
 import { rigs } from './rigs'
 import { sample } from './poses'
 import { Arrow, Scribble, Star, Underline } from './Doodles'
+import { gameSeo } from '../../../data/seo'
 import './drawfight.css'
 
 const CLIPS = [
@@ -121,7 +122,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
   const triguy = rigs.find((r) => r.id === 'triguy')!
 
   useEffect(() => {
-    document.title = 'DrawFight | ECEC'
+    document.title = gameSeo.drawfight.title
   }, [])
 
   return (

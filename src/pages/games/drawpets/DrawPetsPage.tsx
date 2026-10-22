@@ -10,6 +10,7 @@ import { UpdatesLink } from '../../../components/UpdatesLink'
 import { CurlyArrow, DoodleFilters, Heart, Sparkle, Squiggle, Star } from './Doodles'
 import { PartMaker } from './PartMaker'
 import { PetMe } from './PetMe'
+import { gameSeo } from '../../../data/seo'
 import './drawpets.css'
 
 const ART = '/games/drawpets/art'
@@ -123,8 +124,8 @@ export default function DrawPetsPage({ project }: GamePageProps) {
   ])
 
   useEffect(() => {
-    document.title = `${project.name} | ECEC`
-  }, [project.name])
+    document.title = gameSeo.drawpets.title
+  }, [])
 
   const versionLine = latest
     ? `Version ${latest.version} · ${formatDate(latest.date).replace(/ /g, '\u00a0')}${
