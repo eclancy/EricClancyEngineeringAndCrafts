@@ -13,7 +13,7 @@
 // The banner asking is shown to visitors whose clock is set to a European time zone, the
 // people it's for; anyone can change their answer from /privacy.
 ;(function () {
-  var id = '' // the ecec.dev property's web stream, G-XXXXXXXXXX; empty turns analytics off
+  var id = 'G-TJH336FGEH' // the ecec.dev property's web stream; empty turns analytics off
   if (!id) return
   // The tag only loads on the live site. The banner also works on the dev server, to test it.
   var live = location.hostname === 'ecec.dev'
