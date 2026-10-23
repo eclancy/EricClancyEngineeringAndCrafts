@@ -36,6 +36,9 @@ jobs:
           if curl -fsSL -o /tmp/drawpets-web.zip \
               https://github.com/eclancy/DrawPets/releases/latest/download/DrawPets-web.zip; then
             unzip -q -o /tmp/drawpets-web.zip -d public/drawpets/play
+            # The same Google Analytics as the rest of the site (public/analytics.js).
+            sed -i 's|</head>|<script async src="/analytics.js"></script></head>|' \
+              public/drawpets/play/index.html
             ls -la public/drawpets/play
           else
             echo "No DrawPets web build published yet - /drawpets/play stays empty"

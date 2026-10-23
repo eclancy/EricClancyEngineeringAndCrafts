@@ -351,6 +351,8 @@ export default function WizardSurvivorsPage({ project }: GamePageProps) {
           {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}
           <span aria-hidden="true"> · </span>
           <a href={`https://github.com/eclancy/${game.repo}/releases`}>All versions</a>
+          <span aria-hidden="true"> · </span>
+          <a href="/privacy">Privacy</a>
         </p>
         <p className="ws-footer__small">
           Made by Eric Clancy. The code is source-available; the art, least of all the

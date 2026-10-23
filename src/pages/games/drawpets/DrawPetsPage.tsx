@@ -441,6 +441,7 @@ export default function DrawPetsPage({ project }: GamePageProps) {
             <a href={repoUrl}>Source code</a>
             <a href={`${repoUrl}/releases`}>All versions</a>
             <a href="/">ecec.dev</a>
+            <a href="/privacy">Privacy</a>
           </nav>
         </div>
       </footer>

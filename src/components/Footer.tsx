@@ -10,6 +10,12 @@ export function Footer() {
           &copy; {new Date().getFullYear()} {profile.name}. Built with React and
           TypeScript.
         </p>
+        <a
+          href="/privacy"
+          className="text-slate-400 underline-offset-2 transition hover:text-violet-200 hover:underline"
+        >
+          Privacy and cookies
+        </a>
       </div>
     </footer>
   )
