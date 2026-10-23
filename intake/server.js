@@ -55,6 +55,7 @@ const QUESTIONS = [
   ['story', 'Their story (why they fight for a place on the fridge)'],
   ['like', 'What they are like (hobbies, attitude, how they talk, he/she/they)'],
   ['catchphrase', 'Catchphrase (said when they taunt)'],
+  ['skins', 'Another look (a skin they drew or an idea, for this fighter or another)'],
   ['extra', 'Anything else'],
 ]
 
