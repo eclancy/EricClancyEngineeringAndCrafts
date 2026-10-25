@@ -199,29 +199,37 @@
         color: var(--soft);
       }
 
-      .facts {
+      .sub-h {
+        margin-top: 24px;
+        font-size: 1.3rem;
+      }
+      .seasons {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
         gap: 10px;
-        margin: 20px 0 0;
+        margin: 12px 0 0;
         padding: 0;
         list-style: none;
       }
-      .facts li {
-        padding: 14px 16px;
+      .seasons li {
+        padding: 16px;
         border: 1px solid var(--line);
-        border-radius: 14px;
+        border-radius: 16px;
         background: var(--card);
-      }
-      .facts b {
-        display: block;
-        font-family: 'Fraunces', Georgia, serif;
-        font-size: 1.6rem;
-        line-height: 1.1;
-      }
-      .facts span {
         color: var(--soft);
-        font-size: 0.92rem;
+        line-height: 1.45;
+      }
+      .seasons span {
+        display: block;
+        font-size: 1.8rem;
+        line-height: 1;
+      }
+      .seasons b {
+        display: block;
+        margin: 8px 0 2px;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 1.2rem;
+        color: var(--ink);
       }
 
       .cards {
@@ -410,28 +418,20 @@
     </header>
 
     <main class="wrap">
-      <section aria-labelledby="tour">
-        <h2 id="tour">The quick tour</h2>
-        <p class="lede">On a quiet cul-de-sac, with room to spread out.</p>
-        <ul class="facts">
-          <li><b>4</b><span>bedrooms</span></li>
-          <li><b>2½</b><span>baths</span></li>
-          <li><b>3,066</b><span>square feet</span></li>
-          <li><b>1 acre</b><span>of yard</span></li>
-          <li><b>2002</b><span>built</span></li>
-          <li><b>3-season</b><span>room</span></li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="excited">
-        <h2 id="excited">What we can't wait for</h2>
+      <section aria-labelledby="hosting">
+        <h2 id="hosting">We bought it to have you over</h2>
+        <p class="lede">
+          The best part of this house isn't the house. It's all the room to have people
+          over. Here's what we're planning.
+        </p>
         <div class="cards">
           <article class="card big">
             <div class="icon" aria-hidden="true">🔥</div>
             <h3>Fire pit nights</h3>
             <p>
               There's a built-in fire pit out back, right next to a big tiered deck. Bring
-              a hoodie and a camp chair. We'll handle the fire and the s'mores.
+              a hoodie and a camp chair. We'll handle the fire and the s'mores, and the
+              kids can roast marshmallows until someone says "last one."
             </p>
           </article>
           <article class="card big">
@@ -442,28 +442,59 @@
               space for the games after, and nobody stuck on the arm of the couch.
             </p>
           </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="kids">
+        <h2 id="kids">Lots of room for kids</h2>
+        <p class="lede">
+          A whole acre of yard on a quiet cul-de-sac with sidewalks, so there's room to
+          run and somewhere safe to ride bikes. And there are horses in the neighborhood.
+          Yes, really.
+        </p>
+        <h3 class="sub-h">Kid events all year</h3>
+        <ul class="seasons">
+          <li>
+            <span aria-hidden="true">🎃</span><b>Fall</b>pumpkin carving and costume
+            parties
+          </li>
+          <li>
+            <span aria-hidden="true">⛄</span><b>Winter</b>snow forts, sledding and hot
+            cocoa
+          </li>
+          <li>
+            <span aria-hidden="true">🐣</span><b>Spring</b>egg hunts across the yard
+          </li>
+          <li>
+            <span aria-hidden="true">💦</span><b>Summer</b>sprinklers, lawn games and
+            backyard campouts
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="space">
+        <h2 id="space">Space for everyone</h2>
+        <div class="cards">
+          <article class="card">
+            <div class="icon" aria-hidden="true">🛏️</div>
+            <h3>Stay over</h3>
+            <p>
+              Spare rooms for guests, so coming from away means a weekend, not a long
+              drive home after dessert.
+            </p>
+          </article>
           <article class="card">
             <div class="icon" aria-hidden="true">🍂</div>
             <h3>The three-season room</h3>
             <p>A hangout for morning coffee, card games and watching the rain.</p>
           </article>
           <article class="card">
-            <div class="icon" aria-hidden="true">🛠️</div>
-            <h3>A workshop (someday)</h3>
+            <div class="icon" aria-hidden="true">🎸</div>
+            <h3>A music room (coming soon)</h3>
             <p>
-              A big unfinished basement that's going to become a workshop for painting
-              miniatures and building whatever comes next.
+              Once the basement is finished it's getting a music room, plus a workshop for
+              painting miniatures. Bring your instrument.
             </p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">🐴</div>
-            <h3>The neighbors</h3>
-            <p>Horses graze on the open land in the neighborhood. Yes, really.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">🌲</div>
-            <h3>A whole acre</h3>
-            <p>Room for lawn games, a garden, and the whole fire pit crowd.</p>
           </article>
         </div>
       </section>
