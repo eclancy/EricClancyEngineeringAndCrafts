@@ -243,6 +243,49 @@
         border: 1px solid var(--line);
         border-radius: 18px;
         background: var(--card);
+        overflow: hidden;
+      }
+      /* A photo across the top of a card, out to its edges. */
+      .card .pic {
+        display: block;
+        width: calc(100% + 40px);
+        max-width: none;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        margin: -20px -20px 16px;
+        object-fit: cover;
+      }
+      .card.big .pic {
+        aspect-ratio: 16 / 9;
+      }
+      .wide {
+        margin: 20px 0 0;
+      }
+      .wide img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        border-radius: 18px;
+      }
+      .wide figcaption {
+        margin-top: 8px;
+        color: var(--soft);
+        font-size: 0.9rem;
+        text-align: center;
+      }
+      .invite .porch {
+        display: block;
+        width: calc(100% + 44px);
+        max-width: none;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        margin: -28px -22px 22px;
+        object-fit: cover;
+      }
+      .invite {
+        overflow: hidden;
       }
       .card.big {
         grid-column: 1 / -1;
@@ -418,14 +461,43 @@
     </header>
 
     <main class="wrap">
+      <figure class="wide">
+        <img
+          src="/house-share/photos/front.jpg"
+          alt="The front of 11 Forest View Drive: a gray two-story house with a white wraparound porch, behind a big lawn"
+          width="1400"
+          height="1050"
+          loading="lazy"
+        />
+        <figcaption>Here it is!</figcaption>
+      </figure>
+
       <section aria-labelledby="hosting">
         <h2 id="hosting">We bought it to have you over</h2>
         <p class="lede">
           The best part of this house isn't the house. It's all the room to have people
           over. Here's what we're planning.
         </p>
+        <figure class="wide">
+          <img
+            src="/house-share/photos/fire-pit-deck.jpg"
+            alt="The back patio: a stone fire pit ringed with chairs and a sofa, with the deck and house behind it"
+            width="1400"
+            height="1050"
+            loading="lazy"
+          />
+          <figcaption>The fire pit and the deck, waiting for you</figcaption>
+        </figure>
         <div class="cards">
           <article class="card big">
+            <img
+              class="pic"
+              src="/house-share/photos/fire-pit.jpg"
+              alt="A round stone fire pit on a stone patio, with chairs around it and woods behind"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
             <div class="icon" aria-hidden="true">🔥</div>
             <h3>Fire pit nights</h3>
             <p>
@@ -435,6 +507,14 @@
             </p>
           </article>
           <article class="card big">
+            <img
+              class="pic"
+              src="/house-share/photos/dining-room.jpg"
+              alt="A bright dining room with a long wooden table and built-in shelves"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
             <div class="icon" aria-hidden="true">🦃</div>
             <h3>Nerdsgiving</h3>
             <p>
@@ -452,6 +532,16 @@
           run and somewhere safe to ride bikes. And there are horses in the neighborhood.
           Yes, really.
         </p>
+        <figure class="wide">
+          <img
+            src="/house-share/photos/backyard.jpg"
+            alt="The big back lawn, with the house, deck and three-season room behind it"
+            width="1400"
+            height="1050"
+            loading="lazy"
+          />
+          <figcaption>Plenty of lawn for running around</figcaption>
+        </figure>
         <h3 class="sub-h">Kid events all year</h3>
         <ul class="seasons">
           <li>
@@ -476,6 +566,14 @@
         <h2 id="space">Space for everyone</h2>
         <div class="cards">
           <article class="card">
+            <img
+              class="pic"
+              src="/house-share/photos/guest-room.jpg"
+              alt="A sunny bedroom with light blue walls and two windows"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
             <div class="icon" aria-hidden="true">🛏️</div>
             <h3>Stay over</h3>
             <p>
@@ -484,6 +582,14 @@
             </p>
           </article>
           <article class="card">
+            <img
+              class="pic"
+              src="/house-share/photos/three-season-room.jpg"
+              alt="A wood-paneled three-season room with windows on every side and comfy chairs"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
             <div class="icon" aria-hidden="true">🍂</div>
             <h3>The three-season room</h3>
             <p>A hangout for morning coffee, card games and watching the rain.</p>
@@ -510,6 +616,14 @@
       </section>
 
       <div class="invite">
+        <img
+          class="porch"
+          src="/house-share/photos/porch.jpg"
+          alt="The front porch with a bench, looking out at the trees"
+          width="1400"
+          height="1050"
+          loading="lazy"
+        />
         <h2>Come see us</h2>
         <p>
           Once the boxes are unpacked, we want you here. The fire pit's ready when you
