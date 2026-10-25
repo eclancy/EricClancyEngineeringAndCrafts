@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Nothing here is disallowed, on purpose. The /house, /reno, /our-projects and
+# Nothing here is disallowed, on purpose. The /reno, /our-projects and
 # /checklist short links exist to produce link previews, and a preview only
 # happens if the crawler is allowed to fetch the page and read its tags.
 #

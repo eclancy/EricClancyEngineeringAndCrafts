@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>We bought a house! · 11 Forest View Drive</title>
+    <meta
+      name="description"
+      content="11 Forest View Drive in Falmouth, Maine. Fire pit nights, Nerdsgiving, and a whole acre to fill with friends."
+    />
+    <!-- A page for friends, shared by link: not linked from the site, not in the sitemap,
+         and kept out of search results. -->
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#24452f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ECEC" />
+    <meta property="og:url" content="https://ecec.dev/house-share" />
+    <meta property="og:title" content="We bought a house! 🏡" />
+    <meta
+      property="og:description"
+      content="11 Forest View Drive, Falmouth, Maine. Fire pit nights and Nerdsgiving, here we come."
+    />
+    <meta property="og:image" content="https://ecec.dev/house-share/preview.png?v=1" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="We bought a house! 11 Forest View Drive, Falmouth, Maine"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://ecec.dev/house-share/preview.png?v=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fbf6ec;
+        --card: #fffdf8;
+        --ink: #1f2a24;
+        --soft: #56665c;
+        --line: #e7dcc8;
+        --forest: #24452f;
+        --forest-ink: #fbf6ec;
+        --ember: #d9622b;
+        --ember-soft: #fbe3d3;
+        --glow: rgb(217 98 43 / 0.18);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #111a15;
+          --card: #18241d;
+          --ink: #f3ece0;
+          --soft: #a9b8ad;
+          --line: #2a3a30;
+          --forest: #1b3324;
+          --forest-ink: #f3ece0;
+          --ember: #f08a52;
+          --ember-soft: #3a2418;
+          --glow: rgb(240 138 82 / 0.16);
+        }
+      }
+      :root[data-theme='dark'] {
+        --bg: #111a15;
+        --card: #18241d;
+        --ink: #f3ece0;
+        --soft: #a9b8ad;
+        --line: #2a3a30;
+        --forest: #1b3324;
+        --forest-ink: #f3ece0;
+        --ember: #f08a52;
+        --ember-soft: #3a2418;
+        --glow: rgb(240 138 82 / 0.16);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif,
+          'Apple Color Emoji',
+          'Segoe UI Emoji';
+        font-size: 17px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: 'Fraunces', Georgia, serif;
+        line-height: 1.15;
+        margin: 0;
+      }
+      a {
+        color: inherit;
+      }
+      a:focus-visible {
+        outline: 3px solid var(--ember);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+      .wrap {
+        max-width: 46rem;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+
+      /* The hero: a night sky over the treeline, the house, and the fire pit's glow. */
+      .hero {
+        background: var(--forest);
+        color: var(--forest-ink);
+        padding: 48px 0 0;
+        overflow: hidden;
+      }
+      .eyebrow {
+        display: inline-block;
+        margin: 0 0 12px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: rgb(255 255 255 / 0.12);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+      .hero h1 {
+        font-size: clamp(2.4rem, 10vw, 4rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .hero .where {
+        margin: 12px 0 0;
+        font-size: 1.15rem;
+        opacity: 0.92;
+      }
+      .hero .when {
+        margin: 4px 0 0;
+        font-weight: 700;
+        color: #ffc9a8;
+      }
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 999px;
+        font-weight: 800;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: transform 0.15s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn.primary {
+        background: var(--ember);
+        color: #fff;
+        box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
+      }
+      .btn.secondary {
+        border: 2px solid rgb(255 255 255 / 0.5);
+        color: var(--forest-ink);
+      }
+      /* On a phone the drawing crops at the sides rather than shrinking to a sliver. */
+      .scene {
+        display: block;
+        width: 100%;
+        height: clamp(150px, 28vw, 230px);
+        margin-top: 28px;
+      }
+
+      section {
+        padding: 48px 0 0;
+      }
+      section h2 {
+        font-size: clamp(1.6rem, 6vw, 2.1rem);
+        font-weight: 800;
+      }
+      .lede {
+        margin: 8px 0 0;
+        color: var(--soft);
+      }
+
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+        gap: 10px;
+        margin: 20px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .facts li {
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--card);
+      }
+      .facts b {
+        display: block;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 1.6rem;
+        line-height: 1.1;
+      }
+      .facts span {
+        color: var(--soft);
+        font-size: 0.92rem;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+      }
+      .card {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--card);
+      }
+      .card.big {
+        grid-column: 1 / -1;
+        background:
+          radial-gradient(circle at 12% 0%, var(--glow), transparent 60%), var(--card);
+        border-color: var(--ember-soft);
+      }
+      .card .icon {
+        font-size: 2rem;
+        line-height: 1;
+      }
+      .card h3 {
+        margin-top: 10px;
+        font-size: 1.3rem;
+      }
+      .card p {
+        margin: 6px 0 0;
+        color: var(--soft);
+      }
+
+      .distances {
+        margin: 20px 0 0;
+        padding: 0;
+        list-style: none;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--card);
+        overflow: hidden;
+      }
+      .distances li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 18px;
+      }
+      .distances li + li {
+        border-top: 1px solid var(--line);
+      }
+      .distances b {
+        white-space: nowrap;
+        color: var(--ember);
+      }
+
+      .invite {
+        margin: 48px 0 0;
+        padding: 28px 22px;
+        border-radius: 22px;
+        background: var(--forest);
+        color: var(--forest-ink);
+        text-align: center;
+      }
+      .invite h2 {
+        font-size: clamp(1.6rem, 6vw, 2.2rem);
+      }
+      .invite p {
+        margin: 10px auto 0;
+        max-width: 30rem;
+        opacity: 0.92;
+      }
+      .invite .buttons {
+        justify-content: center;
+      }
+      .sign {
+        margin-top: 18px;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 1.3rem;
+        color: #ffc9a8;
+      }
+      footer {
+        padding: 28px 0 40px;
+        color: var(--soft);
+        font-size: 0.85rem;
+        text-align: center;
+      }
+
+      @media (max-width: 360px) {
+        .btn {
+          padding: 11px 16px;
+          font-size: 0.95rem;
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .flame {
+          transform-origin: 50% 100%;
+          animation: flicker 1.6s ease-in-out infinite alternate;
+        }
+        .flame.b {
+          animation-duration: 1.1s;
+        }
+      }
+      @keyframes flicker {
+        from {
+          transform: scale(1, 1);
+        }
+        to {
+          transform: scale(0.88, 1.12);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap">
+        <p class="eyebrow">🏡 Big news</p>
+        <h1>We bought a house!</h1>
+        <p class="where">11 Forest View Drive · Falmouth, Maine</p>
+        <p class="when">We get the keys on October 29.</p>
+        <div class="buttons">
+          <a
+            class="btn primary"
+            href="https://www.zillow.com/homedetails/11-Forest-View-Drive-Falmouth-ME-04105/84956197_zpid/"
+            >See the photos on Zillow →</a
+          >
+          <a
+            class="btn secondary"
+            href="https://www.google.com/maps/dir/?api=1&destination=11%20Forest%20View%20Drive%2C%20Falmouth%2C%20ME%2004105"
+            >📍 Directions</a
+          >
+        </div>
+      </div>
+      <!-- A drawing, not a photo: pines, the house with its lights on, and the fire pit. -->
+      <svg
+        class="scene"
+        viewBox="0 0 800 220"
+        preserveAspectRatio="xMidYMax slice"
+        role="img"
+        aria-label="A drawing of a house among pine trees at night, with a fire pit glowing in the yard"
+      >
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="60%" r="50%">
+            <stop offset="0" stop-color="#ffb070" stop-opacity="0.55" />
+            <stop offset="1" stop-color="#ffb070" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <g fill="#fff" opacity="0.7">
+          <circle cx="90" cy="30" r="1.6" />
+          <circle cx="210" cy="18" r="1.2" />
+          <circle cx="330" cy="40" r="1.4" />
+          <circle cx="520" cy="22" r="1.2" />
+          <circle cx="640" cy="44" r="1.6" />
+          <circle cx="740" cy="16" r="1.2" />
+        </g>
+        <circle cx="690" cy="52" r="18" fill="#fbf1d6" opacity="0.9" />
+        <g fill="#16301f">
+          <path d="M40 220 L80 90 L120 220Z" />
+          <path d="M95 220 L140 60 L185 220Z" />
+          <path d="M600 220 L645 70 L690 220Z" />
+          <path d="M660 220 L710 100 L760 220Z" />
+          <path d="M730 220 L770 120 L810 220Z" />
+        </g>
+        <g>
+          <path d="M250 120 L360 60 L470 120 Z" fill="#5a3b2e" />
+          <rect x="268" y="118" width="184" height="102" fill="#e9dcc3" />
+          <rect x="300" y="140" width="34" height="30" rx="2" fill="#ffd58a" />
+          <rect x="386" y="140" width="34" height="30" rx="2" fill="#ffd58a" />
+          <rect x="345" y="168" width="30" height="52" rx="2" fill="#24452f" />
+          <rect x="420" y="72" width="16" height="30" fill="#5a3b2e" />
+        </g>
+        <ellipse cx="540" cy="200" rx="90" ry="40" fill="url(#glow)" />
+        <ellipse cx="540" cy="208" rx="30" ry="8" fill="#6b625a" />
+        <path
+          class="flame"
+          d="M540 170 C528 188 530 202 540 206 C550 202 552 188 540 170Z"
+          fill="#f08a52"
+        />
+        <path
+          class="flame b"
+          d="M540 184 C534 194 535 202 540 204 C545 202 546 194 540 184Z"
+          fill="#ffd58a"
+        />
+        <rect x="0" y="214" width="800" height="6" fill="#16301f" />
+      </svg>
+    </header>
+
+    <main class="wrap">
+      <section aria-labelledby="tour">
+        <h2 id="tour">The quick tour</h2>
+        <p class="lede">On a quiet cul-de-sac, with room to spread out.</p>
+        <ul class="facts">
+          <li><b>4</b><span>bedrooms</span></li>
+          <li><b>2½</b><span>baths</span></li>
+          <li><b>3,066</b><span>square feet</span></li>
+          <li><b>1 acre</b><span>of yard</span></li>
+          <li><b>2002</b><span>built</span></li>
+          <li><b>3-season</b><span>room</span></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="excited">
+        <h2 id="excited">What we can't wait for</h2>
+        <div class="cards">
+          <article class="card big">
+            <div class="icon" aria-hidden="true">🔥</div>
+            <h3>Fire pit nights</h3>
+            <p>
+              There's a built-in fire pit out back, right next to a big tiered deck. Bring
+              a hoodie and a camp chair. We'll handle the fire and the s'mores.
+            </p>
+          </article>
+          <article class="card big">
+            <div class="icon" aria-hidden="true">🦃</div>
+            <h3>Nerdsgiving</h3>
+            <p>
+              Nerdsgiving finally has room to spread out: more space for the food, more
+              space for the games after, and nobody stuck on the arm of the couch.
+            </p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🍂</div>
+            <h3>The three-season room</h3>
+            <p>A hangout for morning coffee, card games and watching the rain.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🛠️</div>
+            <h3>A workshop (someday)</h3>
+            <p>
+              A big unfinished basement that's going to become a workshop for painting
+              miniatures and building whatever comes next.
+            </p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🐴</div>
+            <h3>The neighbors</h3>
+            <p>Horses graze on the open land in the neighborhood. Yes, really.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🌲</div>
+            <h3>A whole acre</h3>
+            <p>Room for lawn games, a garden, and the whole fire pit crowd.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="close">
+        <h2 id="close">How close are we?</h2>
+        <p class="lede">Closer than you'd think.</p>
+        <ul class="distances">
+          <li><span>Justin &amp; Liz</span><b>8 minutes</b></li>
+          <li><span>The beach</span><b>about 20 minutes</b></li>
+          <li><span>Downtown Portland</span><b>about 20 minutes</b></li>
+        </ul>
+      </section>
+
+      <div class="invite">
+        <h2>Come see us</h2>
+        <p>
+          Once the boxes are unpacked, we want you here. The fire pit's ready when you
+          are.
+        </p>
+        <div class="buttons">
+          <a
+            class="btn primary"
+            href="https://www.google.com/maps/dir/?api=1&destination=11%20Forest%20View%20Drive%2C%20Falmouth%2C%20ME%2004105"
+            >📍 Get directions</a
+          >
+        </div>
+        <p class="sign">— Eric &amp; family</p>
+      </div>
+    </main>
+
+    <footer>Made with love (and a little code) on <a href="/">ecec.dev</a></footer>
+  </body>
+</html>
