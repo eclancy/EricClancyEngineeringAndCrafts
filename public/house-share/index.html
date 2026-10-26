@@ -206,7 +206,8 @@
         margin-top: 20px;
       }
       .card {
-        padding: 20px;
+        --pad: 20px;
+        padding: var(--pad);
         border: 1px solid var(--line);
         border-radius: 18px;
         background: var(--card);
@@ -215,11 +216,11 @@
       /* A photo across the top of a card, out to its edges. */
       .card .pic {
         display: block;
-        width: calc(100% + 40px);
+        width: calc(100% + 2 * var(--pad));
         max-width: none;
         height: auto;
         aspect-ratio: 3 / 2;
-        margin: -20px -20px 16px;
+        margin: calc(-1 * var(--pad)) calc(-1 * var(--pad)) 16px;
         object-fit: cover;
       }
       .card.big .pic {
@@ -227,7 +228,7 @@
       }
       .card .aside {
         margin-top: 4px;
-        font-size: 0.85rem;
+        font-size: min(0.85rem, 3.4vw);
         font-style: italic;
       }
       .card .pic-full {
@@ -283,7 +284,12 @@
       }
       .card h3 {
         margin-top: 10px;
-        font-size: 1.3rem;
+        font-size: min(1.3rem, 5vw);
+      }
+      @media (max-width: 420px) {
+        .card {
+          --pad: 16px;
+        }
       }
       .card p {
         margin: 6px 0 0;
