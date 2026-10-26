@@ -207,6 +207,9 @@
       }
       .card {
         --pad: 20px;
+        /* Titles and the aside below size themselves to the card (cqi), so they stay on one
+           line however narrow the card is, two to a row or one. */
+        container-type: inline-size;
         padding: var(--pad);
         border: 1px solid var(--line);
         border-radius: 18px;
@@ -228,7 +231,7 @@
       }
       .card .aside {
         margin-top: 4px;
-        font-size: min(0.85rem, 3.4vw);
+        font-size: min(0.85rem, 100cqi / 23);
         font-style: italic;
       }
       .card .pic-full {
@@ -280,11 +283,11 @@
       }
       .card .icon {
         margin-right: 4px;
-        font-size: 1.4rem;
+        font-size: 1.08em;
       }
       .card h3 {
         margin-top: 10px;
-        font-size: min(1.3rem, 5vw);
+        font-size: min(1.3rem, 100cqi / 15.6);
       }
       @media (max-width: 420px) {
         .card {
@@ -657,7 +660,10 @@
               loading="lazy"
             />
             <h3><span class="icon" aria-hidden="true">🧸</span> A kids' playroom</h3>
-            <p>The fireplace room is going to be the playroom. Bring the kids!</p>
+            <p>
+              The fireplace room is going to be the playroom. The fireplace will be gated
+              off, don't worry.
+            </p>
           </article>
         </div>
       </section>
@@ -729,7 +735,7 @@
           height="1050"
           loading="lazy"
         />
-        <h2>Come see us</h2>
+        <h2>Come see us!</h2>
         <p>
           We move in November 12th and Nerdsgiving is right after. If you can help us
           unpack and get ready, we'd really appreciate it. Then come hang out by the fire!
