@@ -587,6 +587,132 @@
           opacity: 0.2;
         }
       }
+      /* Card emojis play a little move when you hover over a card's title, or tap it. */
+      .card .icon {
+        display: inline-block;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .card h3:hover .flick,
+        .card h3.play .flick {
+          animation: e-flick 0.6s ease-in-out 2;
+        }
+        .card h3:hover .waddle,
+        .card h3.play .waddle {
+          animation: e-waddle 0.7s ease-in-out 2;
+        }
+        .card h3:hover .hop,
+        .card h3.play .hop {
+          animation: e-hop 0.6s ease-out 2;
+        }
+        .card h3:hover .rock,
+        .card h3.play .rock {
+          animation: e-rock 1.4s ease-in-out;
+        }
+        .card h3:hover .drift,
+        .card h3.play .drift {
+          animation: e-drift 1.2s ease-in-out;
+        }
+        .card h3:hover .strum,
+        .card h3.play .strum {
+          animation: e-strum 0.5s linear 2;
+        }
+        .card h3:hover .tilt,
+        .card h3.play .tilt {
+          animation: e-tilt 0.9s ease-in-out;
+        }
+      }
+      @keyframes e-flick {
+        0%,
+        100% {
+          transform: scale(1, 1);
+        }
+        30% {
+          transform: scale(0.9, 1.2) translateY(-2px);
+        }
+        60% {
+          transform: scale(1.1, 0.9);
+        }
+      }
+      @keyframes e-waddle {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        25% {
+          transform: rotate(-12deg) translateX(-2px);
+        }
+        75% {
+          transform: rotate(12deg) translateX(2px);
+        }
+      }
+      @keyframes e-hop {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-8px) scale(1.05);
+        }
+        70% {
+          transform: translateY(0) scale(1.08, 0.92);
+        }
+      }
+      @keyframes e-rock {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        30% {
+          transform: rotate(-8deg);
+        }
+        65% {
+          transform: rotate(6deg);
+        }
+      }
+      @keyframes e-drift {
+        0% {
+          transform: translate(0, 0) rotate(0);
+        }
+        35% {
+          transform: translate(4px, 5px) rotate(25deg);
+        }
+        70% {
+          transform: translate(-3px, 8px) rotate(-15deg);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translate(0, 0) rotate(0);
+          opacity: 1;
+        }
+      }
+      @keyframes e-strum {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20% {
+          transform: rotate(-10deg);
+        }
+        40% {
+          transform: rotate(8deg);
+        }
+        60% {
+          transform: rotate(-6deg);
+        }
+        80% {
+          transform: rotate(4deg);
+        }
+      }
+      @keyframes e-tilt {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        30%,
+        70% {
+          transform: rotate(-20deg);
+        }
+      }
     </style>
   </head>
   <body>
@@ -895,7 +1021,7 @@
               height="506"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🔥</span> Fire pit nights</h3>
+            <h3><span class="icon flick" aria-hidden="true">🔥</span> Fire pit nights</h3>
             <p>A big stone fire pit right off the deck. And s'mores (duh).</p>
           </article>
           <article class="card big">
@@ -907,7 +1033,7 @@
               height="506"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🦃</span> Nerdsgiving</h3>
+            <h3><span class="icon waddle" aria-hidden="true">🦃</span> Nerdsgiving</h3>
             <p>Way more room for food, games, and a big kitchen for dance parties.</p>
           </article>
         </div>
@@ -936,7 +1062,7 @@
               height="676"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🧸</span> A kids' playroom</h3>
+            <h3><span class="icon hop" aria-hidden="true">🧸</span> A kids' playroom</h3>
             <p>
               The fireplace room is going to be the playroom. The fireplace will be gated
               off, don't worry.
@@ -957,7 +1083,7 @@
               height="676"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🛏️</span> Stay over</h3>
+            <h3><span class="icon rock" aria-hidden="true">🛏️</span> Stay over</h3>
             <p>Spare rooms, so you can stay the night.</p>
           </article>
           <article class="card">
@@ -969,7 +1095,9 @@
               height="676"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🍂</span> The three-season room</h3>
+            <h3>
+              <span class="icon drift" aria-hidden="true">🍂</span> The three-season room
+            </h3>
             <p class="aside">(If Eric is unable to be found, check for snoring here)</p>
           </article>
           <article class="card">
@@ -982,7 +1110,7 @@
               loading="lazy"
             />
             <h3>
-              <span class="icon" aria-hidden="true">🎸</span> A music and games room
+              <span class="icon strum" aria-hidden="true">🎸</span> A music and games room
             </h3>
             <p>(once the basement is finished...)</p>
           </article>
@@ -996,7 +1124,7 @@
               loading="lazy"
             />
             <h3>
-              <span class="icon" aria-hidden="true">🐶</span> The welcoming committee
+              <span class="icon tilt" aria-hidden="true">🐶</span> The welcoming committee
             </h3>
             <p>The boys will see you in</p>
           </article>
@@ -1037,5 +1165,18 @@
     </main>
 
     <footer>Made with love (and a little code) on <a href="/">ecec.dev</a></footer>
+    <script>
+      // A tap on a card's title plays its emoji's move; it resets when the move ends.
+      document.querySelectorAll('.card h3').forEach(function (title) {
+        title.addEventListener('click', function () {
+          title.classList.remove('play')
+          void title.offsetWidth
+          title.classList.add('play')
+        })
+        title.addEventListener('animationend', function () {
+          title.classList.remove('play')
+        })
+      })
+    </script>
   </body>
 </html>
