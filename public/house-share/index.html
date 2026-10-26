@@ -406,6 +406,10 @@
           font-size: 0.95rem;
         }
       }
+      /* A faint outline so Pancho stands out against the siding. */
+      .pancho .dog {
+        filter: drop-shadow(0 0 0.5px #5b4a38) drop-shadow(0 0 0.5px #5b4a38);
+      }
       /* Each flame grows from its own base, not from the corner of the drawing. */
       .flame {
         transform-box: fill-box;
@@ -1099,7 +1103,7 @@
       <!-- A drawing, not a photo: pines, the house with its lights on, and the fire pit. -->
       <svg
         class="scene"
-        viewBox="-40 0 800 220"
+        viewBox="-84 0 800 220"
         preserveAspectRatio="xMidYMax slice"
         role="img"
         aria-label="A drawing of a house among pine trees at night, with a fire pit glowing in the yard and a little dog by a bush"
@@ -1145,17 +1149,66 @@
           <ellipse cx="46" cy="12.75" rx="10.5" ry="7.5" />
         </g>
         <g fill="#0d1d13">
+          <path d="M-120 220 L-78 76 L-36 220Z" />
           <path d="M-24 220 L18 44 L60 220Z" />
           <path d="M40 220 L80 90 L120 220Z" />
           <path d="M95 220 L140 60 L185 220Z" />
-          <path d="M600 220 L645 70 L690 220Z" />
-          <path d="M660 220 L710 100 L760 220Z" />
-          <path d="M730 220 L770 120 L810 220Z" />
+          <path d="M560 220 L605 70 L650 220Z" />
+          <path d="M616 220 L666 96 L716 220Z" />
+          <path d="M680 220 L722 74 L764 220Z" />
         </g>
         <g class="smoke" fill="#cfd6d2">
           <circle class="puff p1" cx="428" cy="66" r="4" />
           <circle class="puff p2" cx="428" cy="66" r="5" />
           <circle class="puff p3" cx="428" cy="66" r="3.5" />
+        </g>
+        <g class="garage">
+          <defs>
+            <clipPath id="wing-clip">
+              <path d="M168 220 V144 L206 106 L244 144 V220 Z" />
+            </clipPath>
+          </defs>
+          <rect x="242" y="156" width="28" height="64" fill="#e9dcc3" />
+          <path
+            d="M242 160.0 H270 M242 165.5 H270 M242 171.0 H270 M242 176.5 H270 M242 182.0 H270 M242 187.5 H270 M242 193.0 H270 M242 198.5 H270 M242 204.0 H270 M242 209.5 H270 M242 215.0 H270"
+            stroke="#d6c7a8"
+            stroke-width="0.7"
+          />
+          <path d="M238 160 L252 140 L270 140 L270 160 Z" fill="#5a3b2e" />
+          <path d="M168 220 V144 L206 106 L244 144 V220 Z" fill="#e9dcc3" />
+          <path
+            d="M168 110.0 H244 M168 115.5 H244 M168 121.0 H244 M168 126.5 H244 M168 132.0 H244 M168 137.5 H244 M168 143.0 H244 M168 148.5 H244 M168 154.0 H244 M168 159.5 H244 M168 165.0 H244 M168 170.5 H244 M168 176.0 H244 M168 181.5 H244 M168 187.0 H244 M168 192.5 H244 M168 198.0 H244 M168 203.5 H244 M168 209.0 H244 M168 214.5 H244"
+            stroke="#d6c7a8"
+            stroke-width="0.7"
+            clip-path="url(#wing-clip)"
+          />
+          <path
+            d="M162 148 L206 103 L250 148"
+            fill="none"
+            stroke="#5a3b2e"
+            stroke-width="6"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+          <path
+            d="M162 148 L206 103 L250 148"
+            fill="none"
+            stroke="#3f2a21"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+            transform="translate(0 -2.6)"
+          />
+          <rect x="199" y="120" width="14" height="16" rx="1.5" fill="#ffd58a" />
+          <path d="M206 120 V136 M199 128 H213" stroke="#c99a4a" stroke-width="1" />
+          <rect x="177" y="166" width="22" height="20" rx="1.5" fill="#ffd58a" />
+          <rect x="213" y="166" width="22" height="20" rx="1.5" fill="#ffd58a" />
+          <path
+            d="M188 166 V186 M177 176 H199 M224 166 V186 M213 176 H235"
+            stroke="#c99a4a"
+            stroke-width="1"
+          />
+          <rect x="174" y="185" width="28" height="3" rx="1" fill="#cbb994" />
+          <rect x="210" y="185" width="28" height="3" rx="1" fill="#cbb994" />
         </g>
         <g>
           <rect x="420" y="72" width="16" height="30" fill="#5a3b2e" />
@@ -1301,7 +1354,7 @@
           <circle class="ember e3" cx="540" cy="178" r="1.2" />
           <circle class="ember e4" cx="530" cy="182" r="1" />
         </g>
-        <rect x="-100" y="214" width="1000" height="6" fill="#0d1d13" />
+        <rect x="-140" y="214" width="1000" height="6" fill="#0d1d13" />
       </svg>
     </header>
 
