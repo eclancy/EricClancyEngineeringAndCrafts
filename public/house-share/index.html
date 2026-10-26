@@ -234,8 +234,10 @@
         font-size: min(0.85rem, 100cqi / 23);
         font-style: italic;
       }
-      .card .pic-full {
-        aspect-ratio: auto;
+      /* A short line that should stay on one line: it shrinks to its card, like the titles. */
+      .card .fit {
+        font-size: min(1em, 100cqi / var(--fit));
+        white-space: nowrap;
       }
       .wide {
         margin: 20px 0 0;
@@ -1084,7 +1086,7 @@
               loading="lazy"
             />
             <h3><span class="icon rock" aria-hidden="true">🛏️</span> Stay over</h3>
-            <p>Spare rooms, so you can stay the night.</p>
+            <p class="fit" style="--fit: 18">Spare rooms, so you can stay the night.</p>
           </article>
           <article class="card">
             <img
@@ -1102,17 +1104,17 @@
           </article>
           <article class="card">
             <img
-              class="pic pic-full"
-              src="/house-share/photos/game-night.jpg"
+              class="pic"
+              src="/house-share/photos/game-night-top.jpg"
               alt="Friends around a table covered in character sheets, dice and snacks, mid D&amp;D game"
               width="1000"
-              height="762"
+              height="666"
               loading="lazy"
             />
             <h3>
               <span class="icon strum" aria-hidden="true">🎸</span> A music and games room
             </h3>
-            <p>(once the basement is finished...)</p>
+            <p class="fit" style="--fit: 15">(once the basement is finished...)</p>
           </article>
           <article class="card">
             <img
