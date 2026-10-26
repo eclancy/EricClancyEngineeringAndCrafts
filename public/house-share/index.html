@@ -199,31 +199,6 @@
         color: var(--soft);
       }
 
-      .facts {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-        gap: 10px;
-        margin: 20px 0 0;
-        padding: 0;
-        list-style: none;
-      }
-      .facts li {
-        padding: 14px 16px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: var(--card);
-      }
-      .facts b {
-        display: block;
-        font-family: 'Fraunces', Georgia, serif;
-        font-size: 1.6rem;
-        line-height: 1.1;
-      }
-      .facts span {
-        color: var(--soft);
-        font-size: 0.92rem;
-      }
-
       .cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
@@ -235,6 +210,61 @@
         border: 1px solid var(--line);
         border-radius: 18px;
         background: var(--card);
+        overflow: hidden;
+      }
+      /* A photo across the top of a card, out to its edges. */
+      .card .pic {
+        display: block;
+        width: calc(100% + 40px);
+        max-width: none;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        margin: -20px -20px 16px;
+        object-fit: cover;
+      }
+      .card.big .pic {
+        aspect-ratio: 16 / 9;
+      }
+      .wide {
+        margin: 20px 0 0;
+      }
+      .wide img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        border-radius: 18px;
+      }
+      .wide figcaption {
+        margin-top: 8px;
+        color: var(--soft);
+        font-size: 0.9rem;
+        text-align: center;
+      }
+      .invite .porch {
+        display: block;
+        width: calc(100% + 44px);
+        max-width: none;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        margin: -28px -22px 22px;
+        object-fit: cover;
+      }
+      .invite {
+        overflow: hidden;
+      }
+      .card .pic-top {
+        object-position: top;
+      }
+      .invite .family {
+        display: block;
+        width: 100%;
+        max-width: 26rem;
+        height: auto;
+        margin: 22px auto 0;
+        border-radius: 18px;
+        border: 4px solid rgb(255 255 255 / 0.85);
       }
       .card.big {
         grid-column: 1 / -1;
@@ -243,8 +273,8 @@
         border-color: var(--ember-soft);
       }
       .card .icon {
-        font-size: 2rem;
-        line-height: 1;
+        margin-right: 4px;
+        font-size: 1.4rem;
       }
       .card h3 {
         margin-top: 10px;
@@ -255,6 +285,52 @@
         color: var(--soft);
       }
 
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+      .howfar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .howfar input {
+        flex: 1 1 14rem;
+        min-width: 0;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--card);
+        color: var(--ink);
+        font: inherit;
+      }
+      .howfar button {
+        padding: 12px 22px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--ember);
+        color: #fff;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .howfar-out {
+        min-height: 1.6em;
+        margin: 14px 0 0;
+        font-size: 1.15rem;
+      }
+      .howfar-out b {
+        color: var(--ember);
+      }
+      .howfar-note {
+        margin: 6px 0 0;
+        color: var(--soft);
+        font-size: 0.85rem;
+      }
       .distances {
         margin: 20px 0 0;
         padding: 0;
@@ -341,7 +417,7 @@
         <p class="eyebrow">🏡 Big news</p>
         <h1>We bought a house!</h1>
         <p class="where">11 Forest View Drive · Falmouth, Maine</p>
-        <p class="when">We get the keys on October 29.</p>
+        <p class="when">We move in on November 12!</p>
         <div class="buttons">
           <a
             class="btn primary"
@@ -410,79 +486,182 @@
     </header>
 
     <main class="wrap">
-      <section aria-labelledby="tour">
-        <h2 id="tour">The quick tour</h2>
-        <p class="lede">On a quiet cul-de-sac, with room to spread out.</p>
-        <ul class="facts">
-          <li><b>4</b><span>bedrooms</span></li>
-          <li><b>2½</b><span>baths</span></li>
-          <li><b>3,066</b><span>square feet</span></li>
-          <li><b>1 acre</b><span>of yard</span></li>
-          <li><b>2002</b><span>built</span></li>
-          <li><b>3-season</b><span>room</span></li>
-        </ul>
-      </section>
+      <figure class="wide">
+        <img
+          src="/house-share/photos/front.jpg"
+          alt="The front of 11 Forest View Drive: a gray two-story house with a white wraparound porch, behind a big lawn"
+          width="1400"
+          height="1050"
+          loading="lazy"
+        />
+        <figcaption>Here it is!</figcaption>
+      </figure>
 
-      <section aria-labelledby="excited">
-        <h2 id="excited">What we can't wait for</h2>
+      <section aria-labelledby="hosting">
+        <h2 id="hosting">We're so excited to have you over!</h2>
+        <p class="lede">We can't wait to have everyone over.</p>
+        <figure class="wide">
+          <img
+            src="/house-share/photos/fire-pit-deck.jpg"
+            alt="The back patio: a stone fire pit ringed with chairs and a sofa, with the deck and house behind it"
+            width="1400"
+            height="1050"
+            loading="lazy"
+          />
+          <figcaption>The fire pit and the deck</figcaption>
+        </figure>
         <div class="cards">
           <article class="card big">
-            <div class="icon" aria-hidden="true">🔥</div>
-            <h3>Fire pit nights</h3>
+            <img
+              class="pic"
+              src="/house-share/photos/fire-pit.jpg"
+              alt="A round stone fire pit on a stone patio, with chairs around it and woods behind"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
+            <h3><span class="icon" aria-hidden="true">🔥</span> Fire pit nights</h3>
             <p>
-              There's a built-in fire pit out back, right next to a big tiered deck. Bring
-              a hoodie and a camp chair. We'll handle the fire and the s'mores.
+              A big stone fire pit right off the deck. Bring a chair, we'll have the
+              s'mores.
             </p>
           </article>
           <article class="card big">
-            <div class="icon" aria-hidden="true">🦃</div>
-            <h3>Nerdsgiving</h3>
-            <p>
-              Nerdsgiving finally has room to spread out: more space for the food, more
-              space for the games after, and nobody stuck on the arm of the couch.
-            </p>
+            <img
+              class="pic"
+              src="/house-share/photos/dining-room.jpg"
+              alt="A bright dining room with a long wooden table and built-in shelves"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
+            <h3><span class="icon" aria-hidden="true">🦃</span> Nerdsgiving</h3>
+            <p>Way more room for food, games, and everyone.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="kids">
+        <h2 id="kids">Lots of room for kids</h2>
+        <p class="lede">A whole acre on a quiet cul-de-sac, plus horses down the road.</p>
+        <figure class="wide">
+          <img
+            src="/house-share/photos/front-yard.jpg"
+            alt="The big front lawn under tall trees, in front of the house and its porch"
+            width="1344"
+            height="756"
+            loading="lazy"
+          />
+          <figcaption>Plenty of lawn for running around</figcaption>
+        </figure>
+        <div class="cards">
+          <article class="card">
+            <img
+              class="pic"
+              src="/house-share/photos/playroom.jpg"
+              alt="An empty room with wood floors and a brick fireplace"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
+            <h3><span class="icon" aria-hidden="true">🧸</span> A kids' playroom</h3>
+            <p>The fireplace room is going to be the playroom. Bring the kids!</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="space">
+        <h2 id="space">Space for everyone</h2>
+        <div class="cards">
+          <article class="card">
+            <img
+              class="pic"
+              src="/house-share/photos/guest-room.jpg"
+              alt="A sunny bedroom with light blue walls and two windows"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
+            <h3><span class="icon" aria-hidden="true">🛏️</span> Stay over</h3>
+            <p>Spare rooms, so you can stay the night.</p>
           </article>
           <article class="card">
-            <div class="icon" aria-hidden="true">🍂</div>
-            <h3>The three-season room</h3>
-            <p>A hangout for morning coffee, card games and watching the rain.</p>
+            <img
+              class="pic"
+              src="/house-share/photos/three-season-room.jpg"
+              alt="A wood-paneled three-season room with windows on every side and comfy chairs"
+              width="900"
+              height="676"
+              loading="lazy"
+            />
+            <h3><span class="icon" aria-hidden="true">🍂</span> The three-season room</h3>
+            <p>Great for coffee, card games, and rainy days.</p>
           </article>
           <article class="card">
-            <div class="icon" aria-hidden="true">🛠️</div>
-            <h3>A workshop (someday)</h3>
-            <p>
-              A big unfinished basement that's going to become a workshop for painting
-              miniatures and building whatever comes next.
-            </p>
+            <img
+              class="pic"
+              src="/house-share/photos/dnd-night.jpg"
+              alt="Friends around a table covered in character sheets, dice and snacks, mid D&amp;D game"
+              width="1000"
+              height="750"
+              loading="lazy"
+            />
+            <h3>
+              <span class="icon" aria-hidden="true">🎸</span> A music and games room
+              (coming soon)
+            </h3>
+            <p>Once the basement's done. Bring an instrument or a board game.</p>
           </article>
           <article class="card">
-            <div class="icon" aria-hidden="true">🐴</div>
-            <h3>The neighbors</h3>
-            <p>Horses graze on the open land in the neighborhood. Yes, really.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true">🌲</div>
-            <h3>A whole acre</h3>
-            <p>Room for lawn games, a garden, and the whole fire pit crowd.</p>
+            <img
+              class="pic pic-top"
+              src="/house-share/photos/welcome-committee.jpg"
+              alt="Pancho the fluffy white dog, with Lio peeking over the blankets behind him"
+              width="1000"
+              height="800"
+              loading="lazy"
+            />
+            <h3><span class="icon" aria-hidden="true">🐶</span> The welcome committee</h3>
+            <p>Pancho and Lio can't wait to meet you.</p>
           </article>
         </div>
       </section>
 
       <section aria-labelledby="close">
-        <h2 id="close">How close are we?</h2>
-        <p class="lede">Closer than you'd think.</p>
-        <ul class="distances">
-          <li><span>Justin &amp; Liz</span><b>8 minutes</b></li>
-          <li><span>The beach</span><b>about 20 minutes</b></li>
-          <li><span>Downtown Portland</span><b>about 20 minutes</b></li>
-        </ul>
+        <h2 id="close">How far are we from you?</h2>
+        <p class="lede">Type in your address for a rough guess.</p>
+        <form class="howfar" id="howfar">
+          <label for="from" class="sr">Your address</label>
+          <input
+            id="from"
+            name="from"
+            type="text"
+            autocomplete="street-address"
+            placeholder="Your address or town"
+            required
+          />
+          <button type="submit">How far?</button>
+        </form>
+        <p class="howfar-out" id="howfar-out" role="status" aria-live="polite"></p>
+        <p class="howfar-note">
+          Your address goes to OpenStreetMap to find it on the map. We never see or keep
+          it.
+        </p>
       </section>
 
       <div class="invite">
+        <img
+          class="porch"
+          src="/house-share/photos/porch.jpg"
+          alt="The front porch with a bench, looking out at the trees"
+          width="1400"
+          height="1050"
+          loading="lazy"
+        />
         <h2>Come see us</h2>
         <p>
-          Once the boxes are unpacked, we want you here. The fire pit's ready when you
-          are.
+          We move in November 12th and Nerdsgiving is right after. If you can help us
+          unpack and get ready, we'd really appreciate it. Then come hang out by the fire!
         </p>
         <div class="buttons">
           <a
@@ -491,10 +670,87 @@
             >📍 Get directions</a
           >
         </div>
+        <img
+          class="family"
+          src="/house-share/photos/family.jpg"
+          alt="Eric and family smiling together in front of fall leaves"
+          width="1000"
+          height="706"
+          loading="lazy"
+        />
         <p class="sign">— Eric &amp; family</p>
       </div>
     </main>
 
     <footer>Made with love (and a little code) on <a href="/">ecec.dev</a></footer>
+    <script>
+      // "How far are we from you?": OpenStreetMap's Nominatim finds the address, and the OSRM
+      // demo router guesses the drive (no traffic, so it's a rough guess). Both are free and
+      // keyless; nothing is sent anywhere else.
+      ;(function () {
+        var HOME = { lat: 43.7942721, lon: -70.3260755 }
+        var form = document.getElementById('howfar')
+        var out = document.getElementById('howfar-out')
+        var esc = function (t) {
+          var d = document.createElement('div')
+          d.textContent = t
+          return d.innerHTML
+        }
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault()
+          var q = form.from.value.trim()
+          if (!q) return
+          out.textContent = 'Looking that up…'
+          try {
+            var places = await fetch(
+              'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us,ca&q=' +
+                encodeURIComponent(q),
+            ).then(function (r) {
+              return r.json()
+            })
+            if (!places.length) {
+              out.textContent =
+                "Couldn't find that address. Try adding the town and state."
+              return
+            }
+            var from = places[0]
+            var route = await fetch(
+              'https://router.project-osrm.org/route/v1/driving/' +
+                from.lon +
+                ',' +
+                from.lat +
+                ';' +
+                HOME.lon +
+                ',' +
+                HOME.lat +
+                '?overview=false',
+            ).then(function (r) {
+              return r.json()
+            })
+            if (route.code !== 'Ok' || !route.routes.length) {
+              out.textContent = "Couldn't work out a drive from there."
+              return
+            }
+            var mins = Math.round(route.routes[0].duration / 60)
+            var miles = Math.round(route.routes[0].distance / 1609.34)
+            var time =
+              mins < 60
+                ? mins + ' minutes'
+                : Math.floor(mins / 60) + ' hr ' + (mins % 60 ? (mins % 60) + ' min' : '')
+            var where = from.display_name.split(',').slice(0, 3).join(',')
+            out.innerHTML =
+              'About <b>' +
+              esc(time) +
+              '</b> (' +
+              miles +
+              ' miles) from ' +
+              esc(where) +
+              '.'
+          } catch (err) {
+            out.textContent = "Couldn't look that up right now. Try again in a moment."
+          }
+        })
+      })()
+    </script>
   </body>
 </html>
