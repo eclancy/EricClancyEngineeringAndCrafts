@@ -388,9 +388,6 @@
         .p3 {
           animation-delay: -3s;
         }
-        .pee {
-          animation: pee 0.6s linear infinite;
-        }
         .flame {
           animation: flicker 1.4s ease-in-out infinite alternate;
         }
@@ -498,11 +495,6 @@
           opacity: 0;
         }
       }
-      @keyframes pee {
-        to {
-          stroke-dashoffset: -3;
-        }
-      }
       @keyframes twinkle {
         0%,
         100% {
@@ -584,8 +576,6 @@
           <circle class="twinkle t1" cx="44" cy="70" r="1" />
           <circle cx="196" cy="70" r="1.1" />
           <circle cx="560" cy="70" r="1" />
-          <circle cx="12" cy="100" r="1.1" />
-          <circle class="twinkle t2" cx="26" cy="148" r="1" />
           <circle cx="172" cy="92" r="1.2" />
           <circle cx="204" cy="112" r="1" />
           <circle cx="226" cy="80" r="1.3" />
@@ -619,6 +609,7 @@
           <ellipse cx="705.6" cy="35.1" rx="9.799999999999999" ry="7" />
         </g>
         <g fill="#0d1d13">
+          <path d="M-24 220 L18 44 L60 220Z" />
           <path d="M40 220 L80 90 L120 220Z" />
           <path d="M95 220 L140 60 L185 220Z" />
           <path d="M600 220 L645 70 L690 220Z" />
@@ -653,48 +644,50 @@
           />
           <rect x="296" y="168" width="42" height="4" rx="1" fill="#cbb994" />
           <rect x="382" y="168" width="42" height="4" rx="1" fill="#cbb994" />
-          <ellipse cx="337" cy="180" rx="12" ry="12" fill="url(#porch-glow)" />
-          <circle cx="337" cy="180" r="2" fill="#ffd58a" />
-          <rect x="345" y="168" width="30" height="52" rx="2" fill="#24452f" />
-          <circle cx="370" cy="196" r="1.4" fill="#ffd58a" />
+          <ellipse cx="340" cy="190" rx="12" ry="12" fill="url(#porch-glow)" />
+          <circle cx="340" cy="190" r="2" fill="#ffd58a" />
+          <rect x="347" y="182" width="26" height="38" rx="2" fill="#24452f" />
+          <circle cx="368" cy="203" r="1.4" fill="#ffd58a" />
           <rect x="340" y="212" width="40" height="4" fill="#b8a888" />
         </g>
-        <g class="pancho">
-          <circle cx="230" cy="207" r="7" fill="#1f4a2c" />
-          <circle cx="237" cy="203" r="7" fill="#245533" />
-          <circle cx="243" cy="208" r="6" fill="#1f4a2c" />
+        <g class="porch">
+          <rect x="286" y="174" width="148" height="5" fill="#4a3026" />
+          <rect x="296" y="179" width="3" height="35" fill="#f7f2e6" />
+          <rect x="332" y="179" width="3" height="35" fill="#f7f2e6" />
+          <rect x="388" y="179" width="3" height="35" fill="#f7f2e6" />
+          <rect x="424" y="179" width="3" height="35" fill="#f7f2e6" />
+          <path d="M296 198 H345 M375 198 H427" stroke="#f7f2e6" stroke-width="2" />
           <path
-            class="pee"
-            d="M217 203.5 Q222 202 227 209"
-            fill="none"
-            stroke="#ffe066"
-            stroke-width="0.9"
-            stroke-linecap="round"
-            stroke-dasharray="1.6 1.4"
+            d="M300 198 V212 M305 198 V212 M310 198 V212 M315 198 V212 M320 198 V212 M325 198 V212 M330 198 V212 M335 198 V212 M340 198 V212 M380 198 V212 M385 198 V212 M390 198 V212 M395 198 V212 M400 198 V212 M405 198 V212 M410 198 V212 M415 198 V212 M420 198 V212"
+            stroke="#f7f2e6"
+            stroke-width="1"
           />
+          <circle cx="281" cy="209" r="6" fill="#1f4a2c" />
+          <circle cx="440" cy="208" r="7" fill="#245533" />
+          <circle cx="449" cy="211" r="5" fill="#1f4a2c" />
+        </g>
+        <g class="pancho">
+          <circle cx="226" cy="207" r="7.5" fill="#1f4a2c" />
+          <circle cx="234" cy="202" r="8" fill="#245533" />
+          <circle cx="242" cy="207" r="7" fill="#1f4a2c" />
           <path
-            d="M210 202 Q215 198 212 193"
+            d="M219 202 Q223 198 220 193"
             fill="none"
             stroke="#f6eedc"
             stroke-width="2.4"
             stroke-linecap="round"
           />
-          <rect x="197" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
-          <rect x="201" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
           <rect x="207" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
-          <circle cx="200" cy="205" r="4.6" fill="#f6eedc" />
-          <circle cx="205" cy="204.3" r="5" fill="#f6eedc" />
-          <circle cx="209.5" cy="205.5" r="4.2" fill="#f6eedc" />
-          <path
-            d="M210 206.5 L217 203.5"
-            stroke="#f6eedc"
-            stroke-width="2.3"
-            stroke-linecap="round"
-          />
-          <circle cx="194" cy="200" r="4.6" fill="#f6eedc" />
-          <ellipse cx="197" cy="201.8" rx="1.9" ry="3.5" fill="#e3cfa9" />
-          <circle cx="190" cy="201.2" r="0.95" fill="#3a2a22" />
-          <circle cx="192.6" cy="199" r="0.7" fill="#3a2a22" />
+          <rect x="211" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
+          <rect x="215" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
+          <rect x="218" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
+          <circle cx="210" cy="205" r="4.6" fill="#f6eedc" />
+          <circle cx="215" cy="204.3" r="5" fill="#f6eedc" />
+          <circle cx="219" cy="205.5" r="4.2" fill="#f6eedc" />
+          <circle cx="204" cy="200" r="4.6" fill="#f6eedc" />
+          <ellipse cx="207" cy="201.8" rx="1.9" ry="3.5" fill="#e3cfa9" />
+          <circle cx="200" cy="201.2" r="0.95" fill="#3a2a22" />
+          <circle cx="202.6" cy="199" r="0.7" fill="#3a2a22" />
         </g>
         <ellipse class="glow" cx="540" cy="200" rx="90" ry="40" fill="url(#glow)" />
         <ellipse cx="540" cy="208" rx="30" ry="8" fill="#6b625a" />
