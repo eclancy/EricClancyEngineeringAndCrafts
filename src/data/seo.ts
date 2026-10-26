@@ -59,10 +59,10 @@ export const gameSeo: Record<string, GameSeo> = {
     title: "DrawFight – Free Fighting Game Made of Kids' Drawings",
     description:
       "A Smash-style fighting game where every fighter is a kid's drawing. Free for " +
-      'Windows, for 1 to 4 players with controllers or the keyboard.',
+      'Windows and Linux, for 1 to 4 players with controllers or the keyboard.',
     image: { width: 1200, height: 675, alt: 'The DrawFight title screen.' },
     genre: ['Fighting', 'Platform fighter'],
-    platforms: ['Windows'],
+    platforms: ['Windows', 'Linux'],
     players: { min: 1, max: 4 },
   },
   drawpets: {
@@ -70,10 +70,10 @@ export const gameSeo: Record<string, GameSeo> = {
     title: 'DrawPets – Draw Your Own Virtual Pet, Free',
     description:
       'A virtual pet you draw part by part, then watch come alive and look after. Free for ' +
-      'Windows, Android and any browser, with no ads, no accounts and no AI.',
+      'Windows, Linux, Android and any browser, with no ads, no accounts and no AI.',
     image: { width: 1200, height: 675, alt: 'The DrawPets title screen.' },
     genre: ['Virtual pet', 'Drawing'],
-    platforms: ['Windows', 'Android', 'Web browser'],
+    platforms: ['Windows', 'Linux', 'Android', 'Web browser'],
     players: { min: 1, max: 1 },
   },
   'wizard-survivors': {
@@ -81,10 +81,10 @@ export const gameSeo: Record<string, GameSeo> = {
     title: 'Wizard Survivors – Free Roguelite Spell Shooter',
     description:
       'A roguelite auto-shooter: move, survive, and let your spells do the rest. Free for ' +
-      'Windows and Android.',
+      'Windows, Linux and Android.',
     image: { width: 1200, height: 675, alt: 'The Wizard Survivors title screen.' },
     genre: ['Roguelite', 'Shooter'],
-    platforms: ['Windows', 'Android'],
+    platforms: ['Windows', 'Linux', 'Android'],
     players: { min: 1, max: 1 },
   },
   'wizard-wars': {
@@ -92,10 +92,10 @@ export const gameSeo: Record<string, GameSeo> = {
     title: 'Wizard Wars – Free 4-Player Wizard Battle Game',
     description:
       'Fire, frost, earth or lightning: a wizard battle arena for up to four players. ' +
-      'Free for Windows.',
+      'Free for Windows and Linux.',
     image: { width: 1200, height: 750, alt: 'The Wizard Wars title screen.' },
     genre: ['Party', 'Battle arena'],
-    platforms: ['Windows'],
+    platforms: ['Windows', 'Linux'],
     players: { min: 1, max: 4 },
   },
 }

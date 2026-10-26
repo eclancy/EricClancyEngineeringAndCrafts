@@ -241,7 +241,7 @@
   </head>
   <body>
     <main class="wrap">
-      <p class="eyebrow">Wizard Survivors · free · Windows and Android</p>
+      <p class="eyebrow">Wizard Survivors · free · Windows, Linux and Android</p>
       <h1>Play <span>Wizard Survivors</span></h1>
       <p class="lede">
         You move; your spells fire themselves. Pick your upgrades, choose where to stand,
@@ -334,6 +334,30 @@
         </p>
       </section>
 
+      <!-- Shown once the newest release has a Linux build (the script at the bottom). -->
+      <section class="card" id="linux-card" aria-labelledby="linux-how" hidden>
+        <h2 id="linux-how">On Linux</h2>
+        <ol>
+          <li>
+            Download
+            <a
+              href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-linux.tar.gz"
+              ><b>WizardSurvivors-linux.tar.gz</b></a
+            >
+            and unpack it.
+          </li>
+          <li>
+            In a terminal in the unpacked folder, run <b>./install.sh</b>. It adds Wizard
+            Survivors to your app menu, with no password needed.
+          </li>
+          <li>Start <b>Wizard Survivors</b> from your app menu.</li>
+        </ol>
+        <p class="note">
+          <b>It keeps itself up to date</b>, the same as on Windows. To remove it, run
+          <b>~/.local/share/WizardSurvivors/install.sh --uninstall</b>.
+        </p>
+      </section>
+
       <footer>
         Made by <a href="/">ECEC</a> ·
         <a href="/games/wizard-survivors">about the game</a> ·
@@ -398,6 +422,29 @@
               (apk ? ' · Android ' + apk : '') +
               ' · free'
           }
+        })
+        .catch(() => {})
+    </script>
+    <script>
+      // Linux: once the newest release has a Linux build, show how to get it - and on a Linux
+      // computer, put a Linux button first. Nothing shows if GitHub is slow or there is no build.
+      fetch('https://api.github.com/repos/eclancy/WizardSurvivors/releases/latest')
+        .then((r) => (r.ok ? r.json() : Promise.reject()))
+        .then((release) => {
+          const linux = (release.assets || []).find(
+            (a) => a.name === 'WizardSurvivors-linux.tar.gz',
+          )
+          if (!linux) return
+          document.getElementById('linux-card').hidden = false
+          const ua = navigator.userAgent
+          if (!/Linux/i.test(ua) || /Android/i.test(ua)) return
+          const first = document.querySelector('a.big')
+          const button = first.cloneNode(false)
+          button.removeAttribute('id')
+          button.href =
+            'https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-linux.tar.gz'
+          button.innerHTML = '<span aria-hidden="true">🐧</span> Download for Linux'
+          first.parentNode.insertBefore(button, first)
         })
         .catch(() => {})
     </script>
