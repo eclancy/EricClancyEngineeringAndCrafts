@@ -273,8 +273,10 @@
       .card.big .pic {
         aspect-ratio: 16 / 9;
       }
+      /* Smaller text, but the same line box and gap as the other cards' lines, so it sits
+         at the same height as theirs. */
       .card .aside {
-        margin-top: 4px;
+        line-height: 1.6rem;
         font-size: min(0.85rem, 100cqi / 23);
         font-style: italic;
       }
