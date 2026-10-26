@@ -90,6 +90,7 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/eclancy/DrawFight',
     game: {
       repo: 'DrawFight',
+      platform: 'Windows and Linux',
       players: '1–4 players, local',
       feature: {
         title: 'Be in the game!',
@@ -167,7 +168,7 @@ export const projects: Project[] = [
     game: {
       repo: 'DrawPets',
       players: '1 player',
-      platform: 'Windows and Android',
+      platform: 'Windows, Linux and Android',
       about: [
         'Kids choose what their creature has - heads, arms, legs, wings, a tail, anything - ' +
           'and draw each part on its own sheet, starting from a red dot that marks where it ' +
@@ -219,7 +220,7 @@ export const projects: Project[] = [
     game: {
       repo: 'WizardSurvivors',
       players: '1 player',
-      platform: 'Windows and Android',
+      platform: 'Windows, Linux and Android',
       about: [
         'You move; your spells fire themselves. Every run asks the same question: what did ' +
           'you pick, and where did you stand?',
@@ -271,6 +272,7 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/eclancy/WizardWars',
     game: {
       repo: 'WizardWars',
+      platform: 'Windows and Linux',
       players: '1–4 players, local',
       about: [
         'Pick a wizard of fire, frost, earth or electricity and fight to be the last one ' +

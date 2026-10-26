@@ -106,7 +106,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
         latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''
       } · updates itself`
     : releases.state === 'none'
-      ? 'Free for Windows · keeps itself up to date'
+      ? 'Free for Windows and Linux · keeps itself up to date'
       : ' '
 
   return (

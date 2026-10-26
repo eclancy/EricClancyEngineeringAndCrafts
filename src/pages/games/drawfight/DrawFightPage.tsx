@@ -466,7 +466,7 @@ function VersionLine({ release, state }: { release?: Release; state: string }) {
   if (state === 'loading')
     return <p className="df-version">checking the latest version…</p>
   if (!release)
-    return <p className="df-version">Windows 10 and 11 · keeps itself up to date</p>
+    return <p className="df-version">Windows and Linux · keeps itself up to date</p>
   return (
     <p className="df-version">
       v{release.version}

@@ -230,7 +230,7 @@
   </head>
   <body>
     <main class="wrap">
-      <p class="eyebrow">DrawPets · free · Windows, Android and your browser</p>
+      <p class="eyebrow">DrawPets · free · Windows, Linux, Android and your browser</p>
       <h1>Play <span>DrawPets</span></h1>
       <p class="lede">
         Draw a creature part by part - a head, legs, wings, a tail, anything - and it
@@ -368,6 +368,30 @@
         </ul>
       </section>
 
+      <!-- Shown once the newest release has a Linux build (the script at the bottom). -->
+      <section class="card" id="linux-card" aria-labelledby="linux-how" hidden>
+        <h2 id="linux-how">On Linux</h2>
+        <ol>
+          <li>
+            Download
+            <a
+              href="https://github.com/eclancy/DrawPets/releases/latest/download/DrawPets-linux.tar.gz"
+              ><b>DrawPets-linux.tar.gz</b></a
+            >
+            and unpack it.
+          </li>
+          <li>
+            In a terminal in the unpacked folder, run <b>./install.sh</b>. It adds
+            DrawPets to your app menu, with no password needed.
+          </li>
+          <li>Start <b>DrawPets</b> from your app menu.</li>
+        </ol>
+        <p class="note">
+          <b>It keeps itself up to date</b>, the same as on Windows. To remove it, run
+          <b>~/.local/share/DrawPets/install.sh --uninstall</b>.
+        </p>
+      </section>
+
       <footer>
         Made by <a href="/">ECEC</a> · <a href="/games/drawpets">about the game</a> ·
         <a href="https://github.com/eclancy/DrawPets">source code</a> ·
@@ -427,6 +451,29 @@
               (apk ? ' · Android ' + apk : '') +
               ' · no ads · nothing to buy'
           }
+        })
+        .catch(() => {})
+    </script>
+    <script>
+      // Linux: once the newest release has a Linux build, show how to get it - and on a Linux
+      // computer, put a Linux button first. Nothing shows if GitHub is slow or there is no build.
+      fetch('https://api.github.com/repos/eclancy/DrawPets/releases/latest')
+        .then((r) => (r.ok ? r.json() : Promise.reject()))
+        .then((release) => {
+          const linux = (release.assets || []).find(
+            (a) => a.name === 'DrawPets-linux.tar.gz',
+          )
+          if (!linux) return
+          document.getElementById('linux-card').hidden = false
+          const ua = navigator.userAgent
+          if (!/Linux/i.test(ua) || /Android/i.test(ua)) return
+          const first = document.querySelector('a.big')
+          const button = first.cloneNode(false)
+          button.removeAttribute('id')
+          button.href =
+            'https://github.com/eclancy/DrawPets/releases/latest/download/DrawPets-linux.tar.gz'
+          button.innerHTML = '<span aria-hidden="true">🐧</span> Download for Linux'
+          first.parentNode.insertBefore(button, first)
         })
         .catch(() => {})
     </script>
