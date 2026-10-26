@@ -12,8 +12,8 @@
          and kept out of search results. -->
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#24452f" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/house-share/icon.svg" />
+    <link rel="apple-touch-icon" href="/house-share/apple-touch-icon.png" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ECEC" />
@@ -23,15 +23,15 @@
       property="og:description"
       content="11 Forest View Drive, Falmouth, Maine. Fire pit nights and Nerdsgiving, here we come."
     />
-    <meta property="og:image" content="https://ecec.dev/house-share/preview.png?v=1" />
+    <meta property="og:image" content="https://ecec.dev/house-share/preview.png?v=2" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="We bought a house! 11 Forest View Drive, Falmouth, Maine"
+      content="We bought a house! A drawing of the house at night, with the fire pit glowing and Pancho out by the trees"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://ecec.dev/house-share/preview.png?v=1" />
+    <meta name="twitter:image" content="https://ecec.dev/house-share/preview.png?v=2" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,10 +42,10 @@
     <style>
       :root {
         --bg: #fbf6ec;
-        --card: #fffdf8;
+        --card: #ffffff;
         --ink: #1f2a24;
         --soft: #56665c;
-        --line: #e7dcc8;
+        --line: #e3d6bd;
         --forest: #24452f;
         --forest-ink: #fbf6ec;
         --ember: #d9622b;
@@ -55,10 +55,10 @@
       @media (prefers-color-scheme: dark) {
         :root:not([data-theme='light']) {
           --bg: #111a15;
-          --card: #18241d;
+          --card: #22332a;
           --ink: #f3ece0;
           --soft: #a9b8ad;
-          --line: #2a3a30;
+          --line: #364a3d;
           --forest: #1b3324;
           --forest-ink: #f3ece0;
           --ember: #f08a52;
@@ -68,10 +68,10 @@
       }
       :root[data-theme='dark'] {
         --bg: #111a15;
-        --card: #18241d;
+        --card: #22332a;
         --ink: #f3ece0;
         --soft: #a9b8ad;
-        --line: #2a3a30;
+        --line: #364a3d;
         --forest: #1b3324;
         --forest-ink: #f3ece0;
         --ember: #f08a52;
@@ -119,11 +119,55 @@
       }
 
       /* The hero: a night sky over the treeline, the house, and the fire pit's glow. */
+      .hero h1,
+      .hero .where,
+      .hero .when {
+        text-shadow:
+          0 0 4px var(--forest),
+          0 0 10px var(--forest),
+          0 0 18px var(--forest),
+          0 0 28px var(--forest);
+      }
+      /* A clear patch of sky behind the address and date: stars and clouds pass behind it,
+         so none show up within about 20px of that text. */
+      .hero h1,
+      .hero .buttons {
+        position: relative;
+        z-index: 1;
+      }
+      .hero .clear {
+        display: inline-block;
+        border-radius: 14px;
+        background: var(--forest);
+        box-shadow: 0 0 16px 20px var(--forest);
+      }
+      .hero .eyebrow {
+        background: var(--forest);
+        box-shadow:
+          0 0 0 1px rgb(255 255 255 / 0.18),
+          0 0 18px 6px var(--forest);
+      }
+      .hero .btn.secondary {
+        background: var(--forest);
+        box-shadow: 0 0 18px 6px var(--forest);
+      }
       .hero {
+        position: relative;
         background: var(--forest);
         color: var(--forest-ink);
         padding: 48px 0 0;
         overflow: hidden;
+      }
+      .sky {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .hero .wrap,
+      .hero .scene {
+        position: relative;
       }
       .eyebrow {
         display: inline-block;
@@ -183,7 +227,7 @@
       .scene {
         display: block;
         width: 100%;
-        height: clamp(150px, 28vw, 230px);
+        height: clamp(150px, 27.5vw, 340px);
         margin-top: 28px;
       }
 
@@ -207,6 +251,9 @@
       }
       .card {
         --pad: 20px;
+        /* Titles and the aside below size themselves to the card (cqi), so they stay on one
+           line however narrow the card is, two to a row or one. */
+        container-type: inline-size;
         padding: var(--pad);
         border: 1px solid var(--line);
         border-radius: 18px;
@@ -228,11 +275,13 @@
       }
       .card .aside {
         margin-top: 4px;
-        font-size: min(0.85rem, 3.4vw);
+        font-size: min(0.85rem, 100cqi / 23);
         font-style: italic;
       }
-      .card .pic-full {
-        aspect-ratio: auto;
+      /* A short line that should stay on one line: it shrinks to its card, like the titles. */
+      .card .fit {
+        font-size: min(1em, 100cqi / var(--fit));
+        white-space: nowrap;
       }
       .wide {
         margin: 20px 0 0;
@@ -280,11 +329,11 @@
       }
       .card .icon {
         margin-right: 4px;
-        font-size: 1.4rem;
+        font-size: 1.08em;
       }
       .card h3 {
         margin-top: 10px;
-        font-size: min(1.3rem, 5vw);
+        font-size: min(1.3rem, 100cqi / 15.6);
       }
       @media (max-width: 420px) {
         .card {
@@ -357,32 +406,687 @@
           font-size: 0.95rem;
         }
       }
+      /* A faint outline so Pancho stands out against the siding. */
+      .pancho .dog {
+        filter: drop-shadow(0 0 0.5px #5b4a38) drop-shadow(0 0 0.5px #5b4a38);
+      }
+      /* Each flame grows from its own base, not from the corner of the drawing. */
+      .flame {
+        transform-box: fill-box;
+        transform-origin: 50% 100%;
+      }
       @media (prefers-reduced-motion: no-preference) {
-        .flame {
-          transform-origin: 50% 100%;
-          animation: flicker 1.6s ease-in-out infinite alternate;
+        .c4 {
+          animation-duration: 160s;
+          animation-delay: -30s;
         }
-        .flame.b {
+        .c5 {
+          animation-duration: 120s;
+          animation-delay: -80s;
+        }
+        .c6 {
+          animation-duration: 150s;
+          animation-delay: -120s;
+        }
+        .dog {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: wander 16s ease-in-out infinite;
+        }
+        .trot {
+          animation: trot 16s linear infinite;
+        }
+        .leg.a,
+        .leg.b {
+          transform-box: fill-box;
+          transform-origin: top;
+        }
+        .lift {
+          transform-box: fill-box;
+          transform-origin: top left;
+          animation: lift 16s ease-in-out infinite;
+        }
+        .cloud {
+          animation: drift 110s linear infinite;
+        }
+        .c2 {
+          animation-duration: 140s;
+          animation-delay: -60s;
+        }
+        .c3 {
+          animation-duration: 125s;
+          animation-delay: -95s;
+        }
+        .puff {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: smoke 4.5s ease-out infinite;
+        }
+        .p2 {
+          animation-delay: -1.5s;
+        }
+        .p3 {
+          animation-delay: -3s;
+        }
+        .flame {
+          animation: flicker 1.4s ease-in-out infinite alternate;
+        }
+        .f1 {
           animation-duration: 1.1s;
+        }
+        .f2 {
+          animation-duration: 1.3s;
+          animation-delay: -0.4s;
+        }
+        .f3 {
+          animation-duration: 1.7s;
+        }
+        .f4 {
+          animation-duration: 0.9s;
+          animation-delay: -0.2s;
+        }
+        .f5 {
+          animation-duration: 1s;
+          animation-delay: -0.6s;
+        }
+        .glow {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: glow 2.4s ease-in-out infinite alternate;
+        }
+        .ember {
+          animation: rise 2.6s linear infinite;
+        }
+        .e2 {
+          animation-delay: -0.7s;
+          animation-duration: 3s;
+        }
+        .e3 {
+          animation-delay: -1.4s;
+        }
+        .e4 {
+          animation-delay: -2s;
+          animation-duration: 2.2s;
+        }
+        .twinkle {
+          animation: twinkle 3s ease-in-out infinite;
+        }
+        .t1 {
+          animation-delay: -1s;
+          animation-duration: 4s;
+        }
+        .t2 {
+          animation-delay: -2s;
+          animation-duration: 2.5s;
         }
       }
       @keyframes flicker {
+        0% {
+          transform: scale(1, 1) skewX(0deg);
+        }
+        50% {
+          transform: scale(0.9, 1.1) skewX(-3deg);
+        }
+        100% {
+          transform: scale(1.05, 0.92) skewX(3deg);
+        }
+      }
+      @keyframes glow {
         from {
-          transform: scale(1, 1);
+          opacity: 0.75;
+          transform: scale(0.95);
         }
         to {
-          transform: scale(0.88, 1.12);
+          opacity: 1;
+          transform: scale(1.06);
+        }
+      }
+      @keyframes rise {
+        0% {
+          transform: translate(0, 0);
+          opacity: 0;
+        }
+        15% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(6px, -40px);
+          opacity: 0;
+        }
+      }
+      @keyframes drift {
+        from {
+          transform: translateX(-260px);
+        }
+        to {
+          transform: translateX(900px);
+        }
+      }
+      @keyframes smoke {
+        0% {
+          transform: translate(0, 0) scale(0.6);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.35;
+        }
+        100% {
+          transform: translate(10px, -34px) scale(1.6);
+          opacity: 0;
+        }
+      }
+      @keyframes wander {
+        0% {
+          transform: translateX(0) scaleX(1);
+        }
+        28% {
+          transform: translateX(-46px) scaleX(1);
+        }
+        31% {
+          transform: translateX(-46px) scaleX(-1);
+        }
+        58% {
+          transform: translateX(0) scaleX(-1);
+        }
+        61%,
+        100% {
+          transform: translateX(0) scaleX(1);
+        }
+      }
+      @keyframes trot {
+        0%,
+        58%,
+        100% {
+          transform: translateY(0);
+        }
+        4%,
+        12%,
+        20%,
+        36%,
+        44%,
+        52% {
+          transform: translateY(-0.8px);
+        }
+        8%,
+        16%,
+        24%,
+        40%,
+        48%,
+        56% {
+          transform: translateY(0);
+        }
+      }
+      @keyframes lift {
+        0%,
+        66%,
+        84%,
+        100% {
+          transform: rotate(0deg);
+        }
+        70%,
+        80% {
+          transform: rotate(-95deg);
+        }
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+      }
+      /* Card emojis play a little move when you hover over a card's title, or tap it. */
+      .card .icon {
+        display: inline-block;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .card h3:hover .flick,
+        .card h3.play .flick {
+          animation: e-flick 0.6s ease-in-out 2;
+        }
+        .card h3:hover .waddle,
+        .card h3.play .waddle {
+          animation: e-waddle 0.7s ease-in-out 2;
+        }
+        .card h3:hover .hop,
+        .card h3.play .hop {
+          animation: e-hop 0.6s ease-out 2;
+        }
+        .card h3:hover .rock,
+        .card h3.play .rock {
+          animation: e-rock 1.4s ease-in-out;
+        }
+        .card h3:hover .drift,
+        .card h3.play .drift {
+          animation: e-drift 1.2s ease-in-out;
+        }
+        .card h3:hover .strum,
+        .card h3.play .strum {
+          animation: e-strum 0.5s linear 2;
+        }
+        .card h3:hover .tilt,
+        .card h3.play .tilt {
+          animation: e-tilt 0.9s ease-in-out;
+        }
+      }
+      @keyframes e-flick {
+        0%,
+        100% {
+          transform: scale(1, 1);
+        }
+        30% {
+          transform: scale(0.9, 1.2) translateY(-2px);
+        }
+        60% {
+          transform: scale(1.1, 0.9);
+        }
+      }
+      @keyframes e-waddle {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        25% {
+          transform: rotate(-12deg) translateX(-2px);
+        }
+        75% {
+          transform: rotate(12deg) translateX(2px);
+        }
+      }
+      @keyframes e-hop {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-8px) scale(1.05);
+        }
+        70% {
+          transform: translateY(0) scale(1.08, 0.92);
+        }
+      }
+      @keyframes e-rock {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        30% {
+          transform: rotate(-8deg);
+        }
+        65% {
+          transform: rotate(6deg);
+        }
+      }
+      @keyframes e-drift {
+        0% {
+          transform: translate(0, 0) rotate(0);
+        }
+        35% {
+          transform: translate(4px, 5px) rotate(25deg);
+        }
+        70% {
+          transform: translate(-3px, 8px) rotate(-15deg);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translate(0, 0) rotate(0);
+          opacity: 1;
+        }
+      }
+      @keyframes e-strum {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20% {
+          transform: rotate(-10deg);
+        }
+        40% {
+          transform: rotate(8deg);
+        }
+        60% {
+          transform: rotate(-6deg);
+        }
+        80% {
+          transform: rotate(4deg);
+        }
+      }
+      @keyframes e-tilt {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        30%,
+        70% {
+          transform: rotate(-20deg);
         }
       }
     </style>
   </head>
   <body>
     <header class="hero">
+      <!-- The night sky behind the whole header, drawing included: one evenly scattered field of
+           stars at the drawing's scale (one per ~56-unit cell), thinning toward the treeline, with
+           the trees, house and moon drawn in front of it. -->
+      <svg
+        class="sky"
+        viewBox="0 0 800 1600"
+        preserveAspectRatio="xMidYMax slice"
+        aria-hidden="true"
+      >
+        <g fill="#fff" opacity="1">
+          <circle class="twinkle t0" cx="30" cy="58" r="0.9" opacity="0.78" />
+          <circle cx="35" cy="26" r="1.1" opacity="0.59" />
+          <circle cx="139" cy="7" r="0.8" opacity="0.76" />
+          <circle cx="203" cy="50" r="0.9" opacity="0.56" />
+          <circle cx="276" cy="11" r="0.7" opacity="0.73" />
+          <circle class="twinkle t2" cx="287" cy="18" r="1.2" opacity="0.89" />
+          <circle cx="358" cy="11" r="1.1" opacity="0.79" />
+          <circle cx="448" cy="51" r="0.9" opacity="0.67" />
+          <circle cx="538" cy="5" r="1.3" opacity="0.77" />
+          <circle cx="591" cy="33" r="1.0" opacity="0.77" />
+          <circle class="twinkle t1" cx="717" cy="14" r="0.8" opacity="0.74" />
+          <circle cx="15" cy="86" r="1.2" opacity="0.85" />
+          <circle cx="45" cy="64" r="1.2" opacity="0.59" />
+          <circle cx="132" cy="118" r="1.0" opacity="0.53" />
+          <circle cx="212" cy="94" r="1.1" opacity="0.78" />
+          <circle class="twinkle t0" cx="250" cy="107" r="1.4" opacity="0.50" />
+          <circle cx="404" cy="88" r="1.2" opacity="0.52" />
+          <circle cx="465" cy="118" r="1.5" opacity="0.95" />
+          <circle cx="489" cy="73" r="1.7" opacity="0.95" />
+          <circle cx="589" cy="72" r="1.5" opacity="0.95" />
+          <circle class="twinkle t2" cx="611" cy="74" r="0.8" opacity="0.77" />
+          <circle cx="720" cy="72" r="0.9" opacity="0.52" />
+          <circle cx="755" cy="113" r="1.0" opacity="0.59" />
+          <circle cx="1" cy="131" r="1.1" opacity="0.53" />
+          <circle cx="74" cy="175" r="0.9" opacity="0.58" />
+          <circle class="twinkle t1" cx="138" cy="162" r="1.4" opacity="0.45" />
+          <circle cx="155" cy="174" r="1.0" opacity="0.51" />
+          <circle cx="269" cy="126" r="1.4" opacity="0.74" />
+          <circle cx="280" cy="181" r="1.3" opacity="0.89" />
+          <circle cx="388" cy="144" r="1.2" opacity="0.56" />
+          <circle class="twinkle t0" cx="524" cy="135" r="1.0" opacity="0.59" />
+          <circle cx="555" cy="159" r="1.4" opacity="0.50" />
+          <circle cx="590" cy="135" r="1.2" opacity="0.88" />
+          <circle cx="703" cy="141" r="1.9" opacity="0.95" />
+          <circle cx="717" cy="132" r="1.0" opacity="0.58" />
+          <circle class="twinkle t2" cx="48" cy="188" r="0.7" opacity="0.62" />
+          <circle cx="104" cy="195" r="1.4" opacity="0.66" />
+          <circle cx="133" cy="186" r="0.9" opacity="0.74" />
+          <circle cx="235" cy="215" r="1.1" opacity="0.53" />
+          <circle cx="239" cy="219" r="1.3" opacity="0.65" />
+          <circle class="twinkle t1" cx="319" cy="219" r="1.9" opacity="0.95" />
+          <circle cx="378" cy="221" r="1.8" opacity="0.95" />
+          <circle cx="477" cy="225" r="0.9" opacity="0.82" />
+          <circle cx="545" cy="220" r="0.8" opacity="0.56" />
+          <circle cx="585" cy="197" r="1.1" opacity="0.86" />
+          <circle class="twinkle t0" cx="622" cy="196" r="1.2" opacity="0.48" />
+          <circle cx="705" cy="232" r="0.8" opacity="0.85" />
+          <circle cx="740" cy="216" r="0.8" opacity="0.66" />
+          <circle cx="4" cy="272" r="1.2" opacity="0.50" />
+          <circle cx="72" cy="291" r="1.1" opacity="0.89" />
+          <circle class="twinkle t2" cx="223" cy="299" r="1.0" opacity="0.86" />
+          <circle cx="312" cy="265" r="1.6" opacity="0.95" />
+          <circle cx="410" cy="264" r="1.2" opacity="0.59" />
+          <circle cx="469" cy="299" r="1.5" opacity="0.95" />
+          <circle cx="568" cy="263" r="1.0" opacity="0.57" />
+          <circle class="twinkle t1" cx="652" cy="251" r="1.1" opacity="0.75" />
+          <circle cx="669" cy="285" r="0.9" opacity="0.52" />
+          <circle cx="737" cy="280" r="1.1" opacity="0.61" />
+          <circle cx="66" cy="311" r="1.0" opacity="0.53" />
+          <circle cx="110" cy="351" r="1.0" opacity="0.87" />
+          <circle class="twinkle t0" cx="181" cy="335" r="0.7" opacity="0.53" />
+          <circle cx="256" cy="360" r="1.1" opacity="0.75" />
+          <circle cx="301" cy="323" r="1.0" opacity="0.53" />
+          <circle cx="365" cy="314" r="0.9" opacity="0.57" />
+          <circle cx="428" cy="326" r="1.0" opacity="0.77" />
+          <circle class="twinkle t2" cx="530" cy="312" r="0.8" opacity="0.48" />
+          <circle cx="551" cy="324" r="1.2" opacity="0.81" />
+          <circle cx="630" cy="369" r="1.3" opacity="0.83" />
+          <circle cx="687" cy="356" r="1.0" opacity="0.54" />
+          <circle cx="9" cy="390" r="0.7" opacity="0.57" />
+          <circle class="twinkle t1" cx="75" cy="400" r="1.8" opacity="0.95" />
+          <circle cx="117" cy="391" r="1.7" opacity="0.95" />
+          <circle cx="180" cy="412" r="1.7" opacity="0.95" />
+          <circle cx="286" cy="393" r="0.8" opacity="0.75" />
+          <circle cx="342" cy="397" r="1.3" opacity="0.59" />
+          <circle class="twinkle t0" cx="405" cy="411" r="1.4" opacity="0.53" />
+          <circle cx="456" cy="392" r="1.1" opacity="0.52" />
+          <circle cx="552" cy="399" r="1.0" opacity="0.73" />
+          <circle cx="600" cy="425" r="1.4" opacity="0.85" />
+          <circle cx="674" cy="421" r="1.3" opacity="0.84" />
+          <circle class="twinkle t2" cx="741" cy="400" r="0.8" opacity="0.47" />
+          <circle cx="12" cy="445" r="1.1" opacity="0.85" />
+          <circle cx="48" cy="438" r="1.0" opacity="0.58" />
+          <circle cx="107" cy="480" r="1.4" opacity="0.74" />
+          <circle cx="183" cy="474" r="1.2" opacity="0.49" />
+          <circle class="twinkle t1" cx="229" cy="446" r="1.0" opacity="0.54" />
+          <circle cx="310" cy="481" r="1.2" opacity="0.49" />
+          <circle cx="398" cy="451" r="1.6" opacity="0.95" />
+          <circle cx="442" cy="448" r="1.3" opacity="0.68" />
+          <circle cx="507" cy="482" r="1.9" opacity="0.95" />
+          <circle class="twinkle t0" cx="592" cy="455" r="0.8" opacity="0.53" />
+          <circle cx="656" cy="474" r="1.9" opacity="0.95" />
+          <circle cx="753" cy="452" r="0.7" opacity="0.70" />
+          <circle cx="95" cy="515" r="0.8" opacity="0.65" />
+          <circle cx="201" cy="535" r="1.7" opacity="0.95" />
+          <circle class="twinkle t2" cx="222" cy="555" r="1.2" opacity="0.88" />
+          <circle cx="290" cy="552" r="1.0" opacity="0.83" />
+          <circle cx="373" cy="537" r="0.8" opacity="0.78" />
+          <circle cx="447" cy="535" r="1.3" opacity="0.59" />
+          <circle cx="480" cy="519" r="1.0" opacity="0.47" />
+          <circle class="twinkle t1" cx="532" cy="501" r="1.0" opacity="0.64" />
+          <circle cx="782" cy="551" r="1.1" opacity="0.85" />
+          <circle cx="83" cy="581" r="1.1" opacity="0.55" />
+          <circle cx="168" cy="602" r="1.0" opacity="0.81" />
+          <circle cx="233" cy="594" r="0.9" opacity="0.87" />
+          <circle class="twinkle t0" cx="256" cy="581" r="2.1" opacity="0.95" />
+          <circle cx="332" cy="591" r="1.2" opacity="0.50" />
+          <circle cx="408" cy="587" r="2.1" opacity="0.95" />
+          <circle cx="588" cy="596" r="1.2" opacity="0.48" />
+          <circle cx="608" cy="592" r="0.7" opacity="0.88" />
+          <circle class="twinkle t2" cx="699" cy="601" r="0.8" opacity="0.84" />
+          <circle cx="735" cy="605" r="2.0" opacity="0.95" />
+          <circle cx="35" cy="650" r="0.9" opacity="0.59" />
+          <circle cx="77" cy="638" r="1.2" opacity="0.67" />
+          <circle cx="115" cy="639" r="1.1" opacity="0.47" />
+          <circle class="twinkle t1" cx="237" cy="662" r="0.8" opacity="0.67" />
+          <circle cx="332" cy="652" r="1.1" opacity="0.60" />
+          <circle cx="397" cy="633" r="1.2" opacity="0.66" />
+          <circle cx="477" cy="664" r="1.4" opacity="0.60" />
+          <circle cx="598" cy="663" r="1.2" opacity="0.53" />
+          <circle class="twinkle t0" cx="723" cy="631" r="2.1" opacity="0.95" />
+          <circle cx="755" cy="644" r="1.0" opacity="0.72" />
+          <circle cx="10" cy="714" r="0.7" opacity="0.46" />
+          <circle cx="53" cy="688" r="0.7" opacity="0.64" />
+          <circle cx="121" cy="692" r="1.2" opacity="0.78" />
+          <circle class="twinkle t2" cx="168" cy="697" r="1.0" opacity="0.62" />
+          <circle cx="243" cy="693" r="1.7" opacity="0.95" />
+          <circle cx="336" cy="743" r="1.0" opacity="0.68" />
+          <circle cx="370" cy="696" r="1.0" opacity="0.60" />
+          <circle cx="426" cy="698" r="1.1" opacity="0.60" />
+          <circle class="twinkle t1" cx="540" cy="700" r="1.1" opacity="0.89" />
+          <circle cx="606" cy="693" r="1.0" opacity="0.53" />
+          <circle cx="725" cy="724" r="1.1" opacity="0.62" />
+          <circle cx="788" cy="727" r="0.7" opacity="0.77" />
+          <circle cx="21" cy="757" r="1.0" opacity="0.69" />
+          <circle class="twinkle t0" cx="88" cy="759" r="1.2" opacity="0.61" />
+          <circle cx="162" cy="805" r="1.3" opacity="0.55" />
+          <circle cx="250" cy="755" r="1.6" opacity="0.95" />
+          <circle cx="278" cy="770" r="0.9" opacity="0.49" />
+          <circle cx="408" cy="776" r="1.3" opacity="0.71" />
+          <circle class="twinkle t2" cx="495" cy="780" r="1.8" opacity="0.95" />
+          <circle cx="566" cy="747" r="0.7" opacity="0.84" />
+          <circle cx="591" cy="794" r="1.2" opacity="0.81" />
+          <circle cx="668" cy="764" r="1.0" opacity="0.89" />
+          <circle cx="710" cy="777" r="1.2" opacity="0.46" />
+          <circle class="twinkle t1" cx="14" cy="806" r="0.7" opacity="0.79" />
+          <circle cx="65" cy="853" r="0.8" opacity="0.61" />
+          <circle cx="131" cy="837" r="1.1" opacity="0.72" />
+          <circle cx="150" cy="826" r="1.1" opacity="0.55" />
+          <circle cx="297" cy="845" r="1.2" opacity="0.76" />
+          <circle class="twinkle t0" cx="343" cy="848" r="1.2" opacity="0.67" />
+          <circle cx="402" cy="864" r="0.9" opacity="0.49" />
+          <circle cx="509" cy="833" r="1.3" opacity="0.73" />
+          <circle cx="550" cy="828" r="0.9" opacity="0.69" />
+          <circle cx="622" cy="839" r="0.9" opacity="0.49" />
+          <circle class="twinkle t2" cx="763" cy="816" r="1.2" opacity="0.53" />
+          <circle cx="48" cy="912" r="0.7" opacity="0.80" />
+          <circle cx="119" cy="891" r="0.8" opacity="0.65" />
+          <circle cx="220" cy="887" r="1.1" opacity="0.68" />
+          <circle cx="271" cy="893" r="0.9" opacity="0.48" />
+          <circle class="twinkle t1" cx="335" cy="884" r="1.8" opacity="0.95" />
+          <circle cx="381" cy="930" r="1.3" opacity="0.64" />
+          <circle cx="413" cy="897" r="1.4" opacity="0.65" />
+          <circle cx="497" cy="908" r="1.3" opacity="0.61" />
+          <circle cx="587" cy="877" r="1.0" opacity="0.88" />
+          <circle class="twinkle t0" cx="617" cy="912" r="0.9" opacity="0.65" />
+          <circle cx="669" cy="926" r="0.8" opacity="0.68" />
+          <circle cx="740" cy="922" r="1.3" opacity="0.56" />
+          <circle cx="13" cy="977" r="1.2" opacity="0.88" />
+          <circle cx="49" cy="976" r="0.8" opacity="0.77" />
+          <circle class="twinkle t2" cx="213" cy="953" r="0.9" opacity="0.78" />
+          <circle cx="296" cy="957" r="1.0" opacity="0.60" />
+          <circle cx="306" cy="969" r="0.9" opacity="0.72" />
+          <circle cx="478" cy="966" r="0.7" opacity="0.62" />
+          <circle cx="489" cy="957" r="1.3" opacity="0.73" />
+          <circle class="twinkle t1" cx="583" cy="990" r="1.1" opacity="0.89" />
+          <circle cx="623" cy="942" r="1.1" opacity="0.73" />
+          <circle cx="674" cy="992" r="1.7" opacity="0.95" />
+          <circle cx="789" cy="951" r="1.1" opacity="0.86" />
+          <circle cx="25" cy="1052" r="1.1" opacity="0.76" />
+          <circle class="twinkle t0" cx="77" cy="1006" r="0.9" opacity="0.74" />
+          <circle cx="216" cy="1025" r="1.3" opacity="0.56" />
+          <circle cx="279" cy="1040" r="1.1" opacity="0.85" />
+          <circle cx="343" cy="1028" r="0.8" opacity="0.71" />
+          <circle cx="388" cy="1024" r="0.8" opacity="0.62" />
+          <circle class="twinkle t2" cx="445" cy="993" r="0.8" opacity="0.79" />
+          <circle cx="481" cy="1006" r="1.0" opacity="0.74" />
+          <circle cx="549" cy="1001" r="1.2" opacity="0.56" />
+          <circle cx="695" cy="1003" r="1.4" opacity="0.75" />
+          <circle cx="748" cy="1042" r="0.7" opacity="0.89" />
+          <circle class="twinkle t1" cx="21" cy="1110" r="1.3" opacity="0.73" />
+          <circle cx="242" cy="1095" r="1.1" opacity="0.68" />
+          <circle cx="261" cy="1060" r="0.7" opacity="0.74" />
+          <circle cx="340" cy="1101" r="2.0" opacity="0.95" />
+          <circle cx="405" cy="1056" r="1.0" opacity="0.60" />
+          <circle class="twinkle t0" cx="472" cy="1108" r="1.2" opacity="0.58" />
+          <circle cx="503" cy="1079" r="1.2" opacity="0.69" />
+          <circle cx="567" cy="1089" r="1.1" opacity="0.78" />
+          <circle cx="636" cy="1063" r="0.7" opacity="0.45" />
+          <circle cx="683" cy="1109" r="1.6" opacity="0.95" />
+          <circle class="twinkle t2" cx="789" cy="1079" r="1.0" opacity="0.54" />
+          <circle cx="11" cy="1127" r="1.3" opacity="0.48" />
+          <circle cx="102" cy="1125" r="1.2" opacity="0.62" />
+          <circle cx="138" cy="1158" r="0.9" opacity="0.46" />
+          <circle cx="193" cy="1141" r="1.3" opacity="0.87" />
+          <circle class="twinkle t1" cx="288" cy="1135" r="1.2" opacity="0.89" />
+          <circle cx="330" cy="1137" r="1.2" opacity="0.86" />
+          <circle cx="380" cy="1163" r="1.3" opacity="0.73" />
+          <circle cx="595" cy="1165" r="0.8" opacity="0.76" />
+          <circle cx="616" cy="1140" r="1.1" opacity="0.79" />
+          <circle class="twinkle t0" cx="713" cy="1139" r="1.9" opacity="0.95" />
+          <circle cx="741" cy="1165" r="0.7" opacity="0.79" />
+          <circle cx="38" cy="1215" r="1.8" opacity="0.95" />
+          <circle cx="54" cy="1228" r="1.9" opacity="0.95" />
+          <circle cx="119" cy="1201" r="1.3" opacity="0.90" />
+          <circle class="twinkle t2" cx="235" cy="1191" r="1.1" opacity="0.66" />
+          <circle cx="287" cy="1210" r="1.3" opacity="0.77" />
+          <circle cx="303" cy="1225" r="1.2" opacity="0.53" />
+          <circle cx="400" cy="1233" r="1.2" opacity="0.46" />
+          <circle cx="464" cy="1211" r="1.3" opacity="0.90" />
+          <circle class="twinkle t1" cx="531" cy="1240" r="0.7" opacity="0.55" />
+          <circle cx="603" cy="1238" r="1.1" opacity="0.61" />
+          <circle cx="690" cy="1200" r="1.3" opacity="0.80" />
+          <circle cx="792" cy="1202" r="2.0" opacity="0.95" />
+          <circle cx="3" cy="1273" r="1.1" opacity="0.66" />
+          <circle class="twinkle t0" cx="127" cy="1253" r="1.1" opacity="0.60" />
+          <circle cx="219" cy="1266" r="1.9" opacity="0.95" />
+          <circle cx="247" cy="1261" r="1.4" opacity="0.67" />
+          <circle cx="478" cy="1264" r="1.0" opacity="0.62" />
+          <circle cx="620" cy="1263" r="1.1" opacity="0.49" />
+          <circle class="twinkle t2" cx="705" cy="1263" r="0.8" opacity="0.55" />
+          <circle cx="724" cy="1277" r="1.4" opacity="0.66" />
+          <circle cx="46" cy="1319" r="1.3" opacity="0.71" />
+          <circle cx="99" cy="1339" r="1.8" opacity="0.95" />
+          <circle cx="176" cy="1343" r="2.1" opacity="0.95" />
+          <circle class="twinkle t1" cx="204" cy="1355" r="1.2" opacity="0.57" />
+          <circle cx="268" cy="1316" r="1.4" opacity="0.81" />
+          <circle cx="433" cy="1319" r="0.9" opacity="0.83" />
+          <circle cx="466" cy="1355" r="1.0" opacity="0.70" />
+          <circle cx="561" cy="1317" r="1.2" opacity="0.49" />
+          <circle class="twinkle t0" cx="589" cy="1341" r="1.1" opacity="0.52" />
+          <circle cx="723" cy="1303" r="1.0" opacity="0.86" />
+          <circle cx="800" cy="1313" r="1.4" opacity="0.78" />
+          <circle cx="42" cy="1387" r="1.2" opacity="0.51" />
+          <circle cx="99" cy="1426" r="0.8" opacity="0.75" />
+          <circle class="twinkle t2" cx="151" cy="1417" r="1.3" opacity="0.80" />
+          <circle cx="221" cy="1395" r="1.2" opacity="0.81" />
+          <circle cx="354" cy="1387" r="0.8" opacity="0.74" />
+          <circle cx="416" cy="1413" r="1.1" opacity="0.86" />
+          <circle cx="493" cy="1418" r="0.7" opacity="0.48" />
+          <circle class="twinkle t1" cx="549" cy="1367" r="0.9" opacity="0.61" />
+          <circle cx="670" cy="1390" r="0.9" opacity="0.49" />
+          <circle cx="697" cy="1369" r="1.2" opacity="0.67" />
+          <circle cx="787" cy="1422" r="0.9" opacity="0.84" />
+          <circle cx="22" cy="1452" r="0.9" opacity="0.57" />
+          <circle class="twinkle t0" cx="63" cy="1444" r="0.8" opacity="0.45" />
+          <circle cx="116" cy="1453" r="1.2" opacity="0.87" />
+          <circle cx="197" cy="1474" r="1.3" opacity="0.74" />
+          <circle cx="260" cy="1480" r="1.1" opacity="0.76" />
+          <circle cx="335" cy="1488" r="1.3" opacity="0.80" />
+          <circle class="twinkle t2" cx="448" cy="1437" r="1.3" opacity="0.57" />
+          <circle cx="462" cy="1445" r="1.3" opacity="0.59" />
+          <circle cx="573" cy="1464" r="1.9" opacity="0.95" />
+          <circle cx="588" cy="1468" r="0.9" opacity="0.64" />
+          <circle cx="688" cy="1458" r="0.9" opacity="0.52" />
+          <circle class="twinkle t1" cx="744" cy="1442" r="0.8" opacity="0.74" />
+          <circle cx="105" cy="1502" r="1.4" opacity="0.49" />
+          <circle cx="143" cy="1498" r="0.9" opacity="0.48" />
+          <circle cx="259" cy="1513" r="1.3" opacity="0.67" />
+          <circle cx="382" cy="1494" r="1.2" opacity="0.64" />
+          <circle class="twinkle t0" cx="454" cy="1504" r="1.5" opacity="0.95" />
+          <circle cx="486" cy="1491" r="0.8" opacity="0.79" />
+          <circle cx="702" cy="1489" r="1.2" opacity="0.83" />
+          <circle cx="732" cy="1518" r="1.3" opacity="0.50" />
+          <circle cx="698" cy="1564" r="1.3" opacity="0.88" />
+        </g>
+        <circle class="moon" cx="724" cy="1290" r="20" fill="#fbf1d6" />
+        <g class="cloud c2" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="600" cy="1290" rx="26" ry="8" />
+          <ellipse cx="588" cy="1286" rx="12" ry="8" />
+          <ellipse cx="608" cy="1283" rx="14" ry="10" />
+        </g>
+        <g class="cloud c4" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="200" cy="1220" rx="20.8" ry="6.4" />
+          <ellipse cx="190.4" cy="1216.8" rx="9.600000000000001" ry="6.4" />
+          <ellipse cx="206.4" cy="1214.4" rx="11.200000000000001" ry="8" />
+        </g>
+        <g class="cloud c6" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="460" cy="1140" rx="23.400000000000002" ry="7.2" />
+          <ellipse cx="449.2" cy="1136.4" rx="10.8" ry="7.2" />
+          <ellipse cx="467.2" cy="1133.7" rx="12.6" ry="9" />
+        </g>
+        <g class="cloud c5" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="120" cy="1000" rx="18.2" ry="5.6" />
+          <ellipse cx="111.6" cy="997.2" rx="8.399999999999999" ry="5.6" />
+          <ellipse cx="125.6" cy="995.1" rx="9.799999999999999" ry="7" />
+        </g>
+        <g class="cloud c1" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="640" cy="880" rx="20.8" ry="6.4" />
+          <ellipse cx="630.4" cy="876.8" rx="9.600000000000001" ry="6.4" />
+          <ellipse cx="646.4" cy="874.4" rx="11.200000000000001" ry="8" />
+        </g>
+      </svg>
       <div class="wrap">
         <p class="eyebrow">🏡 Big news</p>
         <h1>We bought a house!</h1>
-        <p class="where">11 Forest View Drive · Falmouth, Maine</p>
-        <p class="when">We move in on November 12!</p>
+        <div class="clear">
+          <p class="where">11 Forest View Drive · Falmouth, Maine</p>
+          <p class="when">We move in on November 12!</p>
+        </div>
         <div class="buttons">
           <a
             class="btn primary"
@@ -399,54 +1103,428 @@
       <!-- A drawing, not a photo: pines, the house with its lights on, and the fire pit. -->
       <svg
         class="scene"
-        viewBox="0 0 800 220"
+        viewBox="-84 0 800 220"
         preserveAspectRatio="xMidYMax slice"
         role="img"
-        aria-label="A drawing of a house among pine trees at night, with a fire pit glowing in the yard"
+        aria-label="A drawing of a house among pine trees at night, with a fire pit glowing in the yard and a little dog by a bush"
       >
         <defs>
           <radialGradient id="glow" cx="50%" cy="60%" r="50%">
             <stop offset="0" stop-color="#ffb070" stop-opacity="0.55" />
             <stop offset="1" stop-color="#ffb070" stop-opacity="0" />
           </radialGradient>
+          <radialGradient id="porch-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#ffd58a" stop-opacity="0.6" />
+            <stop offset="1" stop-color="#ffd58a" stop-opacity="0" />
+          </radialGradient>
         </defs>
-        <g fill="#fff" opacity="0.7">
-          <circle cx="90" cy="30" r="1.6" />
-          <circle cx="210" cy="18" r="1.2" />
-          <circle cx="330" cy="40" r="1.4" />
-          <circle cx="520" cy="22" r="1.2" />
-          <circle cx="640" cy="44" r="1.6" />
-          <circle cx="740" cy="16" r="1.2" />
+        <g class="cloud c1" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="120" cy="34" rx="26" ry="8" />
+          <ellipse cx="108" cy="30" rx="12" ry="8" />
+          <ellipse cx="128" cy="27" rx="14" ry="10" />
         </g>
-        <circle cx="690" cy="52" r="18" fill="#fbf1d6" opacity="0.9" />
-        <g fill="#16301f">
-          <path d="M40 220 L80 90 L120 220Z" />
-          <path d="M95 220 L140 60 L185 220Z" />
-          <path d="M600 220 L645 70 L690 220Z" />
-          <path d="M660 220 L710 100 L760 220Z" />
-          <path d="M730 220 L770 120 L810 220Z" />
+        <g class="cloud c2" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="460" cy="22" rx="20.8" ry="6.4" />
+          <ellipse cx="450.4" cy="18.8" rx="9.600000000000001" ry="6.4" />
+          <ellipse cx="466.4" cy="16.4" rx="11.200000000000001" ry="8" />
         </g>
-        <g>
-          <path d="M250 120 L360 60 L470 120 Z" fill="#5a3b2e" />
+        <g class="cloud c3" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="700" cy="40" rx="18.2" ry="5.6" />
+          <ellipse cx="691.6" cy="37.2" rx="8.399999999999999" ry="5.6" />
+          <ellipse cx="705.6" cy="35.1" rx="9.799999999999999" ry="7" />
+        </g>
+        <g class="cloud c4" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="300" cy="52" rx="15.6" ry="4.8" />
+          <ellipse cx="292.8" cy="49.6" rx="7.199999999999999" ry="4.8" />
+          <ellipse cx="304.8" cy="47.8" rx="8.4" ry="6" />
+        </g>
+        <g class="cloud c5" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="560" cy="30" rx="23.400000000000002" ry="7.2" />
+          <ellipse cx="549.2" cy="26.4" rx="10.8" ry="7.2" />
+          <ellipse cx="567.2" cy="23.7" rx="12.6" ry="9" />
+        </g>
+        <g class="cloud c6" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="40" cy="18" rx="19.5" ry="6" />
+          <ellipse cx="31" cy="15" rx="9" ry="6" />
+          <ellipse cx="46" cy="12.75" rx="10.5" ry="7.5" />
+        </g>
+        <path
+          class="treeline"
+          d="M-107 220 L-96 170 L-85 220Z M-83 220 L-70 170 L-57 220Z M-64 220 L-51 162 L-39 220Z M-44 220 L-29 178 L-14 220Z M-17 220 L-5 155 L7 220Z M0 220 L15 161 L30 220Z M17 220 L34 160 L50 220Z M39 220 L53 178 L66 220Z M65 220 L77 169 L90 220Z M87 220 L100 152 L112 220Z M108 220 L123 174 L137 220Z M131 220 L144 170 L156 220Z M156 220 L168 173 L180 220Z M180 220 L196 157 L212 220Z M208 220 L223 173 L238 220Z M230 220 L244 155 L257 220Z M253 220 L266 155 L279 220Z M279 220 L292 156 L305 220Z M298 220 L314 175 L330 220Z M322 220 L336 166 L350 220Z M343 220 L357 166 L371 220Z M366 220 L381 178 L396 220Z M391 220 L404 164 L417 220Z M416 220 L429 165 L442 220Z M443 220 L456 167 L470 220Z M468 220 L481 171 L494 220Z M485 220 L501 176 L517 220Z M506 220 L521 152 L535 220Z M530 220 L543 154 L556 220Z M553 220 L568 180 L583 220Z M578 220 L590 166 L602 220Z M602 220 L616 179 L630 220Z M625 220 L636 156 L648 220Z M646 220 L658 171 L669 220Z M665 220 L679 177 L693 220Z M689 220 L705 150 L721 220Z M709 220 L724 165 L739 220Z"
+          fill="#163021"
+        />
+        <g class="leafy">
+          <rect x="127.25" y="141.4" width="5.5" height="78.6" fill="#2b2119" />
+          <circle cx="116.8" cy="132.6" r="14.3" fill="#173a24" />
+          <circle cx="143.2" cy="130.4" r="15.400000000000002" fill="#173a24" />
+          <circle cx="130" cy="119.4" r="17.6" fill="#1b4229" />
+          <circle cx="125.6" cy="137" r="13.200000000000001" fill="#1b4229" />
+        </g>
+        <g class="leafy">
+          <rect x="549.625" y="150.3" width="4.75" height="69.7" fill="#2b2119" />
+          <circle cx="540.6" cy="142.7" r="12.35" fill="#173a24" />
+          <circle cx="563.4" cy="140.8" r="13.299999999999999" fill="#173a24" />
+          <circle cx="552" cy="131.3" r="15.2" fill="#1b4229" />
+          <circle cx="548.2" cy="146.5" r="11.399999999999999" fill="#1b4229" />
+        </g>
+        <g fill="#0d1d13">
+          <path d="M-102 220 L-60 70 L-18 220Z" />
+          <path d="M-54 220 L-10 50 L34 220Z" />
+          <path d="M-5 220 L40 80 L85 220Z" />
+          <path d="M547 220 L592 80 L637 220Z" />
+          <path d="M598 220 L642 50 L686 220Z" />
+          <path d="M650 220 L692 70 L734 220Z" />
+        </g>
+        <g class="smoke" fill="#cfd6d2" transform="translate(-12 0)">
+          <circle class="puff p1" cx="428" cy="66" r="4" />
+          <circle class="puff p2" cx="428" cy="66" r="5" />
+          <circle class="puff p3" cx="428" cy="66" r="3.5" />
+        </g>
+        <g class="garage" transform="translate(-12 0)">
+          <defs>
+            <clipPath id="wing-clip">
+              <path d="M168 220 V144 L206 106 L244 144 V220 Z" />
+            </clipPath>
+          </defs>
+          <rect x="242" y="156" width="28" height="64" fill="#e9dcc3" />
+          <path
+            d="M242 160.0 H270 M242 165.5 H270 M242 171.0 H270 M242 176.5 H270 M242 182.0 H270 M242 187.5 H270 M242 193.0 H270 M242 198.5 H270 M242 204.0 H270 M242 209.5 H270 M242 215.0 H270"
+            stroke="#d6c7a8"
+            stroke-width="0.7"
+          />
+          <path d="M238 160 L252 140 L270 140 L270 160 Z" fill="#5a3b2e" />
+          <path d="M168 220 V144 L206 106 L244 144 V220 Z" fill="#e9dcc3" />
+          <path
+            d="M168 110.0 H244 M168 115.5 H244 M168 121.0 H244 M168 126.5 H244 M168 132.0 H244 M168 137.5 H244 M168 143.0 H244 M168 148.5 H244 M168 154.0 H244 M168 159.5 H244 M168 165.0 H244 M168 170.5 H244 M168 176.0 H244 M168 181.5 H244 M168 187.0 H244 M168 192.5 H244 M168 198.0 H244 M168 203.5 H244 M168 209.0 H244 M168 214.5 H244"
+            stroke="#d6c7a8"
+            stroke-width="0.7"
+            clip-path="url(#wing-clip)"
+          />
+          <path
+            d="M162 148 L206 103 L250 148"
+            fill="none"
+            stroke="#5a3b2e"
+            stroke-width="6"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+          <path
+            d="M162 148 L206 103 L250 148"
+            fill="none"
+            stroke="#3f2a21"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+            transform="translate(0 -2.6)"
+          />
+          <rect x="199" y="120" width="14" height="16" rx="1.5" fill="#ffd58a" />
+          <path d="M206 120 V136 M199 128 H213" stroke="#c99a4a" stroke-width="1" />
+          <rect x="177" y="166" width="22" height="20" rx="1.5" fill="#ffd58a" />
+          <rect x="213" y="166" width="22" height="20" rx="1.5" fill="#ffd58a" />
+          <path
+            d="M188 166 V186 M177 176 H199 M224 166 V186 M213 176 H235"
+            stroke="#c99a4a"
+            stroke-width="1"
+          />
+          <rect x="174" y="185" width="28" height="3" rx="1" fill="#cbb994" />
+          <rect x="210" y="185" width="28" height="3" rx="1" fill="#cbb994" />
+        </g>
+        <g class="house" transform="translate(-12 0)">
+          <rect x="420" y="72" width="16" height="30" fill="#5a3b2e" />
+          <rect x="418" y="70" width="20" height="4" fill="#4a3026" />
+
           <rect x="268" y="118" width="184" height="102" fill="#e9dcc3" />
+          <path
+            class="siding"
+            d="M268 125.0 H452 M268 130.5 H452 M268 136.0 H452 M268 141.5 H452 M268 147.0 H452 M268 152.5 H452 M268 158.0 H452 M268 163.5 H452 M268 169.0 H452 M268 174.5 H452 M268 180.0 H452 M268 185.5 H452 M268 191.0 H452 M268 196.5 H452 M268 202.0 H452 M268 207.5 H452 M268 213.0 H452 M268 218.5 H452"
+            stroke="#d6c7a8"
+            stroke-width="0.7"
+          />
+          <path d="M250 120 L360 60 L470 120 Z" fill="#5a3b2e" />
+          <path
+            d="M250 120 L360 60 L470 120"
+            fill="none"
+            stroke="#3f2a21"
+            stroke-width="3"
+            stroke-linejoin="round"
+          />
+          <circle cx="360" cy="96" r="8" fill="#ffd58a" />
+          <path d="M352 96 H368 M360 88 V104" stroke="#c99a4a" stroke-width="1.2" />
           <rect x="300" y="140" width="34" height="30" rx="2" fill="#ffd58a" />
           <rect x="386" y="140" width="34" height="30" rx="2" fill="#ffd58a" />
-          <rect x="345" y="168" width="30" height="52" rx="2" fill="#24452f" />
-          <rect x="420" y="72" width="16" height="30" fill="#5a3b2e" />
+          <path
+            d="M317 140 V170 M300 155 H334 M403 140 V170 M386 155 H420"
+            stroke="#c99a4a"
+            stroke-width="1.2"
+          />
+          <rect x="296" y="168" width="42" height="4" rx="1" fill="#cbb994" />
+          <rect x="382" y="168" width="42" height="4" rx="1" fill="#cbb994" />
+          <ellipse cx="340" cy="190" rx="12" ry="12" fill="url(#porch-glow)" />
+          <circle cx="340" cy="190" r="2" fill="#ffd58a" />
+          <rect x="347" y="182" width="26" height="38" rx="2" fill="#24452f" />
+          <circle cx="368" cy="203" r="1.4" fill="#ffd58a" />
+          <rect x="340" y="212" width="40" height="4" fill="#b8a888" />
         </g>
-        <ellipse cx="540" cy="200" rx="90" ry="40" fill="url(#glow)" />
-        <ellipse cx="540" cy="208" rx="30" ry="8" fill="#6b625a" />
-        <path
-          class="flame"
-          d="M540 170 C528 188 530 202 540 206 C550 202 552 188 540 170Z"
-          fill="#f08a52"
-        />
-        <path
-          class="flame b"
-          d="M540 184 C534 194 535 202 540 204 C545 202 546 194 540 184Z"
-          fill="#ffd58a"
-        />
-        <rect x="0" y="214" width="800" height="6" fill="#16301f" />
+        <g class="porch" transform="translate(-12 0)">
+          <rect x="286" y="174" width="148" height="5" fill="#4a3026" />
+          <rect x="296" y="179" width="3" height="35" fill="#f7f2e6" />
+          <rect x="332" y="179" width="3" height="35" fill="#f7f2e6" />
+          <rect x="388" y="179" width="3" height="35" fill="#f7f2e6" />
+          <rect x="424" y="179" width="3" height="35" fill="#f7f2e6" />
+          <path d="M296 198 H345 M375 198 H427" stroke="#f7f2e6" stroke-width="2" />
+          <path
+            d="M300 198 V212 M305 198 V212 M310 198 V212 M315 198 V212 M320 198 V212 M325 198 V212 M330 198 V212 M335 198 V212 M340 198 V212 M380 198 V212 M385 198 V212 M390 198 V212 M395 198 V212 M400 198 V212 M405 198 V212 M410 198 V212 M415 198 V212 M420 198 V212"
+            stroke="#f7f2e6"
+            stroke-width="1"
+          />
+          <circle cx="281" cy="209" r="6" fill="#1f4a2c" />
+          <circle cx="440" cy="208" r="7" fill="#245533" />
+          <circle cx="449" cy="211" r="5" fill="#1f4a2c" />
+        </g>
+        <g class="bush">
+          <circle cx="-87.1" cy="205.2" r="8.450000000000001" fill="#183a26" />
+          <circle cx="-76.7" cy="200" r="9.75" fill="#1f4a2c" />
+          <circle cx="-67.6" cy="206.5" r="7.800000000000001" fill="#183a26" />
+          <ellipse cx="-78" cy="210.4" rx="16.900000000000002" ry="4.55" fill="#183a26" />
+        </g>
+        <g class="bush">
+          <path
+            d="M-54.88 213 Q-55.6 207.24 -63.52 203.4 M-53.6 213 Q-54 208.68 -58.4 205.8 M-52.64 213 Q-52.8 207.24 -54.56 203.4 M-51.68 213 Q-51.6 208.68 -50.72 205.8 M-50.72 213 Q-50.4 207.24 -46.879999999999995 203.4 M-49.44 213 Q-48.8 208.68 -41.76 205.8"
+            fill="none"
+            stroke="#3d5f45"
+            stroke-width="1.2800000000000002"
+            stroke-linecap="round"
+          />
+        </g>
+        <g class="bush">
+          <path
+            d="M-36 183 C-28.8 195 -26.4 209 -30 213 H-42 C-45.6 209 -43.2 195 -36 183Z"
+            fill="#1e4a44"
+          />
+        </g>
+        <g class="bush">
+          <circle cx="-18" cy="208.2" r="4.800000000000001" fill="#245533" />
+          <circle cx="-10.8" cy="206.6" r="5.6000000000000005" fill="#245533" />
+          <ellipse cx="-14" cy="211.4" rx="8.8" ry="2.4000000000000004" fill="#245533" />
+          <circle cx="-18.8" cy="205.8" r="0.7200000000000001" fill="#f2b6c8" />
+          <circle cx="-12.4" cy="203.4" r="0.7200000000000001" fill="#f2b6c8" />
+          <circle cx="-9.2" cy="207.4" r="0.7200000000000001" fill="#f2b6c8" />
+          <circle cx="-15.6" cy="209" r="0.7200000000000001" fill="#f2b6c8" />
+          <circle cx="-6.8" cy="205" r="0.7200000000000001" fill="#f2b6c8" />
+        </g>
+        <g class="bush">
+          <circle cx="3.1000000000000005" cy="208.8" r="4.55" fill="#4a5f2a" />
+          <circle cx="8.7" cy="206" r="5.25" fill="#3d5f45" />
+          <circle cx="13.6" cy="209.5" r="4.199999999999999" fill="#4a5f2a" />
+          <ellipse cx="8" cy="211.6" rx="9.1" ry="2.4499999999999997" fill="#4a5f2a" />
+        </g>
+        <g class="bush">
+          <circle cx="21.25" cy="205.5" r="8.125" fill="#1f4a2c" />
+          <circle cx="31.25" cy="200.5" r="9.375" fill="#2f6a3c" />
+          <circle cx="40" cy="206.75" r="7.5" fill="#1f4a2c" />
+          <ellipse cx="30" cy="210.5" rx="16.25" ry="4.375" fill="#1f4a2c" />
+        </g>
+        <g class="bush">
+          <path
+            d="M43.68 213 Q42.6 204.36 30.720000000000002 198.6 M45.6 213 Q45 206.52 38.4 202.2 M47.04 213 Q46.8 204.36 44.16 198.6 M48.48 213 Q48.6 206.52 49.92 202.2 M49.92 213 Q50.4 204.36 55.68 198.6 M51.84 213 Q52.8 206.52 63.36 202.2"
+            fill="none"
+            stroke="#3d5f45"
+            stroke-width="1.92"
+            stroke-linecap="round"
+          />
+        </g>
+        <g class="bush">
+          <path
+            d="M104 193 C108.8 201 110.4 209 108 213 H100 C97.6 209 99.2 201 104 193Z"
+            fill="#183a26"
+          />
+        </g>
+        <g class="bush">
+          <rect x="117" y="205" width="18" height="9" rx="4" fill="#1e4a44" />
+          <path
+            d="M121 208 Q126 203 131 208"
+            fill="none"
+            stroke="#3a6a44"
+            stroke-width="0.8"
+            opacity="0.6"
+          />
+        </g>
+        <g class="bush">
+          <circle cx="457.45" cy="209.1" r="4.2250000000000005" fill="#2f6a3c" />
+          <circle cx="462.65" cy="206.5" r="4.875" fill="#245533" />
+          <circle cx="467.2" cy="209.75" r="3.9000000000000004" fill="#2f6a3c" />
+          <ellipse cx="462" cy="211.7" rx="8.450000000000001" ry="2.275" fill="#2f6a3c" />
+        </g>
+        <g class="bush">
+          <path
+            d="M545.3 213 Q544.625 207.6 537.2 204 M546.5 213 Q546.125 208.95 542 206.25 M547.4 213 Q547.25 207.6 545.6 204 M548.3 213 Q548.375 208.95 549.2 206.25 M549.2 213 Q549.5 207.6 552.8 204 M550.4 213 Q551 208.95 557.6 206.25"
+            fill="none"
+            stroke="#4a5f2a"
+            stroke-width="1.2000000000000002"
+            stroke-linecap="round"
+          />
+        </g>
+        <g class="bush">
+          <circle cx="564.25" cy="206.1" r="6.8999999999999995" fill="#1f4a2c" />
+          <circle cx="574.6" cy="203.8" r="8.049999999999999" fill="#1f4a2c" />
+          <ellipse
+            cx="570"
+            cy="210.7"
+            rx="12.649999999999999"
+            ry="3.4499999999999997"
+            fill="#1f4a2c"
+          />
+          <circle cx="564.25" cy="203.8" r="1.035" fill="#c2463f" />
+          <circle cx="573.45" cy="199.2" r="1.035" fill="#c2463f" />
+          <circle cx="578.05" cy="206.1" r="1.035" fill="#c2463f" />
+          <circle cx="568.85" cy="208.4" r="1.035" fill="#c2463f" />
+          <circle cx="579.2" cy="200.35" r="1.035" fill="#c2463f" />
+          <circle cx="560.8" cy="207.25" r="1.035" fill="#c2463f" />
+        </g>
+        <g class="bush">
+          <path
+            d="M600 183 C607.2 195 609.6 209 606 213 H594 C590.4 209 592.8 195 600 183Z"
+            fill="#183a26"
+          />
+        </g>
+        <g class="bush">
+          <circle cx="616.05" cy="207.9" r="5.5249999999999995" fill="#2a5a35" />
+          <circle cx="622.85" cy="204.5" r="6.375" fill="#1f4a2c" />
+          <circle cx="628.8" cy="208.75" r="5.1" fill="#2a5a35" />
+          <ellipse
+            cx="622"
+            cy="211.3"
+            rx="11.049999999999999"
+            ry="2.975"
+            fill="#2a5a35"
+          />
+        </g>
+        <g class="bush">
+          <rect x="637" y="203" width="26" height="11" rx="5" fill="#4a5f2a" />
+          <path
+            d="M641 206 Q650 201 659 206"
+            fill="none"
+            stroke="#3a6a44"
+            stroke-width="0.8"
+            opacity="0.6"
+          />
+        </g>
+        <g class="bush">
+          <circle cx="674.55" cy="204.9" r="8.775" fill="#1e4a44" />
+          <circle cx="685.35" cy="199.5" r="10.125" fill="#1f4a2c" />
+          <circle cx="694.8" cy="206.25" r="8.100000000000001" fill="#1e4a44" />
+          <ellipse
+            cx="684"
+            cy="210.3"
+            rx="17.55"
+            ry="4.7250000000000005"
+            fill="#1e4a44"
+          />
+        </g>
+        <g class="bush">
+          <path
+            d="M704.58 213 Q703.725 206.16 694.32 201.6 M706.1 213 Q705.625 207.87 700.4 204.45 M707.24 213 Q707.05 206.16 704.96 201.6 M708.38 213 Q708.475 207.87 709.52 204.45 M709.52 213 Q709.9 206.16 714.08 201.6 M711.04 213 Q711.8 207.87 720.16 204.45"
+            fill="none"
+            stroke="#2f6a3c"
+            stroke-width="1.52"
+            stroke-linecap="round"
+          />
+        </g>
+        <g class="pancho" transform="translate(-150 0)">
+          <circle cx="226" cy="207" r="7.5" fill="#1f4a2c" />
+          <circle cx="234" cy="202" r="8" fill="#245533" />
+          <circle cx="242" cy="207" r="7" fill="#1f4a2c" />
+          <ellipse cx="234" cy="211" rx="14" ry="4" fill="#1f4a2c" />
+          <g class="dog">
+            <g class="trot">
+              <path
+                d="M219 202 Q223 198 220 193"
+                fill="none"
+                stroke="#f6eedc"
+                stroke-width="2.4"
+                stroke-linecap="round"
+              />
+              <rect
+                class="leg a"
+                x="207"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <rect
+                class="leg b"
+                x="211"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <rect
+                class="leg b"
+                x="215"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <rect
+                class="lift"
+                x="218"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <circle cx="210" cy="205" r="4.6" fill="#f6eedc" />
+              <circle cx="215" cy="204.3" r="5" fill="#f6eedc" />
+              <circle cx="219" cy="205.5" r="4.2" fill="#f6eedc" />
+              <circle cx="204" cy="200" r="4.6" fill="#f6eedc" />
+              <ellipse cx="207" cy="201.8" rx="1.9" ry="3.5" fill="#e3cfa9" />
+              <circle cx="200" cy="201.2" r="0.95" fill="#3a2a22" />
+              <circle cx="202.6" cy="199" r="0.7" fill="#3a2a22" />
+            </g>
+          </g>
+        </g>
+        <g class="firepit" transform="translate(-35 0)">
+          <ellipse class="glow" cx="540" cy="200" rx="90" ry="40" fill="url(#glow)" />
+          <ellipse cx="540" cy="208" rx="30" ry="8" fill="#6b625a" />
+          <path
+            class="flame f1"
+            d="M527 182 C519 195.2 520.6 202 527 206 C533.4 202 535 195.2 527 182Z"
+            fill="#d9542b"
+          />
+          <path
+            class="flame f2"
+            d="M553 180 C545 194.3 546.6 202 553 206 C559.4 202 561 194.3 553 180Z"
+            fill="#d9542b"
+          />
+          <path
+            class="flame f3"
+            d="M540 166 C527 188.55 529.6 203 540 207 C550.4 203 553 188.55 540 166Z"
+            fill="#f08a52"
+          />
+          <path
+            class="flame f4"
+            d="M533 186 C527 196.45 528.2 201 533 205 C537.8 201 539 196.45 533 186Z"
+            fill="#ffb070"
+          />
+          <path
+            class="flame f5"
+            d="M545 182 C539 194.65 540.2 201 545 205 C549.8 201 551 194.65 545 182Z"
+            fill="#ffd58a"
+          />
+          <g class="embers" fill="#ffd58a">
+            <circle class="ember e1" cx="534" cy="176" r="1.4" />
+            <circle class="ember e2" cx="546" cy="172" r="1.1" />
+            <circle class="ember e3" cx="540" cy="178" r="1.2" />
+            <circle class="ember e4" cx="530" cy="182" r="1" />
+          </g>
+        </g>
+        <rect x="-140" y="214" width="1000" height="6" fill="#0d1d13" />
       </svg>
     </header>
 
@@ -485,7 +1563,7 @@
               height="506"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🔥</span> Fire pit nights</h3>
+            <h3><span class="icon flick" aria-hidden="true">🔥</span> Fire pit nights</h3>
             <p>A big stone fire pit right off the deck. And s'mores (duh).</p>
           </article>
           <article class="card big">
@@ -497,7 +1575,7 @@
               height="506"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🦃</span> Nerdsgiving</h3>
+            <h3><span class="icon waddle" aria-hidden="true">🦃</span> Nerdsgiving</h3>
             <p>Way more room for food, games, and a big kitchen for dance parties.</p>
           </article>
         </div>
@@ -526,8 +1604,11 @@
               height="676"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🧸</span> A kids' playroom</h3>
-            <p>The fireplace room is going to be the playroom. Bring the kids!</p>
+            <h3><span class="icon hop" aria-hidden="true">🧸</span> A kids' playroom</h3>
+            <p>
+              The fireplace room is going to be the playroom. The fireplace will be gated
+              off, don't worry.
+            </p>
           </article>
         </div>
       </section>
@@ -544,8 +1625,8 @@
               height="676"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🛏️</span> Stay over</h3>
-            <p>Spare rooms, so you can stay the night.</p>
+            <h3><span class="icon rock" aria-hidden="true">🛏️</span> Stay over</h3>
+            <p class="fit" style="--fit: 18">Spare rooms, so you can stay the night.</p>
           </article>
           <article class="card">
             <img
@@ -556,22 +1637,24 @@
               height="676"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🍂</span> The three-season room</h3>
+            <h3>
+              <span class="icon drift" aria-hidden="true">🍂</span> The three-season room
+            </h3>
             <p class="aside">(If Eric is unable to be found, check for snoring here)</p>
           </article>
           <article class="card">
             <img
-              class="pic pic-full"
-              src="/house-share/photos/game-night.jpg"
+              class="pic"
+              src="/house-share/photos/game-night-top.jpg"
               alt="Friends around a table covered in character sheets, dice and snacks, mid D&amp;D game"
               width="1000"
-              height="762"
+              height="666"
               loading="lazy"
             />
             <h3>
-              <span class="icon" aria-hidden="true">🎸</span> A music and games room
+              <span class="icon strum" aria-hidden="true">🎸</span> A music and games room
             </h3>
-            <p>(once the basement is finished...)</p>
+            <p class="fit" style="--fit: 15">(once the basement is finished...)</p>
           </article>
           <article class="card">
             <img
@@ -583,7 +1666,7 @@
               loading="lazy"
             />
             <h3>
-              <span class="icon" aria-hidden="true">🐶</span> The welcoming committee
+              <span class="icon tilt" aria-hidden="true">🐶</span> The welcoming committee
             </h3>
             <p>The boys will see you in</p>
           </article>
@@ -599,7 +1682,7 @@
           height="1050"
           loading="lazy"
         />
-        <h2>Come see us</h2>
+        <h2>Come see us!</h2>
         <p>
           We move in November 12th and Nerdsgiving is right after. If you can help us
           unpack and get ready, we'd really appreciate it. Then come hang out by the fire!
@@ -624,5 +1707,18 @@
     </main>
 
     <footer>Made with love (and a little code) on <a href="/">ecec.dev</a></footer>
+    <script>
+      // A tap on a card's title plays its emoji's move; it resets when the move ends.
+      document.querySelectorAll('.card h3').forEach(function (title) {
+        title.addEventListener('click', function () {
+          title.classList.remove('play')
+          void title.offsetWidth
+          title.classList.add('play')
+        })
+        title.addEventListener('animationend', function () {
+          title.classList.remove('play')
+        })
+      })
+    </script>
   </body>
 </html>
