@@ -42,10 +42,10 @@
     <style>
       :root {
         --bg: #fbf6ec;
-        --card: #fffdf8;
+        --card: #ffffff;
         --ink: #1f2a24;
         --soft: #56665c;
-        --line: #e7dcc8;
+        --line: #e3d6bd;
         --forest: #24452f;
         --forest-ink: #fbf6ec;
         --ember: #d9622b;
@@ -55,10 +55,10 @@
       @media (prefers-color-scheme: dark) {
         :root:not([data-theme='light']) {
           --bg: #111a15;
-          --card: #18241d;
+          --card: #22332a;
           --ink: #f3ece0;
           --soft: #a9b8ad;
-          --line: #2a3a30;
+          --line: #364a3d;
           --forest: #1b3324;
           --forest-ink: #f3ece0;
           --ember: #f08a52;
@@ -68,10 +68,10 @@
       }
       :root[data-theme='dark'] {
         --bg: #111a15;
-        --card: #18241d;
+        --card: #22332a;
         --ink: #f3ece0;
         --soft: #a9b8ad;
-        --line: #2a3a30;
+        --line: #364a3d;
         --forest: #1b3324;
         --forest-ink: #f3ece0;
         --ember: #f08a52;
@@ -120,10 +120,22 @@
 
       /* The hero: a night sky over the treeline, the house, and the fire pit's glow. */
       .hero {
+        position: relative;
         background: var(--forest);
         color: var(--forest-ink);
         padding: 48px 0 0;
         overflow: hidden;
+      }
+      .sky {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .hero .wrap,
+      .hero .scene {
+        position: relative;
       }
       .eyebrow {
         display: inline-block;
@@ -719,6 +731,106 @@
   </head>
   <body>
     <header class="hero">
+      <!-- The night sky behind the header: more stars and clouds, continuing the drawing's. -->
+      <svg
+        class="sky"
+        viewBox="0 0 800 400"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        <g fill="#fff" opacity="0.6">
+          <circle class="twinkle t0" cx="0" cy="368" r="1.0" />
+          <circle cx="168" cy="292" r="1.2" />
+          <circle cx="263" cy="301" r="1.4" />
+          <circle cx="434" cy="274" r="1.3" />
+          <circle class="twinkle t1" cx="653" cy="97" r="1.1" />
+          <circle cx="566" cy="279" r="0.8" />
+          <circle cx="547" cy="187" r="1.5" />
+          <circle cx="646" cy="49" r="1.2" />
+          <circle class="twinkle t2" cx="739" cy="275" r="1.3" />
+          <circle cx="462" cy="365" r="1.5" />
+          <circle cx="298" cy="134" r="1.5" />
+          <circle cx="266" cy="61" r="1.0" />
+          <circle class="twinkle t0" cx="343" cy="118" r="1.5" />
+          <circle cx="446" cy="292" r="1.5" />
+          <circle cx="47" cy="109" r="1.2" />
+          <circle cx="407" cy="169" r="1.0" />
+          <circle class="twinkle t1" cx="727" cy="22" r="1.1" />
+          <circle cx="275" cy="266" r="1.5" />
+          <circle cx="412" cy="66" r="1.1" />
+          <circle cx="227" cy="146" r="1.1" />
+          <circle class="twinkle t2" cx="266" cy="213" r="1.3" />
+          <circle cx="187" cy="363" r="1.2" />
+          <circle cx="690" cy="254" r="1.3" />
+          <circle cx="413" cy="202" r="1.4" />
+          <circle class="twinkle t0" cx="752" cy="159" r="1.4" />
+          <circle cx="201" cy="235" r="1.1" />
+          <circle cx="264" cy="157" r="1.4" />
+          <circle cx="702" cy="44" r="1.5" />
+          <circle class="twinkle t1" cx="62" cy="163" r="0.9" />
+          <circle cx="62" cy="398" r="1.0" />
+          <circle cx="506" cy="58" r="1.2" />
+          <circle cx="474" cy="55" r="1.5" />
+          <circle class="twinkle t2" cx="708" cy="356" r="1.5" />
+          <circle cx="726" cy="304" r="1.0" />
+          <circle cx="8" cy="99" r="0.9" />
+          <circle cx="1" cy="247" r="1.0" />
+          <circle class="twinkle t0" cx="593" cy="196" r="1.4" />
+          <circle cx="190" cy="353" r="1.0" />
+          <circle cx="299" cy="358" r="0.9" />
+          <circle cx="391" cy="1" r="1.5" />
+          <circle class="twinkle t1" cx="510" cy="369" r="0.8" />
+          <circle cx="720" cy="75" r="1.6" />
+          <circle cx="452" cy="272" r="1.0" />
+          <circle cx="178" cy="84" r="1.3" />
+          <circle class="twinkle t2" cx="42" cy="308" r="1.4" />
+          <circle cx="571" cy="199" r="0.8" />
+          <circle cx="88" cy="368" r="0.9" />
+          <circle cx="550" cy="357" r="0.8" />
+          <circle class="twinkle t0" cx="707" cy="345" r="1.6" />
+          <circle cx="763" cy="306" r="1.1" />
+          <circle cx="199" cy="291" r="1.5" />
+          <circle cx="319" cy="94" r="1.1" />
+          <circle class="twinkle t1" cx="710" cy="224" r="1.1" />
+          <circle cx="497" cy="294" r="1.1" />
+          <circle cx="580" cy="169" r="1.0" />
+          <circle cx="249" cy="394" r="1.6" />
+          <circle class="twinkle t2" cx="506" cy="349" r="1.5" />
+          <circle cx="160" cy="258" r="0.9" />
+          <circle cx="398" cy="223" r="1.4" />
+          <circle cx="757" cy="193" r="0.9" />
+          <circle class="twinkle t0" cx="357" cy="66" r="1.3" />
+          <circle cx="417" cy="225" r="1.2" />
+          <circle cx="606" cy="145" r="1.4" />
+          <circle cx="21" cy="120" r="1.2" />
+          <circle class="twinkle t1" cx="162" cy="289" r="1.0" />
+          <circle cx="189" cy="264" r="1.1" />
+          <circle cx="60" cy="309" r="1.5" />
+          <circle cx="732" cy="364" r="1.3" />
+          <circle class="twinkle t2" cx="767" cy="10" r="1.4" />
+          <circle cx="481" cy="290" r="1.5" />
+        </g>
+        <g class="cloud c2" fill="#e8eef0" opacity="0.18">
+          <ellipse cx="600" cy="60" rx="26" ry="8" />
+          <ellipse cx="588" cy="56" rx="12" ry="8" />
+          <ellipse cx="608" cy="53" rx="14" ry="10" />
+        </g>
+        <g class="cloud c4" fill="#e8eef0" opacity="0.18">
+          <ellipse cx="200" cy="150" rx="20.8" ry="6.4" />
+          <ellipse cx="190.4" cy="146.8" rx="9.600000000000001" ry="6.4" />
+          <ellipse cx="206.4" cy="144.4" rx="11.200000000000001" ry="8" />
+        </g>
+        <g class="cloud c6" fill="#e8eef0" opacity="0.18">
+          <ellipse cx="420" cy="270" rx="23.400000000000002" ry="7.2" />
+          <ellipse cx="409.2" cy="266.4" rx="10.8" ry="7.2" />
+          <ellipse cx="427.2" cy="263.7" rx="12.6" ry="9" />
+        </g>
+        <g class="cloud c5" fill="#e8eef0" opacity="0.18">
+          <ellipse cx="90" cy="330" rx="18.2" ry="5.6" />
+          <ellipse cx="81.6" cy="327.2" rx="8.399999999999999" ry="5.6" />
+          <ellipse cx="95.6" cy="325.1" rx="9.799999999999999" ry="7" />
+        </g>
+      </svg>
       <div class="wrap">
         <p class="eyebrow">🏡 Big news</p>
         <h1>We bought a house!</h1>
