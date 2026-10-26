@@ -366,6 +366,36 @@
         transform-origin: 50% 100%;
       }
       @media (prefers-reduced-motion: no-preference) {
+        .c4 {
+          animation-duration: 160s;
+          animation-delay: -30s;
+        }
+        .c5 {
+          animation-duration: 120s;
+          animation-delay: -80s;
+        }
+        .c6 {
+          animation-duration: 150s;
+          animation-delay: -120s;
+        }
+        .dog {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: wander 16s ease-in-out infinite;
+        }
+        .trot {
+          animation: trot 16s linear infinite;
+        }
+        .leg.a,
+        .leg.b {
+          transform-box: fill-box;
+          transform-origin: top;
+        }
+        .lift {
+          transform-box: fill-box;
+          transform-origin: top left;
+          animation: lift 16s ease-in-out infinite;
+        }
         .cloud {
           animation: drift 110s linear infinite;
         }
@@ -495,6 +525,59 @@
           opacity: 0;
         }
       }
+      @keyframes wander {
+        0% {
+          transform: translateX(0) scaleX(1);
+        }
+        28% {
+          transform: translateX(-46px) scaleX(1);
+        }
+        31% {
+          transform: translateX(-46px) scaleX(-1);
+        }
+        58% {
+          transform: translateX(0) scaleX(-1);
+        }
+        61%,
+        100% {
+          transform: translateX(0) scaleX(1);
+        }
+      }
+      @keyframes trot {
+        0%,
+        58%,
+        100% {
+          transform: translateY(0);
+        }
+        4%,
+        12%,
+        20%,
+        36%,
+        44%,
+        52% {
+          transform: translateY(-0.8px);
+        }
+        8%,
+        16%,
+        24%,
+        40%,
+        48%,
+        56% {
+          transform: translateY(0);
+        }
+      }
+      @keyframes lift {
+        0%,
+        66%,
+        84%,
+        100% {
+          transform: rotate(0deg);
+        }
+        70%,
+        80% {
+          transform: rotate(-95deg);
+        }
+      }
       @keyframes twinkle {
         0%,
         100% {
@@ -593,20 +676,35 @@
           <circle cx="574" cy="146" r="0.9" />
         </g>
         <circle cx="690" cy="52" r="18" fill="#fbf1d6" opacity="0.9" />
-        <g class="cloud c1" fill="#e8eef0" opacity="0.13">
+        <g class="cloud c1" fill="#e8eef0" opacity="0.22">
           <ellipse cx="120" cy="34" rx="26" ry="8" />
           <ellipse cx="108" cy="30" rx="12" ry="8" />
           <ellipse cx="128" cy="27" rx="14" ry="10" />
         </g>
-        <g class="cloud c2" fill="#e8eef0" opacity="0.13">
+        <g class="cloud c2" fill="#e8eef0" opacity="0.22">
           <ellipse cx="460" cy="22" rx="20.8" ry="6.4" />
           <ellipse cx="450.4" cy="18.8" rx="9.600000000000001" ry="6.4" />
           <ellipse cx="466.4" cy="16.4" rx="11.200000000000001" ry="8" />
         </g>
-        <g class="cloud c3" fill="#e8eef0" opacity="0.13">
+        <g class="cloud c3" fill="#e8eef0" opacity="0.22">
           <ellipse cx="700" cy="40" rx="18.2" ry="5.6" />
           <ellipse cx="691.6" cy="37.2" rx="8.399999999999999" ry="5.6" />
           <ellipse cx="705.6" cy="35.1" rx="9.799999999999999" ry="7" />
+        </g>
+        <g class="cloud c4" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="300" cy="52" rx="15.6" ry="4.8" />
+          <ellipse cx="292.8" cy="49.6" rx="7.199999999999999" ry="4.8" />
+          <ellipse cx="304.8" cy="47.8" rx="8.4" ry="6" />
+        </g>
+        <g class="cloud c5" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="560" cy="30" rx="23.400000000000002" ry="7.2" />
+          <ellipse cx="549.2" cy="26.4" rx="10.8" ry="7.2" />
+          <ellipse cx="567.2" cy="23.7" rx="12.6" ry="9" />
+        </g>
+        <g class="cloud c6" fill="#e8eef0" opacity="0.22">
+          <ellipse cx="40" cy="18" rx="19.5" ry="6" />
+          <ellipse cx="31" cy="15" rx="9" ry="6" />
+          <ellipse cx="46" cy="12.75" rx="10.5" ry="7.5" />
         </g>
         <g fill="#0d1d13">
           <path d="M-24 220 L18 44 L60 220Z" />
@@ -670,24 +768,60 @@
           <circle cx="226" cy="207" r="7.5" fill="#1f4a2c" />
           <circle cx="234" cy="202" r="8" fill="#245533" />
           <circle cx="242" cy="207" r="7" fill="#1f4a2c" />
-          <path
-            d="M219 202 Q223 198 220 193"
-            fill="none"
-            stroke="#f6eedc"
-            stroke-width="2.4"
-            stroke-linecap="round"
-          />
-          <rect x="207" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
-          <rect x="211" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
-          <rect x="215" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
-          <rect x="218" y="208" width="2" height="6" rx="1" fill="#f6eedc" />
-          <circle cx="210" cy="205" r="4.6" fill="#f6eedc" />
-          <circle cx="215" cy="204.3" r="5" fill="#f6eedc" />
-          <circle cx="219" cy="205.5" r="4.2" fill="#f6eedc" />
-          <circle cx="204" cy="200" r="4.6" fill="#f6eedc" />
-          <ellipse cx="207" cy="201.8" rx="1.9" ry="3.5" fill="#e3cfa9" />
-          <circle cx="200" cy="201.2" r="0.95" fill="#3a2a22" />
-          <circle cx="202.6" cy="199" r="0.7" fill="#3a2a22" />
+          <g class="dog">
+            <g class="trot">
+              <path
+                d="M219 202 Q223 198 220 193"
+                fill="none"
+                stroke="#f6eedc"
+                stroke-width="2.4"
+                stroke-linecap="round"
+              />
+              <rect
+                class="leg a"
+                x="207"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <rect
+                class="leg b"
+                x="211"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <rect
+                class="leg b"
+                x="215"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <rect
+                class="lift"
+                x="218"
+                y="208"
+                width="2"
+                height="6"
+                rx="1"
+                fill="#f6eedc"
+              />
+              <circle cx="210" cy="205" r="4.6" fill="#f6eedc" />
+              <circle cx="215" cy="204.3" r="5" fill="#f6eedc" />
+              <circle cx="219" cy="205.5" r="4.2" fill="#f6eedc" />
+              <circle cx="204" cy="200" r="4.6" fill="#f6eedc" />
+              <ellipse cx="207" cy="201.8" rx="1.9" ry="3.5" fill="#e3cfa9" />
+              <circle cx="200" cy="201.2" r="0.95" fill="#3a2a22" />
+              <circle cx="202.6" cy="199" r="0.7" fill="#3a2a22" />
+            </g>
+          </g>
         </g>
         <ellipse class="glow" cx="540" cy="200" rx="90" ry="40" fill="url(#glow)" />
         <ellipse cx="540" cy="208" rx="30" ry="8" fill="#6b625a" />
