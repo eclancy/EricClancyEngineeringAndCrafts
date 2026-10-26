@@ -119,6 +119,25 @@
       }
 
       /* The hero: a night sky over the treeline, the house, and the fire pit's glow. */
+      .hero h1,
+      .hero .where,
+      .hero .when {
+        text-shadow:
+          0 0 4px var(--forest),
+          0 0 10px var(--forest),
+          0 0 18px var(--forest),
+          0 0 28px var(--forest);
+      }
+      .hero .eyebrow {
+        background: var(--forest);
+        box-shadow:
+          0 0 0 1px rgb(255 255 255 / 0.18),
+          0 0 18px 6px var(--forest);
+      }
+      .hero .btn.secondary {
+        background: var(--forest);
+        box-shadow: 0 0 18px 6px var(--forest);
+      }
       .hero {
         position: relative;
         background: var(--forest);
@@ -740,6 +759,13 @@
         aria-hidden="true"
       >
         <g fill="#fff" opacity="0.75">
+          <!-- by hand: the gap to the left of the house -->
+          <circle class="twinkle t1" cx="202" cy="1452" r="1.2" />
+          <circle cx="228" cy="1492" r="1" />
+          <circle cx="252" cy="1444" r="1.3" />
+          <circle class="twinkle t2" cx="270" cy="1518" r="1.1" />
+          <circle cx="240" cy="1538" r="1" />
+          <circle cx="280" cy="1476" r="1.2" />
           <circle class="twinkle t0" cx="0" cy="715" r="1.1" />
           <circle cx="36" cy="1377" r="1.2" />
           <circle cx="414" cy="748" r="1.2" />
