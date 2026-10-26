@@ -128,6 +128,19 @@
           0 0 18px var(--forest),
           0 0 28px var(--forest);
       }
+      /* A clear patch of sky behind the address and date: stars and clouds pass behind it,
+         so none show up within about 20px of that text. */
+      .hero h1,
+      .hero .buttons {
+        position: relative;
+        z-index: 1;
+      }
+      .hero .clear {
+        display: inline-block;
+        border-radius: 14px;
+        background: var(--forest);
+        box-shadow: 0 0 16px 20px var(--forest);
+      }
       .hero .eyebrow {
         background: var(--forest);
         box-shadow:
@@ -1206,8 +1219,10 @@
       <div class="wrap">
         <p class="eyebrow">🏡 Big news</p>
         <h1>We bought a house!</h1>
-        <p class="where">11 Forest View Drive · Falmouth, Maine</p>
-        <p class="when">We move in on November 12!</p>
+        <div class="clear">
+          <p class="where">11 Forest View Drive · Falmouth, Maine</p>
+          <p class="when">We move in on November 12!</p>
+        </div>
         <div class="buttons">
           <a
             class="btn primary"
