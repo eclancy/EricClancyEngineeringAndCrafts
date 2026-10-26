@@ -225,6 +225,14 @@
       .card.big .pic {
         aspect-ratio: 16 / 9;
       }
+      .card .aside {
+        margin-top: 4px;
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+      .card .pic-full {
+        aspect-ratio: auto;
+      }
       .wide {
         margin: 20px 0 0;
       }
@@ -254,9 +262,6 @@
       .invite {
         overflow: hidden;
       }
-      .card .pic-top {
-        object-position: top;
-      }
       .invite .family {
         display: block;
         width: 100%;
@@ -285,52 +290,6 @@
         color: var(--soft);
       }
 
-      .sr {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-      }
-      .howfar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 18px;
-      }
-      .howfar input {
-        flex: 1 1 14rem;
-        min-width: 0;
-        padding: 12px 16px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: var(--card);
-        color: var(--ink);
-        font: inherit;
-      }
-      .howfar button {
-        padding: 12px 22px;
-        border: 0;
-        border-radius: 999px;
-        background: var(--ember);
-        color: #fff;
-        font: inherit;
-        font-weight: 800;
-        cursor: pointer;
-      }
-      .howfar-out {
-        min-height: 1.6em;
-        margin: 14px 0 0;
-        font-size: 1.15rem;
-      }
-      .howfar-out b {
-        color: var(--ember);
-      }
-      .howfar-note {
-        margin: 6px 0 0;
-        color: var(--soft);
-        font-size: 0.85rem;
-      }
       .distances {
         margin: 20px 0 0;
         padding: 0;
@@ -499,7 +458,7 @@
 
       <section aria-labelledby="hosting">
         <h2 id="hosting">We're so excited to have you over!</h2>
-        <p class="lede">We can't wait to have everyone over.</p>
+        <p class="lede">Here's what we've got planned.</p>
         <figure class="wide">
           <img
             src="/house-share/photos/fire-pit-deck.jpg"
@@ -517,26 +476,23 @@
               src="/house-share/photos/fire-pit.jpg"
               alt="A round stone fire pit on a stone patio, with chairs around it and woods behind"
               width="900"
-              height="676"
+              height="506"
               loading="lazy"
             />
             <h3><span class="icon" aria-hidden="true">🔥</span> Fire pit nights</h3>
-            <p>
-              A big stone fire pit right off the deck. Bring a chair, we'll have the
-              s'mores.
-            </p>
+            <p>A big stone fire pit right off the deck. And s'mores (duh).</p>
           </article>
           <article class="card big">
             <img
               class="pic"
-              src="/house-share/photos/dining-room.jpg"
+              src="/house-share/photos/nerdsgiving.jpg"
               alt="A bright dining room with a long wooden table and built-in shelves"
               width="900"
-              height="676"
+              height="506"
               loading="lazy"
             />
             <h3><span class="icon" aria-hidden="true">🦃</span> Nerdsgiving</h3>
-            <p>Way more room for food, games, and everyone.</p>
+            <p>Way more room for food, games, and a big kitchen for our dance parties.</p>
           </article>
         </div>
       </section>
@@ -595,58 +551,37 @@
               loading="lazy"
             />
             <h3><span class="icon" aria-hidden="true">🍂</span> The three-season room</h3>
-            <p>Great for coffee, card games, and rainy days.</p>
+            <p class="aside">(If Eric is unable to be found, check for snoring here)</p>
           </article>
           <article class="card">
             <img
-              class="pic"
-              src="/house-share/photos/dnd-night.jpg"
+              class="pic pic-full"
+              src="/house-share/photos/game-night.jpg"
               alt="Friends around a table covered in character sheets, dice and snacks, mid D&amp;D game"
               width="1000"
-              height="750"
+              height="762"
               loading="lazy"
             />
             <h3>
               <span class="icon" aria-hidden="true">🎸</span> A music and games room
-              (coming soon)
             </h3>
-            <p>Once the basement's done. Bring an instrument or a board game.</p>
+            <p>(once the basement is finished...)</p>
           </article>
           <article class="card">
             <img
-              class="pic pic-top"
+              class="pic"
               src="/house-share/photos/welcome-committee.jpg"
-              alt="Pancho the fluffy white dog, with Lio peeking over the blankets behind him"
+              alt="Pancho the fluffy white dog lying in the grass next to Lio in a car seat, by the water"
               width="1000"
-              height="800"
+              height="666"
               loading="lazy"
             />
-            <h3><span class="icon" aria-hidden="true">🐶</span> The welcome committee</h3>
-            <p>Pancho and Lio can't wait to meet you.</p>
+            <h3>
+              <span class="icon" aria-hidden="true">🐶</span> The welcoming committee
+            </h3>
+            <p>The boys will see you in</p>
           </article>
         </div>
-      </section>
-
-      <section aria-labelledby="close">
-        <h2 id="close">How far are we from you?</h2>
-        <p class="lede">Type in your address for a rough guess.</p>
-        <form class="howfar" id="howfar">
-          <label for="from" class="sr">Your address</label>
-          <input
-            id="from"
-            name="from"
-            type="text"
-            autocomplete="street-address"
-            placeholder="Your address or town"
-            required
-          />
-          <button type="submit">How far?</button>
-        </form>
-        <p class="howfar-out" id="howfar-out" role="status" aria-live="polite"></p>
-        <p class="howfar-note">
-          Your address goes to OpenStreetMap to find it on the map. We never see or keep
-          it.
-        </p>
       </section>
 
       <div class="invite">
@@ -683,74 +618,5 @@
     </main>
 
     <footer>Made with love (and a little code) on <a href="/">ecec.dev</a></footer>
-    <script>
-      // "How far are we from you?": OpenStreetMap's Nominatim finds the address, and the OSRM
-      // demo router guesses the drive (no traffic, so it's a rough guess). Both are free and
-      // keyless; nothing is sent anywhere else.
-      ;(function () {
-        var HOME = { lat: 43.7942721, lon: -70.3260755 }
-        var form = document.getElementById('howfar')
-        var out = document.getElementById('howfar-out')
-        var esc = function (t) {
-          var d = document.createElement('div')
-          d.textContent = t
-          return d.innerHTML
-        }
-        form.addEventListener('submit', async function (e) {
-          e.preventDefault()
-          var q = form.from.value.trim()
-          if (!q) return
-          out.textContent = 'Looking that up…'
-          try {
-            var places = await fetch(
-              'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us,ca&q=' +
-                encodeURIComponent(q),
-            ).then(function (r) {
-              return r.json()
-            })
-            if (!places.length) {
-              out.textContent =
-                "Couldn't find that address. Try adding the town and state."
-              return
-            }
-            var from = places[0]
-            var route = await fetch(
-              'https://router.project-osrm.org/route/v1/driving/' +
-                from.lon +
-                ',' +
-                from.lat +
-                ';' +
-                HOME.lon +
-                ',' +
-                HOME.lat +
-                '?overview=false',
-            ).then(function (r) {
-              return r.json()
-            })
-            if (route.code !== 'Ok' || !route.routes.length) {
-              out.textContent = "Couldn't work out a drive from there."
-              return
-            }
-            var mins = Math.round(route.routes[0].duration / 60)
-            var miles = Math.round(route.routes[0].distance / 1609.34)
-            var time =
-              mins < 60
-                ? mins + ' minutes'
-                : Math.floor(mins / 60) + ' hr ' + (mins % 60 ? (mins % 60) + ' min' : '')
-            var where = from.display_name.split(',').slice(0, 3).join(',')
-            out.innerHTML =
-              'About <b>' +
-              esc(time) +
-              '</b> (' +
-              miles +
-              ' miles) from ' +
-              esc(where) +
-              '.'
-          } catch (err) {
-            out.textContent = "Couldn't look that up right now. Try again in a moment."
-          }
-        })
-      })()
-    </script>
   </body>
 </html>
