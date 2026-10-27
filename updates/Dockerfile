@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:24-alpine
 WORKDIR /app
 COPY package.json server.js ./
 # /data is a named volume (docker-compose.yml). Created here, owned by node, so the volume starts
