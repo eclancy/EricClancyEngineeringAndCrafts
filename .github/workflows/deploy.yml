@@ -50,6 +50,13 @@ jobs:
             --exclude node_modules --exclude .git \
             ./ "${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}:/opt/ecec-hub/"
 
+      # DrawFight online plays over a WebSocket, which the host's own nginx (outside the repo:
+      # setup-droplet.sh, then certbot) has to let through. Does nothing once it has been done.
+      - name: Let WebSockets through the host nginx
+        run: |
+          ssh "${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}" \
+            "bash /opt/ecec-hub/scripts/host-nginx-websockets.sh"
+
       - name: Rebuild and restart container
         run: |
           ssh "${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}" \

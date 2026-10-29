@@ -140,3 +140,28 @@ container (`updates/server.js`).
 - **Locally:** `node updates/server.js` (dry run, no key needed) and `npm run dev` - Vite
   forwards `/api/updates` to it.
 - **A new game:** add it to `GAMES` at the top of `updates/server.js`.
+
+## 8. DrawFight online play (/api/play)
+
+DrawFight plays online through room codes: one game hosts and gets a five-letter code, up to three
+more join with it, and from then on the `play` container (`play/server.js`) passes each game's
+messages to the others in its room. The games run in lockstep - each sends only what its players
+pressed, a few bytes a frame - so the relay never decides anything and never sees a drawing or a
+name. How the game uses it is `.ai/online.md` in eclancy/DrawFight.
+
+- **One WebSocket per game**, at `wss://ecec.dev/api/play/ws`, kept open for the whole session.
+  The site's nginx forwards `/api/play/` with the upgrade headers; the **host's** nginx needs them
+  too, and since its config lives only on the droplet (written by `setup-droplet.sh`, then edited
+  by certbot), every deploy runs `scripts/host-nginx-websockets.sh` over SSH. It adds the lines
+  once, checks them with `nginx -t`, puts everything back if nginx refuses them, and does nothing
+  on later deploys. `setup-droplet.sh` writes them in from the start on a new droplet.
+- **Keeps nothing:** rooms live in memory while someone is in them; no log line names a code, a
+  room or an address (nginx's access log is off for `/api/play/`).
+- **Limits:** four games a room; a room is closed once the host starts (`lock`) or leaves, or
+  after 20 quiet minutes; 64 KB a message and about 48 KB a second per game; 20 join attempts a
+  minute per address, so codes cannot be found by trying them all; 500 rooms at once.
+- **Versions must match:** a game can only join a room hosted by the same version, since
+  lockstep needs both to run exactly the same code. The game says so and offers the update.
+- **Checking it:** `curl https://ecec.dev/api/play/health` gives `{"ok":true,"rooms":N}`.
+- **Locally:** `cd play && npm ci && node server.js`, then start DrawFight with
+  `DRAWFIGHT_PLAY_URL=ws://127.0.0.1:3003/api/play/ws`.

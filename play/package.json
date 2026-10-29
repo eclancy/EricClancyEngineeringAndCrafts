@@ -1,0 +1,14 @@
+{
+  "name": "drawfight-play",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "DrawFight's online play relay: room codes, and each game's frames passed to the others",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "8.18.0"
+  }
+}
