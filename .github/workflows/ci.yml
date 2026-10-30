@@ -25,7 +25,7 @@ jobs:
       - name: Check nginx.conf
         run: >
           docker run --rm --add-host intake:127.0.0.1 --add-host meet:127.0.0.1
-          --add-host updates:127.0.0.1
+          --add-host updates:127.0.0.1 --add-host play:127.0.0.1
           -v "$PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
           -v "$PWD/nginx-security-headers.conf:/etc/nginx/security-headers.conf:ro"
           nginx:1.30-alpine nginx -t
