@@ -34,6 +34,14 @@ mkdir -p /var/lib/drawfight-submissions /etc/ecec
 chown 1000:1000 /var/lib/drawfight-submissions
 chmod 700 /etc/ecec
 
+# A WebSocket asks to be upgraded (DrawFight online, /api/play); everything else is closed as usual.
+cat > /etc/nginx/conf.d/websocket-upgrade.conf <<'EOF'
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+EOF
+
 # Host Nginx reverse-proxies to the Dockerized app on 127.0.0.1:8080.
 cat > /etc/nginx/sites-available/ecec.dev <<EOF
 server {
@@ -44,6 +52,10 @@ server {
 
     location / {
         proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \$connection_upgrade;
+        proxy_read_timeout 120s;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;

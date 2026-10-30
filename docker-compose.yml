@@ -7,6 +7,7 @@ services:
     depends_on:
       - intake
       - meet
+      - play
       - updates
     ports:
       # Bound to localhost only — host Nginx + certbot reverse-proxies and terminates TLS.
@@ -19,6 +20,15 @@ services:
     build: ./meet
     image: ecec-meet:latest
     container_name: ecec-meet
+    restart: unless-stopped
+
+  # DrawFight online play (play/server.js): room codes, and each game's frames passed to the
+  # others in its room. Keeps nothing - no volume, no logs of rooms or addresses. Only reachable
+  # through the web container's nginx (/api/play).
+  play:
+    build: ./play
+    image: ecec-play:latest
+    container_name: ecec-play
     restart: unless-stopped
 
   # Receives DrawFight fighter submissions from ecec.dev/draw. Only reachable through the web
