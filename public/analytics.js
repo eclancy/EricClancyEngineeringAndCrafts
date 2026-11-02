@@ -75,11 +75,66 @@
     })
   }
 
+  // A game download: a click on one of the games' release files on GitHub, from the download
+  // pages (which point at releases/latest/download/... and then at the exact file of the
+  // latest release). Sent as game_download with the game and the platform, Android included,
+  // which Google's own file_download misses. Google counts the people (Total users) as well as
+  // the downloads; first_download also says whether this browser had downloaded this game
+  // before, remembered on the device only where cookies are allowed.
+  var PLATFORMS = [
+    [/-Setup\.exe$/, 'Windows installer'],
+    [/-windows\.zip$/, 'Windows zip'],
+    [/-linux\.tar\.gz$/, 'Linux'],
+    [/\.apk$/, 'Android'],
+  ]
+  var DOWNLOADS_KEY = 'ecec-downloads'
+
+  function firstDownload(game) {
+    var mine = choice === 'granted' || (!choice && !inEurope())
+    if (!mine) return 'unknown'
+    try {
+      var seen = JSON.parse(localStorage.getItem(DOWNLOADS_KEY) || '{}')
+      var first = !seen[game]
+      seen[game] = (seen[game] || 0) + 1
+      localStorage.setItem(DOWNLOADS_KEY, JSON.stringify(seen))
+      return first ? 'yes' : 'no'
+    } catch (e) {
+      return 'unknown'
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href]')
+    if (!link) return
+    var m =
+      /^https:\/\/github\.com\/eclancy\/([^/]+)\/releases\/(?:latest\/)?download\/(?:[^/]+\/)?([^/?#]+)$/.exec(
+        link.href,
+      )
+    if (!m) return
+    var platform = null
+    for (var i = 0; i < PLATFORMS.length; i++) {
+      if (PLATFORMS[i][0].test(m[2])) platform = PLATFORMS[i][1]
+    }
+    if (!platform) return // patches, the web build: not a person downloading the game
+    gtag('event', 'game_download', {
+      game: m[1],
+      platform: platform,
+      file_name: m[2],
+      first_download: firstDownload(m[1]),
+    })
+  })
+
   function decide(answer) {
     store(answer)
+    choice = answer
     gtag('consent', 'update', { analytics_storage: answer })
     // A no also clears the cookies a yes (or the default) already set: _ga and _ga_<stream>.
     if (answer === 'denied') {
+      try {
+        localStorage.removeItem(DOWNLOADS_KEY)
+      } catch (e) {
+        // Nothing stored to clear.
+      }
       document.cookie.split(';').forEach(function (pair) {
         var name = pair.split('=')[0].trim()
         if (name !== '_ga' && name.indexOf('_ga_') !== 0) return
