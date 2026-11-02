@@ -1,0 +1,1607 @@
+<!doctype html>
+<!-- The Wizard Survivors Spell Index vote: three layouts for the in-game book of every spell and
+     how it evolves (A the grid, B the book, C the path map), each drawn as wireframes on PC and
+     phone, and a pick at the foot that goes to Eric by email. It posts to the same intake the
+     games' "Report a bug" uses (intake/server.js, /api/draw/suggest), so it needs no server of
+     its own. The wireframes are the <template>s at the end, each drawn into a shadow root (so its
+     styles stay its own) and scaled to the width it is given. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Which Spell Index layout? - Wizard Survivors</title>
+    <meta
+      name="description"
+      content="Three layouts for the Wizard Survivors Spell Index, on PC and phone. Pick the one that reads best."
+    />
+
+    <!-- The link preview, for chat apps: this page is sent to people to ask them. -->
+    <meta property="og:title" content="Which Spell Index layout?" />
+    <meta
+      property="og:description"
+      content="Three layouts for the Wizard Survivors Spell Index, on PC and phone. Pick the one that reads best."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ecec.dev/wizard-survivors/spell-index" />
+    <link rel="canonical" href="https://ecec.dev/wizard-survivors/spell-index" />
+    <meta property="og:site_name" content="ECEC" />
+    <meta
+      property="og:image"
+      content="https://ecec.dev/wizard-survivors/download/title-screen.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta property="og:image:alt" content="The Wizard Survivors title screen." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://ecec.dev/wizard-survivors/download/title-screen.jpg"
+    />
+    <meta name="theme-color" content="#0b0d14" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+    />
+    <style>
+      /* One column; each layout is a band with its PC screen beside its phone screens, stacking
+         at phone width; the pick at the foot. One dark world on purpose: the game's own stone
+         and gold. */
+      :root {
+        --bg: #0b0d14;
+        --surface: #151926;
+        --stone: #232735;
+        --line: #3a4052;
+        --ink: #ece6d6;
+        --ink-soft: #b9b3a6;
+        --gold: #f3c74e;
+        --gold-deep: #b8923f;
+        --red: #ff8a7a;
+        --display: 'Cinzel', 'Trajan Pro', Georgia, serif;
+        --body: 'Noto Sans', 'Segoe UI', system-ui, sans-serif;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--body);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      a {
+        color: var(--gold);
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding-block: 36px 64px;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+      h1,
+      h2 {
+        font-family: var(--display);
+        font-weight: 700;
+        text-wrap: balance;
+        margin: 0;
+        color: #f3dfa8;
+      }
+      h1 {
+        font-size: clamp(30px, 5vw, 44px);
+        line-height: 1.1;
+      }
+      h2 {
+        font-size: clamp(22px, 3.2vw, 30px);
+      }
+      p {
+        margin: 0;
+        max-width: 64ch;
+      }
+      .muted {
+        color: var(--ink-soft);
+      }
+      .eyebrow {
+        font-family: var(--display);
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold-deep);
+      }
+      .intro {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .option {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding-top: 24px;
+        border-top: 2px solid var(--line);
+        scroll-margin-top: 16px;
+      }
+      .option-head {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .option-head .letter {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 1;
+        color: var(--gold);
+      }
+      .screens {
+        display: grid;
+        grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+      }
+      .screens.three {
+        grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr);
+      }
+      @media (max-width: 820px) {
+        .screens,
+        .screens.three {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        }
+        .screens > .frame.pc {
+          grid-column: 1 / -1;
+        }
+      }
+      .frame {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+      .frame-box {
+        overflow-x: auto;
+        overflow-y: hidden;
+        border: 2px solid var(--line);
+        background: #000;
+      }
+      .frame-host {
+        display: block;
+        position: relative;
+        overflow: hidden;
+      }
+      .frame figcaption {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      .zoom {
+        min-height: 32px;
+        padding: 0 10px;
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--ink-soft);
+        font: 600 12px var(--body);
+        cursor: pointer;
+      }
+      .zoom:hover,
+      .zoom:focus-visible {
+        color: var(--ink);
+        border-color: var(--gold-deep);
+      }
+
+      .answer {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 28px;
+        background: var(--surface);
+        border: 2px solid var(--gold-deep);
+      }
+      @media (max-width: 480px) {
+        .answer {
+          padding: 20px 16px;
+        }
+      }
+      .answer form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .picks {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 12px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+      }
+      .picks legend {
+        font-weight: 600;
+        margin-bottom: 8px;
+        padding: 0;
+      }
+      .pick {
+        position: relative;
+        display: block;
+      }
+      .pick input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .pick span {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 60px;
+        padding: 8px 16px;
+        background: var(--stone);
+        border: 2px solid var(--line);
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .pick span b {
+        font-family: var(--display);
+        font-size: 26px;
+        color: var(--gold);
+      }
+      .pick input:checked + span {
+        border-color: var(--gold);
+        background: #2c2a22;
+      }
+      .pick input:focus-visible + span {
+        outline: 3px solid var(--gold);
+        outline-offset: 2px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-weight: 600;
+      }
+      .field textarea,
+      .field input {
+        width: 100%;
+        padding: 10px 12px;
+        background: var(--bg);
+        border: 2px solid var(--line);
+        color: var(--ink);
+        font: 16px/1.5 var(--body);
+      }
+      .field textarea {
+        min-height: 88px;
+        resize: vertical;
+      }
+      .field textarea:focus-visible,
+      .field input:focus-visible {
+        outline: none;
+        border-color: var(--gold);
+      }
+      /* Only bots fill this in; the intake then pretends the send worked. */
+      .trap {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .send {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 18px;
+      }
+      .submit {
+        min-height: 48px;
+        padding: 0 26px;
+        background: var(--gold);
+        color: #1a1508;
+        border: 0;
+        font: 700 16px var(--body);
+        cursor: pointer;
+      }
+      .submit:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+      .submit:focus-visible {
+        outline: 3px solid #fff3c4;
+        outline-offset: 2px;
+      }
+      .status {
+        font-weight: 600;
+        color: var(--gold);
+      }
+      .status:empty {
+        display: none;
+      }
+      .status.error {
+        color: var(--red);
+      }
+      .note {
+        font-size: 14px;
+        color: var(--ink-soft);
+      }
+    </style>
+    <script async src="/analytics.js"></script>
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="intro">
+        <span class="eyebrow">Wizard Survivors</span>
+        <h1>Which Spell Index layout?</h1>
+        <p class="muted">
+          The in-game book of every spell and how it evolves. Three wireframes, on PC and
+          phone. Which reads best, especially on a phone?
+        </p>
+      </header>
+
+      <section class="option" id="a" aria-labelledby="a-title">
+        <div class="option-head">
+          <span class="letter">A</span>
+          <h2 id="a-title">The grid</h2>
+        </div>
+        <p class="muted">
+          Spell icons in a grid; the chosen spell's path opens beside it.
+        </p>
+        <div class="screens three">
+          <figure class="frame pc">
+            <div class="frame-box">
+              <div class="frame-host" data-frame="a-pc" data-w="1280" data-h="720"></div>
+            </div>
+            <figcaption>
+              <span>PC</span><button type="button" class="zoom">Zoom in</button>
+            </figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="frame-box">
+              <div
+                class="frame-host"
+                data-frame="a-phone-grid"
+                data-w="720"
+                data-h="1280"
+              ></div>
+            </div>
+            <figcaption>
+              <span>Phone</span><button type="button" class="zoom">Zoom in</button>
+            </figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="frame-box">
+              <div
+                class="frame-host"
+                data-frame="a-phone-detail"
+                data-w="720"
+                data-h="1280"
+              ></div>
+            </div>
+            <figcaption>
+              <span>Phone, a spell</span
+              ><button type="button" class="zoom">Zoom in</button>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="option" id="b" aria-labelledby="b-title">
+        <div class="option-head">
+          <span class="letter">B</span>
+          <h2 id="b-title">The book</h2>
+        </div>
+        <p class="muted">
+          Spells listed by name on the left page; the chosen spell's page on the right.
+        </p>
+        <div class="screens">
+          <figure class="frame pc">
+            <div class="frame-box">
+              <div class="frame-host" data-frame="b-pc" data-w="1280" data-h="720"></div>
+            </div>
+            <figcaption>
+              <span>PC</span><button type="button" class="zoom">Zoom in</button>
+            </figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="frame-box">
+              <div
+                class="frame-host"
+                data-frame="b-phone"
+                data-w="720"
+                data-h="1280"
+              ></div>
+            </div>
+            <figcaption>
+              <span>Phone, a spell</span
+              ><button type="button" class="zoom">Zoom in</button>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="option" id="c" aria-labelledby="c-title">
+        <div class="option-head">
+          <span class="letter">C</span>
+          <h2 id="c-title">The path map</h2>
+        </div>
+        <p class="muted">
+          A strip of spell icons; the chosen spell's whole tree drawn as a map.
+        </p>
+        <div class="screens">
+          <figure class="frame pc">
+            <div class="frame-box">
+              <div class="frame-host" data-frame="c-pc" data-w="1280" data-h="720"></div>
+            </div>
+            <figcaption>
+              <span>PC</span><button type="button" class="zoom">Zoom in</button>
+            </figcaption>
+          </figure>
+          <figure class="frame">
+            <div class="frame-box">
+              <div
+                class="frame-host"
+                data-frame="c-phone"
+                data-w="720"
+                data-h="1280"
+              ></div>
+            </div>
+            <figcaption>
+              <span>Phone</span><button type="button" class="zoom">Zoom in</button>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="answer" id="answer" aria-labelledby="answer-title">
+        <h2 id="answer-title">Your pick</h2>
+        <form id="answer-form">
+          <fieldset class="picks">
+            <legend>Which layout? (optional)</legend>
+            <label class="pick"
+              ><input type="radio" name="pick" id="pick-a" value="A" /><span
+                ><b>A</b> The grid</span
+              ></label
+            >
+            <label class="pick"
+              ><input type="radio" name="pick" id="pick-b" value="B" /><span
+                ><b>B</b> The book</span
+              ></label
+            >
+            <label class="pick"
+              ><input type="radio" name="pick" id="pick-c" value="C" /><span
+                ><b>C</b> The path map</span
+              ></label
+            >
+          </fieldset>
+          <label class="field" for="answer-why"
+            >Why? (optional)<textarea
+              id="answer-why"
+              name="why"
+              maxlength="1900"
+            ></textarea>
+          </label>
+          <label class="field" for="answer-name"
+            >Your name (optional)<input
+              id="answer-name"
+              name="name"
+              type="text"
+              maxlength="40"
+              autocomplete="name"
+            />
+          </label>
+          <div class="trap" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+          <div class="send">
+            <button type="submit" class="submit" id="submit-answer">Submit</button>
+            <p class="status" id="status" role="status" aria-live="polite"></p>
+          </div>
+          <p class="note">Your pick goes to Eric. <a href="/privacy">Privacy</a></p>
+        </form>
+      </section>
+    </main>
+
+    <!-- The seven wireframes, each drawn into its frame by the script below. Kept exactly as
+         drawn, so Prettier is told to leave them alone. -->
+    <!-- prettier-ignore -->
+    <div id="wireframes" hidden>
+<template id="f-a-pc"><style>:host{all:initial}
+
+a{color:#e8c66e}a:hover{color:#ffe29a}
+</style>
+<div style="position: relative; width: 1280px; height: 720px; box-sizing: border-box; background: #0b0d14; font-family: 'Noto Sans', sans-serif; color: #e9e3d4; display: flex; align-items: center; justify-content: center">
+<div style="width: 1180px; height: 660px; box-sizing: border-box; background: #262a36; border: 4px solid #4a5163; display: flex; flex-direction: column">
+
+<div style="display: flex; align-items: center; gap: 20px; padding: 14px 20px 10px 20px; background: #111420; border-bottom: 2px solid #b8923f">
+<h1 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 30px; letter-spacing: 2px; color: #f3dfa8">EVOLUTION CODEX</h1>
+<label for="codex-search" style="position: absolute; left: -9999px">Search</label>
+<input id="codex-search" type="search" placeholder="Search spells, items, recipes..." style="flex: 1; height: 40px; box-sizing: border-box; padding: 0 14px; background: #1b1f2c; border: 2px solid #4a5163; color: #e9e3d4; font-family: 'Noto Sans', sans-serif; font-size: 16px">
+<div style="display: flex; flex-direction: column; align-items: flex-end">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 20px; color: #f3dfa8">87 / 142</span>
+<span style="font-size: 12px; color: #b9b3a6">discovered</span>
+</div>
+<a href="#" style="display: flex; align-items: center; justify-content: center; width: 96px; height: 44px; background: #0b0d14; border: 2px solid #b8923f; color: #f3dfa8; text-decoration: none; font-weight: 600">Back</a>
+</div>
+
+<div style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #1d2130">
+<button style="height: 36px; padding: 0 18px; background: #1b1f2c; border: 2px solid #4a5163; color: #c9c3b6; font-family: 'Noto Sans', sans-serif; font-size: 15px">All</button>
+<button style="height: 36px; padding: 0 18px; background: #b8923f; border: 2px solid #f3dfa8; color: #111420; font-family: 'Noto Sans', sans-serif; font-size: 15px; font-weight: 600">Spells 24/35</button>
+<button style="height: 36px; padding: 0 18px; background: #1b1f2c; border: 2px solid #4a5163; color: #c9c3b6; font-family: 'Noto Sans', sans-serif; font-size: 15px">Items 41/56</button>
+<button style="height: 36px; padding: 0 18px; background: #1b1f2c; border: 2px solid #4a5163; color: #c9c3b6; font-family: 'Noto Sans', sans-serif; font-size: 15px">Recipes 3/19</button>
+<span style="flex: 1"></span>
+<span style="font-size: 13px; color: #b9b3a6">This run: Pyromancer, level 17 · LB / RB change filter</span>
+</div>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<div style="width: 470px; box-sizing: border-box; padding: 14px 10px 14px 16px; border-right: 2px solid #3a4052; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 14px; color: #c9b27a; letter-spacing: 1px">HELD THIS RUN</span>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px">
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 3px solid #f3c74e; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 34px; height: 34px; background: #e8692e; transform: rotate(45deg); opacity: 1"></div>
+<span style="position: absolute; top: -9px; right: -6px; background: #f3c74e; color: #111420; font-size: 10px; font-weight: 600; padding: 1px 4px">READY</span>
+
+</div>
+<span style="font-size: 11px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Cinderbreath</span>
+<span style="font-size: 10px; color: #c9b27a; letter-spacing: 1px">■■■■■■■□</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 34px; height: 34px; background: #e8692e; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 11px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Fireball</span>
+<span style="font-size: 10px; color: #c9b27a; letter-spacing: 1px">■■■■■□□□</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 34px; height: 34px; background: #f0d040; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 11px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Chain Lightning</span>
+<span style="font-size: 10px; color: #c9b27a; letter-spacing: 1px">■■■■□□□□</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 3px solid #e8c66e; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 34px; height: 34px; background: #f3e6a3; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 11px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Kindled Ward</span>
+<span style="font-size: 10px; color: #c9b27a; letter-spacing: 1px">■■■■■■■■</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 34px; height: 34px; background: #e8692e; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 11px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Molten Shard</span>
+<span style="font-size: 10px; color: #c9b27a; letter-spacing: 1px">■■■□□□□□</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 34px; height: 34px; background: #8a5cc4; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 11px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Gravewell</span>
+<span style="font-size: 10px; color: #c9b27a; letter-spacing: 1px">■■□□□□□□</span>
+</div>
+
+</div>
+<span style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 14px; color: #c9b27a; letter-spacing: 1px; margin-top: 6px">EVERY SPELL</span>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px">
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #e8692e; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Meteor Swarm</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #e8692e; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Scorching Ray</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #f3e6a3; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Solar Flare</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Cone of Cold</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Frost Shard</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Glacial Spike</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Sleet Runes</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #f0d040; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Stormsweep</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #8fd8c6; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Gale Blade</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #8fd8c6; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Cyclone Slash</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #3f7fd6; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Riptide</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px dashed #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #3a4052; transform: rotate(45deg); opacity: 1"></div>
+</div>
+<span style="font-size: 11px; color: #8d8779; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">???</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #b98a52; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Obsidian Spike</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #aab6c6; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Iron Palisade</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #6fbf4a; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Bramble Seed</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #6fbf4a; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Thorned Vine</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px dashed #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #3a4052; transform: rotate(45deg); opacity: 1"></div>
+</div>
+<span style="font-size: 11px; color: #8d8779; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">???</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #9bc43c; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Toxic Spore Burst</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #9bc43c; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Black Tentacles</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #8a5cc4; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Shadow Bolt</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px dashed #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #3a4052; transform: rotate(45deg); opacity: 1"></div>
+</div>
+<span style="font-size: 11px; color: #8d8779; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">???</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #8a5cc4; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Hollow Star</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #b07cff; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 11px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">Magic Missile</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 3px">
+<div style="width: 60px; height: 60px; box-sizing: border-box; border: 2px dashed #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 34px; height: 34px; background: #3a4052; transform: rotate(45deg); opacity: 1"></div>
+</div>
+<span style="font-size: 11px; color: #8d8779; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px">???</span>
+</div>
+
+</div>
+<span style="font-size: 11px; color: #8d8779">only this grid scrolls</span>
+</div>
+
+<div style="flex: 1; box-sizing: border-box; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="width: 64px; height: 64px; background: #151926; border: 3px solid #f3c74e; display: flex; align-items: center; justify-content: center">
+<div style="width: 36px; height: 36px; background: #e8692e; transform: rotate(45deg)"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px">
+<h2 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 26px; color: #f3dfa8">Cinderbreath</h2>
+<span style="background: #e8692e; color: #111420; font-size: 12px; font-weight: 600; padding: 2px 8px">Fire 4/4</span>
+<span style="font-size: 13px; color: #c9b27a; letter-spacing: 2px">Lv 7 ■■■■■■■□</span>
+</div>
+<span style="font-size: 14px; color: #c9c3b6">Breathes fire in a wide arc.</span>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; font-family: 'Cinzel', serif; font-size: 12px; color: #c9b27a; letter-spacing: 1px">
+<span>BASE</span><span>MUTATION · LV 4</span><span>ASCENSION · LV 8</span><span>FINAL FORM</span>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; align-items: center; position: relative">
+
+<div style="background: #f1dcc0; color: #2a2016; border: 2px solid #3a2a18; padding: 10px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 15px">Cinderbreath</span>
+<span style="font-size: 12px">Level 7 of 8</span>
+<span style="font-size: 11px; color: #6b5636">your starting spell</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="background: #b8923f; color: #111420; border: 2px solid #f3dfa8; padding: 8px; display: flex; flex-direction: column; gap: 3px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px">Backdraft</span>
+<span style="font-size: 11px">Taken this run</span>
+</div>
+<div style="background: #1b1f2c; color: #8d8779; border: 2px dashed #4a5163; padding: 8px; display: flex; flex-direction: column; gap: 3px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px">Ember Wake</span>
+<span style="font-size: 11px">Out of reach this run</span>
+</div>
+<div style="background: #1b1f2c; color: #8d8779; border: 2px dashed #4a5163; padding: 8px; display: flex; flex-direction: column; gap: 3px">
+<div style="display: flex; align-items: center; gap: 6px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px">Hellbreath</span>
+<span style="font-size: 10px; background: #8a5cc4; color: #111420; padding: 1px 4px">+Darkness</span>
+</div>
+<span style="font-size: 11px">Out of reach this run</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="background: #0f111a; color: #f3dfa8; border: 3px solid #f3c74e; padding: 8px; display: flex; flex-direction: column; gap: 5px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px">Dragon's Breath</span>
+<span style="background: #f3c74e; color: #111420; font-size: 10px; font-weight: 600; padding: 1px 4px">READY</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px">
+<span style="font-size: 10px; background: #2d3346; padding: 1px 5px">✓ Spell 8</span>
+<span style="font-size: 10px; background: #e8692e; color: #111420; padding: 1px 5px">✓ Fire 4/4</span>
+<span style="font-size: 10px; background: #2d3346; padding: 1px 5px">✓ You 17/17</span>
+</div>
+</div>
+<div style="background: #0f111a; color: #8d8779; border: 2px dashed #4a5163; padding: 8px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px">???</span>
+<span style="font-size: 11px">Sealed until first met (Fire Fan)</span>
+</div>
+</div>
+
+<div style="background: #2a1410; color: #ffd6a8; border: 3px solid #e8692e; padding: 10px; display: flex; flex-direction: column; gap: 5px">
+<span style="font-size: 10px; color: #ffb27a; letter-spacing: 1px">✶ APOTHEOSIS</span>
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 15px">Cataclysm</span>
+<div style="display: flex; flex-wrap: wrap; gap: 4px">
+<span style="font-size: 10px; background: #3b2018; padding: 1px 5px">✓ Backdraft</span>
+<span style="font-size: 10px; background: #3b2018; padding: 1px 5px">○ Dragon's Breath</span>
+<span style="font-size: 10px; background: #e8692e; color: #111420; padding: 1px 5px">Fire 4/6</span>
+<span style="font-size: 10px; background: #3b2018; padding: 1px 5px">You 17/23</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #c9b27a">
+<span>arrows:</span>
+<span style="color: #f3c74e">gold, solid = open</span>
+<span style="color: #8d8779">dashed = closed or sealed</span>
+</div>
+
+<div style="margin-top: auto; border-top: 2px solid #3a4052; padding-top: 10px; display: flex; align-items: center; gap: 12px">
+<span style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 14px; color: #c9b27a; letter-spacing: 1px">USED IN</span>
+<div style="background: #1b1f2c; border: 2px dashed #4a5163; padding: 6px 10px; display: flex; align-items: center; gap: 8px; font-size: 13px">
+<span style="color: #f3dfa8">Cinderbreath · Dragon's Breath</span>
+<span style="color: #8d8779">+</span>
+<span style="color: #c9c3b6">Thorned Vine · Thicket</span>
+<span style="color: #8d8779">→</span>
+<span style="font-family: 'Cinzel', serif; font-weight: 700; color: #8d8779">???</span>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</template>
+<template id="f-a-phone-grid"><style>:host{all:initial}
+
+a{color:#e8c66e}a:hover{color:#ffe29a}
+</style>
+<div style="position: relative; width: 720px; height: 1280px; box-sizing: border-box; background: #0b0d14; font-family: 'Noto Sans', sans-serif; color: #e9e3d4; padding: 176px 16px 16px 16px; display: flex; flex-direction: column">
+<div style="position: absolute; top: 0; left: 0; width: 720px; height: 160px; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 6px; background: #151926; border-bottom: 2px dashed #3a4052">
+<span style="font-size: 14px; color: #8d8779">run HUD stays visible here (health, timer, spell strip)</span>
+</div>
+<div style="flex: 1; box-sizing: border-box; background: #262a36; border: 4px solid #4a5163; display: flex; flex-direction: column; min-height: 0">
+
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 8px 18px; background: #111420">
+<h1 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 30px; letter-spacing: 2px; color: #f3dfa8">EVOLUTION CODEX</h1>
+<div style="display: flex; flex-direction: column; align-items: flex-end">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 22px; color: #f3dfa8">87 / 142</span>
+<span style="font-size: 13px; color: #b9b3a6">discovered</span>
+</div>
+</div>
+<div style="padding: 6px 18px 10px 18px; background: #111420; border-bottom: 2px solid #b8923f">
+<label for="codex-search-p" style="position: absolute; left: -9999px">Search</label>
+<input id="codex-search-p" type="search" placeholder="Search spells, items, recipes..." style="width: 100%; height: 52px; box-sizing: border-box; padding: 0 16px; background: #1b1f2c; border: 2px solid #4a5163; color: #e9e3d4; font-family: 'Noto Sans', sans-serif; font-size: 20px">
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; padding: 10px 18px; background: #1d2130">
+<button style="height: 52px; background: #1b1f2c; border: 2px solid #4a5163; color: #c9c3b6; font-family: 'Noto Sans', sans-serif; font-size: 17px">All</button>
+<button style="height: 52px; background: #b8923f; border: 2px solid #f3dfa8; color: #111420; font-family: 'Noto Sans', sans-serif; font-size: 17px; font-weight: 600">Spells</button>
+<button style="height: 52px; background: #1b1f2c; border: 2px solid #4a5163; color: #c9c3b6; font-family: 'Noto Sans', sans-serif; font-size: 17px">Items</button>
+<button style="height: 52px; background: #1b1f2c; border: 2px solid #4a5163; color: #c9c3b6; font-family: 'Noto Sans', sans-serif; font-size: 17px">Recipes</button>
+</div>
+
+<div style="flex: 1; box-sizing: border-box; padding: 12px 18px; display: flex; flex-direction: column; gap: 10px; min-height: 0">
+<span style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 17px; color: #c9b27a; letter-spacing: 1px">HELD THIS RUN</span>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px">
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 3px solid #f3c74e; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 54px; height: 54px; background: #e8692e; transform: rotate(45deg); opacity: 1"></div>
+<span style="position: absolute; top: -10px; right: -6px; background: #f3c74e; color: #111420; font-size: 13px; font-weight: 600; padding: 2px 6px">READY</span>
+
+</div>
+<span style="font-size: 15px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Cinderbreath</span>
+<span style="font-size: 12px; color: #c9b27a; letter-spacing: 1px">■■■■■■■□</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 54px; height: 54px; background: #e8692e; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 15px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Fireball</span>
+<span style="font-size: 12px; color: #c9b27a; letter-spacing: 1px">■■■■■□□□</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 54px; height: 54px; background: #f0d040; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 15px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Chain Lightning</span>
+<span style="font-size: 12px; color: #c9b27a; letter-spacing: 1px">■■■■□□□□</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 3px solid #e8c66e; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 54px; height: 54px; background: #f3e6a3; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 15px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Kindled Ward</span>
+<span style="font-size: 12px; color: #c9b27a; letter-spacing: 1px">■■■■■■■■</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center; position: relative">
+<div style="width: 54px; height: 54px; background: #e8692e; transform: rotate(45deg); opacity: 1"></div>
+
+</div>
+<span style="font-size: 15px; color: #e9e3d4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Molten Shard</span>
+<span style="font-size: 12px; color: #c9b27a; letter-spacing: 1px">■■■□□□□□</span>
+</div>
+
+</div>
+<span style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 17px; color: #c9b27a; letter-spacing: 1px; margin-top: 6px">EVERY SPELL</span>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px">
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #8a5cc4; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Gravewell</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #e8692e; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Meteor Swarm</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #e8692e; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Scorching Ray</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #f3e6a3; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Solar Flare</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Cone of Cold</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Frost Shard</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Glacial Spike</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #7fdcf8; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Sleet Runes</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #f0d040; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Stormsweep</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px dashed #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #3a4052; transform: rotate(45deg); opacity: 1"></div>
+</div>
+<span style="font-size: 15px; color: #8d8779; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">???</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #8fd8c6; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Gale Blade</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #8fd8c6; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Cyclone Slash</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #3f7fd6; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Riptide</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px dashed #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #3a4052; transform: rotate(45deg); opacity: 1"></div>
+</div>
+<span style="font-size: 15px; color: #8d8779; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">???</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 104px; height: 104px; box-sizing: border-box; border: 2px solid #4a5163; background: #151926; display: flex; align-items: center; justify-content: center">
+<div style="width: 54px; height: 54px; background: #b98a52; transform: rotate(45deg); opacity: 0.55"></div>
+</div>
+<span style="font-size: 15px; color: #c9c3b6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px">Obsidian Spike</span>
+</div>
+
+</div>
+<span style="font-size: 13px; color: #8d8779">tap a cell: its detail opens as a sheet. Only this grid scrolls.</span>
+</div>
+
+<div style="display: flex; justify-content: center; padding: 12px; border-top: 2px solid #3a4052">
+<a href="#" style="display: flex; align-items: center; justify-content: center; width: 200px; height: 56px; background: #0b0d14; border: 2px solid #b8923f; color: #f3dfa8; text-decoration: none; font-weight: 600; font-size: 18px">Back</a>
+</div>
+</div>
+</div>
+</template>
+<template id="f-a-phone-detail"><style>:host{all:initial}
+
+a{color:#e8c66e}a:hover{color:#ffe29a}
+</style>
+<div style="position: relative; width: 720px; height: 1280px; box-sizing: border-box; background: #0b0d14; font-family: 'Noto Sans', sans-serif; color: #e9e3d4; padding: 176px 16px 16px 16px; display: flex; flex-direction: column">
+<div style="position: absolute; top: 0; left: 0; width: 720px; height: 160px; box-sizing: border-box; padding: 24px; background: #151926; border-bottom: 2px dashed #3a4052">
+<span style="font-size: 14px; color: #8d8779">run HUD stays visible here (health, timer, spell strip)</span>
+</div>
+<div style="flex: 1; box-sizing: border-box; background: #262a36; border: 4px solid #4a5163; display: flex; flex-direction: column; min-height: 0">
+
+<div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: #111420; border-bottom: 2px solid #b8923f">
+<a href="#" style="display: flex; align-items: center; justify-content: center; height: 52px; padding: 0 16px; background: #0b0d14; border: 2px solid #b8923f; color: #f3dfa8; text-decoration: none; font-weight: 600; font-size: 17px">‹ Codex</a>
+<h1 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 28px; color: #f3dfa8">Cinderbreath</h1>
+</div>
+
+<div style="display: flex; align-items: center; gap: 14px; padding: 14px 18px">
+<div style="width: 84px; height: 84px; background: #151926; border: 3px solid #f3c74e; display: flex; align-items: center; justify-content: center">
+<div style="width: 46px; height: 46px; background: #e8692e; transform: rotate(45deg)"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; gap: 8px; align-items: center">
+<span style="background: #e8692e; color: #111420; font-size: 14px; font-weight: 600; padding: 2px 8px">Fire 4/4</span>
+<span style="font-size: 15px; color: #c9b27a; letter-spacing: 2px">Lv 7 ■■■■■■■□</span>
+</div>
+<span style="font-size: 17px; color: #c9c3b6">Breathes fire in a wide arc.</span>
+</div>
+</div>
+
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 6px 18px 12px 18px">
+<span style="font-family: 'Cinzel', serif; font-size: 14px; color: #c9b27a; letter-spacing: 1px">MUTATION · LV 4</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%">
+<div style="background: #b8923f; color: #111420; border: 2px solid #f3dfa8; padding: 10px; display: flex; flex-direction: column; gap: 3px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 16px">Backdraft</span>
+<span style="font-size: 13px">Taken</span>
+</div>
+<div style="background: #1b1f2c; color: #8d8779; border: 2px dashed #4a5163; padding: 10px; display: flex; flex-direction: column; gap: 3px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 16px">Ember Wake</span>
+<span style="font-size: 13px">Out of reach</span>
+</div>
+<div style="background: #1b1f2c; color: #8d8779; border: 2px dashed #4a5163; padding: 10px; display: flex; flex-direction: column; gap: 3px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 16px">Hellbreath</span>
+<span style="font-size: 13px">Out of reach</span>
+</div>
+</div>
+<span style="font-size: 26px; color: #f3c74e; line-height: 1">↓</span>
+<span style="font-family: 'Cinzel', serif; font-size: 14px; color: #c9b27a; letter-spacing: 1px">ASCENSION · LV 8</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%">
+<div style="background: #0f111a; color: #f3dfa8; border: 3px solid #f3c74e; padding: 10px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 17px">Dragon's Breath</span>
+<span style="background: #f3c74e; color: #111420; font-size: 12px; font-weight: 600; padding: 1px 5px">READY</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 5px">
+<span style="font-size: 13px; background: #2d3346; padding: 2px 6px">✓ Spell 8</span>
+<span style="font-size: 13px; background: #e8692e; color: #111420; padding: 2px 6px">✓ Fire 4/4</span>
+<span style="font-size: 13px; background: #2d3346; padding: 2px 6px">✓ You 17/17</span>
+</div>
+</div>
+<div style="background: #0f111a; color: #8d8779; border: 2px dashed #4a5163; padding: 10px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 17px">???</span>
+<span style="font-size: 13px">Sealed until first met</span>
+</div>
+</div>
+<span style="font-size: 26px; color: #8d8779; line-height: 1">↓</span>
+<span style="font-family: 'Cinzel', serif; font-size: 14px; color: #ffb27a; letter-spacing: 1px">✶ APOTHEOSIS</span>
+<div style="width: 100%; box-sizing: border-box; background: #2a1410; color: #ffd6a8; border: 3px solid #e8692e; padding: 12px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 19px">Cataclysm</span>
+<div style="display: flex; flex-wrap: wrap; gap: 5px">
+<span style="font-size: 13px; background: #3b2018; padding: 2px 6px">✓ Backdraft</span>
+<span style="font-size: 13px; background: #3b2018; padding: 2px 6px">○ Dragon's Breath</span>
+<span style="font-size: 13px; background: #e8692e; color: #111420; padding: 2px 6px">Fire 4/6</span>
+<span style="font-size: 13px; background: #3b2018; padding: 2px 6px">You 17/23</span>
+</div>
+</div>
+</div>
+
+<div style="border-top: 2px solid #3a4052; padding: 12px 18px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 15px; color: #c9b27a; letter-spacing: 1px">USED IN</span>
+<div style="background: #1b1f2c; border: 2px dashed #4a5163; padding: 8px 12px; font-size: 15px; color: #c9c3b6">Dragon's Breath + Thorned Vine · Thicket → ???</div>
+</div>
+</div>
+</div>
+</template>
+<template id="f-b-pc"><style>:host{all:initial}
+
+a{color:#e8c66e}a:hover{color:#ffe29a}
+.row{display:flex;align-items:center;gap:8px;height:24px;font-size:14px;padding:0 6px}
+.pip{font-size:10px;letter-spacing:1px;color:#8a6a3a}
+.eh{font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:1px;display:flex;align-items:center;gap:6px;margin:8px 0 2px 0}
+.sw{width:10px;height:10px;display:inline-block}
+.node{border:2px solid #3a2a18;padding:6px 8px;display:flex;flex-direction:column;gap:2px;background:#f6ead2}
+.nt{font-family:'Cinzel',serif;font-weight:700;font-size:14px}
+.ns{font-size:11px}
+.gate{font-size:10px;padding:1px 5px;background:#e3cfa9}
+</style>
+<div style="position: relative; width: 1280px; height: 720px; box-sizing: border-box; background: #0b0d14; font-family: 'Noto Sans', sans-serif; color: #e9e3d4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
+
+<div style="width: 1180px; display: flex; align-items: flex-end; gap: 16px">
+<h1 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 28px; letter-spacing: 2px; color: #f3dfa8">SPELL INDEX</h1>
+<span style="font-size: 13px; color: #b9b3a6; padding-bottom: 5px">87 of 142 found</span>
+<span style="flex: 1"></span>
+<div style="display: flex; gap: 4px">
+<span style="height: 34px; padding: 0 16px; display: flex; align-items: center; background: #efe0c4; color: #2a2016; font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px; border: 2px solid #b8923f; border-bottom: none">Spells</span>
+<span style="height: 30px; padding: 0 16px; display: flex; align-items: center; background: #8d7a5a; color: #2a2016; font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px; align-self: flex-end">Items</span>
+<span style="height: 30px; padding: 0 16px; display: flex; align-items: center; background: #8d7a5a; color: #2a2016; font-family: 'Cinzel', serif; font-weight: 700; font-size: 14px; align-self: flex-end">Recipes</span>
+</div>
+<a href="#" style="display: flex; align-items: center; justify-content: center; width: 96px; height: 40px; background: #0b0d14; border: 2px solid #b8923f; color: #f3dfa8; text-decoration: none; font-weight: 600">Back</a>
+</div>
+
+<div style="width: 1180px; height: 600px; box-sizing: border-box; background: #262a36; border: 4px solid #4a5163; padding: 12px; display: flex">
+
+<div style="width: 400px; box-sizing: border-box; background: #efe0c4; color: #2a2016; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; box-shadow: inset -18px 0 18px -14px rgba(40,25,10,0.55)">
+<label for="b-search" style="position: absolute; left: -9999px">Search</label>
+<input id="b-search" type="search" placeholder="Search the index..." style="height: 34px; box-sizing: border-box; padding: 0 10px; background: #f8efdc; border: 2px solid #8a6a3a; color: #2a2016; font-family: 'Noto Sans', sans-serif; font-size: 14px; margin-bottom: 4px">
+<div style="display: flex; gap: 6px; font-size: 11px; color: #6b5636; margin-bottom: 2px"><span>★ yours</span><span>· ink = held this run</span><span>· faded = known</span></div>
+
+<div class="eh" style="color: #a8431a"><span class="sw" style="background: #e8692e"></span>FIRE</div>
+<div class="row" style="background: #e3c98f; border-left: 4px solid #b8923f; font-weight: 600"><span>★ Cinderbreath</span><span style="flex:1"></span><span class="pip">■■■■■■■□</span></div>
+<div class="row"><span>Fireball</span><span style="flex:1"></span><span class="pip">■■■■■□□□</span></div>
+<div class="row"><span>Molten Shard</span><span style="flex:1"></span><span class="pip">■■■□□□□□</span></div>
+<div class="row" style="color: #9b8a6c"><span>Meteor Swarm</span></div>
+<div class="row" style="color: #9b8a6c"><span>Scorching Ray</span></div>
+
+<div class="eh" style="color: #2f6f8a"><span class="sw" style="background: #7fdcf8"></span>ICE</div>
+<div class="row" style="color: #9b8a6c"><span>Cone of Cold</span></div>
+<div class="row" style="color: #9b8a6c"><span>Frost Shard</span></div>
+<div class="row" style="color: #9b8a6c"><span>Glacial Spike</span></div>
+<div class="row" style="color: #9b8a6c"><span>Sleet Runes</span></div>
+
+<div class="eh" style="color: #8a6d10"><span class="sw" style="background: #f0d040"></span>LIGHTNING</div>
+<div class="row"><span>Chain Lightning</span><span style="flex:1"></span><span class="pip">■■■■□□□□</span></div>
+<div class="row" style="color: #9b8a6c"><span>Stormsweep</span></div>
+
+<div class="eh" style="color: #5a3a8a"><span class="sw" style="background: #8a5cc4"></span>DARKNESS</div>
+<div class="row"><span>Gravewell</span><span style="flex:1"></span><span class="pip">■■□□□□□□</span></div>
+<div class="row" style="color: #b5a688; font-style: italic"><span>? ? ?</span><span style="flex:1"></span><span style="font-size: 11px">not yet found</span></div>
+<span style="margin-top: auto; font-size: 11px; color: #6b5636; text-align: center">the page scrolls · twelve elements, in the order of the element wheel</span>
+</div>
+
+<div style="width: 6px; background: linear-gradient(90deg, #6b5636, #2a2016, #6b5636)"></div>
+
+<div style="flex: 1; box-sizing: border-box; background: #f3e6cc; color: #2a2016; padding: 14px 20px; display: flex; flex-direction: column; gap: 8px; box-shadow: inset 18px 0 18px -14px rgba(40,25,10,0.55); min-width: 0">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 48px; height: 48px; background: #2a2016; display: flex; align-items: center; justify-content: center"><div style="width: 26px; height: 26px; background: #e8692e; transform: rotate(45deg)"></div></div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; align-items: center; gap: 10px">
+<h2 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 26px">Cinderbreath</h2>
+<span style="background: #e8692e; color: #2a2016; font-size: 12px; font-weight: 600; padding: 1px 7px">Fire 4/4</span>
+<span style="font-size: 12px; color: #6b5636">Level 7 · your starting spell</span>
+</div>
+<span style="font-size: 14px; font-style: italic; color: #4a3a26">Breathes fire in a wide arc.</span>
+</div>
+</div>
+
+<div style="position: relative; flex: 1; min-height: 0">
+<svg width="740" height="360" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g stroke="#8a6a3a" stroke-width="2" fill="none">
+<path d="M370 36 V56 H120 V74"/><path d="M370 56 V74"/><path d="M370 56 H620 V74"/>
+</g>
+<g stroke="#b8923f" stroke-width="3" fill="none"><path d="M120 128 V150 H250 V168"/></g>
+<g stroke="#8a6a3a" stroke-width="2" fill="none" stroke-dasharray="5 4"><path d="M250 150 H490 V168"/></g>
+<g stroke="#e8692e" stroke-width="3" fill="none"><path d="M255 232 V252 H415 V268"/><path d="M40 101 H20 V304 H300"/></g>
+</svg>
+<div style="position: absolute; left: 290px; top: 0; width: 160px" class="node"><span class="nt">Cinderbreath</span><span class="ns">Base · level 7 of 8</span></div>
+
+<div style="position: absolute; left: 0; top: 4px; font-family: 'Cinzel', serif; font-size: 11px; color: #8a6a3a; letter-spacing: 1px">MUTATION · LV 4</div>
+<div style="position: absolute; left: 40px; top: 74px; width: 160px; background: #e3c98f; border-color: #b8923f" class="node"><span class="nt">Backdraft</span><span class="ns">taken this run</span></div>
+<div style="position: absolute; left: 290px; top: 74px; width: 160px; opacity: 0.55" class="node"><span class="nt">Ember Wake</span><span class="ns">closed this run</span></div>
+<div style="position: absolute; left: 540px; top: 74px; width: 160px; opacity: 0.55" class="node"><span class="nt">Hellbreath <span style="font-size: 10px; background: #8a5cc4; color: #f6ead2; padding: 0 4px">+Darkness</span></span><span class="ns">closed this run</span></div>
+
+<div style="position: absolute; left: 0; top: 150px; font-family: 'Cinzel', serif; font-size: 11px; color: #8a6a3a; letter-spacing: 1px">ASCENSION · LV 8</div>
+<div style="position: absolute; left: 160px; top: 168px; width: 190px; border: 3px solid #b8923f" class="node"><div style="display: flex; justify-content: space-between"><span class="nt">Dragon's Breath</span><span style="background: #b8923f; color: #f6ead2; font-size: 10px; font-weight: 600; padding: 1px 4px">READY</span></div><div style="display: flex; gap: 3px; flex-wrap: wrap"><span class="gate">✓ Spell 8</span><span class="gate">✓ Fire 4/4</span><span class="gate">✓ You 17/17</span></div></div>
+<div style="position: absolute; left: 410px; top: 168px; width: 160px; border-style: dashed; color: #8a7a5a" class="node"><span class="nt">? ? ?</span><span class="ns">sealed until first met</span></div>
+
+<div style="position: absolute; left: 300px; top: 268px; width: 230px; background: #2a1410; color: #ffd6a8; border: 3px solid #e8692e" class="node"><span style="font-size: 10px; color: #ffb27a; letter-spacing: 1px">✶ APOTHEOSIS · PYROMANCER</span><span class="nt">Cataclysm</span><div style="display: flex; gap: 3px; flex-wrap: wrap"><span class="gate" style="background: #3b2018">✓ Backdraft</span><span class="gate" style="background: #3b2018">○ Dragon's Breath</span><span class="gate" style="background: #3b2018">You 17/23</span></div></div>
+</div>
+
+<div style="border-top: 1px solid #8a6a3a; padding-top: 6px; font-size: 13px; font-style: italic; color: #4a3a26">In the margin: <b style="font-style: normal">Dragon's Breath</b> + Thorned Vine · Thicket → <span style="color: #8a7a5a">? ? ?</span>, a Conjunction</div>
+</div>
+</div>
+
+<div style="width: 1180px; display: flex; justify-content: space-between; font-size: 12px; color: #8d8779"><span>The index is the left page; the right page is the spell. Orange line: the way to the Apotheosis.</span><span>LB / RB tabs · Y search · A open · B back</span></div>
+</div>
+</template>
+<template id="f-b-phone"><style>:host{all:initial}
+
+a{color:#e8c66e}a:hover{color:#ffe29a}
+.node{border:2px solid #3a2a18;padding:10px 12px;display:flex;flex-direction:column;gap:4px;background:#f6ead2;box-sizing:border-box}
+.nt{font-family:'Cinzel',serif;font-weight:700;font-size:20px}
+.ns{font-size:15px}
+.gate{font-size:13px;padding:2px 6px;background:#e3cfa9}
+.lab{font-family:'Cinzel',serif;font-size:14px;color:#8a6a3a;letter-spacing:1px;text-align:center}
+.down{font-size:24px;color:#8a6a3a;text-align:center;line-height:1}
+</style>
+<div style="position: relative; width: 720px; height: 1280px; box-sizing: border-box; background: #0b0d14; font-family: 'Noto Sans', sans-serif; color: #e9e3d4; padding: 176px 16px 16px 16px; display: flex; flex-direction: column">
+<div style="position: absolute; top: 0; left: 0; width: 720px; height: 160px; box-sizing: border-box; padding: 24px; background: #151926; border-bottom: 2px dashed #3a4052">
+<span style="font-size: 14px; color: #8d8779">run HUD stays visible here (health, timer, spell strip)</span>
+</div>
+
+<div style="flex: 1; box-sizing: border-box; background: #262a36; border: 4px solid #4a5163; padding: 10px; display: flex; flex-direction: column; min-height: 0">
+<div style="flex: 1; background: #f3e6cc; color: #2a2016; display: flex; flex-direction: column; min-height: 0">
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 2px solid #8a6a3a">
+<a href="#" style="display: flex; align-items: center; justify-content: center; height: 52px; padding: 0 14px; background: #2a2016; color: #f3dfa8; text-decoration: none; font-weight: 600; font-size: 17px">‹ Index</a>
+<h1 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 28px">Cinderbreath</h1>
+<span style="flex: 1"></span>
+<span style="background: #e8692e; font-size: 14px; font-weight: 600; padding: 2px 8px">Fire 4/4</span>
+</div>
+<span style="padding: 8px 18px 0 18px; font-size: 17px; font-style: italic; color: #4a3a26">Breathes fire in a wide arc. Level 7 · your starting spell.</span>
+
+<div style="flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 12px 18px">
+<div class="lab">MUTATION · LV 4</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div class="node" style="background: #e3c98f; border-color: #b8923f"><span class="nt" style="font-size: 17px">Backdraft</span><span class="ns" style="font-size: 13px">taken</span></div>
+<div class="node" style="opacity: 0.55"><span class="nt" style="font-size: 17px">Ember Wake</span><span class="ns" style="font-size: 13px">closed</span></div>
+<div class="node" style="opacity: 0.55"><span class="nt" style="font-size: 17px">Hellbreath</span><span class="ns" style="font-size: 13px">closed · +Darkness</span></div>
+</div>
+<div class="down">↓</div>
+<div class="lab">ASCENSION · LV 8</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<div class="node" style="border: 3px solid #b8923f"><div style="display: flex; justify-content: space-between; align-items: center"><span class="nt" style="font-size: 18px">Dragon's Breath</span><span style="background: #b8923f; color: #f6ead2; font-size: 12px; font-weight: 600; padding: 1px 5px">READY</span></div><div style="display: flex; gap: 4px; flex-wrap: wrap"><span class="gate">✓ Spell 8</span><span class="gate">✓ Fire 4/4</span><span class="gate">✓ You 17/17</span></div></div>
+<div class="node" style="border-style: dashed; color: #8a7a5a"><span class="nt" style="font-size: 18px">? ? ?</span><span class="ns">sealed until first met</span></div>
+</div>
+<div class="down" style="color: #e8692e">↓</div>
+<div class="node" style="background: #2a1410; color: #ffd6a8; border: 3px solid #e8692e"><span style="font-size: 13px; color: #ffb27a; letter-spacing: 1px">✶ APOTHEOSIS · PYROMANCER</span><span class="nt">Cataclysm</span><div style="display: flex; gap: 4px; flex-wrap: wrap"><span class="gate" style="background: #3b2018">✓ Backdraft</span><span class="gate" style="background: #3b2018">○ Dragon's Breath</span><span class="gate" style="background: #3b2018">You 17/23</span></div></div>
+<div style="margin-top: auto; border-top: 1px solid #8a6a3a; padding-top: 8px; font-size: 16px; font-style: italic; color: #4a3a26">In the margin: <b style="font-style: normal">Dragon's Breath</b> + Thorned Vine · Thicket → ? ? ?</div>
+</div>
+</div>
+</div>
+<span style="padding-top: 8px; font-size: 13px; color: #8d8779; text-align: center">On a phone the book is one page at a time: the index, then a tap turns to the spell's page. Swipe for the next spell.</span>
+</div>
+</template>
+<template id="f-c-pc"><style>:host{all:initial}
+
+a{color:#e8c66e}a:hover{color:#ffe29a}
+.ic{width:52px;height:52px;box-sizing:border-box;background:#151926;display:flex;align-items:center;justify-content:center;flex:none}
+.gem{width:28px;height:28px;transform:rotate(45deg)}
+.node{position:absolute;box-sizing:border-box;padding:7px 10px;display:flex;flex-direction:column;gap:3px;background:#1b1f2c;border:2px solid #4a5163}
+.nt{font-family:'Cinzel',serif;font-weight:700;font-size:15px;color:#f3dfa8}
+.ns{font-size:11px;color:#b9b3a6}
+.col{position:absolute;top:0;font-family:'Cinzel',serif;font-size:11px;color:#c9b27a;letter-spacing:1px}
+.gate{font-size:11px;padding:2px 6px;background:#2d3346}
+</style>
+<div style="position: relative; width: 1280px; height: 720px; box-sizing: border-box; background: #0b0d14; font-family: 'Noto Sans', sans-serif; color: #e9e3d4; display: flex; align-items: center; justify-content: center">
+<div style="width: 1180px; height: 660px; box-sizing: border-box; background: #262a36; border: 4px solid #4a5163; display: flex; flex-direction: column">
+
+<div style="display: flex; align-items: center; gap: 16px; padding: 12px 18px; background: #111420; border-bottom: 2px solid #b8923f">
+<h1 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 28px; letter-spacing: 2px; color: #f3dfa8">SPELL INDEX</h1>
+<div style="display: flex; gap: 4px">
+<span style="height: 32px; padding: 0 14px; display: flex; align-items: center; background: #b8923f; color: #111420; font-weight: 600; font-size: 14px">Spells</span>
+<span style="height: 32px; padding: 0 14px; display: flex; align-items: center; background: #1b1f2c; border: 2px solid #4a5163; box-sizing: border-box; color: #c9c3b6; font-size: 14px">Items</span>
+<span style="height: 32px; padding: 0 14px; display: flex; align-items: center; background: #1b1f2c; border: 2px solid #4a5163; box-sizing: border-box; color: #c9c3b6; font-size: 14px">Recipes</span>
+</div>
+<label for="c-search" style="position: absolute; left: -9999px">Search</label>
+<input id="c-search" type="search" placeholder="Search..." style="flex: 1; height: 36px; box-sizing: border-box; padding: 0 12px; background: #1b1f2c; border: 2px solid #4a5163; color: #e9e3d4; font-family: 'Noto Sans', sans-serif; font-size: 15px">
+<span style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 18px; color: #f3dfa8">87 / 142</span>
+<a href="#" style="display: flex; align-items: center; justify-content: center; width: 90px; height: 40px; background: #0b0d14; border: 2px solid #b8923f; color: #f3dfa8; text-decoration: none; font-weight: 600">Back</a>
+</div>
+
+<div style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: #1d2130; border-bottom: 2px solid #3a4052">
+<span style="font-size: 20px; color: #8d8779">‹</span>
+<div class="ic" style="width: 62px; height: 62px; border: 3px solid #f3c74e; box-shadow: 0 0 0 3px #0b0d14, 0 0 0 5px #f3c74e"><div class="gem" style="background: #e8692e; width: 32px; height: 32px"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #e8692e"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #f0d040"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #f3e6a3"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #e8692e"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #8a5cc4"></div></div>
+<div style="width: 2px; height: 44px; background: #4a5163; margin: 0 6px"></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #e8692e; opacity: 0.5"></div></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #f3e6a3; opacity: 0.5"></div></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #7fdcf8; opacity: 0.5"></div></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #7fdcf8; opacity: 0.5"></div></div>
+<div class="ic" style="border: 2px dashed #4a5163"><span style="color: #8d8779; font-size: 14px">?</span></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #8fd8c6; opacity: 0.5"></div></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #3f7fd6; opacity: 0.5"></div></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #6fbf4a; opacity: 0.5"></div></div>
+<span style="font-size: 20px; color: #8d8779">›</span>
+<span style="flex: 1"></span>
+<span style="font-size: 12px; color: #b9b3a6; max-width: 150px">held this run first, then the rest · LB / RB</span>
+</div>
+
+<div style="flex: 1; display: flex; min-height: 0">
+<div style="flex: 1; position: relative; padding: 14px 18px; min-width: 0">
+<div style="position: relative; width: 790px; height: 420px">
+<span class="col" style="left: 10px">BASE</span><span class="col" style="left: 200px">MUTATION · LV 4</span><span class="col" style="left: 400px">ASCENSION · LV 8</span><span class="col" style="left: 610px">FINAL FORM</span>
+<svg width="790" height="420" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g fill="none" stroke="#b8923f" stroke-width="3"><path d="M160 208 C182 208 178 95 200 95"/></g>
+<g fill="none" stroke="#4a5163" stroke-width="2"><path d="M160 208 H200"/><path d="M160 208 C182 208 178 315 200 315"/></g>
+<g fill="none" stroke="#b8923f" stroke-width="3"><path d="M360 95 H380 V95 H400"/></g>
+<g fill="none" stroke="#4a5163" stroke-width="2" stroke-dasharray="5 4"><path d="M360 205 H380 V95"/><path d="M360 315 H380 V215 H400"/><path d="M380 95 V215"/></g>
+<g fill="none" stroke="#e8692e" stroke-width="3"><path d="M570 95 H590 V100 H610"/></g>
+<g fill="none" stroke="#4a5163" stroke-width="2" stroke-dasharray="5 4"><path d="M485 130 V330"/><path d="M610 362 H570"/></g>
+</svg>
+
+<div class="node" style="left: 10px; top: 180px; width: 150px; height: 56px; border: 2px solid #f3dfa8; background: #f1dcc0"><span class="nt" style="color: #2a2016">Cinderbreath</span><span class="ns" style="color: #4a3a26">level 7 of 8</span></div>
+
+<div class="node" style="left: 200px; top: 70px; width: 160px; height: 50px; background: #b8923f; border-color: #f3dfa8"><span class="nt" style="color: #111420">Backdraft</span><span class="ns" style="color: #111420">taken · ✶ path</span></div>
+<div class="node" style="left: 200px; top: 180px; width: 160px; height: 50px; opacity: 0.55"><span class="nt">Ember Wake</span><span class="ns">closed this run</span></div>
+<div class="node" style="left: 200px; top: 290px; width: 160px; height: 50px; opacity: 0.55"><span class="nt">Hellbreath</span><span class="ns">closed · +Darkness</span></div>
+
+<div class="node" style="left: 400px; top: 60px; width: 170px; height: 70px; border: 3px solid #f3c74e; background: #0f111a"><div style="display: flex; justify-content: space-between"><span class="nt">Dragon's Breath</span><span style="background: #f3c74e; color: #111420; font-size: 10px; font-weight: 600; padding: 1px 4px; align-self: center">READY</span></div><span class="ns">✓ all three gates · ✶ path</span></div>
+<div class="node" style="left: 400px; top: 180px; width: 170px; height: 70px; border-style: dashed; background: #0f111a"><span class="nt" style="color: #8d8779">? ? ?</span><span class="ns">sealed until first met</span></div>
+
+<div class="node" style="left: 610px; top: 60px; width: 180px; height: 80px; background: #2a1410; border: 3px solid #e8692e"><span style="font-size: 10px; color: #ffb27a; letter-spacing: 1px">✶ APOTHEOSIS</span><span class="nt" style="color: #ffd6a8">Cataclysm</span><span class="ns" style="color: #ffd6a8">Pyromancer only · You 17/23</span></div>
+
+<div class="node" style="left: 400px; top: 330px; width: 170px; height: 64px; border-style: dashed; background: #0f111a"><span style="font-size: 10px; color: #c9b27a; letter-spacing: 1px">CONJUNCTION</span><span class="nt" style="color: #8d8779">? ? ?</span></div>
+<div class="node" style="left: 610px; top: 330px; width: 180px; height: 64px; opacity: 0.7"><span class="nt" style="font-size: 13px">Thorned Vine</span><span class="ns">ascended as Thicket</span></div>
+</div>
+</div>
+
+<div style="width: 300px; box-sizing: border-box; border-left: 2px solid #3a4052; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: #1f2330">
+<span style="font-family: 'Cinzel', serif; font-size: 12px; color: #c9b27a; letter-spacing: 1px">ASCENSION · LEVEL 8</span>
+<h2 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 24px; color: #f3dfa8">Dragon's Breath</h2>
+<span style="align-self: flex-start; background: #f3c74e; color: #111420; font-size: 12px; font-weight: 600; padding: 2px 8px">READY on your next level-up</span>
+<div style="display: flex; flex-direction: column; gap: 5px">
+<span class="gate">✓ Cinderbreath at level 8</span>
+<span class="gate" style="background: #e8692e; color: #111420">✓ Fire 4 of 4</span>
+<span class="gate">✓ You at level 17 of 17</span>
+</div>
+<span style="font-size: 13px; color: #c9c3b6">the card's own words go here, one or two sentences</span>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #b9b3a6">
+<span>Leads to <b style="color: #ffd6a8">✶ Cataclysm</b>, with Backdraft</span>
+<span>With Thorned Vine (Thicket): a Conjunction, ? ? ?</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; justify-content: space-between; padding: 6px 18px; font-size: 12px; color: #8d8779; border-top: 2px solid #3a4052"><span>The map is the spell's whole tree; the panel is whatever you are pointing at.</span><span>D-pad walks the map · Y search · B back</span></div>
+</div>
+</div>
+</template>
+<template id="f-c-phone"><style>:host{all:initial}
+
+a{color:#e8c66e}a:hover{color:#ffe29a}
+.ic{width:84px;height:84px;box-sizing:border-box;background:#151926;display:flex;align-items:center;justify-content:center;flex:none}
+.gem{width:42px;height:42px;transform:rotate(45deg)}
+.node{position:absolute;box-sizing:border-box;padding:8px 10px;display:flex;flex-direction:column;gap:3px;background:#1b1f2c;border:2px solid #4a5163}
+.nt{font-family:'Cinzel',serif;font-weight:700;font-size:17px;color:#f3dfa8}
+.ns{font-size:13px;color:#b9b3a6}
+.gate{font-size:14px;padding:3px 7px;background:#2d3346}
+</style>
+<div style="position: relative; width: 720px; height: 1280px; box-sizing: border-box; background: #0b0d14; font-family: 'Noto Sans', sans-serif; color: #e9e3d4; padding: 176px 16px 16px 16px; display: flex; flex-direction: column">
+<div style="position: absolute; top: 0; left: 0; width: 720px; height: 160px; box-sizing: border-box; padding: 24px; background: #151926; border-bottom: 2px dashed #3a4052">
+<span style="font-size: 14px; color: #8d8779">run HUD stays visible here (health, timer, spell strip)</span>
+</div>
+<div style="flex: 1; box-sizing: border-box; background: #262a36; border: 4px solid #4a5163; display: flex; flex-direction: column; min-height: 0">
+
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #111420; border-bottom: 2px solid #b8923f">
+<h1 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 26px; letter-spacing: 1px; color: #f3dfa8">SPELL INDEX</h1>
+<span style="flex: 1"></span>
+<span style="width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: #1b1f2c; border: 2px solid #4a5163; font-size: 22px; color: #c9c3b6" aria-label="Search">⌕</span>
+<a href="#" style="display: flex; align-items: center; justify-content: center; width: 96px; height: 52px; background: #0b0d14; border: 2px solid #b8923f; color: #f3dfa8; text-decoration: none; font-weight: 600; font-size: 17px">Back</a>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #1d2130; border-bottom: 2px solid #3a4052; overflow: hidden">
+<div class="ic" style="border: 3px solid #f3c74e; box-shadow: 0 0 0 3px #0b0d14, 0 0 0 5px #f3c74e"><div class="gem" style="background: #e8692e"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #e8692e"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #f0d040"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #f3e6a3"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #e8692e"></div></div>
+<div class="ic" style="border: 2px solid #b8923f"><div class="gem" style="background: #8a5cc4"></div></div>
+<div class="ic" style="border: 2px solid #4a5163"><div class="gem" style="background: #7fdcf8; opacity: 0.5"></div></div>
+</div>
+
+<div style="flex: 1; position: relative; min-height: 0">
+<svg width="680" height="560" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<g fill="none" stroke="#b8923f" stroke-width="3"><path d="M340 64 V84 H110 V100"/><path d="M110 158 V178 H200 V196"/></g>
+<g fill="none" stroke="#4a5163" stroke-width="2"><path d="M340 84 V100"/><path d="M340 84 H570 V100"/></g>
+<g fill="none" stroke="#4a5163" stroke-width="2" stroke-dasharray="5 4"><path d="M200 178 H480 V196"/><path d="M200 282 V300 H110 V430"/></g>
+<g fill="none" stroke="#e8692e" stroke-width="3"><path d="M200 282 V300 H380 V320"/></g>
+</svg>
+<div class="node" style="left: 255px; top: 12px; width: 170px; height: 52px; background: #f1dcc0; border-color: #f3dfa8"><span class="nt" style="color: #2a2016">Cinderbreath</span><span class="ns" style="color: #4a3a26">level 7 of 8</span></div>
+<div class="node" style="left: 20px; top: 100px; width: 180px; height: 58px; background: #b8923f; border-color: #f3dfa8"><span class="nt" style="color: #111420">Backdraft</span><span class="ns" style="color: #111420">taken · ✶ path</span></div>
+<div class="node" style="left: 250px; top: 100px; width: 180px; height: 58px; opacity: 0.55"><span class="nt">Ember Wake</span><span class="ns">closed</span></div>
+<div class="node" style="left: 480px; top: 100px; width: 180px; height: 58px; opacity: 0.55"><span class="nt">Hellbreath</span><span class="ns">closed · +Darkness</span></div>
+<div class="node" style="left: 100px; top: 196px; width: 220px; height: 86px; border: 3px solid #f3c74e; background: #0f111a; outline: 3px solid #0b0d14; box-shadow: 0 0 0 6px #f3c74e"><div style="display: flex; justify-content: space-between"><span class="nt">Dragon's Breath</span><span style="background: #f3c74e; color: #111420; font-size: 12px; font-weight: 600; padding: 1px 5px; align-self: center">READY</span></div><span class="ns">ascension · ✶ path</span></div>
+<div class="node" style="left: 390px; top: 196px; width: 180px; height: 86px; border-style: dashed; background: #0f111a"><span class="nt" style="color: #8d8779">? ? ?</span><span class="ns">sealed until first met</span></div>
+<div class="node" style="left: 260px; top: 320px; width: 240px; height: 80px; background: #2a1410; border: 3px solid #e8692e"><span style="font-size: 12px; color: #ffb27a; letter-spacing: 1px">✶ APOTHEOSIS</span><span class="nt" style="color: #ffd6a8">Cataclysm</span><span class="ns" style="color: #ffd6a8">You 17/23</span></div>
+<div class="node" style="left: 20px; top: 430px; width: 200px; height: 64px; border-style: dashed; background: #0f111a"><span style="font-size: 12px; color: #c9b27a; letter-spacing: 1px">CONJUNCTION</span><span class="nt" style="color: #8d8779">? ? ?</span></div>
+<span style="position: absolute; left: 240px; top: 452px; font-size: 14px; color: #8d8779">with Thorned Vine · Thicket</span>
+</div>
+
+<div style="box-sizing: border-box; border-top: 3px solid #f3c74e; background: #1f2330; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Cinzel', serif; font-weight: 700; font-size: 24px; color: #f3dfa8">Dragon's Breath</h2><span style="font-size: 14px; color: #c9b27a">Ascension · level 8</span></div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap"><span class="gate">✓ Spell 8</span><span class="gate" style="background: #e8692e; color: #111420">✓ Fire 4/4</span><span class="gate">✓ You 17/17</span></div>
+<span style="font-size: 15px; color: #c9c3b6">the card's own words, one or two sentences</span>
+</div>
+</div>
+<span style="padding-top: 8px; font-size: 13px; color: #8d8779; text-align: center">The strip scrolls sideways; tap a node and its card docks at the bottom.</span>
+</div>
+</template>
+</div>
+
+    <script>
+      ;(function () {
+        document.querySelectorAll('.frame').forEach(function (fig) {
+          var host = fig.querySelector('.frame-host')
+          var box = fig.querySelector('.frame-box')
+          var tpl = document.getElementById('f-' + host.dataset.frame)
+          if (!tpl) return
+          var root = host.attachShadow({ mode: 'open' })
+          root.appendChild(tpl.content.cloneNode(true))
+          // The wireframes' links and buttons are pictures of controls, not controls.
+          root.addEventListener('click', function (e) {
+            e.preventDefault()
+          })
+          var inner = root.querySelector('div')
+          var W = Number(host.dataset.w)
+          var H = Number(host.dataset.h)
+          inner.style.transformOrigin = '0 0'
+          var button = fig.querySelector('.zoom')
+          function fit() {
+            var avail = box.clientWidth
+            if (!avail) return
+            var s = avail / W
+            if (fig.classList.contains('zoomed'))
+              s = Math.max(s, Math.min(1, (avail * 2) / W))
+            inner.style.transform = 'scale(' + s + ')'
+            host.style.width = W * s + 'px'
+            host.style.height = H * s + 'px'
+          }
+          button.addEventListener('click', function () {
+            var on = fig.classList.toggle('zoomed')
+            button.textContent = on ? 'Fit' : 'Zoom in'
+            fit()
+          })
+          if (window.ResizeObserver) new ResizeObserver(fit).observe(box)
+          window.addEventListener('resize', fit)
+          fit()
+        })
+
+        var NAMES = { A: 'the grid', B: 'the book', C: 'the path map' }
+        var form = document.getElementById('answer-form')
+        var submit = document.getElementById('submit-answer')
+        var status = document.getElementById('status')
+        var sending = false
+
+        function say(text, error) {
+          status.textContent = text
+          status.className = 'status' + (error ? ' error' : '')
+        }
+
+        // What the email says: the pick, then the reason. The name goes in a field of its own,
+        // which the intake puts in the email's subject.
+        function message() {
+          var pick = form.querySelector('input[name="pick"]:checked')
+          var why = document.getElementById('answer-why').value.trim()
+          var lines = [
+            pick ? 'Pick: ' + pick.value + ', ' + NAMES[pick.value] : 'Pick: none',
+          ]
+          if (why) lines.push('Why: ' + why)
+          return lines.join('\n')
+        }
+
+        // The same intake as the games' "Report a bug" (intake/server.js), which saves it under
+        // /data/suggestions and emails it to Eric. "game" must read exactly Wizard Survivors: the
+        // intake picks the email's subject from an allowlist of games by it. "version" is what
+        // tells this page's posts apart from the game's own.
+        form.addEventListener('submit', function (e) {
+          e.preventDefault()
+          if (sending) return
+          var data = new FormData()
+          data.append('game', 'Wizard Survivors')
+          data.append('kind', 'vote')
+          data.append('name', document.getElementById('answer-name').value.trim())
+          data.append('version', 'spell-index-vote')
+          data.append('suggestion', message())
+          data.append('website', document.getElementById('website').value)
+          sending = true
+          submit.disabled = true
+          say('Sending...')
+          fetch('/api/draw/suggest', { method: 'POST', body: data })
+            .catch(function () {
+              throw new Error('Could not send. Check your connection and try again.')
+            })
+            .then(function (res) {
+              return res
+                .json()
+                .catch(function () {
+                  return {}
+                })
+                .then(function (body) {
+                  // The intake's own words for its hourly limit are DrawFight's (too many
+                  // fighters), so this page says it in its own.
+                  if (res.status === 429)
+                    throw new Error('Too many sends from here - try again in an hour.')
+                  if (!res.ok)
+                    throw new Error(
+                      body.error ||
+                        'Something went wrong (' + res.status + '). Please try again.',
+                    )
+                })
+            })
+            .then(function () {
+              sending = false
+              say('Sent, thank you.')
+            })
+            .catch(function (err) {
+              // What was typed stays, so it can be sent again once the problem has passed.
+              sending = false
+              submit.disabled = false
+              say(err.message, true)
+            })
+        })
+
+        // Once sent, the button rests, so a second click does not email Eric twice; changing an
+        // answer wakes it to send the new one.
+        form.addEventListener('input', function () {
+          if (sending || !submit.disabled) return
+          submit.disabled = false
+          say('')
+        })
+      })()
+    </script>
+  </body>
+</html>

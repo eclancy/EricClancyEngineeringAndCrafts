@@ -261,7 +261,11 @@ async function suggestion(fields, files, res) {
   const game = Object.prototype.hasOwnProperty.call(REPORT_GAMES, fields.game)
     ? fields.game
     : 'DrawFight'
-  const title = REPORT_GAMES[game]
+  // The Spell Index vote page (public/wizard-survivors/spell-index) posts here as Wizard
+  // Survivors with kind "vote", so its email says it is a vote from that page, not a bug report
+  // from the game. Only that pair is read; every other post keeps the email it always had.
+  const vote = game === 'Wizard Survivors' && fields.kind === 'vote'
+  const title = vote ? 'Wizard Survivors Spell Index vote' : REPORT_GAMES[game]
   const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
   const id = `${stamp}-${slug(fields.name, 'someone')}-${crypto.randomBytes(3).toString('hex')}`
   const dir = path.join(DATA, 'suggestions', id)
@@ -298,7 +302,7 @@ async function suggestion(fields, files, res) {
           html:
             `<h2 style="font-family:sans-serif">${escapeHtml(title)}${record.name ? ` from ${escapeHtml(record.name)}` : ''}</h2>` +
             `<p style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(idea)}</p>` +
-            `<p style="font-family:sans-serif;color:#666;margin-top:24px">Sent from the game, version ${escapeHtml(record.version || 'unknown')}. Saved on the server as <code>suggestions/${id}</code>.${shot.note}</p>`,
+            `<p style="font-family:sans-serif;color:#666;margin-top:24px">${vote ? 'Sent from the Spell Index vote page on ecec.dev' : `Sent from the game, version ${escapeHtml(record.version || 'unknown')}`}. Saved on the server as <code>suggestions/${id}</code>.${shot.note}</p>`,
           attachments: shot.attachments,
         }),
       })
