@@ -240,8 +240,22 @@ const REPORT_GAMES = {
   'Wizard Wars': 'Wizard Wars bug report',
 }
 
+// A bug report can bring one screenshot of the game, which the player saw and chose to send. Only
+// the first picture is kept, saved next to the report as screenshot<ext> and attached to the email.
+async function screenshot(files, dir) {
+  const shot = files[0]
+  if (!shot) return { attachments: [], note: '' }
+  const filename = `screenshot${shot.ext}`
+  await fs.writeFile(path.join(dir, filename), shot.data)
+  return {
+    filename,
+    attachments: [{ filename, content: shot.data.toString('base64') }],
+    note: ' A screenshot is attached.',
+  }
+}
+
 // A suggestion typed in the game: who sent it, if they said, and the idea - saved, and emailed.
-async function suggestion(fields, res) {
+async function suggestion(fields, files, res) {
   const idea = fields.suggestion || ''
   if (!idea) return send(res, 400, { error: 'Write your idea first.' })
   const game = Object.prototype.hasOwnProperty.call(REPORT_GAMES, fields.game)
@@ -252,6 +266,7 @@ async function suggestion(fields, res) {
   const id = `${stamp}-${slug(fields.name, 'someone')}-${crypto.randomBytes(3).toString('hex')}`
   const dir = path.join(DATA, 'suggestions', id)
   await fs.mkdir(dir, { recursive: true })
+  const shot = await screenshot(files, dir)
   const record = {
     id,
     submitted: new Date().toISOString(),
@@ -259,6 +274,7 @@ async function suggestion(fields, res) {
     suggestion: idea,
     version: fields.version || '',
     game,
+    screenshot: shot.filename || null,
   }
   await fs.writeFile(path.join(dir, 'suggestion.json'), JSON.stringify(record, null, 2))
   await fs.writeFile(
@@ -282,7 +298,8 @@ async function suggestion(fields, res) {
           html:
             `<h2 style="font-family:sans-serif">${escapeHtml(title)}${record.name ? ` from ${escapeHtml(record.name)}` : ''}</h2>` +
             `<p style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(idea)}</p>` +
-            `<p style="font-family:sans-serif;color:#666;margin-top:24px">Sent from the game, version ${escapeHtml(record.version || 'unknown')}. Saved on the server as <code>suggestions/${id}</code>.</p>`,
+            `<p style="font-family:sans-serif;color:#666;margin-top:24px">Sent from the game, version ${escapeHtml(record.version || 'unknown')}. Saved on the server as <code>suggestions/${id}</code>.${shot.note}</p>`,
+          attachments: shot.attachments,
         }),
       })
       mail = response.ok ? `sent to ${MAIL_TO}` : `failed (${response.status})`
@@ -296,11 +313,12 @@ async function suggestion(fields, res) {
 
 // DrawPets' feedback (its FeedbackScreen): a bug or an idea from a grown-up. DrawPets is for kids,
 // so the game asks for no name and nothing personal (DrawPets .ai/sharing.md), and this keeps
-// only the message, its kind and the game's version and platform - no address, no name.
+// only the message, its kind, the game's version and platform, and a screenshot of the game if
+// the grown-up turned that on and saw it first - no address, no name.
 const PET_KINDS = { bug: 'bug report', idea: 'idea', other: 'message' }
 const PETS_FROM = 'DrawPets <drawpets@ecec.dev>'
 
-async function petsFeedback(fields, res) {
+async function petsFeedback(fields, files, res) {
   const message = fields.message || ''
   if (!message) return send(res, 400, { error: 'Write a message first.' })
   const kind = PET_KINDS[fields.kind] ? fields.kind : 'other'
@@ -308,6 +326,7 @@ async function petsFeedback(fields, res) {
   const id = `${stamp}-${kind}-${crypto.randomBytes(3).toString('hex')}`
   const dir = path.join(DATA, 'drawpets-feedback', id)
   await fs.mkdir(dir, { recursive: true })
+  const shot = await screenshot(files, dir)
   const record = {
     id,
     submitted: new Date().toISOString(),
@@ -315,6 +334,7 @@ async function petsFeedback(fields, res) {
     message,
     version: (fields.version || '').slice(0, 20),
     platform: (fields.platform || '').slice(0, 20),
+    screenshot: shot.filename || null,
   }
   await fs.writeFile(path.join(dir, 'feedback.json'), JSON.stringify(record, null, 2))
 
@@ -334,7 +354,8 @@ async function petsFeedback(fields, res) {
           html:
             `<h2 style="font-family:sans-serif">A DrawPets ${PET_KINDS[kind]}</h2>` +
             `<p style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(message)}</p>` +
-            `<p style="font-family:sans-serif;color:#666;margin-top:24px">Sent from DrawPets ${escapeHtml(record.version || 'unknown')} on ${escapeHtml(record.platform || 'unknown')}. Saved on the server as <code>drawpets-feedback/${id}</code>.</p>`,
+            `<p style="font-family:sans-serif;color:#666;margin-top:24px">Sent from DrawPets ${escapeHtml(record.version || 'unknown')} on ${escapeHtml(record.platform || 'unknown')}. Saved on the server as <code>drawpets-feedback/${id}</code>.${shot.note}</p>`,
+          attachments: shot.attachments,
         }),
       })
       mail = response.ok ? `sent to ${MAIL_TO}` : `failed (${response.status})`
@@ -371,8 +392,8 @@ async function handle(req, res) {
 
   // The hidden "website" field is invisible to people; only bots fill it in. Pretend it worked.
   if (fields.website) return send(res, 200, { ok: true })
-  if (route === '/api/draw/suggest') return suggestion(fields, res)
-  if (route === '/api/draw/pets') return petsFeedback(fields, res)
+  if (route === '/api/draw/suggest') return suggestion(fields, files, res)
+  if (route === '/api/draw/pets') return petsFeedback(fields, files, res)
   const kind = route === '/api/draw/stage' ? KINDS.stage : KINDS.fighter
   if (!fields.name) return send(res, 400, { error: `Your ${kind.noun} needs a name.` })
   if (files.length === 0)
