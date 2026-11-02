@@ -1571,6 +1571,10 @@ a{color:#e8c66e}a:hover{color:#ffe29a}
                   return {}
                 })
                 .then(function (body) {
+                  // The intake's own words for its hourly limit are DrawFight's (too many
+                  // fighters), so this page says it in its own.
+                  if (res.status === 429)
+                    throw new Error('Too many sends from here - try again in an hour.')
                   if (!res.ok)
                     throw new Error(
                       body.error ||

@@ -89,6 +89,8 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
   picks the email's subject from `REPORT_GAMES`. So does the Wizard Survivors Spell Index vote
   (`/wizard-survivors/spell-index`, `public/wizard-survivors/spell-index/index.html`): `game` is
   Wizard Survivors, `version` is `spell-index-vote`, and the pick and reason are the message.
+  It also sends `kind` = `vote`, the one kind the intake reads, so that email is titled "Wizard
+  Survivors Spell Index vote" rather than a bug report.
 - It is also emailed through Resend (DigitalOcean blocks outgoing SMTP). The key, and the
   address to send to, live only on the droplet, in `/etc/ecec/intake.env`:
 
