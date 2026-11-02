@@ -9,6 +9,12 @@ export default defineConfig({
   server: {
     // In development, the update-email sign-ups go to updates/server.js run locally
     // (`node updates/server.js` - with no RESEND_API_KEY it prints emails instead of sending).
-    proxy: { '/api/updates': 'http://localhost:3002' },
+    // The pages that post to the intake (the /draw form, the Spell Index vote) go to
+    // intake/server.js run locally the same way: `DATA_DIR=<a scratch folder> node
+    // intake/server.js`, which with no RESEND_API_KEY saves each post there and emails nothing.
+    proxy: {
+      '/api/updates': 'http://localhost:3002',
+      '/api/draw': 'http://localhost:3000',
+    },
   },
 })
