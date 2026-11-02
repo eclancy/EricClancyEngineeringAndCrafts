@@ -125,7 +125,7 @@ export const projects: Project[] = [
     images: [
       {
         src: dfTitleScreen,
-        alt: 'DrawFight title screen on lined notebook paper: a punk rocker lunges at a construction worker',
+        alt: 'DrawFight title screen on lined notebook paper: a punk rocker throws a punch at a construction worker holding a sledgehammer',
       },
       {
         src: dfRooftops,
