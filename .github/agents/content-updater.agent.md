@@ -12,7 +12,7 @@ projects change.
 
 - Re-read the README / design docs (`README.md`, `GAME_COMPLETION_PLAN.md`,
   `.ai/project-overview.md`, etc.) of `WizardsArena` (GitHub repo `WizardWars`),
-  `EricsMiniatures`, and `wizard-survivors` from their local checkouts (sibling folders
+  `EricsMiniatures`, and `TheOneHeMissed` from their local checkouts (sibling folders
   under `C:\Users\ericc\Documents\GitHub`) and update the matching entry in
   `src/data/projects.ts` — tagline, description, tech stack, links.
 - Never invent details not present in the source repo; ask the user if something is

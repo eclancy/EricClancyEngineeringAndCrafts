@@ -1,0 +1,1267 @@
+/* The One He Missed: the Bonelight palette (.ai/art-direction.md in the game's repo). Moonlit
+   stone, bone-white type, gold for anything that is light. Everything is scoped to the page. */
+
+.tohm-page-root {
+  --occ: #05070c;
+  --deep: #0b0f18;
+  --stone-4: #141a26;
+  --stone-3: #1e2634;
+  --stone-2: #2a3444;
+  --stone-1: #3a4658;
+  --moss: #2a4e58;
+  --bone-0: #eef2fa;
+  --bone-1: #d4dcea;
+  --bone-2: #9aa4b8;
+  --bone-3: #626e84;
+  --gold-0: #fff0c0;
+  --gold-1: #d8b04a;
+  --gold-2: #8a6a1e;
+  --gold-3: #543f10;
+  --gold-4: #2e2208;
+  --ember: #d8242e;
+  --ink: #2e2208;
+  --pixel: 'Pixelify Sans', ui-monospace, monospace;
+  --serif: 'Alegreya', Georgia, serif;
+  --caps: 'Cinzel', Georgia, serif;
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: linear-gradient(180deg, var(--occ) 0%, var(--deep) 45%, var(--occ) 100%);
+  color: var(--bone-1);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.55;
+  color-scheme: dark;
+  font-variant-ligatures: none;
+}
+
+.tohm-page-root a {
+  color: var(--gold-0);
+  text-decoration-color: var(--gold-2);
+  text-underline-offset: 3px;
+}
+.tohm-page-root a:hover {
+  color: #fff;
+  text-decoration-color: var(--gold-1);
+}
+.tohm-page-root :focus-visible {
+  outline: 3px solid var(--gold-0);
+  outline-offset: 3px;
+}
+
+.tohm-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tohm-skip {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 50;
+  padding: 8px 14px;
+  background: var(--gold-1);
+  color: var(--ink) !important;
+  font-family: var(--pixel);
+}
+.tohm-skip:focus {
+  top: 12px;
+}
+
+/* --- Sky: pixel stars that drift slower than the page, and low fog ------------------------ */
+
+.tohm-stars {
+  --drift: 0px;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 12px 20px, #dce8ff 99%, transparent),
+    radial-gradient(1px 1px at 80px 110px, #9aa4b8 99%, transparent),
+    radial-gradient(2px 2px at 150px 60px, #fff0c0 99%, transparent),
+    radial-gradient(1px 1px at 40px 170px, #626e84 99%, transparent),
+    radial-gradient(1px 1px at 200px 190px, #d4dcea 99%, transparent);
+  background-size:
+    230px 230px,
+    170px 170px,
+    410px 410px,
+    130px 130px,
+    290px 290px;
+  background-position:
+    0 var(--drift),
+    0 calc(var(--drift) * 0.6),
+    0 calc(var(--drift) * 1.4),
+    0 calc(var(--drift) * 0.4),
+    0 calc(var(--drift) * 0.9);
+  opacity: 0.55;
+  animation: tohm-twinkle 4.2s steps(3) infinite;
+}
+@keyframes tohm-twinkle {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.tohm-fog {
+  position: fixed;
+  left: -20%;
+  right: -20%;
+  bottom: -10vh;
+  height: 45vh;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 40% 50% at 30% 70%,
+      rgba(90, 138, 148, 0.09),
+      transparent 70%
+    ),
+    radial-gradient(ellipse 35% 45% at 75% 80%, rgba(110, 98, 150, 0.09), transparent 70%);
+  animation: tohm-fog 38s ease-in-out infinite alternate;
+}
+@keyframes tohm-fog {
+  to {
+    transform: translateX(8%);
+  }
+}
+
+.tohm-page-root > *:not(.tohm-stars):not(.tohm-fog):not(.tohm-skip) {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Top bar ------------------------------------------------------------------------------ */
+
+.tohm-topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--occ);
+  font-family: var(--pixel);
+  font-size: 16px;
+}
+.tohm-topbar a {
+  padding: 4px 10px;
+  background: rgba(5, 7, 12, 0.7);
+  border: 2px solid var(--stone-2);
+  color: var(--bone-1);
+  text-decoration: none;
+}
+.tohm-topbar a:hover {
+  border-color: var(--gold-2);
+  color: var(--gold-0);
+}
+
+/* --- Hero: the title screen, live ---------------------------------------------------------- */
+
+.tohm-title {
+  position: relative;
+  overflow: hidden;
+  background: var(--occ);
+}
+.tohm-title canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+.tohm-title--wide {
+  height: min(720px, 60vw);
+}
+.tohm-title--wide canvas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: auto;
+  transform: translateX(-50%);
+}
+.tohm-title--tall {
+  aspect-ratio: 360 / 650;
+}
+.tohm-title--tall canvas {
+  width: 100%;
+  height: auto;
+  margin-top: -25%;
+}
+.tohm-title::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 22%;
+  background: linear-gradient(transparent, var(--occ));
+  pointer-events: none;
+}
+
+.tohm-plaque {
+  position: relative;
+  z-index: 2;
+  /* 760px at most, 16px clear of each edge on a phone, and centred either way. */
+  width: min(760px, 100% - 32px);
+  margin: -72px auto 0;
+  padding: 26px 22px 22px;
+  text-align: center;
+  border: 24px solid transparent;
+  border-image: url('/games/the-one-he-missed/art/panel.png') 24 fill / 24px round;
+  image-rendering: pixelated;
+}
+.tohm-plaque__tag {
+  margin: 0;
+  font-family: var(--pixel);
+  font-weight: 700;
+  font-size: clamp(24px, 3.4vw, 34px);
+  line-height: 1.15;
+  color: var(--bone-0);
+  text-shadow: 0 3px 0 var(--occ);
+}
+.tohm-plaque__tag em {
+  font-style: normal;
+  color: var(--gold-1);
+}
+.tohm-plaque__sub {
+  margin: 10px auto 22px;
+  max-width: 34em;
+  color: var(--bone-2);
+}
+.tohm-plaque__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+.tohm-plaque__meta {
+  margin: 20px 0 0;
+  font-family: var(--caps);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--bone-2);
+}
+
+/* --- Buttons: chunky, pixel-edged, and they press ------------------------------------------ */
+
+.tohm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 22px;
+  font-family: var(--pixel);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1;
+  text-decoration: none !important;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform 60ms steps(1),
+    filter 120ms;
+}
+.tohm-btn--gold {
+  position: relative;
+  color: var(--ink) !important;
+  background: var(--gold-1);
+  border: 0;
+  box-shadow:
+    inset 0 4px 0 var(--gold-0),
+    inset 4px 0 0 #ecc865,
+    inset -4px 0 0 #b38a2a,
+    inset 0 -4px 0 var(--gold-2),
+    0 0 0 4px var(--occ),
+    0 8px 0 4px var(--occ),
+    0 8px 0 0 var(--gold-3);
+  filter: drop-shadow(0 0 14px rgba(255, 200, 72, 0.35));
+}
+.tohm-btn--gold:hover {
+  background: #e6c25c;
+  color: var(--ink) !important;
+  filter: drop-shadow(0 0 20px rgba(255, 214, 58, 0.55));
+}
+.tohm-btn--gold:active {
+  transform: translateY(6px);
+  box-shadow:
+    inset 0 4px 0 var(--gold-2),
+    inset 0 -4px 0 var(--gold-0),
+    0 0 0 4px var(--occ),
+    0 2px 0 4px var(--occ);
+}
+.tohm-btn--big {
+  min-height: 60px;
+  padding: 14px 30px;
+  font-size: 24px;
+}
+.tohm-btn__glyph {
+  font-size: 0.85em;
+}
+.tohm-btn--stone {
+  color: var(--bone-0) !important;
+  background: transparent;
+  border: 20px solid transparent;
+  border-image: url('/games/the-one-he-missed/art/button.png') 20 fill / 20px stretch;
+  image-rendering: pixelated;
+  padding: 0 6px;
+  min-height: 60px;
+}
+.tohm-btn--stone:hover {
+  border-image-source: url('/games/the-one-he-missed/art/button-hover.png');
+  color: var(--gold-0) !important;
+}
+.tohm-btn--stone:active {
+  border-image-source: url('/games/the-one-he-missed/art/button-pressed.png');
+  transform: translateY(3px);
+}
+.tohm-btn--small {
+  min-height: 44px;
+  font-size: 15px;
+  border-width: 14px;
+  border-image-width: 14px;
+}
+
+.tohm-kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  margin: 0 1px;
+  padding: 1px 6px 2px;
+  font-family: var(--pixel);
+  font-size: 0.82em;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--bone-0);
+  background: var(--stone-3);
+  border: 2px solid var(--stone-1);
+  border-bottom-width: 4px;
+  border-bottom-color: var(--occ);
+}
+
+/* --- Sections ------------------------------------------------------------------------------ */
+
+.tohm-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 72px 16px 0;
+}
+.tohm-heading {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+.tohm-eyebrow {
+  margin: 0 0 6px;
+  font-family: var(--caps);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-1);
+}
+.tohm-page-root h2 {
+  margin: 0;
+  font-family: var(--pixel);
+  font-weight: 700;
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.1;
+  color: var(--bone-0);
+  text-shadow:
+    0 3px 0 var(--gold-3),
+    0 6px 0 var(--occ);
+}
+.tohm-lede {
+  margin: 14px auto 0;
+  color: var(--bone-2);
+}
+.tohm-muted {
+  color: var(--bone-2);
+}
+
+.tohm-panel {
+  border: 24px solid transparent;
+  border-image: url('/games/the-one-he-missed/art/panel.png') 24 fill / 24px round;
+  image-rendering: pixelated;
+  padding: 6px 8px;
+}
+.tohm-page {
+  border: 24px solid transparent;
+  border-image: url('/games/the-one-he-missed/art/page.png') 24 fill / 24px round;
+  image-rendering: pixelated;
+  color: var(--ink);
+  padding: 6px 10px;
+}
+.tohm-page h2,
+.tohm-page h3 {
+  color: var(--ink);
+  text-shadow: none;
+}
+.tohm-page a {
+  color: #6a2028;
+}
+
+/* --- The demo ------------------------------------------------------------------------------ */
+
+.tohm-demo {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.tohm-demo__hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  padding: 10px 14px;
+  background: var(--stone-4);
+  border: 4px solid var(--stone-2);
+  border-bottom: 0;
+  box-shadow: inset 0 0 0 2px var(--occ);
+  font-family: var(--pixel);
+  color: var(--bone-0);
+}
+.tohm-demo__hearts {
+  display: flex;
+  gap: 3px;
+}
+.tohm-demo__hearts span::before {
+  content: '♥';
+  font-size: 20px;
+  line-height: 1;
+  color: var(--stone-1);
+}
+.tohm-demo__hearts span.is-full::before {
+  color: var(--ember);
+  text-shadow: 0 2px 0 #4a0810;
+}
+.tohm-demo__clock {
+  padding: 0 10px;
+  font-size: 22px;
+  background: var(--occ);
+  border: 2px solid var(--stone-2);
+  font-variant-numeric: tabular-nums;
+}
+.tohm-demo__kills {
+  font-size: 18px;
+}
+.tohm-demo__kills span {
+  color: var(--bone-2);
+  font-size: 14px;
+}
+.tohm-demo__xp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 140px;
+}
+.tohm-demo__lvl {
+  color: var(--gold-0);
+  white-space: nowrap;
+}
+.tohm-demo__bar {
+  flex: 1;
+  height: 10px;
+  background: var(--occ);
+  border: 2px solid var(--stone-2);
+}
+.tohm-demo__bar span {
+  display: block;
+  height: 100%;
+  background: #6ab8e8;
+  box-shadow: inset 0 2px 0 #dcf4ff;
+  transition: width 0.2s steps(4);
+}
+.tohm-demo__owned {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tohm-demo__owned li {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background: var(--occ);
+  outline: 2px solid var(--gold-3);
+}
+.tohm-demo__owned img {
+  display: block;
+  image-rendering: pixelated;
+}
+.tohm-demo__owned span {
+  position: absolute;
+  right: -3px;
+  bottom: -5px;
+  font-size: 12px;
+  color: var(--gold-0);
+  text-shadow:
+    1px 1px 0 var(--occ),
+    -1px -1px 0 var(--occ);
+}
+
+.tohm-demo__stage {
+  position: relative;
+  border: 4px solid var(--stone-2);
+  box-shadow:
+    inset 0 0 0 2px var(--occ),
+    0 0 0 2px var(--occ),
+    0 20px 60px rgba(0, 0, 0, 0.6);
+  background: var(--occ);
+}
+.tohm-demo__stage canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  image-rendering: pixelated;
+  outline: none;
+}
+.tohm-demo__stage canvas.is-live {
+  touch-action: none;
+  cursor: crosshair;
+}
+.tohm-demo__veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(5, 7, 12, 0.55),
+    rgba(5, 7, 12, 0.85)
+  );
+}
+.tohm-demo__eyebrow {
+  margin: 0;
+  font-family: var(--caps);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-1);
+}
+.tohm-demo__title {
+  margin: 0;
+  font-family: var(--pixel);
+  font-weight: 700;
+  font-size: clamp(26px, 5vw, 42px);
+  color: var(--bone-0);
+  text-shadow: 0 3px 0 var(--gold-3);
+}
+.tohm-demo__how {
+  margin: 4px 0 14px;
+  max-width: 30em;
+  color: var(--bone-1);
+}
+.tohm-demo__how--small {
+  margin-top: -8px;
+  font-size: 15px;
+  color: var(--bone-2);
+}
+.tohm-demo__controls {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 52px;
+  padding-top: 10px;
+}
+.tohm-demo__hint {
+  font-family: var(--pixel);
+  color: var(--bone-2);
+  align-self: center;
+}
+
+/* The level-up: three torn pages on the stone wall, as in the game. */
+.tohm-levelup {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(5, 7, 12, 0.5), rgba(5, 7, 12, 0.5)),
+    url('/games/the-one-he-missed/art/wall.png') center / cover no-repeat;
+  image-rendering: pixelated;
+  animation: tohm-drop 160ms steps(3);
+}
+@keyframes tohm-drop {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+.tohm-levelup__title {
+  margin: 0;
+  align-self: center;
+  padding: 4px 16px;
+  font-family: var(--caps);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: var(--gold-0);
+  background: var(--occ);
+  border: 3px solid var(--gold-2);
+}
+.tohm-levelup__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.tohm-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px 8px;
+  border: 20px solid transparent;
+  border-image: url('/games/the-one-he-missed/art/card.png') 20 fill / 20px round;
+  image-rendering: pixelated;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--serif);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 80ms steps(2);
+}
+.tohm-card:hover,
+.tohm-card:focus-visible {
+  border-image-source: url('/games/the-one-he-missed/art/card-lit.png');
+  transform: translateY(-6px);
+}
+.tohm-card:focus-visible {
+  outline: 4px solid var(--gold-0);
+  outline-offset: 2px;
+}
+.tohm-card:active {
+  transform: translateY(0);
+}
+.tohm-card__icon {
+  image-rendering: pixelated;
+}
+.tohm-card__name {
+  font-family: var(--caps);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.15;
+}
+.tohm-card__level {
+  font-family: var(--pixel);
+  font-size: 14px;
+  color: #6a2028;
+}
+.tohm-card__text {
+  font-size: 15px;
+  line-height: 1.35;
+}
+.tohm-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-top: auto;
+}
+.tohm-card__tags span {
+  padding: 0 6px;
+  font-family: var(--pixel);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--occ);
+  border: 2px solid var(--occ);
+}
+.tohm-card__tags--page {
+  justify-content: flex-start;
+  margin: 4px 0 10px;
+}
+
+/* --- Clips --------------------------------------------------------------------------------- */
+
+.tohm-clips {
+  display: grid;
+  gap: 40px 28px;
+}
+.tohm-clip {
+  margin: 0;
+}
+.tohm-frame {
+  border: 20px solid transparent;
+  border-image: url('/games/the-one-he-missed/art/frame-gold.png') 20 fill / 20px stretch;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+}
+.tohm-clip__video video {
+  image-rendering: pixelated;
+  background: var(--occ);
+}
+.tohm-clip figcaption {
+  margin-top: 14px;
+  padding: 0 6px;
+  color: var(--bone-2);
+}
+.tohm-clip figcaption strong {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--pixel);
+  font-size: 22px;
+  color: var(--gold-0);
+}
+
+/* --- Grimoire, on the wall ----------------------------------------------------------------- */
+
+.tohm-wall {
+  max-width: none;
+  margin-top: 72px;
+  padding: 64px 16px 72px;
+  background:
+    linear-gradient(
+      var(--occ),
+      rgba(5, 7, 12, 0.78) 12%,
+      rgba(5, 7, 12, 0.78) 88%,
+      var(--occ)
+    ),
+    url('/games/the-one-he-missed/art/wall.png') center / cover no-repeat;
+  image-rendering: pixelated;
+}
+.tohm-grimoire {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.tohm-grimoire__elements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+.tohm-chip {
+  min-height: 36px;
+  padding: 2px 12px;
+  font-family: var(--pixel);
+  font-size: 15px;
+  color: var(--chip);
+  background: var(--occ);
+  border: 2px solid var(--chip);
+  box-shadow: 0 3px 0 var(--occ);
+  cursor: pointer;
+}
+.tohm-chip:hover {
+  background: var(--stone-3);
+}
+.tohm-chip[aria-pressed='true'] {
+  color: var(--occ);
+  background: var(--chip);
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.tohm-grimoire__body {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+.tohm-grimoire__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tohm-sigil {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  background: var(--deep);
+  border: 2px solid var(--stone-2);
+  box-shadow: inset 0 0 0 2px var(--occ);
+  cursor: pointer;
+  transition:
+    opacity 120ms,
+    transform 60ms steps(1);
+}
+.tohm-sigil img {
+  width: 100%;
+  max-width: 64px;
+  height: auto;
+  image-rendering: pixelated;
+}
+.tohm-sigil:hover {
+  border-color: var(--gold-2);
+}
+.tohm-sigil[aria-pressed='true'] {
+  border-color: var(--gold-1);
+  background: var(--stone-3);
+  box-shadow:
+    inset 0 0 0 2px var(--occ),
+    0 0 18px rgba(255, 200, 72, 0.45);
+}
+.tohm-sigil.is-dim {
+  opacity: 0.22;
+}
+.tohm-grimoire__page {
+  position: relative;
+  min-height: 240px;
+}
+.tohm-grimoire__icon {
+  float: right;
+  margin: 0 0 8px 12px;
+  image-rendering: pixelated;
+}
+.tohm-grimoire__name {
+  margin: 4px 0 0;
+  font-family: var(--caps);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.15;
+}
+.tohm-grimoire__text {
+  margin: 0 0 12px;
+  font-size: 19px;
+}
+.tohm-grimoire__note {
+  clear: both;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 2px dashed rgba(46, 34, 8, 0.3);
+  font-style: italic;
+  font-size: 15px;
+  color: #543f10;
+}
+
+/* --- About --------------------------------------------------------------------------------- */
+
+.tohm-about {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.tohm-about__page {
+  font-size: 19px;
+}
+.tohm-about__page h2 {
+  font-size: clamp(28px, 4vw, 38px);
+  margin: 4px 0 8px;
+}
+.tohm-about__page p {
+  margin: 0 0 12px;
+}
+.tohm-facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px 8px;
+  margin: 0;
+  padding: 26px 14px;
+  list-style: none;
+  text-align: center;
+  background: var(--stone-4);
+  border: 4px solid var(--stone-2);
+  box-shadow:
+    inset 0 0 0 2px var(--occ),
+    0 0 0 2px var(--occ);
+}
+.tohm-facts__n {
+  display: block;
+  font-family: var(--pixel);
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1;
+  color: var(--gold-0);
+  text-shadow: 0 3px 0 var(--gold-2);
+}
+.tohm-facts__what {
+  font-family: var(--caps);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--bone-2);
+}
+.tohm-facts__note {
+  grid-column: 1 / -1;
+  padding-top: 8px;
+  border-top: 2px solid var(--stone-2);
+  font-style: italic;
+  color: var(--bone-2);
+}
+
+/* --- Screenshots --------------------------------------------------------------------------- */
+
+.tohm-shots {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(78%, 360px);
+  gap: 16px;
+  margin: 0 -16px;
+  padding: 4px 16px 18px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: var(--gold-2) var(--stone-4);
+}
+.tohm-shots li {
+  scroll-snap-align: start;
+}
+.tohm-shot {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: var(--occ);
+  border: 4px solid var(--stone-2);
+  box-shadow: 0 0 0 2px var(--occ);
+  cursor: zoom-in;
+  transition: transform 80ms steps(2);
+}
+.tohm-shot:hover {
+  border-color: var(--gold-2);
+  transform: translateY(-4px);
+}
+.tohm-shot img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* --- Controls and news --------------------------------------------------------------------- */
+
+.tohm-split {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.tohm-split h2 {
+  font-size: 30px;
+  margin: 4px 0 14px;
+}
+.tohm-controls dl {
+  margin: 0;
+}
+.tohm-controls dl > div {
+  display: grid;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: 2px solid var(--stone-2);
+}
+.tohm-controls dt {
+  font-size: 18px;
+}
+.tohm-controls dd {
+  margin: 0;
+  color: var(--bone-2);
+}
+.tohm-controls__note {
+  margin: 14px 0 6px;
+  color: var(--gold-1);
+  font-style: italic;
+}
+.tohm-news__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tohm-news__list li {
+  padding: 10px 0;
+  border-bottom: 2px solid var(--stone-2);
+}
+.tohm-news__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 4px;
+  font-family: var(--pixel);
+}
+.tohm-news__head span {
+  color: var(--bone-3);
+  font-size: 15px;
+}
+.tohm-news__notes {
+  margin: 0;
+  white-space: pre-line;
+  color: var(--bone-2);
+  font-size: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tohm-news__all {
+  display: inline-block;
+  margin: 14px 0 6px;
+  font-family: var(--pixel);
+}
+
+/* --- Final call, inside a glowing ring ----------------------------------------------------- */
+
+.tohm-final {
+  position: relative;
+  padding-top: 110px;
+  padding-bottom: 40px;
+  text-align: center;
+}
+.tohm-final::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: min(760px, 120vw);
+  aspect-ratio: 2.4;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(
+      closest-side,
+      transparent 80%,
+      rgba(216, 176, 74, 0.55) 82%,
+      transparent 85%
+    ),
+    radial-gradient(
+      closest-side,
+      transparent 66%,
+      rgba(138, 106, 30, 0.5) 67.5%,
+      transparent 69%
+    ),
+    radial-gradient(closest-side, rgba(216, 176, 74, 0.16), transparent 75%);
+  animation: tohm-ward 3.8s steps(1) infinite;
+  pointer-events: none;
+}
+@keyframes tohm-ward {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  25%,
+  75% {
+    opacity: 0.92;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.tohm-final h2 {
+  position: relative;
+}
+.tohm-final p {
+  position: relative;
+  margin: 12px 0 30px;
+  color: var(--bone-2);
+}
+
+/* --- Footer -------------------------------------------------------------------------------- */
+
+.tohm-footer {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 72px 16px 48px;
+  text-align: center;
+  font-family: var(--pixel);
+}
+/* Tailwind's base makes images blocks, which text-align cannot centre - so centre it by margin. */
+.tohm-footer img {
+  display: block;
+  margin: 0 auto;
+  image-rendering: pixelated;
+}
+.tohm-footer p {
+  margin: 10px 0 0;
+}
+.tohm-footer__small {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--bone-3);
+}
+
+/* --- Wider screens ------------------------------------------------------------------------- */
+
+@media (min-width: 640px) {
+  .tohm-plaque {
+    padding: 30px 32px 26px;
+  }
+}
+
+@media (min-width: 860px) {
+  .tohm-clips {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tohm-grimoire__body {
+    grid-template-columns: 1fr 360px;
+  }
+  .tohm-grimoire__page {
+    position: sticky;
+    top: 24px;
+  }
+  .tohm-about {
+    grid-template-columns: 1.35fr 1fr;
+  }
+  .tohm-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --- Phones -------------------------------------------------------------------------------- */
+
+@media (max-width: 639px) {
+  .tohm-page-root {
+    font-size: 17px;
+  }
+  .tohm-plaque {
+    margin-top: -40px;
+    padding: 18px 6px 14px;
+  }
+  .tohm-plaque__actions .tohm-btn {
+    width: 100%;
+  }
+  .tohm-section {
+    padding-top: 56px;
+  }
+  .tohm-demo__hud {
+    gap: 6px 12px;
+    padding: 8px 10px;
+  }
+  .tohm-demo__owned li,
+  .tohm-demo__owned img {
+    width: 24px;
+    height: 24px;
+  }
+  /* Downscaled pixel art drops whole pixels; smoothing reads better below 1x. */
+  .tohm-demo__stage canvas {
+    image-rendering: auto;
+  }
+  .tohm-levelup {
+    inset: 0 0 auto;
+    min-height: 100%;
+    gap: 10px;
+    padding: 12px 10px;
+    justify-content: flex-start;
+  }
+  .tohm-levelup__title {
+    font-size: 16px;
+  }
+  .tohm-levelup__cards {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .tohm-card {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    grid-template-areas:
+      'icon name level'
+      'icon tags tags';
+    align-items: center;
+    gap: 0 10px;
+    padding: 0;
+    border-width: 12px;
+    border-image-width: 12px;
+    text-align: left;
+  }
+  .tohm-card:hover,
+  .tohm-card:focus-visible {
+    transform: none;
+  }
+  .tohm-card__icon {
+    grid-area: icon;
+    width: 40px;
+    height: 40px;
+  }
+  .tohm-card__name {
+    grid-area: name;
+    font-size: 16px;
+  }
+  .tohm-card__level {
+    grid-area: level;
+    font-size: 12px;
+  }
+  .tohm-card__text {
+    display: none;
+  }
+  .tohm-card__tags {
+    grid-area: tags;
+    justify-content: flex-start;
+    margin-top: 2px;
+  }
+  .tohm-grimoire__page {
+    order: -1;
+    min-height: 0;
+  }
+  .tohm-facts {
+    gap: 14px 4px;
+    padding: 20px 6px;
+  }
+  .tohm-facts__n {
+    font-size: 30px;
+  }
+  .tohm-facts__what {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tohm-stars,
+  .tohm-fog,
+  .tohm-final::before,
+  .tohm-levelup {
+    animation: none;
+  }
+  .tohm-btn,
+  .tohm-card,
+  .tohm-shot,
+  .tohm-sigil {
+    transition: none;
+  }
+}
+
+.tohm-demo__stage canvas:focus-visible {
+  outline: 2px solid var(--gold-2);
+  outline-offset: -2px;
+}
+
+/* The update-email sign-up, at the foot of the What's new panel: bone text, a stone field and
+   the gold button. */
+.tohm-signup {
+  --su-ink: var(--bone-0);
+  --su-muted: var(--bone-2);
+  --su-field: var(--occ);
+  --su-line: var(--stone-1);
+  --su-accent: var(--gold-1);
+  --su-on-accent: var(--gold-4);
+  --su-font: var(--serif);
+  --su-title-font: var(--pixel);
+  --su-radius: 0;
+
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 2px solid var(--stone-2);
+}
+.tohm-signup .updates-signup__title {
+  color: var(--gold-0);
+  font-weight: 700;
+}
+.tohm-signup .updates-signup__button {
+  font-family: var(--pixel);
+  box-shadow:
+    inset -3px -3px 0 var(--gold-2),
+    inset 3px 3px 0 var(--gold-0);
+}
+.tohm-signup .updates-signup__status {
+  color: #ff8a80;
+}
+
+/* One line on any phone: the label never wraps, and shrinks with the screen. */
+.tohm-btn {
+  white-space: nowrap;
+}
+.tohm-btn--big {
+  font-size: min(24px, 6.4vw);
+}
+
+.tohm-updates-link {
+  margin-top: 10px;
+  font-family: var(--pixel);
+  font-weight: 400;
+  color: var(--gold-0);
+}

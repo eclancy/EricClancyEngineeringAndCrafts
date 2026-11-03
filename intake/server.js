@@ -234,11 +234,20 @@ async function email(fields, files, id, kind = KINDS.fighter) {
 // form on the open internet cannot write its own email subject. A report without one is DrawFight's,
 // which sent no game field before this existed, and keeps exactly the subject it always had.
 const REPORT_GAMES = {
-  'Wizard Survivors': 'Wizard Survivors bug report',
+  'The One He Missed': 'The One He Missed bug report',
   DrawFight: 'DrawFight suggestion',
   DrawPets: 'DrawPets bug report',
   'Wizard Wars': 'Wizard Wars bug report',
 }
+
+// A game's name from before it was renamed, and its name now. Kept on purpose: The One He Missed
+// was called Wizard Survivors, and every copy installed before the rename still sends
+// game=Wizard Survivors with its bug reports. Those are filed and titled under the new name.
+const RENAMED_GAMES = {
+  'Wizard Survivors': 'The One He Missed',
+}
+
+const has = (table, key) => Object.prototype.hasOwnProperty.call(table, key)
 
 // A bug report can bring one screenshot of the game, which the player saw and chose to send. Only
 // the first picture is kept, saved next to the report as screenshot<ext> and attached to the email.
@@ -258,14 +267,13 @@ async function screenshot(files, dir) {
 async function suggestion(fields, files, res) {
   const idea = fields.suggestion || ''
   if (!idea) return send(res, 400, { error: 'Write your idea first.' })
-  const game = Object.prototype.hasOwnProperty.call(REPORT_GAMES, fields.game)
-    ? fields.game
-    : 'DrawFight'
-  // The Spell Index vote page (public/wizard-survivors/spell-index) posts here as Wizard
-  // Survivors with kind "vote", so its email says it is a vote from that page, not a bug report
+  const named = has(RENAMED_GAMES, fields.game) ? RENAMED_GAMES[fields.game] : fields.game
+  const game = has(REPORT_GAMES, named) ? named : 'DrawFight'
+  // The Spell Index vote page (public/the-one-he-missed/spell-index) posts here as The One He
+  // Missed with kind "vote", so its email says it is a vote from that page, not a bug report
   // from the game. Only that pair is read; every other post keeps the email it always had.
-  const vote = game === 'Wizard Survivors' && fields.kind === 'vote'
-  const title = vote ? 'Wizard Survivors Spell Index vote' : REPORT_GAMES[game]
+  const vote = game === 'The One He Missed' && fields.kind === 'vote'
+  const title = vote ? 'The One He Missed Spell Index vote' : REPORT_GAMES[game]
   const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
   const id = `${stamp}-${slug(fields.name, 'someone')}-${crypto.randomBytes(3).toString('hex')}`
   const dir = path.join(DATA, 'suggestions', id)

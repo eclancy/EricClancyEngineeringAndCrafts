@@ -33,7 +33,7 @@ export const homeSeo: PageSeo = {
   title: 'Eric Clancy – Full-Stack Developer & Free Games | ECEC',
   description:
     'Eric Clancy is a full-stack developer and technical lead who builds with AI. Play ' +
-    'his free games: DrawFight, DrawPets, Wizard Survivors and Wizard Wars.',
+    'his free games: DrawFight, DrawPets, The One He Missed and Wizard Wars.',
 }
 
 export const homeStructuredData = [
@@ -76,13 +76,13 @@ export const gameSeo: Record<string, GameSeo> = {
     platforms: ['Windows', 'Linux', 'Android', 'Web browser'],
     players: { min: 1, max: 1 },
   },
-  'wizard-survivors': {
-    name: 'Wizard Survivors',
-    title: 'Wizard Survivors – Free Roguelite Spell Shooter',
+  'the-one-he-missed': {
+    name: 'The One He Missed',
+    title: 'The One He Missed – Free Roguelite Spell Shooter',
     description:
       'A roguelite auto-shooter: move, survive, and let your spells do the rest. Free for ' +
       'Windows, Linux and Android.',
-    image: { width: 1200, height: 675, alt: 'The Wizard Survivors title screen.' },
+    image: { width: 1200, height: 675, alt: 'The title screen of The One He Missed.' },
     genre: ['Roguelite', 'Shooter'],
     platforms: ['Windows', 'Linux', 'Android'],
     players: { min: 1, max: 1 },

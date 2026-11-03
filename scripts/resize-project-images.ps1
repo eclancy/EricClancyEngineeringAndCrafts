@@ -69,9 +69,8 @@ function Resize-Image {
 $root = "C:\Users\ericc\Documents\GitHub"
 $dest = "C:\Users\ericc\Documents\GitHub\EricClancyEngineeringAndCrafts\src\assets\projects"
 
-Resize-Image "$root\wizard-survivors\assets\Wizard_Survivors_Title_Screen.png" "$dest\wizard-survivors\title-screen.png" 900 png
-Resize-Image "$root\wizard-survivors\assets\wizard_guy1.png" "$dest\wizard-survivors\wizard-sprite.png" 256 png
-Resize-Image "$root\wizard-survivors\assets\background.jpg" "$dest\wizard-survivors\meadow-background.jpg" 800 jpeg 85
+# The One He Missed has nothing here: its pictures are captures of the game itself, and the
+# images this once made from its repo were removed there when its art became generated.
 
 Resize-Image "$root\WizardsArena\Assets\Textures\UI\Start Screen.png" "$dest\wizard-wars\start-screen.jpg" 1400 jpeg 82
 Resize-Image "$root\WizardsArena\Assets\Textures\Wizards\Fire Wizard.png" "$dest\wizard-wars\fire-wizard.png" 500 png
@@ -93,8 +92,6 @@ Resize-Image "$root\DrawFight\docs\images\poses.png" "$dest\drawfight\poses.jpg"
 
 $screenshots = "C:\Users\ericc\Desktop\screenshots for website"
 Copy-Item "$screenshots\wizard wars\start-screen-transparent.png" "$dest\wizard-wars\start-screen-transparent.png" -Force
-Resize-Image "$screenshots\wizard survivors\Screenshot 2026-09-02 152129.png" "$dest\wizard-survivors\meadow-battle.jpg" 900 jpeg 85
-Resize-Image "$screenshots\wizard survivors\Screenshot 2026-09-02 152408.png" "$dest\wizard-survivors\dungeon-battle.jpg" 900 jpeg 85
 
 Resize-Image "$screenshots\wizard wars\WizardWarsDemoGif.a7e6158d1cefb32a9702.gif" "$dest\wizard-wars\arena-battle.jpg" 900 jpeg 85 568
 Resize-Image "$screenshots\wizard wars\WizardWarsDemoGif.a7e6158d1cefb32a9702.gif" "$dest\wizard-wars\fire-spell.jpg" 900 jpeg 85 426

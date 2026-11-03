@@ -51,10 +51,11 @@ export function useReleases(game: GameInfo): Releases {
             .filter((r) => !r.draft)
             .map((r) => {
               // The installer is what the download button gives; releases made before it
-              // existed only have the zip.
+              // existed only have the zip. Matched by the end of the name, not the repo's
+              // name: a game that has been renamed keeps its old name on its older files.
               const zip =
-                r.assets.find((a) => a.name === `${game.repo}-Setup.exe`) ??
-                r.assets.find((a) => a.name === `${game.repo}-windows.zip`)
+                r.assets.find((a) => a.name.endsWith('-Setup.exe')) ??
+                r.assets.find((a) => a.name.endsWith('-windows.zip'))
               return {
                 version: r.tag_name.replace(/^v/, ''),
                 date: r.published_at,

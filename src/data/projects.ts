@@ -9,11 +9,11 @@ import dpHome from '../assets/projects/drawpets/home.jpg'
 import dpDrawHead from '../assets/projects/drawpets/draw-head.jpg'
 import dpHomeAtNight from '../assets/projects/drawpets/home-at-night.jpg'
 import dpBathDay from '../assets/projects/drawpets/bath-day.jpg'
-import wsTitleScreen from '../assets/projects/wizard-survivors/title-screen.jpg'
-import wsForestSpells from '../assets/projects/wizard-survivors/forest-spells.jpg'
-import wsBossElderbark from '../assets/projects/wizard-survivors/boss-elderbark.jpg'
-import wsSketchbook from '../assets/projects/wizard-survivors/sketchbook.jpg'
-import wsLevelUp from '../assets/projects/wizard-survivors/level-up.jpg'
+import tohmTitleScreen from '../assets/projects/the-one-he-missed/title-screen.jpg'
+import tohmForestSpells from '../assets/projects/the-one-he-missed/forest-spells.jpg'
+import tohmBossElderbark from '../assets/projects/the-one-he-missed/boss-elderbark.jpg'
+import tohmSketchbook from '../assets/projects/the-one-he-missed/sketchbook.jpg'
+import tohmLevelUp from '../assets/projects/the-one-he-missed/level-up.jpg'
 import wwTitleScreen from '../assets/projects/wizard-wars/title-screen.jpg'
 import wwWoodlandBattle from '../assets/projects/wizard-wars/woodland-battle.jpg'
 import wwMeteorStorm from '../assets/projects/wizard-wars/meteor-storm.jpg'
@@ -209,16 +209,16 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'wizard-survivors',
-    name: 'Wizard Survivors',
+    id: 'the-one-he-missed',
+    name: 'The One He Missed',
     tagline: 'A roguelite auto-shooter in the Vampire Survivors mold.',
     description:
       'Build your wizard from 30 spells and survive the horde. Every sprite and sound is ' +
       'made by code.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
-    repoUrl: 'https://github.com/eclancy/WizardSurvivors',
+    repoUrl: 'https://github.com/eclancy/TheOneHeMissed',
     game: {
-      repo: 'WizardSurvivors',
+      repo: 'TheOneHeMissed',
       players: '1 player',
       platform: 'Windows, Linux and Android',
       about: [
@@ -233,30 +233,30 @@ export const projects: Project[] = [
     },
     callsToAction: [
       {
-        href: 'https://ecec.dev/wizard-survivors/download',
-        label: 'Play Wizard Survivors',
+        href: 'https://ecec.dev/the-one-he-missed/download',
+        label: 'Play The One He Missed',
         emoji: '🎮',
       },
     ],
     images: [
       {
-        src: wsTitleScreen,
-        alt: 'Wizard Survivors title screen: a pixel-art wizard in a glowing golden circle in a moonlit forest',
+        src: tohmTitleScreen,
+        alt: 'The One He Missed title screen: a pixel-art wizard in a glowing golden circle in a moonlit forest',
       },
       {
-        src: wsForestSpells,
+        src: tohmForestSpells,
         alt: 'A wizard in the Enchanted Forest fires crossing scorching rays as meteors and black tentacles burst among a few skeletons and a ghost',
       },
       {
-        src: wsBossElderbark,
+        src: tohmBossElderbark,
         alt: 'Boss fight with Elderbark, the Treant: a scorching ray and exploding meteors strike the giant tree',
       },
       {
-        src: wsSketchbook,
+        src: tohmSketchbook,
         alt: 'The Sketchbook chapter: ice spikes and chain lightning among crayon monsters drawn by children on lined paper',
       },
       {
-        src: wsLevelUp,
+        src: tohmLevelUp,
         alt: 'The level-up screen offering upgrades to Cone of Cold, Black Tentacles and Solar Flare',
       },
     ],
