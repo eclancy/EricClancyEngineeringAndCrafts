@@ -86,11 +86,13 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
   to `/api/draw/suggest` (saved under `suggestions/`, no photos). Each is emailed the same way.
   DrawFight's `tools/intake/pull_submissions.sh` copies all three down.
 - The other games' "Report a bug" posts to `/api/draw/suggest` too, with a `game` field that
-  picks the email's subject from `REPORT_GAMES`. So does the Wizard Survivors Spell Index vote
-  (`/wizard-survivors/spell-index`, `public/wizard-survivors/spell-index/index.html`): `game` is
-  Wizard Survivors, `version` is `spell-index-vote`, and the pick and reason are the message.
-  It also sends `kind` = `vote`, the one kind the intake reads, so that email is titled "Wizard
-  Survivors Spell Index vote" rather than a bug report.
+  picks the email's subject from `REPORT_GAMES`. So does The One He Missed's Spell Index vote
+  (`/the-one-he-missed/spell-index`, `public/the-one-he-missed/spell-index/index.html`): `game`
+  is The One He Missed, `version` is `spell-index-vote`, and the pick and reason are the
+  message. It also sends `kind` = `vote`, the one kind the intake reads, so that email is titled
+  "The One He Missed Spell Index vote" rather than a bug report.
+- A game that has been renamed keeps its old `game` value working through `RENAMED_GAMES`, so
+  copies installed under the old name still have their reports filed under the new one.
 - It is also emailed through Resend (DigitalOcean blocks outgoing SMTP). The key, and the
   address to send to, live only on the droplet, in `/etc/ecec/intake.env`:
 
@@ -146,6 +148,27 @@ container (`updates/server.js`).
 - **Locally:** `node updates/server.js` (dry run, no key needed) and `npm run dev` - Vite
   forwards `/api/updates` to it.
 - **A new game:** add it to `GAMES` at the top of `updates/server.js`.
+- **A renamed game:** give it its new id in `GAMES` and put old id -> new id in `RENAMED`. On
+  start the server moves the old id's sign-ups (tokens and all) to the new one, and a sign-up
+  form that still posts the old id is filed under the new one.
+
+## 7a. Renamed games: addresses that must keep answering
+
+A downloaded game has its update address baked in, so renaming a game must never move that
+address. The One He Missed was renamed from its first name on 2026-11-02, and lives at
+`/the-one-he-missed/` and `/games/the-one-he-missed`. `nginx.conf` keeps two of its old
+addresses answering directly, forever, exactly as the new ones do (no redirect for a copy to
+follow): the `version.json` every installed Windows copy up to 0.11.0 asks for updates, and the
+`download` page every installed Android copy opens. Every other old address is a 301 to its new
+one, path and query kept. The GitHub repo is `eclancy/TheOneHeMissed`; it must be renamed on
+GitHub before this site is deployed, or the `version.json` redirect points at a repo that does
+not exist yet.
+
+```bash
+curl -sI https://ecec.dev/wizard-survivors/version.json   # 302 to TheOneHeMissed's release
+curl -sI https://ecec.dev/wizard-survivors/download       # 200, the download page itself
+curl -sI https://ecec.dev/wizard-survivors/spell-index    # 301 to /the-one-he-missed/...
+```
 
 ## 8. DrawFight online play (/api/play)
 

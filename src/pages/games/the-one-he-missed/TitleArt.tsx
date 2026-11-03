@@ -5,6 +5,13 @@ import { useEffect, useRef, useState } from 'react'
 // 0,1,2,1 every 0.95 s, and one pair of eyes in the dark blinks at a time. Every frame is a
 // generated PNG; nothing is tinted or faded. Phones get the tall composition, wider screens the
 // wide one.
+//
+// The words are on back-b.png. They read THE ONE / HE MISSED: when the game was renamed
+// (2026-11-02), both back-b layers were rendered again by the game's own generator as it stood
+// when these layers were taken (tools/art/anim.py at aa56d612), with only the wordmark's two
+// lines changed - the same face, colours, halo and shadow, plus the letters T, H, E, N and M drawn
+// at its weight. Every other layer, and every pixel of back-b outside the words, is byte for byte
+// what it was. The game's own new title art replaces all of this when it lands.
 
 const FLAME_SECONDS = 0.13
 const WARD_SECONDS = 0.95
@@ -43,7 +50,7 @@ export function TitleArt() {
     const el = canvas.current
     const ctx = el?.getContext('2d')
     if (!el || !ctx) return
-    const base = `/games/wizard-survivors/title/${layout}/`
+    const base = `/games/the-one-he-missed/title/${layout}/`
     const frames = (name: string, n: number) =>
       Promise.all(Array.from({ length: n }, (_, i) => load(`${base}${name}-${i}.png`)))
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -148,14 +155,14 @@ export function TitleArt() {
 
   const [w, h] = size[layout]
   return (
-    <div className={`ws-title ws-title--${layout}`}>
+    <div className={`tohm-title tohm-title--${layout}`}>
       <canvas
         key={layout}
         ref={canvas}
         width={w}
         height={h}
         role="img"
-        aria-label="The Wizard Survivors title screen: an old wizard with a glowing staff stands in a golden summoning circle ringed by candle flames, in a dark forest full of watching eyes."
+        aria-label="The title screen of The One He Missed: an old wizard with a glowing staff stands in a golden summoning circle ringed by candle flames, in a dark forest full of watching eyes."
       />
     </div>
   )

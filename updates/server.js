@@ -39,9 +39,19 @@ const POLL_MS = Number(process.env.POLL_MINUTES || 10) * 60_000
 const GAMES = {
   drawfight: { name: 'DrawFight', repo: 'DrawFight' },
   drawpets: { name: 'DrawPets', repo: 'DrawPets' },
-  'wizard-survivors': { name: 'Wizard Survivors', repo: 'WizardSurvivors' },
+  'the-one-he-missed': { name: 'The One He Missed', repo: 'TheOneHeMissed' },
   'wizard-wars': { name: 'Wizard Wars', repo: 'WizardWars' },
 }
+
+// A game's id from before it was renamed, and the id it has now. Kept on purpose: The One He
+// Missed was called Wizard Survivors, and its sign-ups were stored under the old id, so load()
+// moves them across rather than leave them on a game that no longer exists; and a page opened
+// before the rename still posts the old id when someone signs up.
+const RENAMED = {
+  'wizard-survivors': 'the-one-he-missed',
+}
+
+const gameId = (id) => (Object.hasOwn(RENAMED, id) ? RENAMED[id] : id)
 
 // --- Storage: one small JSON file, written whole and swapped in, one write at a time. ---------
 
@@ -54,7 +64,23 @@ async function load() {
   } catch (err) {
     if (err.code !== 'ENOENT') throw err
   }
+  // Sign-ups under a renamed game's old id join the new one, tokens and all, so every link in an
+  // email already sent keeps working. The last release seen comes too, so a release published
+  // around the rename is still emailed, and the one already announced is not announced twice.
+  let moved = false
+  for (const [old, id] of Object.entries(RENAMED)) {
+    const from = db.games[old]
+    if (!from) continue
+    const into = (db.games[id] ??= { subscribers: [], lastTag: null })
+    for (const sub of from.subscribers)
+      if (!into.subscribers.some((s) => s.email === sub.email)) into.subscribers.push(sub)
+    into.lastTag ??= from.lastTag
+    delete db.games[old]
+    moved = true
+    console.log(`moved ${from.subscribers.length} sign-up(s) from ${old} to ${id}`)
+  }
   for (const id of Object.keys(GAMES)) db.games[id] ??= { subscribers: [], lastTag: null }
+  if (moved) await save()
 }
 
 function save() {
@@ -290,12 +316,13 @@ async function handle(req, res) {
     } catch {
       return json(res, 400, { ok: false, error: 'Something went wrong. Try again?' })
     }
-    const game = String(body.game ?? '')
+    const game = gameId(String(body.game ?? ''))
     const email = String(body.email ?? '')
       .trim()
       .toLowerCase()
     if (body.website) return json(res, 200, { ok: true }) // the hidden field only bots fill in
-    if (!GAMES[game]) return json(res, 400, { ok: false, error: 'Unknown game.' })
+    if (!Object.hasOwn(GAMES, game))
+      return json(res, 400, { ok: false, error: 'Unknown game.' })
     if (!EMAIL.test(email))
       return json(res, 400, {
         ok: false,

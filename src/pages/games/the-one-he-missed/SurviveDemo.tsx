@@ -16,7 +16,7 @@ const POOL = [
   'scorching_ray',
 ]
 const XP_STEPS = [3, 6, 10, 15, 21, 28]
-const ART = '/games/wizard-survivors/sprites/'
+const ART = '/games/the-one-he-missed/sprites/'
 
 type Phase = 'ready' | 'playing' | 'levelup' | 'paused' | 'won' | 'lost'
 type Kind = 'runner' | 'wolf' | 'wisp' | 'hexer'
@@ -226,7 +226,7 @@ const blurb: Record<string, string> = {
 
 function readBest() {
   try {
-    return Number(localStorage.getItem('ws-demo-best') ?? 0) || 0
+    return Number(localStorage.getItem('tohm-demo-best') ?? 0) || 0
   } catch {
     return 0
   }
@@ -676,7 +676,7 @@ export function SurviveDemo() {
         setBest((b) => {
           const v = Math.max(b, g.kills)
           try {
-            localStorage.setItem('ws-demo-best', String(v))
+            localStorage.setItem('tohm-demo-best', String(v))
           } catch {
             // Private windows refuse storage; the best score just isn't kept.
           }
@@ -863,26 +863,26 @@ export function SurviveDemo() {
   const playingish = phase === 'playing' || phase === 'levelup' || phase === 'paused'
 
   return (
-    <div ref={wrap} className="ws-demo">
-      <div className="ws-demo__hud" aria-hidden={!playingish}>
-        <div className="ws-demo__hearts" aria-label={`${hud.hp} of 5 health`}>
+    <div ref={wrap} className="tohm-demo">
+      <div className="tohm-demo__hud" aria-hidden={!playingish}>
+        <div className="tohm-demo__hearts" aria-label={`${hud.hp} of 5 health`}>
           {Array.from({ length: 5 }, (_, i) => (
             <span key={i} className={i < hud.hp ? 'is-full' : ''} />
           ))}
         </div>
-        <div className="ws-demo__clock" aria-label={`${left} seconds left`}>
+        <div className="tohm-demo__clock" aria-label={`${left} seconds left`}>
           0:{String(Math.max(0, left)).padStart(2, '0')}
         </div>
-        <div className="ws-demo__kills">
+        <div className="tohm-demo__kills">
           {hud.kills} <span>slain</span>
         </div>
-        <div className="ws-demo__xp" aria-label={`Level ${hud.level}`}>
-          <span className="ws-demo__lvl">Lv {hud.level}</span>
-          <span className="ws-demo__bar">
+        <div className="tohm-demo__xp" aria-label={`Level ${hud.level}`}>
+          <span className="tohm-demo__lvl">Lv {hud.level}</span>
+          <span className="tohm-demo__bar">
             <span style={{ width: `${Math.min(100, (hud.xp / hud.need) * 100)}%` }} />
           </span>
         </div>
-        <ul className="ws-demo__owned" aria-label="Your spells">
+        <ul className="tohm-demo__owned" aria-label="Your spells">
           {hud.owned.map(([id, level]) => (
             <li key={id} title={`${spellById(id).name}, level ${level}`}>
               <img
@@ -897,14 +897,14 @@ export function SurviveDemo() {
         </ul>
       </div>
 
-      <div className="ws-demo__stage">
+      <div className="tohm-demo__stage">
         <canvas
           ref={canvas}
           width={W}
           height={H}
           tabIndex={phase === 'playing' ? 0 : -1}
           className={phase === 'playing' ? 'is-live' : ''}
-          aria-label="Survive thirty seconds: a small playable version of Wizard Survivors. Move with WASD or the arrow keys, or hold and drag on the field."
+          aria-label="Survive thirty seconds: a small playable version of The One He Missed. Move with WASD or the arrow keys, or hold and drag on the field."
           onPointerDown={(e) => {
             if (phaseRef.current !== 'playing') return
             e.currentTarget.setPointerCapture(e.pointerId)
@@ -918,17 +918,18 @@ export function SurviveDemo() {
         />
 
         {phase === 'ready' && (
-          <div className="ws-demo__veil">
-            <p className="ws-demo__eyebrow">A thirty-second vigil</p>
-            <h3 className="ws-demo__title">Survive the night</h3>
-            <p className="ws-demo__how">
-              <span className="ws-kbd">WASD</span> or <span className="ws-kbd">←↑↓→</span>{' '}
-              to move — on a phone, hold and drag. Your spells cast themselves.
+          <div className="tohm-demo__veil">
+            <p className="tohm-demo__eyebrow">A thirty-second vigil</p>
+            <h3 className="tohm-demo__title">Survive the night</h3>
+            <p className="tohm-demo__how">
+              <span className="tohm-kbd">WASD</span> or{' '}
+              <span className="tohm-kbd">←↑↓→</span> to move — on a phone, hold and drag.
+              Your spells cast themselves.
             </p>
             <button
               ref={startButton}
               type="button"
-              className="ws-btn ws-btn--gold"
+              className="tohm-btn tohm-btn--gold"
               onClick={start}
             >
               Begin
@@ -937,11 +938,11 @@ export function SurviveDemo() {
         )}
 
         {phase === 'paused' && (
-          <div className="ws-demo__veil">
-            <h3 className="ws-demo__title">Paused</h3>
+          <div className="tohm-demo__veil">
+            <h3 className="tohm-demo__title">Paused</h3>
             <button
               type="button"
-              className="ws-btn ws-btn--gold"
+              className="tohm-btn tohm-btn--gold"
               onClick={() => setPhase('playing')}
             >
               Resume
@@ -950,26 +951,26 @@ export function SurviveDemo() {
         )}
 
         {(phase === 'won' || phase === 'lost') && (
-          <div className="ws-demo__veil" role="status">
-            <p className="ws-demo__eyebrow">
+          <div className="tohm-demo__veil" role="status">
+            <p className="tohm-demo__eyebrow">
               {phase === 'won' ? 'Dawn breaks' : 'The vigil ends'}
             </p>
-            <h3 className="ws-demo__title">
+            <h3 className="tohm-demo__title">
               {phase === 'won'
                 ? 'You survived!'
                 : RUN_SECONDS - hud.time <= 5
                   ? `So close: ${RUN_SECONDS - hud.time}s to dawn`
                   : `You lasted ${hud.time} seconds`}
             </h3>
-            <p className="ws-demo__how">
+            <p className="tohm-demo__how">
               {hud.kills} slain · level {hud.level}
               {best > 0 && phase === 'won' ? ` · best ${best}` : ''}
             </p>
-            <p className="ws-demo__how ws-demo__how--small">
+            <p className="tohm-demo__how tohm-demo__how--small">
               The real thing runs fifteen minutes, with thirty spells and a boss at the
               end.
             </p>
-            <button type="button" className="ws-btn ws-btn--gold" onClick={start}>
+            <button type="button" className="tohm-btn tohm-btn--gold" onClick={start}>
               Again
             </button>
           </div>
@@ -977,15 +978,15 @@ export function SurviveDemo() {
 
         {phase === 'levelup' && (
           <div
-            className="ws-levelup"
+            className="tohm-levelup"
             role="dialog"
             aria-modal="false"
-            aria-labelledby="ws-levelup-title"
+            aria-labelledby="tohm-levelup-title"
           >
-            <h3 id="ws-levelup-title" className="ws-levelup__title">
+            <h3 id="tohm-levelup-title" className="tohm-levelup__title">
               Level up! Choose a spell
             </h3>
-            <div className="ws-levelup__cards">
+            <div className="tohm-levelup__cards">
               {offers.map(({ id, owned }, i) => {
                 const spell = spellById(id)
                 return (
@@ -993,7 +994,7 @@ export function SurviveDemo() {
                     key={id}
                     ref={i === 0 ? firstCard : undefined}
                     type="button"
-                    className="ws-card"
+                    className="tohm-card"
                     onClick={() => choose(id)}
                   >
                     <img
@@ -1001,14 +1002,14 @@ export function SurviveDemo() {
                       alt=""
                       width={64}
                       height={64}
-                      className="ws-card__icon"
+                      className="tohm-card__icon"
                     />
-                    <span className="ws-card__name">{spell.name}</span>
-                    <span className="ws-card__level">
+                    <span className="tohm-card__name">{spell.name}</span>
+                    <span className="tohm-card__level">
                       {owned ? `Level ${owned + 1}` : 'New spell'}
                     </span>
-                    <span className="ws-card__text">{blurb[id]}</span>
-                    <span className="ws-card__tags">
+                    <span className="tohm-card__text">{blurb[id]}</span>
+                    <span className="tohm-card__tags">
                       {spell.elements.map((el) => (
                         <span key={el} style={{ background: elementColour[el] }}>
                           {el}
@@ -1024,17 +1025,17 @@ export function SurviveDemo() {
       </div>
 
       {playingish && (
-        <div className="ws-demo__controls">
+        <div className="tohm-demo__controls">
           {phase === 'playing' ? (
             <button
               type="button"
-              className="ws-btn ws-btn--stone ws-btn--small"
+              className="tohm-btn tohm-btn--stone tohm-btn--small"
               onClick={() => setPhase('paused')}
             >
-              Pause <span className="ws-kbd">Esc</span>
+              Pause <span className="tohm-kbd">Esc</span>
             </button>
           ) : (
-            <span className="ws-demo__hint">
+            <span className="tohm-demo__hint">
               {phase === 'levelup' ? 'The clock waits while you choose.' : 'Paused.'}
             </span>
           )}

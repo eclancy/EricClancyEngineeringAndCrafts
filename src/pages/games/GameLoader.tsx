@@ -23,10 +23,10 @@ const loaders: Record<string, { caption: string; art: ReactNode }> = {
       </span>
     ),
   },
-  'wizard-survivors': {
+  'the-one-he-missed': {
     caption: 'Beginning the ritual…',
     art: (
-      <span className="gl-ws-circle" aria-hidden="true">
+      <span className="gl-tohm-circle" aria-hidden="true">
         <span />
       </span>
     ),

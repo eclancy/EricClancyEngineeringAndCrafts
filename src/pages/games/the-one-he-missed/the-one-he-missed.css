@@ -1,7 +1,7 @@
-/* Wizard Survivors: the Bonelight palette (.ai/art-direction.md in the game's repo). Moonlit
+/* The One He Missed: the Bonelight palette (.ai/art-direction.md in the game's repo). Moonlit
    stone, bone-white type, gold for anything that is light. Everything is scoped to the page. */
 
-.ws-page-root {
+.tohm-page-root {
   --occ: #05070c;
   --deep: #0b0f18;
   --stone-4: #141a26;
@@ -36,21 +36,21 @@
   font-variant-ligatures: none;
 }
 
-.ws-page-root a {
+.tohm-page-root a {
   color: var(--gold-0);
   text-decoration-color: var(--gold-2);
   text-underline-offset: 3px;
 }
-.ws-page-root a:hover {
+.tohm-page-root a:hover {
   color: #fff;
   text-decoration-color: var(--gold-1);
 }
-.ws-page-root :focus-visible {
+.tohm-page-root :focus-visible {
   outline: 3px solid var(--gold-0);
   outline-offset: 3px;
 }
 
-.ws-sr {
+.tohm-sr {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -59,7 +59,7 @@
   white-space: nowrap;
 }
 
-.ws-skip {
+.tohm-skip {
   position: absolute;
   left: 16px;
   top: -60px;
@@ -69,13 +69,13 @@
   color: var(--ink) !important;
   font-family: var(--pixel);
 }
-.ws-skip:focus {
+.tohm-skip:focus {
   top: 12px;
 }
 
 /* --- Sky: pixel stars that drift slower than the page, and low fog ------------------------ */
 
-.ws-stars {
+.tohm-stars {
   --drift: 0px;
   position: fixed;
   inset: 0;
@@ -100,9 +100,9 @@
     0 calc(var(--drift) * 0.4),
     0 calc(var(--drift) * 0.9);
   opacity: 0.55;
-  animation: ws-twinkle 4.2s steps(3) infinite;
+  animation: tohm-twinkle 4.2s steps(3) infinite;
 }
-@keyframes ws-twinkle {
+@keyframes tohm-twinkle {
   0%,
   100% {
     opacity: 0.55;
@@ -112,7 +112,7 @@
   }
 }
 
-.ws-fog {
+.tohm-fog {
   position: fixed;
   left: -20%;
   right: -20%;
@@ -127,22 +127,22 @@
       transparent 70%
     ),
     radial-gradient(ellipse 35% 45% at 75% 80%, rgba(110, 98, 150, 0.09), transparent 70%);
-  animation: ws-fog 38s ease-in-out infinite alternate;
+  animation: tohm-fog 38s ease-in-out infinite alternate;
 }
-@keyframes ws-fog {
+@keyframes tohm-fog {
   to {
     transform: translateX(8%);
   }
 }
 
-.ws-page-root > *:not(.ws-stars):not(.ws-fog):not(.ws-skip) {
+.tohm-page-root > *:not(.tohm-stars):not(.tohm-fog):not(.tohm-skip) {
   position: relative;
   z-index: 1;
 }
 
 /* --- Top bar ------------------------------------------------------------------------------ */
 
-.ws-topbar {
+.tohm-topbar {
   display: flex;
   justify-content: space-between;
   padding: 10px 16px;
@@ -150,33 +150,33 @@
   font-family: var(--pixel);
   font-size: 16px;
 }
-.ws-topbar a {
+.tohm-topbar a {
   padding: 4px 10px;
   background: rgba(5, 7, 12, 0.7);
   border: 2px solid var(--stone-2);
   color: var(--bone-1);
   text-decoration: none;
 }
-.ws-topbar a:hover {
+.tohm-topbar a:hover {
   border-color: var(--gold-2);
   color: var(--gold-0);
 }
 
 /* --- Hero: the title screen, live ---------------------------------------------------------- */
 
-.ws-title {
+.tohm-title {
   position: relative;
   overflow: hidden;
   background: var(--occ);
 }
-.ws-title canvas {
+.tohm-title canvas {
   display: block;
   image-rendering: pixelated;
 }
-.ws-title--wide {
+.tohm-title--wide {
   height: min(720px, 60vw);
 }
-.ws-title--wide canvas {
+.tohm-title--wide canvas {
   position: absolute;
   top: 0;
   left: 50%;
@@ -184,15 +184,15 @@
   width: auto;
   transform: translateX(-50%);
 }
-.ws-title--tall {
+.tohm-title--tall {
   aspect-ratio: 360 / 650;
 }
-.ws-title--tall canvas {
+.tohm-title--tall canvas {
   width: 100%;
   height: auto;
   margin-top: -25%;
 }
-.ws-title::after {
+.tohm-title::after {
   content: '';
   position: absolute;
   inset: auto 0 0 0;
@@ -201,7 +201,7 @@
   pointer-events: none;
 }
 
-.ws-plaque {
+.tohm-plaque {
   position: relative;
   z-index: 2;
   /* 760px at most, 16px clear of each edge on a phone, and centred either way. */
@@ -210,10 +210,10 @@
   padding: 26px 22px 22px;
   text-align: center;
   border: 24px solid transparent;
-  border-image: url('/games/wizard-survivors/art/panel.png') 24 fill / 24px round;
+  border-image: url('/games/the-one-he-missed/art/panel.png') 24 fill / 24px round;
   image-rendering: pixelated;
 }
-.ws-plaque__tag {
+.tohm-plaque__tag {
   margin: 0;
   font-family: var(--pixel);
   font-weight: 700;
@@ -222,22 +222,22 @@
   color: var(--bone-0);
   text-shadow: 0 3px 0 var(--occ);
 }
-.ws-plaque__tag em {
+.tohm-plaque__tag em {
   font-style: normal;
   color: var(--gold-1);
 }
-.ws-plaque__sub {
+.tohm-plaque__sub {
   margin: 10px auto 22px;
   max-width: 34em;
   color: var(--bone-2);
 }
-.ws-plaque__actions {
+.tohm-plaque__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 18px;
 }
-.ws-plaque__meta {
+.tohm-plaque__meta {
   margin: 20px 0 0;
   font-family: var(--caps);
   font-size: 13px;
@@ -247,7 +247,7 @@
 
 /* --- Buttons: chunky, pixel-edged, and they press ------------------------------------------ */
 
-.ws-btn {
+.tohm-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -265,7 +265,7 @@
     transform 60ms steps(1),
     filter 120ms;
 }
-.ws-btn--gold {
+.tohm-btn--gold {
   position: relative;
   color: var(--ink) !important;
   background: var(--gold-1);
@@ -280,12 +280,12 @@
     0 8px 0 0 var(--gold-3);
   filter: drop-shadow(0 0 14px rgba(255, 200, 72, 0.35));
 }
-.ws-btn--gold:hover {
+.tohm-btn--gold:hover {
   background: #e6c25c;
   color: var(--ink) !important;
   filter: drop-shadow(0 0 20px rgba(255, 214, 58, 0.55));
 }
-.ws-btn--gold:active {
+.tohm-btn--gold:active {
   transform: translateY(6px);
   box-shadow:
     inset 0 4px 0 var(--gold-2),
@@ -293,39 +293,39 @@
     0 0 0 4px var(--occ),
     0 2px 0 4px var(--occ);
 }
-.ws-btn--big {
+.tohm-btn--big {
   min-height: 60px;
   padding: 14px 30px;
   font-size: 24px;
 }
-.ws-btn__glyph {
+.tohm-btn__glyph {
   font-size: 0.85em;
 }
-.ws-btn--stone {
+.tohm-btn--stone {
   color: var(--bone-0) !important;
   background: transparent;
   border: 20px solid transparent;
-  border-image: url('/games/wizard-survivors/art/button.png') 20 fill / 20px stretch;
+  border-image: url('/games/the-one-he-missed/art/button.png') 20 fill / 20px stretch;
   image-rendering: pixelated;
   padding: 0 6px;
   min-height: 60px;
 }
-.ws-btn--stone:hover {
-  border-image-source: url('/games/wizard-survivors/art/button-hover.png');
+.tohm-btn--stone:hover {
+  border-image-source: url('/games/the-one-he-missed/art/button-hover.png');
   color: var(--gold-0) !important;
 }
-.ws-btn--stone:active {
-  border-image-source: url('/games/wizard-survivors/art/button-pressed.png');
+.tohm-btn--stone:active {
+  border-image-source: url('/games/the-one-he-missed/art/button-pressed.png');
   transform: translateY(3px);
 }
-.ws-btn--small {
+.tohm-btn--small {
   min-height: 44px;
   font-size: 15px;
   border-width: 14px;
   border-image-width: 14px;
 }
 
-.ws-kbd {
+.tohm-kbd {
   display: inline-block;
   min-width: 1.6em;
   margin: 0 1px;
@@ -343,17 +343,17 @@
 
 /* --- Sections ------------------------------------------------------------------------------ */
 
-.ws-section {
+.tohm-section {
   max-width: 1120px;
   margin: 0 auto;
   padding: 72px 16px 0;
 }
-.ws-heading {
+.tohm-heading {
   max-width: 720px;
   margin: 0 auto 32px;
   text-align: center;
 }
-.ws-eyebrow {
+.tohm-eyebrow {
   margin: 0 0 6px;
   font-family: var(--caps);
   font-weight: 700;
@@ -362,7 +362,7 @@
   text-transform: uppercase;
   color: var(--gold-1);
 }
-.ws-page-root h2 {
+.tohm-page-root h2 {
   margin: 0;
   font-family: var(--pixel);
   font-weight: 700;
@@ -373,43 +373,43 @@
     0 3px 0 var(--gold-3),
     0 6px 0 var(--occ);
 }
-.ws-lede {
+.tohm-lede {
   margin: 14px auto 0;
   color: var(--bone-2);
 }
-.ws-muted {
+.tohm-muted {
   color: var(--bone-2);
 }
 
-.ws-panel {
+.tohm-panel {
   border: 24px solid transparent;
-  border-image: url('/games/wizard-survivors/art/panel.png') 24 fill / 24px round;
+  border-image: url('/games/the-one-he-missed/art/panel.png') 24 fill / 24px round;
   image-rendering: pixelated;
   padding: 6px 8px;
 }
-.ws-page {
+.tohm-page {
   border: 24px solid transparent;
-  border-image: url('/games/wizard-survivors/art/page.png') 24 fill / 24px round;
+  border-image: url('/games/the-one-he-missed/art/page.png') 24 fill / 24px round;
   image-rendering: pixelated;
   color: var(--ink);
   padding: 6px 10px;
 }
-.ws-page h2,
-.ws-page h3 {
+.tohm-page h2,
+.tohm-page h3 {
   color: var(--ink);
   text-shadow: none;
 }
-.ws-page a {
+.tohm-page a {
   color: #6a2028;
 }
 
 /* --- The demo ------------------------------------------------------------------------------ */
 
-.ws-demo {
+.tohm-demo {
   max-width: 960px;
   margin: 0 auto;
 }
-.ws-demo__hud {
+.tohm-demo__hud {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -422,76 +422,76 @@
   font-family: var(--pixel);
   color: var(--bone-0);
 }
-.ws-demo__hearts {
+.tohm-demo__hearts {
   display: flex;
   gap: 3px;
 }
-.ws-demo__hearts span::before {
+.tohm-demo__hearts span::before {
   content: '♥';
   font-size: 20px;
   line-height: 1;
   color: var(--stone-1);
 }
-.ws-demo__hearts span.is-full::before {
+.tohm-demo__hearts span.is-full::before {
   color: var(--ember);
   text-shadow: 0 2px 0 #4a0810;
 }
-.ws-demo__clock {
+.tohm-demo__clock {
   padding: 0 10px;
   font-size: 22px;
   background: var(--occ);
   border: 2px solid var(--stone-2);
   font-variant-numeric: tabular-nums;
 }
-.ws-demo__kills {
+.tohm-demo__kills {
   font-size: 18px;
 }
-.ws-demo__kills span {
+.tohm-demo__kills span {
   color: var(--bone-2);
   font-size: 14px;
 }
-.ws-demo__xp {
+.tohm-demo__xp {
   display: flex;
   align-items: center;
   gap: 8px;
   flex: 1 1 140px;
 }
-.ws-demo__lvl {
+.tohm-demo__lvl {
   color: var(--gold-0);
   white-space: nowrap;
 }
-.ws-demo__bar {
+.tohm-demo__bar {
   flex: 1;
   height: 10px;
   background: var(--occ);
   border: 2px solid var(--stone-2);
 }
-.ws-demo__bar span {
+.tohm-demo__bar span {
   display: block;
   height: 100%;
   background: #6ab8e8;
   box-shadow: inset 0 2px 0 #dcf4ff;
   transition: width 0.2s steps(4);
 }
-.ws-demo__owned {
+.tohm-demo__owned {
   display: flex;
   gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.ws-demo__owned li {
+.tohm-demo__owned li {
   position: relative;
   width: 32px;
   height: 32px;
   background: var(--occ);
   outline: 2px solid var(--gold-3);
 }
-.ws-demo__owned img {
+.tohm-demo__owned img {
   display: block;
   image-rendering: pixelated;
 }
-.ws-demo__owned span {
+.tohm-demo__owned span {
   position: absolute;
   right: -3px;
   bottom: -5px;
@@ -502,7 +502,7 @@
     -1px -1px 0 var(--occ);
 }
 
-.ws-demo__stage {
+.tohm-demo__stage {
   position: relative;
   border: 4px solid var(--stone-2);
   box-shadow:
@@ -511,7 +511,7 @@
     0 20px 60px rgba(0, 0, 0, 0.6);
   background: var(--occ);
 }
-.ws-demo__stage canvas {
+.tohm-demo__stage canvas {
   display: block;
   width: 100%;
   height: auto;
@@ -519,11 +519,11 @@
   image-rendering: pixelated;
   outline: none;
 }
-.ws-demo__stage canvas.is-live {
+.tohm-demo__stage canvas.is-live {
   touch-action: none;
   cursor: crosshair;
 }
-.ws-demo__veil {
+.tohm-demo__veil {
   position: absolute;
   inset: 0;
   display: flex;
@@ -539,7 +539,7 @@
     rgba(5, 7, 12, 0.85)
   );
 }
-.ws-demo__eyebrow {
+.tohm-demo__eyebrow {
   margin: 0;
   font-family: var(--caps);
   font-weight: 700;
@@ -548,7 +548,7 @@
   text-transform: uppercase;
   color: var(--gold-1);
 }
-.ws-demo__title {
+.tohm-demo__title {
   margin: 0;
   font-family: var(--pixel);
   font-weight: 700;
@@ -556,30 +556,30 @@
   color: var(--bone-0);
   text-shadow: 0 3px 0 var(--gold-3);
 }
-.ws-demo__how {
+.tohm-demo__how {
   margin: 4px 0 14px;
   max-width: 30em;
   color: var(--bone-1);
 }
-.ws-demo__how--small {
+.tohm-demo__how--small {
   margin-top: -8px;
   font-size: 15px;
   color: var(--bone-2);
 }
-.ws-demo__controls {
+.tohm-demo__controls {
   display: flex;
   justify-content: flex-end;
   min-height: 52px;
   padding-top: 10px;
 }
-.ws-demo__hint {
+.tohm-demo__hint {
   font-family: var(--pixel);
   color: var(--bone-2);
   align-self: center;
 }
 
 /* The level-up: three torn pages on the stone wall, as in the game. */
-.ws-levelup {
+.tohm-levelup {
   position: absolute;
   inset: 0;
   z-index: 3;
@@ -590,16 +590,16 @@
   padding: 24px;
   background:
     linear-gradient(rgba(5, 7, 12, 0.5), rgba(5, 7, 12, 0.5)),
-    url('/games/wizard-survivors/art/wall.png') center / cover no-repeat;
+    url('/games/the-one-he-missed/art/wall.png') center / cover no-repeat;
   image-rendering: pixelated;
-  animation: ws-drop 160ms steps(3);
+  animation: tohm-drop 160ms steps(3);
 }
-@keyframes ws-drop {
+@keyframes tohm-drop {
   from {
     clip-path: inset(0 0 100% 0);
   }
 }
-.ws-levelup__title {
+.tohm-levelup__title {
   margin: 0;
   align-self: center;
   padding: 4px 16px;
@@ -611,19 +611,19 @@
   background: var(--occ);
   border: 3px solid var(--gold-2);
 }
-.ws-levelup__cards {
+.tohm-levelup__cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
-.ws-card {
+.tohm-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   padding: 4px 2px 8px;
   border: 20px solid transparent;
-  border-image: url('/games/wizard-survivors/art/card.png') 20 fill / 20px round;
+  border-image: url('/games/the-one-he-missed/art/card.png') 20 fill / 20px round;
   image-rendering: pixelated;
   background: transparent;
   color: var(--ink);
@@ -632,44 +632,44 @@
   cursor: pointer;
   transition: transform 80ms steps(2);
 }
-.ws-card:hover,
-.ws-card:focus-visible {
-  border-image-source: url('/games/wizard-survivors/art/card-lit.png');
+.tohm-card:hover,
+.tohm-card:focus-visible {
+  border-image-source: url('/games/the-one-he-missed/art/card-lit.png');
   transform: translateY(-6px);
 }
-.ws-card:focus-visible {
+.tohm-card:focus-visible {
   outline: 4px solid var(--gold-0);
   outline-offset: 2px;
 }
-.ws-card:active {
+.tohm-card:active {
   transform: translateY(0);
 }
-.ws-card__icon {
+.tohm-card__icon {
   image-rendering: pixelated;
 }
-.ws-card__name {
+.tohm-card__name {
   font-family: var(--caps);
   font-weight: 700;
   font-size: 18px;
   line-height: 1.15;
 }
-.ws-card__level {
+.tohm-card__level {
   font-family: var(--pixel);
   font-size: 14px;
   color: #6a2028;
 }
-.ws-card__text {
+.tohm-card__text {
   font-size: 15px;
   line-height: 1.35;
 }
-.ws-card__tags {
+.tohm-card__tags {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 4px;
   margin-top: auto;
 }
-.ws-card__tags span {
+.tohm-card__tags span {
   padding: 0 6px;
   font-family: var(--pixel);
   font-size: 12px;
@@ -677,36 +677,36 @@
   color: var(--occ);
   border: 2px solid var(--occ);
 }
-.ws-card__tags--page {
+.tohm-card__tags--page {
   justify-content: flex-start;
   margin: 4px 0 10px;
 }
 
 /* --- Clips --------------------------------------------------------------------------------- */
 
-.ws-clips {
+.tohm-clips {
   display: grid;
   gap: 40px 28px;
 }
-.ws-clip {
+.tohm-clip {
   margin: 0;
 }
-.ws-frame {
+.tohm-frame {
   border: 20px solid transparent;
-  border-image: url('/games/wizard-survivors/art/frame-gold.png') 20 fill / 20px stretch;
+  border-image: url('/games/the-one-he-missed/art/frame-gold.png') 20 fill / 20px stretch;
   image-rendering: pixelated;
   filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
 }
-.ws-clip__video video {
+.tohm-clip__video video {
   image-rendering: pixelated;
   background: var(--occ);
 }
-.ws-clip figcaption {
+.tohm-clip figcaption {
   margin-top: 14px;
   padding: 0 6px;
   color: var(--bone-2);
 }
-.ws-clip figcaption strong {
+.tohm-clip figcaption strong {
   display: block;
   margin-bottom: 2px;
   font-family: var(--pixel);
@@ -716,7 +716,7 @@
 
 /* --- Grimoire, on the wall ----------------------------------------------------------------- */
 
-.ws-wall {
+.tohm-wall {
   max-width: none;
   margin-top: 72px;
   padding: 64px 16px 72px;
@@ -727,21 +727,21 @@
       rgba(5, 7, 12, 0.78) 88%,
       var(--occ)
     ),
-    url('/games/wizard-survivors/art/wall.png') center / cover no-repeat;
+    url('/games/the-one-he-missed/art/wall.png') center / cover no-repeat;
   image-rendering: pixelated;
 }
-.ws-grimoire {
+.tohm-grimoire {
   max-width: 1040px;
   margin: 0 auto;
 }
-.ws-grimoire__elements {
+.tohm-grimoire__elements {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
   margin-bottom: 26px;
 }
-.ws-chip {
+.tohm-chip {
   min-height: 36px;
   padding: 2px 12px;
   font-family: var(--pixel);
@@ -752,21 +752,21 @@
   box-shadow: 0 3px 0 var(--occ);
   cursor: pointer;
 }
-.ws-chip:hover {
+.tohm-chip:hover {
   background: var(--stone-3);
 }
-.ws-chip[aria-pressed='true'] {
+.tohm-chip[aria-pressed='true'] {
   color: var(--occ);
   background: var(--chip);
   transform: translateY(2px);
   box-shadow: none;
 }
-.ws-grimoire__body {
+.tohm-grimoire__body {
   display: grid;
   gap: 24px;
   align-items: start;
 }
-.ws-grimoire__grid {
+.tohm-grimoire__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
   gap: 6px;
@@ -774,7 +774,7 @@
   padding: 0;
   list-style: none;
 }
-.ws-sigil {
+.tohm-sigil {
   display: grid;
   place-items: center;
   width: 100%;
@@ -788,46 +788,46 @@
     opacity 120ms,
     transform 60ms steps(1);
 }
-.ws-sigil img {
+.tohm-sigil img {
   width: 100%;
   max-width: 64px;
   height: auto;
   image-rendering: pixelated;
 }
-.ws-sigil:hover {
+.tohm-sigil:hover {
   border-color: var(--gold-2);
 }
-.ws-sigil[aria-pressed='true'] {
+.tohm-sigil[aria-pressed='true'] {
   border-color: var(--gold-1);
   background: var(--stone-3);
   box-shadow:
     inset 0 0 0 2px var(--occ),
     0 0 18px rgba(255, 200, 72, 0.45);
 }
-.ws-sigil.is-dim {
+.tohm-sigil.is-dim {
   opacity: 0.22;
 }
-.ws-grimoire__page {
+.tohm-grimoire__page {
   position: relative;
   min-height: 240px;
 }
-.ws-grimoire__icon {
+.tohm-grimoire__icon {
   float: right;
   margin: 0 0 8px 12px;
   image-rendering: pixelated;
 }
-.ws-grimoire__name {
+.tohm-grimoire__name {
   margin: 4px 0 0;
   font-family: var(--caps);
   font-weight: 700;
   font-size: 26px;
   line-height: 1.15;
 }
-.ws-grimoire__text {
+.tohm-grimoire__text {
   margin: 0 0 12px;
   font-size: 19px;
 }
-.ws-grimoire__note {
+.tohm-grimoire__note {
   clear: both;
   margin: 0;
   padding-top: 10px;
@@ -839,22 +839,22 @@
 
 /* --- About --------------------------------------------------------------------------------- */
 
-.ws-about {
+.tohm-about {
   display: grid;
   gap: 28px;
   align-items: start;
 }
-.ws-about__page {
+.tohm-about__page {
   font-size: 19px;
 }
-.ws-about__page h2 {
+.tohm-about__page h2 {
   font-size: clamp(28px, 4vw, 38px);
   margin: 4px 0 8px;
 }
-.ws-about__page p {
+.tohm-about__page p {
   margin: 0 0 12px;
 }
-.ws-facts {
+.tohm-facts {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px 8px;
@@ -868,7 +868,7 @@
     inset 0 0 0 2px var(--occ),
     0 0 0 2px var(--occ);
 }
-.ws-facts__n {
+.tohm-facts__n {
   display: block;
   font-family: var(--pixel);
   font-weight: 700;
@@ -877,13 +877,13 @@
   color: var(--gold-0);
   text-shadow: 0 3px 0 var(--gold-2);
 }
-.ws-facts__what {
+.tohm-facts__what {
   font-family: var(--caps);
   font-size: 13px;
   letter-spacing: 0.08em;
   color: var(--bone-2);
 }
-.ws-facts__note {
+.tohm-facts__note {
   grid-column: 1 / -1;
   padding-top: 8px;
   border-top: 2px solid var(--stone-2);
@@ -893,7 +893,7 @@
 
 /* --- Screenshots --------------------------------------------------------------------------- */
 
-.ws-shots {
+.tohm-shots {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: min(78%, 360px);
@@ -905,10 +905,10 @@
   scroll-snap-type: x mandatory;
   scrollbar-color: var(--gold-2) var(--stone-4);
 }
-.ws-shots li {
+.tohm-shots li {
   scroll-snap-align: start;
 }
-.ws-shot {
+.tohm-shot {
   display: block;
   width: 100%;
   padding: 0;
@@ -918,11 +918,11 @@
   cursor: zoom-in;
   transition: transform 80ms steps(2);
 }
-.ws-shot:hover {
+.tohm-shot:hover {
   border-color: var(--gold-2);
   transform: translateY(-4px);
 }
-.ws-shot img {
+.tohm-shot img {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -931,57 +931,57 @@
 
 /* --- Controls and news --------------------------------------------------------------------- */
 
-.ws-split {
+.tohm-split {
   display: grid;
   gap: 28px;
   align-items: start;
 }
-.ws-split h2 {
+.tohm-split h2 {
   font-size: 30px;
   margin: 4px 0 14px;
 }
-.ws-controls dl {
+.tohm-controls dl {
   margin: 0;
 }
-.ws-controls dl > div {
+.tohm-controls dl > div {
   display: grid;
   gap: 4px;
   padding: 10px 0;
   border-bottom: 2px solid var(--stone-2);
 }
-.ws-controls dt {
+.tohm-controls dt {
   font-size: 18px;
 }
-.ws-controls dd {
+.tohm-controls dd {
   margin: 0;
   color: var(--bone-2);
 }
-.ws-controls__note {
+.tohm-controls__note {
   margin: 14px 0 6px;
   color: var(--gold-1);
   font-style: italic;
 }
-.ws-news__list {
+.tohm-news__list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.ws-news__list li {
+.tohm-news__list li {
   padding: 10px 0;
   border-bottom: 2px solid var(--stone-2);
 }
-.ws-news__head {
+.tohm-news__head {
   display: flex;
   justify-content: space-between;
   gap: 12px;
   margin: 0 0 4px;
   font-family: var(--pixel);
 }
-.ws-news__head span {
+.tohm-news__head span {
   color: var(--bone-3);
   font-size: 15px;
 }
-.ws-news__notes {
+.tohm-news__notes {
   margin: 0;
   white-space: pre-line;
   color: var(--bone-2);
@@ -991,7 +991,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.ws-news__all {
+.tohm-news__all {
   display: inline-block;
   margin: 14px 0 6px;
   font-family: var(--pixel);
@@ -999,13 +999,13 @@
 
 /* --- Final call, inside a glowing ring ----------------------------------------------------- */
 
-.ws-final {
+.tohm-final {
   position: relative;
   padding-top: 110px;
   padding-bottom: 40px;
   text-align: center;
 }
-.ws-final::before {
+.tohm-final::before {
   content: '';
   position: absolute;
   left: 50%;
@@ -1027,10 +1027,10 @@
       transparent 69%
     ),
     radial-gradient(closest-side, rgba(216, 176, 74, 0.16), transparent 75%);
-  animation: ws-ward 3.8s steps(1) infinite;
+  animation: tohm-ward 3.8s steps(1) infinite;
   pointer-events: none;
 }
-@keyframes ws-ward {
+@keyframes tohm-ward {
   0%,
   100% {
     opacity: 0.8;
@@ -1043,10 +1043,10 @@
     opacity: 1;
   }
 }
-.ws-final h2 {
+.tohm-final h2 {
   position: relative;
 }
-.ws-final p {
+.tohm-final p {
   position: relative;
   margin: 12px 0 30px;
   color: var(--bone-2);
@@ -1054,7 +1054,7 @@
 
 /* --- Footer -------------------------------------------------------------------------------- */
 
-.ws-footer {
+.tohm-footer {
   max-width: 760px;
   margin: 0 auto;
   padding: 72px 16px 48px;
@@ -1062,15 +1062,15 @@
   font-family: var(--pixel);
 }
 /* Tailwind's base makes images blocks, which text-align cannot centre - so centre it by margin. */
-.ws-footer img {
+.tohm-footer img {
   display: block;
   margin: 0 auto;
   image-rendering: pixelated;
 }
-.ws-footer p {
+.tohm-footer p {
   margin: 10px 0 0;
 }
-.ws-footer__small {
+.tohm-footer__small {
   font-family: var(--serif);
   font-size: 15px;
   color: var(--bone-3);
@@ -1079,26 +1079,26 @@
 /* --- Wider screens ------------------------------------------------------------------------- */
 
 @media (min-width: 640px) {
-  .ws-plaque {
+  .tohm-plaque {
     padding: 30px 32px 26px;
   }
 }
 
 @media (min-width: 860px) {
-  .ws-clips {
+  .tohm-clips {
     grid-template-columns: 1fr 1fr;
   }
-  .ws-grimoire__body {
+  .tohm-grimoire__body {
     grid-template-columns: 1fr 360px;
   }
-  .ws-grimoire__page {
+  .tohm-grimoire__page {
     position: sticky;
     top: 24px;
   }
-  .ws-about {
+  .tohm-about {
     grid-template-columns: 1.35fr 1fr;
   }
-  .ws-split {
+  .tohm-split {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -1106,47 +1106,47 @@
 /* --- Phones -------------------------------------------------------------------------------- */
 
 @media (max-width: 639px) {
-  .ws-page-root {
+  .tohm-page-root {
     font-size: 17px;
   }
-  .ws-plaque {
+  .tohm-plaque {
     margin-top: -40px;
     padding: 18px 6px 14px;
   }
-  .ws-plaque__actions .ws-btn {
+  .tohm-plaque__actions .tohm-btn {
     width: 100%;
   }
-  .ws-section {
+  .tohm-section {
     padding-top: 56px;
   }
-  .ws-demo__hud {
+  .tohm-demo__hud {
     gap: 6px 12px;
     padding: 8px 10px;
   }
-  .ws-demo__owned li,
-  .ws-demo__owned img {
+  .tohm-demo__owned li,
+  .tohm-demo__owned img {
     width: 24px;
     height: 24px;
   }
   /* Downscaled pixel art drops whole pixels; smoothing reads better below 1x. */
-  .ws-demo__stage canvas {
+  .tohm-demo__stage canvas {
     image-rendering: auto;
   }
-  .ws-levelup {
+  .tohm-levelup {
     inset: 0 0 auto;
     min-height: 100%;
     gap: 10px;
     padding: 12px 10px;
     justify-content: flex-start;
   }
-  .ws-levelup__title {
+  .tohm-levelup__title {
     font-size: 16px;
   }
-  .ws-levelup__cards {
+  .tohm-levelup__cards {
     grid-template-columns: 1fr;
     gap: 6px;
   }
-  .ws-card {
+  .tohm-card {
     display: grid;
     grid-template-columns: 40px 1fr auto;
     grid-template-areas:
@@ -1159,70 +1159,70 @@
     border-image-width: 12px;
     text-align: left;
   }
-  .ws-card:hover,
-  .ws-card:focus-visible {
+  .tohm-card:hover,
+  .tohm-card:focus-visible {
     transform: none;
   }
-  .ws-card__icon {
+  .tohm-card__icon {
     grid-area: icon;
     width: 40px;
     height: 40px;
   }
-  .ws-card__name {
+  .tohm-card__name {
     grid-area: name;
     font-size: 16px;
   }
-  .ws-card__level {
+  .tohm-card__level {
     grid-area: level;
     font-size: 12px;
   }
-  .ws-card__text {
+  .tohm-card__text {
     display: none;
   }
-  .ws-card__tags {
+  .tohm-card__tags {
     grid-area: tags;
     justify-content: flex-start;
     margin-top: 2px;
   }
-  .ws-grimoire__page {
+  .tohm-grimoire__page {
     order: -1;
     min-height: 0;
   }
-  .ws-facts {
+  .tohm-facts {
     gap: 14px 4px;
     padding: 20px 6px;
   }
-  .ws-facts__n {
+  .tohm-facts__n {
     font-size: 30px;
   }
-  .ws-facts__what {
+  .tohm-facts__what {
     font-size: 11px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ws-stars,
-  .ws-fog,
-  .ws-final::before,
-  .ws-levelup {
+  .tohm-stars,
+  .tohm-fog,
+  .tohm-final::before,
+  .tohm-levelup {
     animation: none;
   }
-  .ws-btn,
-  .ws-card,
-  .ws-shot,
-  .ws-sigil {
+  .tohm-btn,
+  .tohm-card,
+  .tohm-shot,
+  .tohm-sigil {
     transition: none;
   }
 }
 
-.ws-demo__stage canvas:focus-visible {
+.tohm-demo__stage canvas:focus-visible {
   outline: 2px solid var(--gold-2);
   outline-offset: -2px;
 }
 
 /* The update-email sign-up, at the foot of the What's new panel: bone text, a stone field and
    the gold button. */
-.ws-signup {
+.tohm-signup {
   --su-ink: var(--bone-0);
   --su-muted: var(--bone-2);
   --su-field: var(--occ);
@@ -1237,29 +1237,29 @@
   padding-top: 18px;
   border-top: 2px solid var(--stone-2);
 }
-.ws-signup .updates-signup__title {
+.tohm-signup .updates-signup__title {
   color: var(--gold-0);
   font-weight: 700;
 }
-.ws-signup .updates-signup__button {
+.tohm-signup .updates-signup__button {
   font-family: var(--pixel);
   box-shadow:
     inset -3px -3px 0 var(--gold-2),
     inset 3px 3px 0 var(--gold-0);
 }
-.ws-signup .updates-signup__status {
+.tohm-signup .updates-signup__status {
   color: #ff8a80;
 }
 
 /* One line on any phone: the label never wraps, and shrinks with the screen. */
-.ws-btn {
+.tohm-btn {
   white-space: nowrap;
 }
-.ws-btn--big {
+.tohm-btn--big {
   font-size: min(24px, 6.4vw);
 }
 
-.ws-updates-link {
+.tohm-updates-link {
   margin-top: 10px;
   font-family: var(--pixel);
   font-weight: 400;

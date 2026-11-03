@@ -1,5 +1,5 @@
 // The game's thirty spells, as its SpellData resources describe them. Icons are the game's own
-// generated art, copied to public/games/wizard-survivors/spells/<id>.png.
+// generated art, copied to public/games/the-one-he-missed/spells/<id>.png.
 
 export type Element =
   | 'Fire'
@@ -225,4 +225,4 @@ export const spells: Spell[] = [
 
 export const spellById = (id: string) => spells.find((s) => s.id === id)!
 
-export const iconSrc = (id: string) => `/games/wizard-survivors/spells/${id}.png`
+export const iconSrc = (id: string) => `/games/the-one-he-missed/spells/${id}.png`

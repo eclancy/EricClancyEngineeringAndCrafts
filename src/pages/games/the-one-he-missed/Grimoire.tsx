@@ -9,9 +9,9 @@ export function Grimoire() {
   const spell = spells.find((s) => s.id === selected) ?? spells[0]
 
   return (
-    <div className="ws-grimoire">
+    <div className="tohm-grimoire">
       <div
-        className="ws-grimoire__elements"
+        className="tohm-grimoire__elements"
         role="group"
         aria-label="Highlight an element"
       >
@@ -20,7 +20,7 @@ export function Grimoire() {
             key={el}
             type="button"
             aria-pressed={element === el}
-            className="ws-chip"
+            className="tohm-chip"
             style={{ '--chip': elementColour[el] } as React.CSSProperties}
             onClick={() => setElement(element === el ? null : el)}
           >
@@ -29,15 +29,15 @@ export function Grimoire() {
         ))}
       </div>
 
-      <div className="ws-grimoire__body">
-        <ul className="ws-grimoire__grid" aria-label="The thirty spells">
+      <div className="tohm-grimoire__body">
+        <ul className="tohm-grimoire__grid" aria-label="The thirty spells">
           {spells.map((s) => {
             const dim = element !== null && !s.elements.includes(element)
             return (
               <li key={s.id}>
                 <button
                   type="button"
-                  className={`ws-sigil${dim ? ' is-dim' : ''}`}
+                  className={`tohm-sigil${dim ? ' is-dim' : ''}`}
                   aria-pressed={s.id === selected}
                   aria-label={s.name}
                   title={s.name}
@@ -50,24 +50,24 @@ export function Grimoire() {
           })}
         </ul>
 
-        <article className="ws-page ws-grimoire__page" aria-live="polite">
+        <article className="tohm-page tohm-grimoire__page" aria-live="polite">
           <img
             src={iconSrc(spell.id)}
             alt=""
             width={64}
             height={64}
-            className="ws-grimoire__icon"
+            className="tohm-grimoire__icon"
           />
-          <h3 className="ws-grimoire__name">{spell.name}</h3>
-          <p className="ws-card__tags ws-card__tags--page">
+          <h3 className="tohm-grimoire__name">{spell.name}</h3>
+          <p className="tohm-card__tags tohm-card__tags--page">
             {spell.elements.map((el) => (
               <span key={el} style={{ background: elementColour[el] }}>
                 {el}
               </span>
             ))}
           </p>
-          <p className="ws-grimoire__text">{spell.text}</p>
-          <p className="ws-grimoire__note">
+          <p className="tohm-grimoire__text">{spell.text}</p>
+          <p className="tohm-grimoire__note">
             Each spell levels to seven, chooses a mutation at four and an Ascension at
             eight.
           </p>

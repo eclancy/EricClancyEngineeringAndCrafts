@@ -9,7 +9,7 @@ type PageModule = { default: ComponentType<GamePageProps> }
 export const gamePageLoaders: Record<string, () => Promise<PageModule>> = {
   drawfight: () => import('./drawfight/DrawFightPage'),
   drawpets: () => import('./drawpets/DrawPetsPage'),
-  'wizard-survivors': () => import('./wizard-survivors/WizardSurvivorsPage'),
+  'the-one-he-missed': () => import('./the-one-he-missed/TheOneHeMissedPage'),
   'wizard-wars': () => import('./wizard-wars/WizardWarsPage'),
 }
 

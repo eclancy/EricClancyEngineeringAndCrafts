@@ -88,15 +88,15 @@
   }
 }
 
-/* Wizard Survivors: the night wood and a gold summoning circle pulsing. */
-.gl-wizard-survivors {
+/* The One He Missed: the night wood and a gold summoning circle pulsing. */
+.gl-the-one-he-missed {
   background: linear-gradient(#05070c 0%, #0b0f18 45%, #05070c 100%);
   color: #d4dcea;
   font-family: ui-monospace, Consolas, monospace;
   letter-spacing: 0.04em;
 }
 
-.gl-ws-circle {
+.gl-tohm-circle {
   position: relative;
   width: 96px;
   height: 34px;
@@ -105,17 +105,17 @@
   box-shadow:
     0 0 18px #f6c35b88,
     inset 0 0 12px #f6c35b55;
-  animation: gl-ws-pulse 0.95s steps(3) infinite alternate;
+  animation: gl-tohm-pulse 0.95s steps(3) infinite alternate;
 }
 
-.gl-ws-circle span {
+.gl-tohm-circle span {
   position: absolute;
   inset: 7px 22px;
   border: 2px solid #f6c35baa;
   border-radius: 50%;
 }
 
-@keyframes gl-ws-pulse {
+@keyframes gl-tohm-pulse {
   from {
     opacity: 0.55;
     box-shadow: 0 0 8px #f6c35b55;

@@ -3,38 +3,38 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Download Wizard Survivors</title>
+    <title>Download The One He Missed</title>
     <meta
       name="description"
-      content="Download Wizard Survivors, a roguelite auto-shooter where your spells fire themselves. Free, for Windows and Android."
+      content="Download The One He Missed, a roguelite auto-shooter where your spells fire themselves. Free, for Windows and Android."
     />
 
     <!-- The link preview, for chat apps. -->
-    <meta property="og:title" content="Play Wizard Survivors" />
+    <meta property="og:title" content="Play The One He Missed" />
     <meta
       property="og:description"
       content="Move, survive, and let your spells do the rest. A free roguelite for Windows and Android."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ecec.dev/wizard-survivors/download" />
-    <link rel="canonical" href="https://ecec.dev/wizard-survivors/download" />
+    <meta property="og:url" content="https://ecec.dev/the-one-he-missed/download" />
+    <link rel="canonical" href="https://ecec.dev/the-one-he-missed/download" />
     <meta property="og:site_name" content="ECEC" />
     <meta
       property="og:image"
-      content="https://ecec.dev/wizard-survivors/download/title-screen.jpg"
+      content="https://ecec.dev/the-one-he-missed/download/title-screen.jpg"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="675" />
-    <meta property="og:image:alt" content="The Wizard Survivors title screen." />
+    <meta property="og:image:alt" content="The title screen of The One He Missed." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Play Wizard Survivors" />
+    <meta name="twitter:title" content="Play The One He Missed" />
     <meta
       name="twitter:description"
       content="Move, survive, and let your spells do the rest. A free roguelite for Windows and Android."
     />
     <meta
       name="twitter:image"
-      content="https://ecec.dev/wizard-survivors/download/title-screen.jpg"
+      content="https://ecec.dev/the-one-he-missed/download/title-screen.jpg"
     />
     <meta name="theme-color" content="#1a1030" />
 
@@ -250,38 +250,43 @@
   </head>
   <body>
     <main class="wrap">
-      <p class="eyebrow">Wizard Survivors · free · Windows, Linux and Android</p>
-      <h1>Play <span>Wizard Survivors</span></h1>
+      <p class="eyebrow">The One He Missed · free · Windows, Linux and Android</p>
+      <h1>Play <span>The One He Missed</span></h1>
       <p class="lede">
         You move; your spells fire themselves. Pick your upgrades, choose where to stand,
         and outlast the horde across eight chapters and nine bosses.
       </p>
       <p class="try">
         Want to try it first?
-        <a href="/games/wizard-survivors#ws-try">Play a 30-second demo in your browser</a>
+        <a href="/games/the-one-he-missed#tohm-try"
+          >Play a 30-second demo in your browser</a
+        >
       </p>
 
       <img
         class="shot"
-        src="/wizard-survivors/download/title-screen.jpg"
+        src="/the-one-he-missed/download/title-screen.jpg"
         width="1200"
         height="675"
-        alt="The Wizard Survivors title screen."
+        alt="The title screen of The One He Missed."
       />
 
-      <!-- On a phone the Android button comes first (the script below swaps them). -->
+      <!-- On a phone the Android button comes first (the script below swaps them). Until the
+           script has read the newest release, every download link goes to that release's page
+           on GitHub, which always exists; the script then points each one at its file, and
+           puts each file's real name wherever the steps below name it (data-file, data-base). -->
       <div class="buttons" id="buttons">
         <a
           class="big"
           id="windows"
-          href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-Setup.exe"
+          href="https://github.com/eclancy/TheOneHeMissed/releases/latest"
         >
           <span aria-hidden="true">🧙</span> Download for Windows
         </a>
         <a
           class="big second"
           id="android"
-          href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-android.apk"
+          href="https://github.com/eclancy/TheOneHeMissed/releases/latest"
         >
           <span aria-hidden="true">📱</span> Download for Android
         </a>
@@ -289,21 +294,21 @@
       <p class="meta" id="meta">Free for Windows and Android</p>
       <p class="portable">
         On Windows and rather not install anything?
-        <a
-          href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-windows.zip"
+        <a id="zip" href="https://github.com/eclancy/TheOneHeMissed/releases/latest"
           >Get the portable zip</a
-        >, unzip it somewhere like Documents and run <b>WizardSurvivors.exe</b>.
+        >, unzip it somewhere like Documents and run
+        <b><span data-base>TheOneHeMissed</span>.exe</b>.
       </p>
 
       <section class="card" aria-labelledby="how">
         <h2 id="how">On Windows</h2>
         <ol>
           <li>
-            Run <b>WizardSurvivors-Setup.exe</b>. It installs in a few seconds, with no
-            admin password needed.
+            Run <b data-file="setup">TheOneHeMissed-Setup.exe</b>. It installs in a few
+            seconds, with no admin password needed.
           </li>
           <li>
-            Start <b>Wizard Survivors</b> from the desktop shortcut or the Start menu.
+            Start <b>The One He Missed</b> from the desktop shortcut or the Start menu.
           </li>
           <li>
             Move with the keyboard or a controller. Your spells cast themselves, so focus
@@ -325,14 +330,15 @@
         <ol>
           <li>On the phone, open this page and tap <b>Download for Android</b>.</li>
           <li>
-            When it has downloaded, tap <b>WizardSurvivors-android.apk</b> to open it.
+            When it has downloaded, tap
+            <b data-file="apk">TheOneHeMissed-android.apk</b> to open it.
           </li>
           <li>
             Android asks whether your browser may install apps. Tap <b>Settings</b>, turn
             on <b>Allow from this source</b>, go back, and tap <b>Install</b>.
           </li>
           <li>
-            Open <b>Wizard Survivors</b> from the home screen. Put your thumb anywhere on
+            Open <b>The One He Missed</b> from the home screen. Put your thumb anywhere on
             the screen and drag to move.
           </li>
         </ol>
@@ -353,29 +359,31 @@
         <ol>
           <li>
             Download
-            <a
-              href="https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-linux.tar.gz"
-              ><b>WizardSurvivors-linux.tar.gz</b></a
+            <a id="linux" href="https://github.com/eclancy/TheOneHeMissed/releases/latest"
+              ><b data-file="linux">TheOneHeMissed-linux.tar.gz</b></a
             >
             and unpack it.
           </li>
           <li>
-            In a terminal in the unpacked folder, run <b>./install.sh</b>. It adds Wizard
-            Survivors to your app menu, with no password needed.
+            In a terminal in the unpacked folder, run <b>./install.sh</b>. It adds The One
+            He Missed to your app menu, with no password needed.
           </li>
-          <li>Start <b>Wizard Survivors</b> from your app menu.</li>
+          <li>Start <b>The One He Missed</b> from your app menu.</li>
         </ol>
         <p class="note">
           <b>It keeps itself up to date</b>, the same as on Windows. To remove it, run
-          <b>~/.local/share/WizardSurvivors/install.sh --uninstall</b>.
+          <b
+            >~/.local/share/<span data-base>TheOneHeMissed</span>/install.sh
+            --uninstall</b
+          >.
         </p>
       </section>
 
       <footer>
         Made by <a href="/">ECEC</a> ·
-        <a href="/games/wizard-survivors">about the game</a> ·
-        <a href="https://github.com/eclancy/WizardSurvivors">source code</a> ·
-        <a href="https://github.com/eclancy/WizardSurvivors/releases">all versions</a> ·
+        <a href="/games/the-one-he-missed">about the game</a> ·
+        <a href="https://github.com/eclancy/TheOneHeMissed">source code</a> ·
+        <a href="https://github.com/eclancy/TheOneHeMissed/releases">all versions</a> ·
         <a href="/privacy">privacy</a>
       </footer>
     </main>
@@ -385,15 +393,26 @@
         const buttons = document.getElementById('buttons')
         buttons.insertBefore(document.getElementById('android'), buttons.firstChild)
       }
-      // The version and sizes of the newest release. GitHub's API allows cross-site reads; if it
-      // is slow or rate-limited the line above just keeps its default wording. A 404 means
-      // nothing is published yet, so the buttons say so instead of linking to missing files.
-      fetch('https://api.github.com/repos/eclancy/WizardSurvivors/releases/latest')
+      // The version, sizes and files of the newest release. GitHub's API allows cross-site
+      // reads; if it is slow or rate-limited the page keeps its defaults, whose links go to the
+      // newest release's page. A 404 means nothing is published yet, so the buttons say so
+      // instead of linking to missing files.
+      //
+      // Each file is found by how its name ends, never by its whole name: the game has been
+      // renamed, and a release from before then carries its old name on its files. So the page
+      // links, and names in its steps, whatever the newest release actually holds.
+      const ENDINGS = {
+        setup: '-Setup.exe',
+        zip: '-windows.zip',
+        apk: '-android.apk',
+        linux: '-linux.tar.gz',
+      }
+      fetch('https://api.github.com/repos/eclancy/TheOneHeMissed/releases/latest')
         .then((r) => {
           if (r.status === 404) {
             const button = document.getElementById('windows')
             button.classList.add('soon')
-            button.href = '/games/wizard-survivors'
+            button.href = '/games/the-one-he-missed'
             button.innerHTML = '<span aria-hidden="true">⏳</span> Coming soon'
             document.getElementById('android').remove()
             document.getElementById('android-card').remove()
@@ -404,28 +423,45 @@
         })
         .then((release) => {
           const assets = release.assets || []
-          const sizeOf = (file) => (file ? Math.round(file.size / 1048576) + ' MB' : '')
-          const setup = assets.find((a) => a.name === 'WizardSurvivors-Setup.exe')
-          if (!setup) {
-            document.getElementById('windows').href =
-              'https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-windows.zip'
+          const file = {}
+          for (const key in ENDINGS) {
+            file[key] = assets.find((a) => a.name.endsWith(ENDINGS[key]))
           }
-          const win = sizeOf(
-            setup || assets.find((a) => a.name === 'WizardSurvivors-windows.zip'),
-          )
+          for (const el of document.querySelectorAll('[data-file]')) {
+            const named = file[el.dataset.file]
+            if (named) el.textContent = named.name
+          }
+          // The name the files share (the part before -windows.zip) is also the portable zip's
+          // program and the folder the Linux build installs itself to.
+          const any = file.zip || file.linux || file.setup || file.apk
+          if (any) {
+            const base = any.name.slice(0, any.name.lastIndexOf('-'))
+            for (const el of document.querySelectorAll('[data-base]'))
+              el.textContent = base
+          }
+          const sizeOf = (f) => (f ? Math.round(f.size / 1048576) + ' MB' : '')
+
+          const windows = file.setup || file.zip
+          if (windows)
+            document.getElementById('windows').href = windows.browser_download_url
+          if (file.zip)
+            document.getElementById('zip').href = file.zip.browser_download_url
+          const win = sizeOf(windows)
+
           // The APK exists from the first release that carried it. Before that the button
           // would link to a missing file, so it says it is coming instead.
-          const apkFile = assets.find((a) => a.name === 'WizardSurvivors-android.apk')
-          if (!apkFile) {
-            const button = document.getElementById('android')
-            button.classList.add('soon')
-            button.href = '/games/wizard-survivors'
-            button.innerHTML = '<span aria-hidden="true">⏳</span> Android: coming soon'
+          const android = document.getElementById('android')
+          if (file.apk) {
+            android.href = file.apk.browser_download_url
+          } else {
+            android.classList.add('soon')
+            android.href = '/games/the-one-he-missed'
+            android.innerHTML = '<span aria-hidden="true">⏳</span> Android: coming soon'
             document.getElementById('android-card').remove()
             // Never ahead of a download that works, even on a phone.
-            document.getElementById('buttons').appendChild(button)
+            document.getElementById('buttons').appendChild(android)
           }
-          const apk = sizeOf(apkFile)
+          const apk = sizeOf(file.apk)
           const version = String(release.tag_name || '').replace(/^v/, '')
           if (version) {
             document.getElementById('meta').textContent =
@@ -435,27 +471,18 @@
               (apk ? ' · Android ' + apk : '') +
               ' · free'
           }
-        })
-        .catch(() => {})
-    </script>
-    <script>
-      // Linux: once the newest release has a Linux build, show how to get it - and on a Linux
-      // computer, put a Linux button first. Nothing shows if GitHub is slow or there is no build.
-      fetch('https://api.github.com/repos/eclancy/WizardSurvivors/releases/latest')
-        .then((r) => (r.ok ? r.json() : Promise.reject()))
-        .then((release) => {
-          const linux = (release.assets || []).find(
-            (a) => a.name === 'WizardSurvivors-linux.tar.gz',
-          )
-          if (!linux) return
+
+          // Linux: once the newest release has a Linux build, show how to get it - and on a
+          // Linux computer, put a Linux button first.
+          if (!file.linux) return
+          document.getElementById('linux').href = file.linux.browser_download_url
           document.getElementById('linux-card').hidden = false
           const ua = navigator.userAgent
           if (!/Linux/i.test(ua) || /Android/i.test(ua)) return
           const first = document.querySelector('a.big')
           const button = first.cloneNode(false)
           button.removeAttribute('id')
-          button.href =
-            'https://github.com/eclancy/WizardSurvivors/releases/latest/download/WizardSurvivors-linux.tar.gz'
+          button.href = file.linux.browser_download_url
           button.innerHTML = '<span aria-hidden="true">🐧</span> Download for Linux'
           first.parentNode.insertBefore(button, first)
         })
