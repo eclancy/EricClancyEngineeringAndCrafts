@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Download The Farther We Stray</title>
+    <meta
+      name="description"
+      content="Download The Farther We Stray, a turn-based tactics game where you catch strays and breed, train and lead your beasts. Free, for Android."
+    />
+
+    <!-- The link preview, for chat apps. -->
+    <meta property="og:title" content="Play The Farther We Stray" />
+    <meta
+      property="og:description"
+      content="Catch strays, breed and train your beasts, and lead them into battle. A free tactics game for Android."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ecec.dev/the-farther-we-stray/download" />
+    <link rel="canonical" href="https://ecec.dev/the-farther-we-stray/download" />
+    <meta property="og:site_name" content="ECEC" />
+    <meta
+      property="og:image"
+      content="https://ecec.dev/the-farther-we-stray/download/title-screen.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta property="og:image:alt" content="The Farther We Stray title screen." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Play The Farther We Stray" />
+    <meta
+      name="twitter:description"
+      content="Catch strays, breed and train your beasts, and lead them into battle. A free tactics game for Android."
+    />
+    <meta
+      name="twitter:image"
+      content="https://ecec.dev/the-farther-we-stray/download/title-screen.jpg"
+    />
+    <meta name="theme-color" content="#0b0914" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Lexend:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* The game's own colours: the night of its menus, its gold, and the undercity's chem glow. */
+      :root {
+        --night: #0b0914;
+        --card: #16112a;
+        --line: #2f2550;
+        --ink: #f1ecff;
+        --soft: #bfb3dd;
+        --faint: #8a7fae;
+        --gold: #f2c14e;
+        --gold-ink: #2a1a00;
+        --gold-edge: #a8730f;
+        --glow: #4fe3ff;
+        --glow-wash: rgba(79, 227, 255, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(ellipse at 50% -10%, rgba(42, 26, 72, 0.9), transparent 60%),
+          radial-gradient(circle at 85% 85%, rgba(79, 227, 255, 0.06), transparent 40%),
+          var(--night);
+        color: var(--ink);
+        font-family: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+        font-size: 17px;
+        line-height: 1.55;
+        min-height: 100vh;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding-inline: 18px;
+        padding-block: 40px 72px;
+      }
+      h1,
+      h2,
+      .big {
+        font-family: 'Pixelify Sans', ui-monospace, monospace;
+        font-weight: 700;
+      }
+      h1 {
+        font-size: clamp(2.1rem, 1.4rem + 3.6vw, 3.3rem);
+        line-height: 1.05;
+        margin: 0 0 14px;
+      }
+      h1 span {
+        color: var(--gold);
+        text-shadow: 0 0 24px rgba(242, 193, 78, 0.35);
+      }
+      h2 {
+        font-size: 1.6rem;
+        margin: 0 0 12px;
+      }
+      .eyebrow {
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--faint);
+        margin: 0 0 8px;
+      }
+      .lede {
+        color: var(--soft);
+        margin: 0 0 22px;
+      }
+      a {
+        color: var(--glow);
+      }
+      .shot {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        height: auto;
+        border: 3px solid var(--line);
+        border-radius: 6px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin: 26px 0 8px;
+      }
+      .big {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px 20px;
+        /* One line on any phone: the label never wraps, and shrinks with the screen. */
+        white-space: nowrap;
+        font-size: min(1.6rem, 6.8vw);
+        color: var(--gold-ink);
+        background: var(--gold);
+        border: 3px solid var(--gold-ink);
+        border-radius: 6px;
+        box-shadow: 0 5px 0 var(--gold-edge);
+        text-decoration: none;
+        transition:
+          transform 80ms ease,
+          box-shadow 80ms ease;
+      }
+      .big:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 0 var(--gold-edge);
+      }
+      .big:active {
+        transform: translateY(4px);
+        box-shadow: 0 1px 0 var(--gold-edge);
+      }
+      .big:focus-visible {
+        outline: 3px solid var(--glow);
+        outline-offset: 3px;
+      }
+      .big.soon {
+        background: var(--card);
+        color: var(--soft);
+        border-color: var(--line);
+        box-shadow: none;
+      }
+      .meta {
+        text-align: center;
+        color: var(--faint);
+        font-size: 0.88rem;
+        margin: 0 0 30px;
+      }
+      /* Shown on a computer: the game is a phone app, so say where to open this page. */
+      .elsewhere {
+        text-align: center;
+        font-size: 0.92rem;
+        color: var(--soft);
+        margin: -18px 0 30px;
+      }
+      .card {
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        background: var(--card);
+        padding: 20px;
+        margin-top: 22px;
+      }
+      ol,
+      ul {
+        margin: 0;
+        padding-left: 1.4em;
+        display: grid;
+        gap: 10px;
+      }
+      li::marker {
+        font-family: 'Pixelify Sans', monospace;
+        color: var(--gold);
+      }
+      .note {
+        border: 2px solid var(--glow);
+        background: var(--glow-wash);
+        border-radius: 6px;
+        padding: 12px 14px;
+        margin: 14px 0 0;
+        font-size: 0.94rem;
+      }
+      .note b {
+        color: var(--gold);
+      }
+      footer {
+        margin-top: 34px;
+        font-size: 0.85rem;
+        color: var(--faint);
+        text-align: center;
+      }
+    </style>
+    <script async src="/analytics.js"></script>
+  </head>
+  <body>
+    <main class="wrap">
+      <p class="eyebrow">The Farther We Stray · free · Android · early build</p>
+      <h1>Play <span>The Farther We Stray</span></h1>
+      <p class="lede">
+        Catch strays, breed and train your beasts, and lead them in turn-based battles on
+        isometric maps, from your farmyard home out to a gilded city and the undercity
+        beneath it.
+      </p>
+
+      <img
+        class="shot"
+        src="/the-farther-we-stray/download/title-screen.jpg"
+        width="1200"
+        height="675"
+        alt="The Farther We Stray title screen: the farmyard home base, with four beasts in the pens."
+      />
+
+      <div class="buttons">
+        <a
+          class="big"
+          id="android"
+          href="https://github.com/eclancy/TheFartherWeStray/releases/latest/download/TheFartherWeStray-android.apk"
+        >
+          <span aria-hidden="true">📱</span> Download for Android
+        </a>
+      </div>
+      <p class="meta" id="meta">Free for Android phones</p>
+      <p class="elsewhere" id="elsewhere" hidden>
+        It's an Android app: open <b>ecec.dev/the-farther-we-stray/download</b> on your
+        phone to get it there.
+      </p>
+
+      <section class="card" id="android-card" aria-labelledby="android-how">
+        <h2 id="android-how">On an Android phone</h2>
+        <ol>
+          <li>On the phone, open this page and tap <b>Download for Android</b>.</li>
+          <li>
+            When it has downloaded, tap <b>TheFartherWeStray-android.apk</b> to open it.
+          </li>
+          <li>
+            Android asks whether your browser may install apps. Tap <b>Settings</b>, turn
+            on <b>Allow from this source</b>, go back, and tap <b>Install</b>.
+          </li>
+          <li>
+            Open <b>The Farther We Stray</b> from the home screen and hold the phone
+            sideways.
+          </li>
+        </ol>
+        <p class="note">
+          <b>It isn't on the Play Store,</b> so Android might say it doesn't recognise the
+          app. Tap <b>More details</b>, then <b>Install anyway</b>.
+        </p>
+        <p class="note">
+          <b>Updates:</b> when a new version is out, download it from this page and
+          install it over the top. Your beasts and saves stay.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="controls">
+        <h2 id="controls">The controls</h2>
+        <ul>
+          <li>
+            The buttons sit at the sides of the screen, never over the game: the
+            <b>D-pad</b> on the left, and <b>A</b> (select), <b>B</b> (back) and
+            <b>Start</b> (menu) on the right.
+          </li>
+          <li>
+            Or just tap. In battle, tap a tile to aim and tap it again to act; drag to
+            look around the board.
+          </li>
+          <li>
+            A highlighted button shows what it does, and your phone's back gesture works
+            like <b>B</b>.
+          </li>
+        </ul>
+        <p class="note">
+          <b>This is an early build.</b> Battles, catching, breeding, the lab and the
+          country map are in. The story is still being written.
+        </p>
+      </section>
+
+      <footer>
+        Made by <a href="/">ECEC</a> ·
+        <a href="https://github.com/eclancy/TheFartherWeStray">source code</a> ·
+        <a href="https://github.com/eclancy/TheFartherWeStray/releases">all versions</a> ·
+        <a href="/privacy">privacy</a>
+      </footer>
+    </main>
+    <script>
+      // On a computer, say the download is for a phone.
+      if (!/Android/i.test(navigator.userAgent)) {
+        document.getElementById('elsewhere').hidden = false
+      }
+      // The version and size of the newest release. GitHub's API allows cross-site reads; if it
+      // is slow or rate-limited the line under the button just keeps its default wording. A 404,
+      // or a release without the APK, means nothing is published yet, so the button says so
+      // instead of linking to a missing file.
+      fetch('https://api.github.com/repos/eclancy/TheFartherWeStray/releases/latest')
+        .then((r) => (r.ok || r.status === 404 ? r.json() : Promise.reject()))
+        .then((release) => {
+          const apk = (release.assets || []).find(
+            (a) => a.name === 'TheFartherWeStray-android.apk',
+          )
+          if (!apk) {
+            const button = document.getElementById('android')
+            button.classList.add('soon')
+            button.removeAttribute('href')
+            button.innerHTML = '<span aria-hidden="true">⏳</span> Coming soon'
+            document.getElementById('android-card').remove()
+            document.getElementById('meta').textContent =
+              'The first version is on its way'
+            return
+          }
+          const version = String(release.tag_name || '').replace(/^v/, '')
+          document.getElementById('meta').textContent =
+            (version ? 'Version ' + version + ' · ' : '') +
+            Math.round(apk.size / 1048576) +
+            ' MB · free'
+        })
+        .catch(() => {})
+    </script>
+  </body>
+</html>
