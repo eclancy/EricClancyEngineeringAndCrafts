@@ -6,14 +6,14 @@
     <title>Download The Farther We Stray</title>
     <meta
       name="description"
-      content="Download The Farther We Stray, a turn-based tactics game where you catch strays and breed, train and lead your beasts. Free, for Android."
+      content="Download The Farther We Stray, a turn-based tactics game where you catch strays and breed, train and lead your beasts. Free, for Windows and Android."
     />
 
     <!-- The link preview, for chat apps. -->
     <meta property="og:title" content="Play The Farther We Stray" />
     <meta
       property="og:description"
-      content="Catch strays, breed and train your beasts, and lead them into battle. A free tactics game for Android."
+      content="Catch strays, breed and train your beasts, and lead them into battle. A free tactics game for Windows and Android."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ecec.dev/the-farther-we-stray/download" />
@@ -30,7 +30,7 @@
     <meta name="twitter:title" content="Play The Farther We Stray" />
     <meta
       name="twitter:description"
-      content="Catch strays, breed and train your beasts, and lead them into battle. A free tactics game for Android."
+      content="Catch strays, breed and train your beasts, and lead them into battle. A free tactics game for Windows and Android."
     />
     <meta
       name="twitter:image"
@@ -162,6 +162,20 @@
         outline: 3px solid var(--glow);
         outline-offset: 3px;
       }
+      /* The second platform's button: the same shape in the game's chem glow, so the two read
+         as a pair and neither looks like the "real" one. */
+      .big.second {
+        color: #062a33;
+        background: var(--glow);
+        border-color: #062a33;
+        box-shadow: 0 5px 0 #1a8fa8;
+      }
+      .big.second:hover {
+        box-shadow: 0 6px 0 #1a8fa8;
+      }
+      .big.second:active {
+        box-shadow: 0 1px 0 #1a8fa8;
+      }
       .big.soon {
         background: var(--card);
         color: var(--soft);
@@ -174,7 +188,7 @@
         font-size: 0.88rem;
         margin: 0 0 30px;
       }
-      /* Shown on a computer: the game is a phone app, so say where to open this page. */
+      /* Shown on anything that isn't Windows or Android (a Mac, an iPhone): say what it runs on. */
       .elsewhere {
         text-align: center;
         font-size: 0.92rem;
@@ -221,7 +235,9 @@
   </head>
   <body>
     <main class="wrap">
-      <p class="eyebrow">The Farther We Stray · free · Android · early build</p>
+      <p class="eyebrow">
+        The Farther We Stray · free · Windows and Android · early build
+      </p>
       <h1>Play <span>The Farther We Stray</span></h1>
       <p class="lede">
         Catch strays, breed and train your beasts, and lead them in turn-based battles on
@@ -237,20 +253,54 @@
         alt="The Farther We Stray title screen: the farmyard home base, with four beasts in the pens."
       />
 
-      <div class="buttons">
+      <!-- On a phone the Android button comes first (the script below swaps them). -->
+      <div class="buttons" id="buttons">
         <a
           class="big"
+          id="windows"
+          href="https://github.com/eclancy/TheFartherWeStray/releases/latest/download/TheFartherWeStray-windows.zip"
+        >
+          <span aria-hidden="true">💻</span> Download for Windows
+        </a>
+        <a
+          class="big second"
           id="android"
           href="https://github.com/eclancy/TheFartherWeStray/releases/latest/download/TheFartherWeStray-android.apk"
         >
           <span aria-hidden="true">📱</span> Download for Android
         </a>
       </div>
-      <p class="meta" id="meta">Free for Android phones</p>
+      <p class="meta" id="meta">Free for Windows and Android</p>
       <p class="elsewhere" id="elsewhere" hidden>
-        It's an Android app: open <b>ecec.dev/the-farther-we-stray/download</b> on your
-        phone to get it there.
+        It runs on Windows and Android for now. On an Android phone, open
+        <b>ecec.dev/the-farther-we-stray/download</b> there to get it.
       </p>
+
+      <section class="card" id="windows-card" aria-labelledby="windows-how">
+        <h2 id="windows-how">On Windows</h2>
+        <ol>
+          <li>
+            Click <b>Download for Windows</b> to get <b>TheFartherWeStray-windows.zip</b>.
+          </li>
+          <li>Right-click it and choose <b>Extract All</b>, somewhere like Documents.</li>
+          <li>
+            Open the <b>TheFartherWeStray</b> folder and run <b>TheFartherWeStray.exe</b>.
+            Keep the files beside it together: the game needs them.
+          </li>
+          <li>
+            Play with the mouse, or the keyboard: the arrows and Enter, and Esc to go
+            back.
+          </li>
+        </ol>
+        <p class="note">
+          <b>Windows might say "Windows protected your PC".</b> That's because this game
+          isn't from a big company. Click <b>More info</b>, then <b>Run anyway</b>.
+        </p>
+        <p class="note">
+          <b>Updates:</b> download the new zip and extract it over the old folder. Your
+          beasts and saves are kept elsewhere, so they stay.
+        </p>
+      </section>
 
       <section class="card" id="android-card" aria-labelledby="android-how">
         <h2 id="android-how">On an Android phone</h2>
@@ -279,7 +329,7 @@
       </section>
 
       <section class="card" aria-labelledby="controls">
-        <h2 id="controls">The controls</h2>
+        <h2 id="controls">Controls on a phone</h2>
         <ul>
           <li>
             The buttons sit at the sides of the screen, never over the game: the
@@ -309,35 +359,49 @@
       </footer>
     </main>
     <script>
-      // On a computer, say the download is for a phone.
-      if (!/Android/i.test(navigator.userAgent)) {
-        document.getElementById('elsewhere').hidden = false
+      // A phone sees its own download first; a computer that isn't Windows hears what it runs on.
+      const ua = navigator.userAgent
+      const android = /Android/i.test(ua)
+      if (android) {
+        const buttons = document.getElementById('buttons')
+        buttons.insertBefore(document.getElementById('android'), buttons.firstChild)
       }
-      // The version and size of the newest release. GitHub's API allows cross-site reads; if it
-      // is slow or rate-limited the line under the button just keeps its default wording. A 404,
-      // or a release without the APK, means nothing is published yet, so the button says so
-      // instead of linking to a missing file.
+      if (!android && !/Windows/i.test(ua))
+        document.getElementById('elsewhere').hidden = false
+      // The version and sizes of the newest release. GitHub's API allows cross-site reads; if it
+      // is slow or rate-limited the line under the buttons just keeps its default wording. A
+      // download the release doesn't have (or a 404: nothing published yet) says it's coming
+      // instead of linking to a missing file, and moves behind any that work.
       fetch('https://api.github.com/repos/eclancy/TheFartherWeStray/releases/latest')
         .then((r) => (r.ok || r.status === 404 ? r.json() : Promise.reject()))
         .then((release) => {
-          const apk = (release.assets || []).find(
-            (a) => a.name === 'TheFartherWeStray-android.apk',
-          )
-          if (!apk) {
-            const button = document.getElementById('android')
+          const assets = release.assets || []
+          const files = [
+            ['windows', 'Windows', 'TheFartherWeStray-windows.zip'],
+            ['android', 'Android', 'TheFartherWeStray-android.apk'],
+          ]
+          const sizes = []
+          for (const [id, label, name] of files) {
+            const file = assets.find((a) => a.name === name)
+            if (file) {
+              sizes.push(label + ' ' + Math.round(file.size / 1048576) + ' MB')
+              continue
+            }
+            const button = document.getElementById(id)
             button.classList.add('soon')
+            button.classList.remove('second')
             button.removeAttribute('href')
-            button.innerHTML = '<span aria-hidden="true">⏳</span> Coming soon'
-            document.getElementById('android-card').remove()
-            document.getElementById('meta').textContent =
-              'The first version is on its way'
-            return
+            button.innerHTML =
+              '<span aria-hidden="true">⏳</span> ' + label + ': coming soon'
+            document.getElementById(id + '-card').remove()
+            document.getElementById('buttons').appendChild(button)
           }
           const version = String(release.tag_name || '').replace(/^v/, '')
-          document.getElementById('meta').textContent =
-            (version ? 'Version ' + version + ' · ' : '') +
-            Math.round(apk.size / 1048576) +
-            ' MB · free'
+          document.getElementById('meta').textContent = sizes.length
+            ? (version ? 'Version ' + version + ' · ' : '') +
+              sizes.join(' · ') +
+              ' · free'
+            : 'The first version is on its way'
         })
         .catch(() => {})
     </script>
