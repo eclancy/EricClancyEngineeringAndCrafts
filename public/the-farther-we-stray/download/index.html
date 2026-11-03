@@ -195,6 +195,12 @@
         color: var(--soft);
         margin: -18px 0 30px;
       }
+      .portable {
+        text-align: center;
+        font-size: 0.85rem;
+        margin: -22px 0 30px;
+        opacity: 0.85;
+      }
       .card {
         border: 2px solid var(--line);
         border-radius: 8px;
@@ -258,7 +264,7 @@
         <a
           class="big"
           id="windows"
-          href="https://github.com/eclancy/TheFartherWeStray/releases/latest/download/TheFartherWeStray-windows.zip"
+          href="https://github.com/eclancy/TheFartherWeStray/releases/latest/download/TheFartherWeStray-Setup.exe"
         >
           <span aria-hidden="true">💻</span> Download for Windows
         </a>
@@ -271,6 +277,13 @@
         </a>
       </div>
       <p class="meta" id="meta">Free for Windows and Android</p>
+      <p class="portable" id="portable">
+        On Windows and rather not install anything?
+        <a
+          href="https://github.com/eclancy/TheFartherWeStray/releases/latest/download/TheFartherWeStray-windows.zip"
+          >Get the portable zip</a
+        >, unzip it somewhere like Documents and run <b>TheFartherWeStray.exe</b>.
+      </p>
       <p class="elsewhere" id="elsewhere" hidden>
         It runs on Windows and Android for now. On an Android phone, open
         <b>ecec.dev/the-farther-we-stray/download</b> there to get it.
@@ -280,12 +293,11 @@
         <h2 id="windows-how">On Windows</h2>
         <ol>
           <li>
-            Click <b>Download for Windows</b> to get <b>TheFartherWeStray-windows.zip</b>.
+            Run <b>TheFartherWeStray-Setup.exe</b>. It installs in a few seconds, with no
+            admin password needed.
           </li>
-          <li>Right-click it and choose <b>Extract All</b>, somewhere like Documents.</li>
           <li>
-            Open the <b>TheFartherWeStray</b> folder and run <b>TheFartherWeStray.exe</b>.
-            Keep the files beside it together: the game needs them.
+            Start <b>The Farther We Stray</b> from the desktop shortcut or the Start menu.
           </li>
           <li>
             Play with the mouse, or the keyboard: the arrows and Enter, and Esc to go
@@ -297,8 +309,8 @@
           isn't from a big company. Click <b>More info</b>, then <b>Run anyway</b>.
         </p>
         <p class="note">
-          <b>Updates:</b> download the new zip and extract it over the old folder. Your
-          beasts and saves are kept elsewhere, so they stay.
+          <b>It keeps itself up to date.</b> Each time it starts, it checks for a new
+          version and installs it by itself. Your beasts and saves stay.
         </p>
       </section>
 
@@ -323,8 +335,9 @@
           app. Tap <b>More details</b>, then <b>Install anyway</b>.
         </p>
         <p class="note">
-          <b>Updates:</b> when a new version is out, download it from this page and
-          install it over the top. Your beasts and saves stay.
+          <b>Updates:</b> when a new version is out, the game tells you on its title
+          screen. Tap <b>Download</b> there and install it over the top. Your beasts and
+          saves stay.
         </p>
       </section>
 
@@ -376,17 +389,27 @@
         .then((r) => (r.ok || r.status === 404 ? r.json() : Promise.reject()))
         .then((release) => {
           const assets = release.assets || []
+          // Windows is the installer, or the portable zip from a release without one.
           const files = [
-            ['windows', 'Windows', 'TheFartherWeStray-windows.zip'],
-            ['android', 'Android', 'TheFartherWeStray-android.apk'],
+            [
+              'windows',
+              'Windows',
+              ['TheFartherWeStray-Setup.exe', 'TheFartherWeStray-windows.zip'],
+            ],
+            ['android', 'Android', ['TheFartherWeStray-android.apk']],
           ]
           const sizes = []
-          for (const [id, label, name] of files) {
-            const file = assets.find((a) => a.name === name)
+          for (const [id, label, names] of files) {
+            const file = names.map((n) => assets.find((a) => a.name === n)).find(Boolean)
             if (file) {
               sizes.push(label + ' ' + Math.round(file.size / 1048576) + ' MB')
+              if (file.name.endsWith('.zip')) {
+                document.getElementById(id).href = file.browser_download_url
+                document.getElementById('portable').remove()
+              }
               continue
             }
+            if (id === 'windows') document.getElementById('portable').remove()
             const button = document.getElementById(id)
             button.classList.add('soon')
             button.classList.remove('second')
