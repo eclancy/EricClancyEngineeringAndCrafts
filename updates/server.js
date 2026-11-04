@@ -41,6 +41,7 @@ const GAMES = {
   drawpets: { name: 'DrawPets', repo: 'DrawPets' },
   'the-one-he-missed': { name: 'The One He Missed', repo: 'TheOneHeMissed' },
   'wizard-wars': { name: 'Wizard Wars', repo: 'WizardWars' },
+  'the-farther-we-stray': { name: 'The Farther We Stray', repo: 'TheFartherWeStray' },
 }
 
 // A game's id from before it was renamed, and the id it has now. Kept on purpose: The One He
