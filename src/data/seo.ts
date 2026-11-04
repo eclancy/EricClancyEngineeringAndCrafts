@@ -33,7 +33,7 @@ export const homeSeo: PageSeo = {
   title: 'Eric Clancy – Full-Stack Developer & Free Games | ECEC',
   description:
     'Eric Clancy is a full-stack developer and technical lead who builds with AI. Play ' +
-    'his free games: DrawFight, DrawPets, The One He Missed and Wizard Wars.',
+    'his free games, from DrawFight to The Farther We Stray.',
 }
 
 export const homeStructuredData = [
@@ -97,6 +97,17 @@ export const gameSeo: Record<string, GameSeo> = {
     genre: ['Party', 'Battle arena'],
     platforms: ['Windows', 'Linux'],
     players: { min: 1, max: 4 },
+  },
+  'the-farther-we-stray': {
+    name: 'The Farther We Stray',
+    title: 'The Farther We Stray – Free Creature Tactics Game',
+    description:
+      'Catch strays, breed and train your beasts, and lead them in turn-based tactics ' +
+      'battles. Free for Windows and Android.',
+    image: { width: 1200, height: 675, alt: 'The title screen of The Farther We Stray.' },
+    genre: ['Tactics', 'Creature collector'],
+    platforms: ['Windows', 'Android'],
+    players: { min: 1, max: 1 },
   },
 }
 

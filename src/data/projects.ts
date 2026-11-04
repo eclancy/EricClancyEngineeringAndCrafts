@@ -19,6 +19,11 @@ import wwWoodlandBattle from '../assets/projects/wizard-wars/woodland-battle.jpg
 import wwMeteorStorm from '../assets/projects/wizard-wars/meteor-storm.jpg'
 import wwFrostTundra from '../assets/projects/wizard-wars/frost-tundra.jpg'
 import wwCharacterSelect from '../assets/projects/wizard-wars/character-select.jpg'
+import tfwsTitleScreen from '../assets/projects/the-farther-we-stray/title-screen.jpg'
+import tfwsLanternRow from '../assets/projects/the-farther-we-stray/lantern-row.jpg'
+import tfwsGildedGardens from '../assets/projects/the-farther-we-stray/gilded-gardens.jpg'
+import tfwsCountryMap from '../assets/projects/the-farther-we-stray/country-map.jpg'
+import tfwsHomeBase from '../assets/projects/the-farther-we-stray/home-base.jpg'
 import emLogo from '../assets/projects/erics-miniatures/logo.png'
 import emTerrain from '../assets/projects/erics-miniatures/terrain.jpg'
 import emEscapeRealityFeature from '../assets/projects/erics-miniatures/escape-reality-feature.jpg'
@@ -310,6 +315,62 @@ export const projects: Project[] = [
       {
         src: wwCharacterSelect,
         alt: 'Character Select with four players joined and their wizards locked in',
+      },
+    ],
+  },
+  {
+    id: 'the-farther-we-stray',
+    name: 'The Farther We Stray',
+    tagline: 'Catch strays, breed your beasts, and lead them into battle.',
+    description:
+      'Turn-based tactics on isometric maps, where every creature is generated: no two ' +
+      'beasts, and no two squads, are alike.',
+    tech: ['Godot 4.5', 'C#', '.NET 9'],
+    repoUrl: 'https://github.com/eclancy/TheFartherWeStray',
+    game: {
+      repo: 'TheFartherWeStray',
+      players: '1 player',
+      platform: 'Windows and Android',
+      about: [
+        'Catch strays, breed and train your beasts, and lead them in turn-based battles on ' +
+          'isometric maps, from your farmyard home out to a gilded city and the undercity ' +
+          'beneath it.',
+        'Every creature is built from a seed and drawn by code, from its body and parts to ' +
+          'its element and temper. Its parts are its gear, and its body decides which of 51 ' +
+          'jobs it can learn. Breed two beasts for a child that takes after both, or graft ' +
+          'on parts and machine augments at the lab.',
+        'Take contracts around the country, duel rival tamers and fight in the coliseum. ' +
+          'An early build: the story is still being written, and the game keeps itself up ' +
+          'to date as it grows. On Android it plays held sideways, with a game pad on screen.',
+      ],
+    },
+    callsToAction: [
+      {
+        href: 'https://ecec.dev/the-farther-we-stray/download',
+        label: 'Play The Farther We Stray',
+        emoji: '🎮',
+      },
+    ],
+    images: [
+      {
+        src: tfwsTitleScreen,
+        alt: 'The Farther We Stray title screen: four beasts on a farmyard path beside the menu',
+      },
+      {
+        src: tfwsLanternRow,
+        alt: 'A battle on Lantern Row: beasts fight among the undercity rooftops, neon signs and streetlights',
+      },
+      {
+        src: tfwsGildedGardens,
+        alt: 'A battle in the Gilded Gardens of the city above, among fountains, hedges and tiled roofs',
+      },
+      {
+        src: tfwsCountryMap,
+        alt: 'The country map: the ranch, the gilded city and the undercity, with the contracts on offer at Lantern Row',
+      },
+      {
+        src: tfwsHomeBase,
+        alt: 'The home base: the tamer in the farmyard, with the beasts in their pens and stations to walk to',
       },
     ],
   },
