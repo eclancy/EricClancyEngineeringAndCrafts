@@ -162,6 +162,47 @@
   }
 }
 
+/* The Farther We Stray: the night undercity and a gold Art Deco diamond round a neon tube that
+   flickers on, as the game's menu frames are drawn. */
+.gl-the-farther-we-stray {
+  background: #0b0914;
+  color: #bfb3dd;
+  font-family: ui-monospace, Consolas, monospace;
+  letter-spacing: 0.04em;
+}
+
+.gl-tfws-tube {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 4px solid #f2c14e;
+  transform: rotate(45deg);
+  box-shadow: 0 0 16px #f2c14e55;
+}
+
+.gl-tfws-tube span {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #4fe3ff;
+  box-shadow:
+    0 0 12px #4fe3ff,
+    inset 0 0 8px #4fe3ff;
+  animation: gl-tfws-flicker 1.2s steps(1) infinite;
+}
+
+@keyframes gl-tfws-flicker {
+  0%,
+  40%,
+  48%,
+  100% {
+    opacity: 1;
+  }
+  44% {
+    opacity: 0.3;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .game-loader * {
     animation: none !important;

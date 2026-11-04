@@ -1,0 +1,1104 @@
+/* The Farther We Stray: the game's own menu style, "Gilt and neon" (docs/ui-style.md in the game's
+   repo). The city's gold line with stepped Art Deco corners round smoked violet glass, an undercity
+   neon tube inside it. The frames are the game's own pixel nine-slices (frames/*.png, written by the
+   game's --webkit), drawn here as border-images at the game's own 3x (2x for small ones). The
+   sprites and glyphs are the game's too. Everything is scoped to the page. */
+
+.tfws-root {
+  --night: #0b0914;
+  --glass: #16112a;
+  --line: #2f2550;
+  --ink: #f1ecff;
+  --soft: #bfb3dd;
+  --faint: #8a7fae;
+  --gold: #f2c14e;
+  --gold-hi: #ffe7a3;
+  --gold-lo: #a8730f;
+  --cyan: #4fe3ff;
+  --pink: #ff4f9a;
+  --deco: 'Limelight', 'Georgia', serif;
+  --body: 'Lexend', 'Segoe UI', system-ui, sans-serif;
+  --pixel: 'Pixelify Sans', ui-monospace, monospace;
+  --art: '/games/the-farther-we-stray/';
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--night);
+  color: var(--soft);
+  font-family: var(--body);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.6;
+  color-scheme: dark;
+}
+
+.tfws-root a {
+  color: var(--gold-hi);
+  text-decoration-color: var(--gold-lo);
+  text-underline-offset: 3px;
+}
+.tfws-root a:hover {
+  color: #fff;
+  text-decoration-color: var(--gold);
+}
+.tfws-root :focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.tfws-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tfws-skip {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 50;
+  padding: 8px 14px;
+  background: var(--gold);
+  color: var(--night) !important;
+  font-family: var(--pixel);
+}
+.tfws-skip:focus {
+  top: 12px;
+}
+
+/* --- Smog: the undercity's neon, glowing faintly through the haze behind everything ------------ */
+
+.tfws-smog {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 60% 40% at 12% 30%,
+      rgba(255, 79, 154, 0.07),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 45% at 90% 60%,
+      rgba(79, 227, 255, 0.06),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 50% 110%,
+      rgba(242, 193, 78, 0.06),
+      transparent 70%
+    );
+}
+
+.tfws-root > *:not(.tfws-smog) {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- The game's frames ---------------------------------------------------------------------- */
+
+.tfws-panel {
+  border: 18px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/panel.png') 18 fill / 18px stretch;
+  image-rendering: pixelated;
+}
+
+.tfws-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 10px;
+  border: 18px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/button.png') 18 fill / 18px
+    stretch;
+  image-rendering: pixelated;
+  background: none;
+  color: #e6e0f2 !important;
+  font-family: var(--pixel);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-shadow: 0 2px 0 #0b0914;
+  cursor: pointer;
+  user-select: none;
+}
+.tfws-btn:hover {
+  border-image-source: url('/games/the-farther-we-stray/frames/button-hover.png');
+  color: #fff !important;
+}
+.tfws-btn:active {
+  border-image-source: url('/games/the-farther-we-stray/frames/button-pressed.png');
+  color: #ffd6ec !important;
+}
+.tfws-root .tfws-btn:focus-visible {
+  outline: none;
+  border-image-source: url('/games/the-farther-we-stray/frames/button-focus.png');
+}
+.tfws-btn--gold {
+  border-image-source: url('/games/the-farther-we-stray/frames/button-gold.png');
+  color: var(--gold-hi) !important;
+}
+.tfws-btn--gold:hover {
+  filter: brightness(1.12);
+  border-image-source: url('/games/the-farther-we-stray/frames/button-gold.png');
+}
+.tfws-btn--cyan {
+  border-image-source: url('/games/the-farther-we-stray/frames/button-cyan.png');
+}
+.tfws-btn--big {
+  min-height: 60px;
+  padding: 0 18px;
+  font-size: 1.25rem;
+}
+.tfws-btn--small {
+  min-height: 40px;
+  padding: 0 6px;
+  border-width: 12px;
+  border-image: url('/games/the-farther-we-stray/frames/small.png') 12 fill / 12px stretch;
+  font-size: 0.95rem;
+}
+.tfws-btn--small:hover {
+  border-image-source: url('/games/the-farther-we-stray/frames/small-hover.png');
+}
+.tfws-btn--small.tfws-btn--gold {
+  border-image-source: url('/games/the-farther-we-stray/frames/small-gold.png');
+}
+.tfws-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: saturate(0.4);
+}
+.tfws-btn__glyph {
+  font-size: 1.1em;
+  color: var(--gold);
+}
+
+/* --- The game's art: glyphs, sprites, the tile they stand on --------------------------------- */
+
+.tfws-glyph {
+  --g: 2;
+  display: inline-block;
+  flex: none;
+  width: calc(var(--gc) * var(--g) * 1px);
+  height: calc(var(--gc) * var(--g) * 1px);
+  background: url('/games/the-farther-we-stray/glyphs.png') no-repeat;
+  background-size: calc(var(--gn) * var(--gc) * var(--g) * 1px) auto;
+  background-position: calc(var(--gx) * var(--gc) * var(--g) * -1px)
+    calc(var(--gy) * var(--gc) * var(--g) * -1px);
+  image-rendering: pixelated;
+}
+
+.tfws-sprite {
+  display: block;
+  width: calc(var(--w) * var(--s, 3) * 1px);
+  height: calc(var(--h) * var(--s, 3) * 1px);
+  background-repeat: no-repeat;
+  background-size: calc(var(--w) * var(--n) * var(--s, 3) * 1px)
+    calc(var(--h) * var(--s, 3) * 1px);
+  background-position: calc(var(--f) * var(--w) * var(--s, 3) * -1px) 0;
+  image-rendering: pixelated;
+}
+
+.tfws-tile {
+  position: absolute;
+  left: 50%;
+  top: var(--floor);
+  width: calc(49 * var(--s, 3) * 1px);
+  height: calc(33 * var(--s, 3) * 1px);
+  margin-left: calc(-24 * var(--s, 3) * 1px);
+  margin-top: calc(-12 * var(--s, 3) * 1px);
+  background: url('/games/the-farther-we-stray/tile.png') no-repeat 0 0 / 100% 100%;
+  image-rendering: pixelated;
+}
+
+/* --- Top bar --------------------------------------------------------------------------------- */
+
+.tfws-topbar {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 18px 20px 0;
+  font-family: var(--pixel);
+  font-size: 0.95rem;
+}
+.tfws-root .tfws-topbar a {
+  color: var(--soft);
+  text-decoration: none;
+}
+.tfws-root .tfws-topbar a:hover {
+  color: var(--gold-hi);
+}
+
+/* --- Hero: the undercity behind the gold ---------------------------------------------------- */
+
+.tfws-hero {
+  margin-top: -58px;
+  padding: 120px 20px 72px;
+  background:
+    linear-gradient(180deg, rgba(11, 9, 20, 0.55) 0%, rgba(11, 9, 20, 0) 30%),
+    linear-gradient(0deg, var(--night) 0%, rgba(11, 9, 20, 0) 35%),
+    linear-gradient(
+      90deg,
+      rgba(11, 9, 20, 0.97) 0%,
+      rgba(11, 9, 20, 0.86) 45%,
+      rgba(11, 9, 20, 0.45) 100%
+    ),
+    var(--hero) center 40% / cover no-repeat;
+  image-rendering: auto;
+}
+.tfws-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 32px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.tfws-eyebrow {
+  margin: 0 0 12px;
+  color: var(--cyan);
+  font-family: var(--pixel);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 6px rgba(79, 227, 255, 0.75),
+    0 0 18px rgba(79, 227, 255, 0.35);
+}
+.tfws-hero .tfws-eyebrow {
+  animation: tfws-buzz 7s steps(1) infinite;
+}
+/* A neon sign that cuts out now and then, as the undercity's do in the game. */
+@keyframes tfws-buzz {
+  0%,
+  91%,
+  93%,
+  95%,
+  100% {
+    opacity: 1;
+  }
+  92%,
+  94% {
+    opacity: 0.35;
+    text-shadow: none;
+  }
+}
+
+.tfws-title {
+  margin: 0;
+  font-family: var(--deco);
+  font-size: clamp(3rem, 8vw, 5.6rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    #fff3c8 0%,
+    var(--gold-hi) 30%,
+    var(--gold) 58%,
+    var(--gold-lo) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 0 #2a1a00) drop-shadow(0 0 22px rgba(242, 193, 78, 0.25));
+}
+.tfws-title span {
+  display: block;
+}
+
+.tfws-tag {
+  margin: 22px 0 0;
+  color: var(--ink);
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  font-weight: 400;
+}
+.tfws-tag em {
+  color: var(--pink);
+  font-style: normal;
+  text-shadow: 0 0 14px rgba(255, 79, 154, 0.45);
+}
+.tfws-sub {
+  max-width: 34em;
+  margin: 12px 0 0;
+}
+
+.tfws-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.tfws-meta {
+  margin: 18px 0 0;
+  color: var(--faint);
+  font-family: var(--pixel);
+  font-size: 0.9rem;
+}
+.tfws-updates-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--pixel);
+  font-size: 0.9rem;
+}
+
+.tfws-hero__beasts {
+  --s: 3;
+  --floor: 236px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.tfws-hero__beast {
+  position: relative;
+  flex: none;
+  width: calc(var(--slot) * var(--s) * 1px);
+  height: calc(var(--floor) + 40px);
+}
+.tfws-hero__beast:nth-child(2) {
+  transform: translateY(-30px);
+}
+.tfws-hero__sprite {
+  position: absolute;
+  left: calc(50% - var(--ax) * var(--s) * 1px);
+  top: calc(var(--floor) - var(--ay) * var(--s) * 1px);
+  filter: drop-shadow(0 0 14px rgba(11, 9, 20, 0.8));
+}
+
+/* --- Sections -------------------------------------------------------------------------------- */
+
+#tfws-main {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.tfws-section {
+  padding: 64px 0;
+}
+
+.tfws-heading {
+  max-width: 44em;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+.tfws-heading h2,
+.tfws-about h2,
+.tfws-final h2 {
+  margin: 0;
+  color: var(--gold);
+  font-family: var(--deco);
+  font-size: clamp(2rem, 4.6vw, 2.9rem);
+  font-weight: 400;
+  line-height: 1.1;
+  text-shadow: 0 3px 0 #2a1a00;
+}
+/* A gold rule with a stepped diamond and a neon core, under each heading. */
+.tfws-heading h2::after {
+  content: '';
+  display: block;
+  width: 180px;
+  height: 12px;
+  margin: 16px auto 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 12' shape-rendering='crispEdges'%3E%3Cg fill='%23f2c14e'%3E%3Crect y='5' width='76' height='2'/%3E%3Crect x='104' y='5' width='76' height='2'/%3E%3Crect x='88' width='4' height='12'/%3E%3Crect x='84' y='2' width='12' height='8'/%3E%3Crect x='80' y='4' width='20' height='4'/%3E%3C/g%3E%3Crect x='88' y='4' width='4' height='4' fill='%234fe3ff'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.tfws-lede {
+  margin: 16px 0 0;
+  font-size: 1.05rem;
+}
+
+/* --- The pen ---------------------------------------------------------------------------------- */
+
+.tfws-pen__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.tfws-stage {
+  --s: 4;
+  --floor: 292px;
+  --ring: var(--pink);
+  display: flex;
+  flex-direction: column;
+  border: 18px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/panel.png') 18 fill / 18px stretch;
+  image-rendering: pixelated;
+  background:
+    radial-gradient(
+      ellipse 55% 40% at 50% 78%,
+      rgba(255, 79, 154, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(rgba(11, 9, 20, 0.6), rgba(11, 9, 20, 0.9));
+  background-clip: padding-box;
+}
+.tfws-stage.is-caught {
+  --ring: var(--cyan);
+  border-image-source: url('/games/the-farther-we-stray/frames/panel-cyan.png');
+  background:
+    radial-gradient(
+      ellipse 55% 40% at 50% 78%,
+      rgba(79, 227, 255, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(rgba(11, 9, 20, 0.6), rgba(11, 9, 20, 0.9));
+  background-clip: padding-box;
+}
+.tfws-stage__count {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--pixel);
+  font-size: 1rem;
+}
+.tfws-stage__count span {
+  color: var(--faint);
+}
+.tfws-stage__floor {
+  position: relative;
+  height: 360px;
+}
+.tfws-ring {
+  position: absolute;
+  left: 50%;
+  top: var(--floor);
+  width: calc(30 * var(--s) * 1px);
+  height: calc(14 * var(--s) * 1px);
+  transform: translate(-50%, -50%);
+  border: 3px solid var(--ring);
+  border-radius: 50%;
+  box-shadow:
+    0 0 12px var(--ring),
+    inset 0 0 8px var(--ring);
+  opacity: 0.8;
+}
+.tfws-stage__sprite {
+  position: absolute;
+  left: calc(50% - var(--ax) * var(--s) * 1px);
+  top: calc(var(--floor) - var(--ay) * var(--s) * 1px);
+}
+.tfws-said {
+  min-height: 1.6em;
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--pixel);
+  text-align: center;
+}
+.tfws-stage__controls {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto;
+  gap: 8px;
+}
+
+.tfws-card h3 {
+  margin: 0;
+  color: var(--pink);
+  font-family: var(--pixel);
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 2px 0 #0b0914;
+}
+.tfws-card h3.is-caught {
+  color: var(--cyan);
+}
+.tfws-card__what {
+  margin: 0 0 12px;
+  color: var(--faint);
+  font-family: var(--pixel);
+}
+.tfws-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.tfws-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--chip, var(--ink));
+  font-family: var(--pixel);
+  font-size: 1.05rem;
+}
+.tfws-chips--stats .tfws-chip {
+  font-size: 1.3rem;
+}
+.tfws-card__notes {
+  margin: 4px 0 14px;
+}
+.tfws-card__notes div {
+  display: grid;
+  grid-template-columns: 7.5em 1fr;
+  gap: 10px;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.tfws-card__notes dt {
+  color: var(--gold);
+  font-family: var(--pixel);
+}
+.tfws-card__notes dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.tfws-card__notes b {
+  color: var(--ink);
+  font-weight: 500;
+}
+.tfws-card__tier dt {
+  color: #9ac25a;
+}
+.tfws-card__jobs-title {
+  margin: 0 0 6px;
+  color: var(--faint);
+  font-family: var(--pixel);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* The squad: three pens, lit cyan when a beast is in one, as the game lights its squad. */
+.tfws-squad {
+  margin-top: 20px;
+}
+.tfws-squad__title {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--pixel);
+}
+.tfws-squad__title span {
+  color: var(--cyan);
+}
+.tfws-squad ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tfws-slot {
+  position: relative;
+  min-height: 76px;
+  border: 12px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/small-cyan.png') 12 fill / 12px
+    stretch;
+  image-rendering: pixelated;
+}
+.tfws-slot.is-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-image-source: url('/games/the-farther-we-stray/frames/small.png');
+  color: var(--faint);
+  font-family: var(--pixel);
+  opacity: 0.6;
+}
+.tfws-slot.is-shown {
+  border-image-source: url('/games/the-farther-we-stray/frames/small-gold.png');
+}
+.tfws-slot__pick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 28px 0 0;
+  background: none;
+  border: 0;
+  color: var(--ink);
+  font-family: var(--pixel);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+.tfws-slot__pick .tfws-sprite {
+  flex: none;
+}
+.tfws-slot__release {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  background: none;
+  border: 0;
+  color: var(--faint);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.tfws-slot__release:hover {
+  color: var(--pink);
+}
+
+/* Every form: a pen card each, gold for the one shown, cyan for those in the squad. */
+.tfws-forms {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: 6px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tfws-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  border: 12px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/small.png') 12 fill / 12px stretch;
+  image-rendering: pixelated;
+  background: none;
+  cursor: pointer;
+}
+.tfws-thumb:hover {
+  border-image-source: url('/games/the-farther-we-stray/frames/small-hover.png');
+}
+.tfws-thumb.is-caught {
+  border-image-source: url('/games/the-farther-we-stray/frames/small-cyan.png');
+}
+.tfws-thumb.is-shown {
+  border-image-source: url('/games/the-farther-we-stray/frames/small-gold.png');
+}
+.tfws-thumb .tfws-sprite {
+  flex: none;
+}
+
+/* --- Clips ------------------------------------------------------------------------------------- */
+
+.tfws-clips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+.tfws-clip {
+  margin: 0;
+}
+.tfws-clip .tfws-panel {
+  border-width: 12px;
+  border-image: url('/games/the-farther-we-stray/frames/panel.png') 18 fill / 12px stretch;
+}
+.tfws-clip__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+.tfws-clip figcaption {
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+.tfws-clip figcaption strong {
+  display: block;
+  color: var(--ink);
+  font-family: var(--pixel);
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* --- Tiers: a neon tube through every colour the game gives them --------------------------- */
+
+.tfws-tiers {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tfws-tiers::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 34px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    #b8ad9c,
+    #9ac25a,
+    #4ff0a0,
+    #c08cff,
+    #4fe3ff,
+    #ff5a6a
+  );
+  box-shadow: 0 0 14px rgba(192, 140, 255, 0.5);
+}
+.tfws-tiers li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  font-size: 0.92rem;
+}
+.tfws-tiers__mark {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  border: 12px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/small.png') 12 fill / 12px stretch;
+  image-rendering: pixelated;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--tier) 35%, transparent);
+}
+.tfws-tiers__mark .tfws-glyph {
+  --g: 3;
+}
+.tfws-tiers strong {
+  margin-top: 6px;
+  color: var(--tier);
+  font-family: var(--pixel);
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* --- About and the numbers -------------------------------------------------------------------- */
+
+.tfws-about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.tfws-about__text {
+  padding: 10px 14px;
+}
+.tfws-about__text p {
+  margin: 0 0 12px;
+}
+.tfws-about__text h2 {
+  margin-bottom: 12px;
+  font-size: 2.1rem;
+}
+.tfws-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+  margin: 0;
+  padding: 18px 0 0;
+  list-style: none;
+}
+.tfws-facts li {
+  display: flex;
+  flex-direction: column;
+}
+.tfws-facts__n {
+  color: var(--gold);
+  font-family: var(--deco);
+  font-size: 2.6rem;
+  line-height: 1;
+  text-shadow: 0 3px 0 #2a1a00;
+}
+.tfws-facts__what {
+  color: var(--ink);
+  font-family: var(--pixel);
+}
+.tfws-facts__note {
+  grid-column: 1 / -1;
+  color: var(--cyan);
+  font-family: var(--pixel);
+  text-shadow: 0 0 10px rgba(79, 227, 255, 0.45);
+}
+
+/* --- Screenshots ------------------------------------------------------------------------------- */
+
+.tfws-shots {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tfws-shot {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 12px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/small.png') 12 fill / 12px stretch;
+  image-rendering: pixelated;
+  background: none;
+  cursor: zoom-in;
+}
+.tfws-shot:hover {
+  border-image-source: url('/games/the-farther-we-stray/frames/small-gold.png');
+}
+.tfws-shots li:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.tfws-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* --- Controls and what's new ----------------------------------------------------------------- */
+
+.tfws-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+.tfws-split h2 {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font-family: var(--deco);
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+.tfws-controls h3 {
+  margin: 18px 0 6px;
+  color: var(--cyan);
+  font-family: var(--pixel);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tfws-controls dl {
+  margin: 0;
+}
+.tfws-controls dl div {
+  display: grid;
+  grid-template-columns: minmax(0, 13em) 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.tfws-controls dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.tfws-kbd {
+  display: inline-block;
+  margin: 2px 2px 2px 0;
+  padding: 0 2px;
+  border: 8px solid transparent;
+  border-image: url('/games/the-farther-we-stray/frames/small.png') 12 fill / 8px stretch;
+  image-rendering: pixelated;
+  color: var(--ink);
+  font-family: var(--pixel);
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.tfws-muted {
+  color: var(--faint);
+}
+.tfws-news__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tfws-news__list li {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.tfws-news__head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  font-family: var(--pixel);
+}
+.tfws-news__head span {
+  color: var(--faint);
+}
+.tfws-news__notes {
+  margin: 4px 0 0;
+  font-size: 0.92rem;
+  white-space: pre-line;
+}
+.tfws-news__all {
+  display: inline-block;
+  margin: 10px 0 18px;
+  font-family: var(--pixel);
+}
+.tfws-signup {
+  --su-ink: var(--ink);
+  --su-muted: var(--faint);
+  --su-field: var(--night);
+  --su-line: var(--line);
+  --su-accent: var(--gold);
+  --su-on-accent: #2a1a00;
+  --su-font: var(--body);
+  --su-title-font: var(--pixel);
+  --su-radius: 0;
+
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.tfws-signup .updates-signup__title {
+  color: var(--gold-hi);
+  font-weight: 500;
+}
+.tfws-signup .updates-signup__button {
+  font-family: var(--pixel);
+  box-shadow:
+    inset -3px -3px 0 var(--gold-lo),
+    inset 3px 3px 0 var(--gold-hi);
+}
+.tfws-signup .updates-signup__status {
+  color: #ff8a9a;
+}
+
+/* --- The last word ----------------------------------------------------------------------------- */
+
+.tfws-final {
+  padding: 72px 0 88px;
+  text-align: center;
+}
+.tfws-final p {
+  margin: 12px 0 26px;
+}
+
+.tfws-footer {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  text-align: center;
+  font-size: 0.92rem;
+}
+.tfws-footer__rule {
+  display: block;
+  height: 3px;
+  margin-bottom: 24px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold) 20%,
+    var(--gold) 80%,
+    transparent
+  );
+  box-shadow: 0 0 10px rgba(242, 193, 78, 0.35);
+}
+.tfws-footer p {
+  margin: 6px 0;
+}
+.tfws-footer__small {
+  color: var(--faint);
+}
+
+/* --- Narrower screens ------------------------------------------------------------------------ */
+
+@media (max-width: 960px) {
+  .tfws-hero__inner,
+  .tfws-pen__main,
+  .tfws-about,
+  .tfws-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tfws-hero__beasts {
+    justify-content: flex-start;
+  }
+  .tfws-tiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 28px;
+  }
+  .tfws-tiers::before {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .tfws-root {
+    font-size: 16px;
+  }
+  .tfws-hero {
+    padding: 100px 16px 48px;
+    background:
+      linear-gradient(0deg, var(--night) 0%, rgba(11, 9, 20, 0) 30%),
+      linear-gradient(rgba(11, 9, 20, 0.88), rgba(11, 9, 20, 0.88)),
+      var(--hero) 70% 40% / cover no-repeat;
+  }
+  #tfws-main {
+    padding: 0 16px;
+  }
+  .tfws-section {
+    padding: 44px 0;
+  }
+  .tfws-hero__beasts {
+    --s: 2;
+    --floor: 158px;
+    justify-content: center;
+  }
+  .tfws-hero__beast:nth-child(2) {
+    transform: translateY(-20px);
+  }
+  .tfws-stage {
+    --s: 3;
+    --floor: 226px;
+  }
+  .tfws-stage__floor {
+    height: 280px;
+  }
+  .tfws-stage__controls {
+    grid-template-columns: auto 1fr auto;
+  }
+  .tfws-stage__controls .tfws-btn--gold {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .tfws-squad ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tfws-clips {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tfws-shots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tfws-shots li:first-child {
+    grid-row: auto;
+  }
+  .tfws-tiers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tfws-card__notes div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .tfws-controls dl div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tfws-hero .tfws-eyebrow {
+    animation: none;
+  }
+}
