@@ -32,8 +32,16 @@ const loaders: Record<string, { caption: string; art: ReactNode }> = {
     ),
   },
   'wizard-wars': {
-    caption: 'Opening the spellbook…',
+    caption: 'Opening the spellbook\u2026',
     art: <span className="gl-ww-orb" aria-hidden="true" />,
+  },
+  'the-farther-we-stray': {
+    caption: 'Rounding up the strays\u2026',
+    art: (
+      <span className="gl-tfws-tube" aria-hidden="true">
+        <span />
+      </span>
+    ),
   },
 }
 

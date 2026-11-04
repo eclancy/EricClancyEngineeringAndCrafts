@@ -11,6 +11,7 @@ export const gamePageLoaders: Record<string, () => Promise<PageModule>> = {
   drawpets: () => import('./drawpets/DrawPetsPage'),
   'the-one-he-missed': () => import('./the-one-he-missed/TheOneHeMissedPage'),
   'wizard-wars': () => import('./wizard-wars/WizardWarsPage'),
+  'the-farther-we-stray': () => import('./the-farther-we-stray/TheFartherWeStrayPage'),
 }
 
 export function prefetchGamePage(id: string) {
