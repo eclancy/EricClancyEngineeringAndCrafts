@@ -7,9 +7,9 @@ import { useEffect, useRef, useState } from 'react'
 // screens the wide one.
 //
 // The layers are the game's own, copied unchanged from assets/bonelight/ui/title (tall) and
-// title-wide (wide) as of 70581528, where the title became THE ONE / HE MISSED. The eyes are not a
-// layer: eyes.png holds an 11x4 cell per blink frame (open, half, slit) for each of two tones, and
-// eyes.json says where every pair sits (tools/art/title_eyes.py in the game's repo).
+// title-wide (wide) as of 1c217ba3, where the title became THE LAST / WIZARD / SURVIVORS. The eyes
+// are not a layer: eyes.png holds an 11x4 cell per blink frame (open, half, slit) for each of two
+// tones, and eyes.json says where every pair sits (tools/art/title_eyes.py in the game's repo).
 
 const FLAME_SECONDS = 0.13
 const WARD_SECONDS = 0.95
@@ -79,7 +79,7 @@ export function TitleArt() {
     const el = canvas.current
     const ctx = el?.getContext('2d')
     if (!el || !ctx) return
-    const base = `/games/the-one-he-missed/title/${layout}/`
+    const base = `/games/the-last-wizard-survivors/title/${layout}/`
     const frames = (name: string, n: number) =>
       Promise.all(Array.from({ length: n }, (_, i) => load(`${base}${name}-${i}.png`)))
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -248,7 +248,7 @@ export function TitleArt() {
         width={w}
         height={h}
         role="img"
-        aria-label="The title screen of The One He Missed: an old wizard with a glowing staff stands in a golden summoning circle ringed by candle flames, in a dark forest full of watching eyes."
+        aria-label="The title screen of The Last Wizard: Survivors: an old wizard with a glowing staff stands in a golden summoning circle ringed by candle flames, in a dark forest full of watching eyes."
       />
     </div>
   )

@@ -76,13 +76,17 @@ export const gameSeo: Record<string, GameSeo> = {
     platforms: ['Windows', 'Linux', 'Android', 'Web browser'],
     players: { min: 1, max: 1 },
   },
-  'the-one-he-missed': {
-    name: 'The One He Missed',
-    title: 'The One He Missed – Free Roguelite Spell Shooter',
+  'the-last-wizard-survivors': {
+    name: 'The Last Wizard: Survivors',
+    title: 'The Last Wizard: Survivors – Free Roguelite Spell Shooter',
     description:
       'A roguelite auto-shooter: move, survive, and let your spells do the rest. Free for ' +
       'Windows, Linux and Android.',
-    image: { width: 1200, height: 675, alt: 'The title screen of The One He Missed.' },
+    image: {
+      width: 1200,
+      height: 675,
+      alt: 'The title screen of The Last Wizard: Survivors.',
+    },
     genre: ['Roguelite', 'Shooter'],
     platforms: ['Windows', 'Linux', 'Android'],
     players: { min: 1, max: 1 },

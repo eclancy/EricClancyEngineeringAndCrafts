@@ -23,7 +23,7 @@ const loaders: Record<string, { caption: string; art: ReactNode }> = {
       </span>
     ),
   },
-  'the-one-he-missed': {
+  'the-last-wizard-survivors': {
     caption: 'Beginning the ritual…',
     art: (
       <span className="gl-tohm-circle" aria-hidden="true">

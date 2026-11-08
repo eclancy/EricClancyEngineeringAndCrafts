@@ -1,5 +1,6 @@
-/* The One He Missed: the Bonelight palette (.ai/art-direction.md in the game's repo). Moonlit
-   stone, bone-white type, gold for anything that is light. Everything is scoped to the page. */
+/* The Last Wizard: Survivors: the Bonelight palette (.ai/art-direction.md in the game's repo).
+   Moonlit stone, bone-white type, gold for anything that is light. Everything is scoped to the
+   page. */
 
 .tohm-page-root {
   --occ: #05070c;
@@ -210,7 +211,7 @@
   padding: 26px 22px 22px;
   text-align: center;
   border: 24px solid transparent;
-  border-image: url('/games/the-one-he-missed/art/panel.png') 24 fill / 24px round;
+  border-image: url('/games/the-last-wizard-survivors/art/panel.png') 24 fill / 24px round;
   image-rendering: pixelated;
 }
 .tohm-plaque__tag {
@@ -305,17 +306,18 @@
   color: var(--bone-0) !important;
   background: transparent;
   border: 20px solid transparent;
-  border-image: url('/games/the-one-he-missed/art/button.png') 20 fill / 20px stretch;
+  border-image: url('/games/the-last-wizard-survivors/art/button.png') 20 fill / 20px
+    stretch;
   image-rendering: pixelated;
   padding: 0 6px;
   min-height: 60px;
 }
 .tohm-btn--stone:hover {
-  border-image-source: url('/games/the-one-he-missed/art/button-hover.png');
+  border-image-source: url('/games/the-last-wizard-survivors/art/button-hover.png');
   color: var(--gold-0) !important;
 }
 .tohm-btn--stone:active {
-  border-image-source: url('/games/the-one-he-missed/art/button-pressed.png');
+  border-image-source: url('/games/the-last-wizard-survivors/art/button-pressed.png');
   transform: translateY(3px);
 }
 .tohm-btn--small {
@@ -383,13 +385,13 @@
 
 .tohm-panel {
   border: 24px solid transparent;
-  border-image: url('/games/the-one-he-missed/art/panel.png') 24 fill / 24px round;
+  border-image: url('/games/the-last-wizard-survivors/art/panel.png') 24 fill / 24px round;
   image-rendering: pixelated;
   padding: 6px 8px;
 }
 .tohm-page {
   border: 24px solid transparent;
-  border-image: url('/games/the-one-he-missed/art/page.png') 24 fill / 24px round;
+  border-image: url('/games/the-last-wizard-survivors/art/page.png') 24 fill / 24px round;
   image-rendering: pixelated;
   color: var(--ink);
   padding: 6px 10px;
@@ -590,7 +592,7 @@
   padding: 24px;
   background:
     linear-gradient(rgba(5, 7, 12, 0.5), rgba(5, 7, 12, 0.5)),
-    url('/games/the-one-he-missed/art/wall.png') center / cover no-repeat;
+    url('/games/the-last-wizard-survivors/art/wall.png') center / cover no-repeat;
   image-rendering: pixelated;
   animation: tohm-drop 160ms steps(3);
 }
@@ -623,7 +625,7 @@
   gap: 6px;
   padding: 4px 2px 8px;
   border: 20px solid transparent;
-  border-image: url('/games/the-one-he-missed/art/card.png') 20 fill / 20px round;
+  border-image: url('/games/the-last-wizard-survivors/art/card.png') 20 fill / 20px round;
   image-rendering: pixelated;
   background: transparent;
   color: var(--ink);
@@ -634,7 +636,7 @@
 }
 .tohm-card:hover,
 .tohm-card:focus-visible {
-  border-image-source: url('/games/the-one-he-missed/art/card-lit.png');
+  border-image-source: url('/games/the-last-wizard-survivors/art/card-lit.png');
   transform: translateY(-6px);
 }
 .tohm-card:focus-visible {
@@ -693,7 +695,8 @@
 }
 .tohm-frame {
   border: 20px solid transparent;
-  border-image: url('/games/the-one-he-missed/art/frame-gold.png') 20 fill / 20px stretch;
+  border-image: url('/games/the-last-wizard-survivors/art/frame-gold.png') 20 fill / 20px
+    stretch;
   image-rendering: pixelated;
   filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
 }
@@ -727,7 +730,7 @@
       rgba(5, 7, 12, 0.78) 88%,
       var(--occ)
     ),
-    url('/games/the-one-he-missed/art/wall.png') center / cover no-repeat;
+    url('/games/the-last-wizard-survivors/art/wall.png') center / cover no-repeat;
   image-rendering: pixelated;
 }
 .tohm-grimoire {
