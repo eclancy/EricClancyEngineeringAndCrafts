@@ -16,7 +16,7 @@ const POOL = [
   'scorching_ray',
 ]
 const XP_STEPS = [3, 6, 10, 15, 21, 28]
-const ART = '/games/the-one-he-missed/sprites/'
+const ART = '/games/the-last-wizard-survivors/sprites/'
 
 type Phase = 'ready' | 'playing' | 'levelup' | 'paused' | 'won' | 'lost'
 type Kind = 'runner' | 'wolf' | 'wisp' | 'hexer'
@@ -904,7 +904,7 @@ export function SurviveDemo() {
           height={H}
           tabIndex={phase === 'playing' ? 0 : -1}
           className={phase === 'playing' ? 'is-live' : ''}
-          aria-label="Survive thirty seconds: a small playable version of The One He Missed. Move with WASD or the arrow keys, or hold and drag on the field."
+          aria-label="Survive thirty seconds: a small playable version of The Last Wizard: Survivors. Move with WASD or the arrow keys, or hold and drag on the field."
           onPointerDown={(e) => {
             if (phaseRef.current !== 'playing') return
             e.currentTarget.setPointerCapture(e.pointerId)

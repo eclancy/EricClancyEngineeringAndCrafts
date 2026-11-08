@@ -86,13 +86,17 @@ the `intake` container (`intake/server.js`, built by `docker compose` alongside 
   to `/api/draw/suggest` (saved under `suggestions/`, no photos). Each is emailed the same way.
   DrawFight's `tools/intake/pull_submissions.sh` copies all three down.
 - The other games' "Report a bug" posts to `/api/draw/suggest` too, with a `game` field that
-  picks the email's subject from `REPORT_GAMES`. So does The One He Missed's Spell Index vote
-  (`/the-one-he-missed/spell-index`, `public/the-one-he-missed/spell-index/index.html`): `game`
-  is The One He Missed, `version` is `spell-index-vote`, and the pick and reason are the
+  picks the email's subject from `REPORT_GAMES`. So does The Last Wizard: Survivors' Spell Index
+  vote (`/the-last-wizard-survivors/spell-index`,
+  `public/the-last-wizard-survivors/spell-index/index.html`): `game` is The One He Missed (the
+  game's key, see below), `version` is `spell-index-vote`, and the pick and reason are the
   message. It also sends `kind` = `vote`, the one kind the intake reads, so that email is titled
-  "The One He Missed Spell Index vote" rather than a bug report.
+  "The Last Wizard: Survivors Spell Index vote" rather than a bug report.
 - A game that has been renamed keeps its old `game` value working through `RENAMED_GAMES`, so
-  copies installed under the old name still have their reports filed under the new one.
+  copies installed under the old name still have their reports filed under the new one. The Last
+  Wizard: Survivors goes further: its key in `REPORT_GAMES` is still `The One He Missed`, the
+  name it had when its bug report was written, because every installed copy and the vote page
+  send that. Only the subject the key maps to says the new name.
 - It is also emailed through Resend (DigitalOcean blocks outgoing SMTP). The key, and the
   address to send to, live only on the droplet, in `/etc/ecec/intake.env`:
 
@@ -150,24 +154,52 @@ container (`updates/server.js`).
 - **A new game:** add it to `GAMES` at the top of `updates/server.js`.
 - **A renamed game:** give it its new id in `GAMES` and put old id -> new id in `RENAMED`. On
   start the server moves the old id's sign-ups (tokens and all) to the new one, and a sign-up
-  form that still posts the old id is filed under the new one.
+  form that still posts the old id is filed under the new one. A game renamed again keeps every
+  older id in `RENAMED`, each pointed straight at the newest id.
 
 ## 7a. Renamed games: addresses that must keep answering
 
 A downloaded game has its update address baked in, so renaming a game must never move that
-address. The One He Missed was renamed from its first name on 2026-11-02, and lives at
-`/the-one-he-missed/` and `/games/the-one-he-missed`. `nginx.conf` keeps two of its old
-addresses answering directly, forever, exactly as the new ones do (no redirect for a copy to
-follow): the `version.json` every installed Windows copy up to 0.11.0 asks for updates, and the
-`download` page every installed Android copy opens. Every other old address is a 301 to its new
-one, path and query kept. The GitHub repo is `eclancy/TheOneHeMissed`; it must be renamed on
-GitHub before this site is deployed, or the `version.json` redirect points at a repo that does
-not exist yet.
+address. The Last Wizard: Survivors has been renamed twice, and lives at
+`/the-last-wizard-survivors/` and `/games/the-last-wizard-survivors`:
+
+- **2026-11-02, Wizard Survivors to The One He Missed.** It moved from `/wizard-survivors/` and
+  `/games/wizard-survivors` to `/the-one-he-missed/` and `/games/the-one-he-missed`, and its
+  GitHub repo became `eclancy/TheOneHeMissed`.
+- **2026-11-08, The One He Missed to The Last Wizard: Survivors.** It moved to its present
+  addresses, and its GitHub repo became `eclancy/TheLastWizardSurvivors` (GitHub redirects the
+  old slugs, release downloads and API included). The release files keep their names
+  (`TheOneHeMissed-Setup.exe`, `-windows.zip`, `-linux.tar.gz`, `-android.apk`), and the
+  intake's `game` key stays `The One He Missed` (section 6). The Windows shortcuts are named
+  "The Last Wizard - Survivors", since a file name cannot hold a colon.
+
+`nginx.conf` keeps four of its old addresses answering directly, forever, exactly as the new
+ones do (no redirect for a copy to follow):
+
+| Address                                 | Who asks it                               | Answers                                    |
+| --------------------------------------- | ----------------------------------------- | ------------------------------------------ |
+| `/the-one-he-missed/version.json`       | every Windows and Linux copy from 0.12.0  | 302 to the newest release's `version.json` |
+| `/the-one-he-missed/download` (and `/`) | every Android copy from 0.12.0            | 200, the download page                     |
+| `/wizard-survivors/version.json`        | every Windows and Linux copy up to 0.11.0 | 302, the same                              |
+| `/wizard-survivors/download` (and `/`)  | every Android copy up to 0.11.0           | 200, the download page                     |
+
+Every other old address under `/the-one-he-missed`, `/games/the-one-he-missed`,
+`/wizard-survivors` and `/games/wizard-survivors` (game page, art, clips, sprites, the Spell
+Index vote link) is a 301 straight to its newest address, path and query kept - one hop, never
+through the other old name. Update sign-ups stored under either old id move to
+`the-last-wizard-survivors` when `updates/server.js` starts (`RENAMED`). A repo must be renamed
+on GitHub before the site that names it is deployed, or the `version.json` redirect points at a
+repo that does not exist yet.
 
 ```bash
-curl -sI https://ecec.dev/wizard-survivors/version.json   # 302 to TheOneHeMissed's release
-curl -sI https://ecec.dev/wizard-survivors/download       # 200, the download page itself
-curl -sI https://ecec.dev/wizard-survivors/spell-index    # 301 to /the-one-he-missed/...
+curl -sI https://ecec.dev/the-last-wizard-survivors/version.json  # 302 to TheLastWizardSurvivors' release
+curl -sI https://ecec.dev/the-one-he-missed/version.json          # 302, the same
+curl -sI https://ecec.dev/wizard-survivors/version.json           # 302, the same
+curl -sI https://ecec.dev/the-one-he-missed/download              # 200, the download page itself
+curl -sI https://ecec.dev/wizard-survivors/download               # 200, the download page itself
+curl -sI https://ecec.dev/the-one-he-missed/spell-index           # 301 to /the-last-wizard-survivors/...
+curl -sI https://ecec.dev/wizard-survivors/spell-index            # 301 to /the-last-wizard-survivors/...
+curl -sI https://ecec.dev/games/the-one-he-missed                 # 301 to /games/the-last-wizard-survivors
 ```
 
 ## 8. DrawFight online play (/api/play)

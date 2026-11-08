@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- The One He Missed Spell Index vote: three layouts for the in-game book of every spell and
-     how it evolves (A the grid, B the book, C the path map), each drawn as wireframes on PC and
-     phone, and a pick at the foot that goes to Eric by email. It posts to the same intake the
-     games' "Report a bug" uses (intake/server.js, /api/draw/suggest), so it needs no server of
-     its own. The wireframes are the <template>s at the end, each drawn into a shadow root (so its
-     styles stay its own) and scaled to the width it is given. -->
+<!-- The Last Wizard: Survivors Spell Index vote: three layouts for the in-game book of every
+     spell and how it evolves (A the grid, B the book, C the path map), each drawn as wireframes
+     on PC and phone, and a pick at the foot that goes to Eric by email. It posts to the same
+     intake the games' "Report a bug" uses (intake/server.js, /api/draw/suggest), so it needs no
+     server of its own. The wireframes are the <template>s at the end, each drawn into a shadow
+     root (so its styles stay its own) and scaled to the width it is given. -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -12,33 +12,39 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Which Spell Index layout? - The One He Missed</title>
+    <title>Which Spell Index layout? - The Last Wizard: Survivors</title>
     <meta
       name="description"
-      content="Three layouts for the Spell Index in The One He Missed, on PC and phone. Pick the one that reads best."
+      content="Three layouts for the Spell Index in The Last Wizard: Survivors, on PC and phone. Pick the one that reads best."
     />
 
     <!-- The link preview, for chat apps: this page is sent to people to ask them. -->
     <meta property="og:title" content="Which Spell Index layout?" />
     <meta
       property="og:description"
-      content="Three layouts for the Spell Index in The One He Missed, on PC and phone. Pick the one that reads best."
+      content="Three layouts for the Spell Index in The Last Wizard: Survivors, on PC and phone. Pick the one that reads best."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ecec.dev/the-one-he-missed/spell-index" />
-    <link rel="canonical" href="https://ecec.dev/the-one-he-missed/spell-index" />
+    <meta
+      property="og:url"
+      content="https://ecec.dev/the-last-wizard-survivors/spell-index"
+    />
+    <link rel="canonical" href="https://ecec.dev/the-last-wizard-survivors/spell-index" />
     <meta property="og:site_name" content="ECEC" />
     <meta
       property="og:image"
-      content="https://ecec.dev/the-one-he-missed/download/title-screen.jpg"
+      content="https://ecec.dev/the-last-wizard-survivors/download/title-screen.jpg"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="675" />
-    <meta property="og:image:alt" content="The title screen of The One He Missed." />
+    <meta
+      property="og:image:alt"
+      content="The title screen of The Last Wizard: Survivors."
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:image"
-      content="https://ecec.dev/the-one-he-missed/download/title-screen.jpg"
+      content="https://ecec.dev/the-last-wizard-survivors/download/title-screen.jpg"
     />
     <meta name="theme-color" content="#0b0d14" />
 
@@ -349,7 +355,7 @@
   <body>
     <main class="wrap">
       <header class="intro">
-        <span class="eyebrow">The One He Missed</span>
+        <span class="eyebrow">The Last Wizard: Survivors</span>
         <h1>Which Spell Index layout?</h1>
         <p class="muted">
           The in-game book of every spell and how it evolves. Three wireframes, on PC and
@@ -1545,8 +1551,9 @@ a{color:#e8c66e}a:hover{color:#ffe29a}
 
         // The same intake as the games' "Report a bug" (intake/server.js), which saves it under
         // /data/suggestions and emails it to Eric. "game" must read exactly The One He Missed: the
-        // intake picks the email's subject from an allowlist of games by it. "version" is what
-        // tells this page's posts apart from the game's own.
+        // intake picks the email's subject from an allowlist of games by it, and that is the
+        // game's key there, kept from before it became The Last Wizard: Survivors. "version" is
+        // what tells this page's posts apart from the game's own.
         form.addEventListener('submit', function (e) {
           e.preventDefault()
           if (sending) return

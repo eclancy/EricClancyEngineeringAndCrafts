@@ -12,11 +12,11 @@ const sources = [
   { id: 'drawfight', dir: 'DrawFight', file: 'README.md' },
   { id: 'wizard-wars', dir: 'WizardsArena', file: 'GAME_COMPLETION_PLAN.md' },
   { id: 'erics-miniatures', dir: 'EricsMiniatures', file: 'README.md' },
-  // The local checkout kept its old folder name when the game was renamed (renaming it would
-  // break every worktree), so look for the new name first and fall back to that one.
+  // The local checkout kept its first folder name through both of the game's renames (renaming
+  // it would break every worktree), so look for the newest name first and fall back to older.
   {
-    id: 'the-one-he-missed',
-    dir: ['TheOneHeMissed', 'WizardSurvivors'],
+    id: 'the-last-wizard-survivors',
+    dir: ['TheLastWizardSurvivors', 'TheOneHeMissed', 'WizardSurvivors'],
     file: '.ai/project-overview.md',
   },
 ]

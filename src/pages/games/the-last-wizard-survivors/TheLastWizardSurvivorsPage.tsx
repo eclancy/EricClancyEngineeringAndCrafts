@@ -11,9 +11,9 @@ import { TitleArt } from './TitleArt'
 import { SurviveDemo } from './SurviveDemo'
 import { Grimoire } from './Grimoire'
 import { gameSeo } from '../../../data/seo'
-import './the-one-he-missed.css'
+import './the-last-wizard-survivors.css'
 
-const CLIPS = '/games/the-one-he-missed/clips/'
+const CLIPS = '/games/the-last-wizard-survivors/clips/'
 
 const clips = [
   {
@@ -57,7 +57,7 @@ const facts: [string, string][] = [
   ['69', 'sounds'],
 ]
 
-export default function TheOneHeMissedPage({ project }: GamePageProps) {
+export default function TheLastWizardSurvivorsPage({ project }: GamePageProps) {
   const game = project.game
   const releases = useReleases(game)
   const latest = releases.state === 'ok' ? releases.list[0] : undefined
@@ -72,7 +72,7 @@ export default function TheOneHeMissedPage({ project }: GamePageProps) {
   ])
 
   useEffect(() => {
-    document.title = gameSeo['the-one-he-missed'].title
+    document.title = gameSeo['the-last-wizard-survivors'].title
   }, [])
 
   // The starfield drifts at a fraction of the scroll, behind everything.
@@ -113,7 +113,7 @@ export default function TheOneHeMissedPage({ project }: GamePageProps) {
       </nav>
 
       <header className="tohm-hero">
-        <h1 className="tohm-sr">The One He Missed</h1>
+        <h1 className="tohm-sr">The Last Wizard: Survivors</h1>
         <TitleArt />
         <div className="tohm-plaque">
           <p className="tohm-plaque__tag">
@@ -251,7 +251,7 @@ export default function TheOneHeMissedPage({ project }: GamePageProps) {
               index={shown}
               onIndexChange={setShown}
               onClose={() => setShown(null)}
-              label="The One He Missed screenshots"
+              label="The Last Wizard: Survivors screenshots"
             />
           </section>
         )}
@@ -351,7 +351,7 @@ export default function TheOneHeMissedPage({ project }: GamePageProps) {
 
       <footer className="tohm-footer">
         <img
-          src="/games/the-one-he-missed/art/divider.png"
+          src="/games/the-last-wizard-survivors/art/divider.png"
           alt=""
           width={96}
           height={24}

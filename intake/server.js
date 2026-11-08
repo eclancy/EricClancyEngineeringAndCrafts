@@ -233,16 +233,21 @@ async function email(fields, files, id, kind = KINDS.fighter) {
 // Which game a report came from, for its subject line. An allowlist rather than the raw field, so a
 // form on the open internet cannot write its own email subject. A report without one is DrawFight's,
 // which sent no game field before this existed, and keeps exactly the subject it always had.
+//
+// The Last Wizard: Survivors is keyed by its old name, The One He Missed, on purpose and for good:
+// the game's "Report a bug" and its Spell Index vote page both post game=The One He Missed, and
+// the copies already installed always will. Only the subject says the name it has now.
 const REPORT_GAMES = {
-  'The One He Missed': 'The One He Missed bug report',
+  'The One He Missed': 'The Last Wizard: Survivors bug report',
   DrawFight: 'DrawFight suggestion',
   DrawPets: 'DrawPets bug report',
   'Wizard Wars': 'Wizard Wars bug report',
 }
 
-// A game's name from before it was renamed, and its name now. Kept on purpose: The One He Missed
-// was called Wizard Survivors, and every copy installed before the rename still sends
-// game=Wizard Survivors with its bug reports. Those are filed and titled under the new name.
+// A game's name from before it was renamed, and its key above. Kept on purpose: The Last
+// Wizard: Survivors was first called Wizard Survivors, and every copy installed before its first
+// rename still sends game=Wizard Survivors with its bug reports. Those are filed and titled with
+// the rest of that game's.
 const RENAMED_GAMES = {
   'Wizard Survivors': 'The One He Missed',
 }
@@ -269,11 +274,12 @@ async function suggestion(fields, files, res) {
   if (!idea) return send(res, 400, { error: 'Write your idea first.' })
   const named = has(RENAMED_GAMES, fields.game) ? RENAMED_GAMES[fields.game] : fields.game
   const game = has(REPORT_GAMES, named) ? named : 'DrawFight'
-  // The Spell Index vote page (public/the-one-he-missed/spell-index) posts here as The One He
-  // Missed with kind "vote", so its email says it is a vote from that page, not a bug report
-  // from the game. Only that pair is read; every other post keeps the email it always had.
+  // The Spell Index vote page (public/the-last-wizard-survivors/spell-index) posts here as The
+  // One He Missed (the game's key above) with kind "vote", so its email says it is a vote from
+  // that page, not a bug report from the game. Only that pair is read; every other post keeps
+  // the email it always had.
   const vote = game === 'The One He Missed' && fields.kind === 'vote'
-  const title = vote ? 'The One He Missed Spell Index vote' : REPORT_GAMES[game]
+  const title = vote ? 'The Last Wizard: Survivors Spell Index vote' : REPORT_GAMES[game]
   const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
   const id = `${stamp}-${slug(fields.name, 'someone')}-${crypto.randomBytes(3).toString('hex')}`
   const dir = path.join(DATA, 'suggestions', id)

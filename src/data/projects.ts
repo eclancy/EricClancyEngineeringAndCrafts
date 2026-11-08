@@ -9,11 +9,11 @@ import dpHome from '../assets/projects/drawpets/home.jpg'
 import dpDrawHead from '../assets/projects/drawpets/draw-head.jpg'
 import dpHomeAtNight from '../assets/projects/drawpets/home-at-night.jpg'
 import dpBathDay from '../assets/projects/drawpets/bath-day.jpg'
-import tohmTitleScreen from '../assets/projects/the-one-he-missed/title-screen.jpg'
-import tohmForestSpells from '../assets/projects/the-one-he-missed/forest-spells.jpg'
-import tohmBossElderbark from '../assets/projects/the-one-he-missed/boss-elderbark.jpg'
-import tohmSketchbook from '../assets/projects/the-one-he-missed/sketchbook.jpg'
-import tohmLevelUp from '../assets/projects/the-one-he-missed/level-up.jpg'
+import tohmTitleScreen from '../assets/projects/the-last-wizard-survivors/title-screen.jpg'
+import tohmForestSpells from '../assets/projects/the-last-wizard-survivors/forest-spells.jpg'
+import tohmBossElderbark from '../assets/projects/the-last-wizard-survivors/boss-elderbark.jpg'
+import tohmSketchbook from '../assets/projects/the-last-wizard-survivors/sketchbook.jpg'
+import tohmLevelUp from '../assets/projects/the-last-wizard-survivors/level-up.jpg'
 import wwTitleScreen from '../assets/projects/wizard-wars/title-screen.jpg'
 import wwWoodlandBattle from '../assets/projects/wizard-wars/woodland-battle.jpg'
 import wwMeteorStorm from '../assets/projects/wizard-wars/meteor-storm.jpg'
@@ -214,16 +214,16 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'the-one-he-missed',
-    name: 'The One He Missed',
+    id: 'the-last-wizard-survivors',
+    name: 'The Last Wizard: Survivors',
     tagline: 'A roguelite auto-shooter in the Vampire Survivors mold.',
     description:
       'Build your wizard from 30 spells and survive the horde. Every sprite and sound is ' +
       'made by code.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
-    repoUrl: 'https://github.com/eclancy/TheOneHeMissed',
+    repoUrl: 'https://github.com/eclancy/TheLastWizardSurvivors',
     game: {
-      repo: 'TheOneHeMissed',
+      repo: 'TheLastWizardSurvivors',
       players: '1 player',
       platform: 'Windows, Linux and Android',
       about: [
@@ -238,15 +238,15 @@ export const projects: Project[] = [
     },
     callsToAction: [
       {
-        href: 'https://ecec.dev/the-one-he-missed/download',
-        label: 'Play The One He Missed',
+        href: 'https://ecec.dev/the-last-wizard-survivors/download',
+        label: 'Play The Last Wizard: Survivors',
         emoji: '🎮',
       },
     ],
     images: [
       {
         src: tohmTitleScreen,
-        alt: 'The One He Missed title screen: a pixel-art wizard in a glowing golden circle in a moonlit forest',
+        alt: 'The Last Wizard: Survivors title screen: a pixel-art wizard in a glowing golden circle in a moonlit forest',
       },
       {
         src: tohmForestSpells,

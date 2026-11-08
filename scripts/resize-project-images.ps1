@@ -69,8 +69,8 @@ function Resize-Image {
 $root = "C:\Users\ericc\Documents\GitHub"
 $dest = "C:\Users\ericc\Documents\GitHub\EricClancyEngineeringAndCrafts\src\assets\projects"
 
-# The One He Missed has nothing here: its pictures are captures of the game itself, and the
-# images this once made from its repo were removed there when its art became generated.
+# The Last Wizard: Survivors has nothing here: its pictures are captures of the game itself, and
+# the images this once made from its repo were removed there when its art became generated.
 
 Resize-Image "$root\WizardsArena\Assets\Textures\UI\Start Screen.png" "$dest\wizard-wars\start-screen.jpg" 1400 jpeg 82
 Resize-Image "$root\WizardsArena\Assets\Textures\Wizards\Fire Wizard.png" "$dest\wizard-wars\fire-wizard.png" 500 png

@@ -39,17 +39,25 @@ const POLL_MS = Number(process.env.POLL_MINUTES || 10) * 60_000
 const GAMES = {
   drawfight: { name: 'DrawFight', repo: 'DrawFight' },
   drawpets: { name: 'DrawPets', repo: 'DrawPets' },
-  'the-one-he-missed': { name: 'The One He Missed', repo: 'TheOneHeMissed' },
+  'the-last-wizard-survivors': {
+    name: 'The Last Wizard: Survivors',
+    repo: 'TheLastWizardSurvivors',
+  },
   'wizard-wars': { name: 'Wizard Wars', repo: 'WizardWars' },
   'the-farther-we-stray': { name: 'The Farther We Stray', repo: 'TheFartherWeStray' },
 }
 
-// A game's id from before it was renamed, and the id it has now. Kept on purpose: The One He
-// Missed was called Wizard Survivors, and its sign-ups were stored under the old id, so load()
-// moves them across rather than leave them on a game that no longer exists; and a page opened
-// before the rename still posts the old id when someone signs up.
+// A game's id from before it was renamed, and the id it has now. Kept on purpose: The Last
+// Wizard: Survivors was called The One He Missed, and before that Wizard Survivors, and its
+// sign-ups were stored under each old id in turn, so load() moves them across rather than leave
+// them on a game that no longer exists; and a page opened before a rename still posts the old id
+// when someone signs up. Every old id points straight at the newest one, never at another old
+// one, so nothing has to follow a chain. Newest old id first: load() takes the first one's last
+// release seen and keeps the first token it meets for an address, so if both were ever stored
+// at once the newer ones win, and nobody is emailed twice about a release or gets a dead link.
 const RENAMED = {
-  'wizard-survivors': 'the-one-he-missed',
+  'the-one-he-missed': 'the-last-wizard-survivors',
+  'wizard-survivors': 'the-last-wizard-survivors',
 }
 
 const gameId = (id) => (Object.hasOwn(RENAMED, id) ? RENAMED[id] : id)
