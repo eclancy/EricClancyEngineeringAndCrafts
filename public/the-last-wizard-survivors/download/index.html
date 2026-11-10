@@ -282,7 +282,7 @@
       <!-- On a phone the Android button comes first (the script below swaps them). Until the
            script has read the newest release, every download link goes to that release's page
            on GitHub, which always exists; the script then points each one at its file, and
-           puts each file's real name wherever the steps below name it (data-file, data-base). -->
+           puts each file's real name wherever the steps below name it (data-file); the program's name (data-base) is fixed. -->
       <div class="buttons" id="buttons">
         <a
           class="big"
@@ -447,14 +447,10 @@
             const named = file[el.dataset.file]
             if (named) el.textContent = named.name
           }
-          // The name the files share (the part before -windows.zip) is also the portable zip's
-          // program and the folder the Linux build installs itself to.
-          const any = file.zip || file.linux || file.setup || file.apk
-          if (any) {
-            const base = any.name.slice(0, any.name.lastIndexOf('-'))
-            for (const el of document.querySelectorAll('[data-base]'))
-              el.textContent = base
-          }
+          // The program's own name (the portable zip's .exe and the folder the Linux build installs
+          // itself to) is NOT read from the downloads: since 0.24 they are named TheLastWizardSurvivors-*,
+          // while the program inside stays TheOneHeMissed (the game's in-flight item 65). The [data-base]
+          // spans keep the name written in the page until the program itself is renamed.
           const sizeOf = (f) => (f ? Math.round(f.size / 1048576) + ' MB' : '')
 
           const windows = file.setup || file.zip
