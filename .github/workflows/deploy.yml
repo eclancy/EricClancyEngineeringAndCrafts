@@ -28,8 +28,10 @@ jobs:
 
       # DrawPets' web version lives in its own GitHub Releases, not in this repo (about 60 MB a
       # release). Fetched here, into public/, so the container build serves it at /drawpets/play/.
-      # DrawPets' release script runs this workflow after each release. No web build published
-      # yet just leaves the page empty - it never fails the deploy.
+      # DrawPets' release script runs this workflow after each release. If the fetch fails - no
+      # web build published, or the repo made private, which hides its releases from this
+      # anonymous curl - nothing new is fetched and the build already on the droplet stays as
+      # it is (the rsync below protects it). It never fails the deploy.
       - name: Fetch the newest DrawPets web build
         run: |
           mkdir -p public/drawpets/play
@@ -41,13 +43,14 @@ jobs:
               public/drawpets/play/index.html
             ls -la public/drawpets/play
           else
-            echo "No DrawPets web build published yet - /drawpets/play stays empty"
+            echo "No DrawPets web build to fetch - the one on the droplet stays as it is"
           fi
 
       - name: Sync app to droplet
         run: |
           rsync -az --delete \
             --exclude node_modules --exclude .git \
+            --filter='P public/drawpets/play/**' \
             ./ "${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}:/opt/ecec-hub/"
 
       # DrawFight online plays over a WebSocket, which the host's own nginx (outside the repo:

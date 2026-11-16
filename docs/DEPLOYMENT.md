@@ -174,14 +174,15 @@ address. The Last Wizard: Survivors has been renamed twice, and lives at
   "The Last Wizard - Survivors", since a file name cannot hold a colon.
 
 `nginx.conf` keeps four of its old addresses answering directly, forever, exactly as the new
-ones do (no redirect for a copy to follow):
+ones do, in one hop. The game download pages are gone, so the two download addresses go to
+the game page, as the new one does:
 
 | Address                                 | Who asks it                               | Answers                                    |
 | --------------------------------------- | ----------------------------------------- | ------------------------------------------ |
 | `/the-one-he-missed/version.json`       | every Windows and Linux copy from 0.12.0  | 302 to the newest release's `version.json` |
-| `/the-one-he-missed/download` (and `/`) | every Android copy from 0.12.0            | 200, the download page                     |
+| `/the-one-he-missed/download` (and `/`) | every Android copy from 0.12.0            | 301 to `/games/the-last-wizard-survivors`  |
 | `/wizard-survivors/version.json`        | every Windows and Linux copy up to 0.11.0 | 302, the same                              |
-| `/wizard-survivors/download` (and `/`)  | every Android copy up to 0.11.0           | 200, the download page                     |
+| `/wizard-survivors/download` (and `/`)  | every Android copy up to 0.11.0           | 301 to `/games/the-last-wizard-survivors`  |
 
 Every other old address under `/the-one-he-missed`, `/games/the-one-he-missed`,
 `/wizard-survivors` and `/games/wizard-survivors` (game page, art, clips, sprites, the Spell
@@ -195,8 +196,8 @@ repo that does not exist yet.
 curl -sI https://ecec.dev/the-last-wizard-survivors/version.json  # 302 to TheLastWizardSurvivors' release
 curl -sI https://ecec.dev/the-one-he-missed/version.json          # 302, the same
 curl -sI https://ecec.dev/wizard-survivors/version.json           # 302, the same
-curl -sI https://ecec.dev/the-one-he-missed/download              # 200, the download page itself
-curl -sI https://ecec.dev/wizard-survivors/download               # 200, the download page itself
+curl -sI https://ecec.dev/the-one-he-missed/download              # 301 to /games/the-last-wizard-survivors
+curl -sI https://ecec.dev/wizard-survivors/download               # 301 to /games/the-last-wizard-survivors
 curl -sI https://ecec.dev/the-one-he-missed/spell-index           # 301 to /the-last-wizard-survivors/...
 curl -sI https://ecec.dev/wizard-survivors/spell-index            # 301 to /the-last-wizard-survivors/...
 curl -sI https://ecec.dev/games/the-one-he-missed                 # 301 to /games/the-last-wizard-survivors

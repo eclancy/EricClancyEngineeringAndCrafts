@@ -47,13 +47,14 @@ export interface Project {
   /** Optional headline actions, rendered as standout buttons above the others. */
   callsToAction?: { href: string; label: string; emoji?: string }[]
   images?: ProjectImage[]
-  /** Set for a downloadable game: it gets a page at /games/<id>, a download page at
-   *  /<id>/download, and an update check at /<id>/version.json (see nginx.conf). */
+  /** Set for a game: it gets a page at /games/<id>, and copies already installed check
+   *  /<id>/version.json for updates (see nginx.conf). Not downloadable from here until
+   *  launch, so every game page says "Coming soon" instead. */
   game?: GameInfo
 }
 
 export interface GameInfo {
-  /** The eclancy/<repo> GitHub repo whose Releases hold the builds. */
+  /** The eclancy/<repo> GitHub repo the game is built in. */
   repo: string
   /** e.g. '1–4 players, local' */
   players: string
@@ -61,9 +62,7 @@ export interface GameInfo {
   about: string[]
   /** Defaults to 'Windows'. */
   platform?: string
-  /** Not downloadable yet: no download button or release history, a "Coming soon" note instead. */
-  comingSoon?: boolean
-  /** A second headline action for the game page: a big button under Download, and a band
+  /** A second headline action for the game page: a big button by "Coming soon", and a band
    *  explaining it below the intro. */
   feature?: {
     title: string
@@ -76,7 +75,6 @@ export interface GameInfo {
 }
 
 export const gamePath = (project: Project) => `/games/${project.id}`
-export const downloadPath = (project: Project) => `/${project.id}/download`
 /** Where a game runs, from its `platform` ('Windows and Android' -> ['Windows', 'Android']). */
 export const platformsOf = (project: Project) =>
   (project.game?.platform ?? 'Windows').split(/\s+and\s+|,\s*/)
@@ -122,8 +120,8 @@ export const projects: Project[] = [
     },
     callsToAction: [
       {
-        href: 'https://ecec.dev/drawfight/download',
-        label: 'Play DrawFight',
+        href: '/games/drawfight',
+        label: 'See DrawFight',
         emoji: '🎮',
       },
     ],
@@ -162,11 +160,10 @@ export const projects: Project[] = [
       'A virtual pet you draw part by part, then feed, play with and give a home of its ' +
       'own.',
     tech: ['Godot 4.5', 'GDScript', 'Windows', 'Android'],
-    repoUrl: 'https://github.com/eclancy/DrawPets',
     callsToAction: [
       {
-        href: 'https://ecec.dev/drawpets/download',
-        label: 'Play DrawPets',
+        href: '/games/drawpets',
+        label: 'See DrawPets',
         emoji: '🎮',
       },
     ],
@@ -221,7 +218,6 @@ export const projects: Project[] = [
       'Build your wizard from 30 spells and survive the horde. Every sprite and sound is ' +
       'made by code.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
-    repoUrl: 'https://github.com/eclancy/TheLastWizardSurvivors',
     game: {
       repo: 'TheLastWizardSurvivors',
       players: '1 player',
@@ -238,8 +234,8 @@ export const projects: Project[] = [
     },
     callsToAction: [
       {
-        href: 'https://ecec.dev/the-last-wizard-survivors/download',
-        label: 'Play The Last Wizard: Survivors',
+        href: '/games/the-last-wizard-survivors',
+        label: 'See The Last Wizard: Survivors',
         emoji: '🎮',
       },
     ],
@@ -290,8 +286,8 @@ export const projects: Project[] = [
     },
     callsToAction: [
       {
-        href: 'https://ecec.dev/wizard-wars/download',
-        label: 'Play Wizard Wars',
+        href: '/games/wizard-wars',
+        label: 'See Wizard Wars',
         emoji: '🎮',
       },
     ],
@@ -326,7 +322,6 @@ export const projects: Project[] = [
       'Turn-based tactics on isometric maps, where every creature is generated: no two ' +
       'beasts, and no two squads, are alike.',
     tech: ['Godot 4.5', 'C#', '.NET 9'],
-    repoUrl: 'https://github.com/eclancy/TheFartherWeStray',
     game: {
       repo: 'TheFartherWeStray',
       players: '1 player',
@@ -346,8 +341,8 @@ export const projects: Project[] = [
     },
     callsToAction: [
       {
-        href: 'https://ecec.dev/the-farther-we-stray/download',
-        label: 'Play The Farther We Stray',
+        href: '/games/the-farther-we-stray',
+        label: 'See The Farther We Stray',
         emoji: '🎮',
       },
     ],

@@ -63,8 +63,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <a
               key={cta.href}
               href={cta.href}
-              target="_blank"
-              rel="noreferrer noopener"
+              // A game's own page opens here; anywhere else opens in a new tab.
+              {...(/^https?:/.test(cta.href) && {
+                target: '_blank',
+                rel: 'noreferrer noopener',
+              })}
               className="ecec-cta group flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-3.5 text-base font-extrabold text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300"
             >
               {cta.emoji && (
@@ -83,7 +86,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
       )}
-      {project.game?.comingSoon && (
+      {/* No game is downloadable from here until launch. */}
+      {project.game && (
         <p className="mt-2 rounded-xl border border-dashed border-fuchsia-400/50 px-4 py-3 text-center text-sm font-semibold text-fuchsia-200">
           <span aria-hidden="true">⏳</span> Coming soon
         </p>

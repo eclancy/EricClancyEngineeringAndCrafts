@@ -299,6 +299,12 @@
   padding: 14px 30px;
   font-size: 24px;
 }
+/* "Coming soon" on the gold button's face: a sign, not a button, so it neither glows nor presses. */
+.tohm-soon {
+  margin: 0;
+  cursor: default;
+  pointer-events: none;
+}
 .tohm-btn__glyph {
   font-size: 0.85em;
 }

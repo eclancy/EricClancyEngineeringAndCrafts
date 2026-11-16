@@ -16,7 +16,8 @@ export interface PageSeo {
 
 export interface GameSeo extends PageSeo {
   name: string
-  /** The download page's preview image, public/<id>/download/title-screen.jpg. */
+  /** The preview image, public/<id>/download/title-screen.jpg. The download pages are gone,
+   *  but their pictures stay where they were: shared links already point at them. */
   image: { width: number; height: number; alt: string }
   genre: string[]
   platforms: string[]
@@ -30,10 +31,10 @@ const person = {
 }
 
 export const homeSeo: PageSeo = {
-  title: 'Eric Clancy – Full-Stack Developer & Free Games | ECEC',
+  title: 'Eric Clancy – Full-Stack Developer & Game Maker | ECEC',
   description:
-    'Eric Clancy is a full-stack developer and technical lead who builds with AI. Play ' +
-    'his free games, from DrawFight to The Farther We Stray.',
+    'Eric Clancy is a full-stack developer and technical lead who builds with AI. See ' +
+    'his games, from DrawFight to The Farther We Stray.',
 }
 
 export const homeStructuredData = [
@@ -56,10 +57,10 @@ export const homeStructuredData = [
 export const gameSeo: Record<string, GameSeo> = {
   drawfight: {
     name: 'DrawFight',
-    title: "DrawFight – Free Fighting Game Made of Kids' Drawings",
+    title: "DrawFight – A Fighting Game Made of Kids' Drawings",
     description:
-      "A Smash-style fighting game where every fighter is a kid's drawing. Free for " +
-      'Windows and Linux, for 1 to 4 players with controllers or the keyboard.',
+      "A Smash-style fighting game where every fighter is a kid's drawing. For 1 to 4 " +
+      'players with controllers or the keyboard. Coming soon.',
     image: { width: 1200, height: 675, alt: 'The DrawFight title screen.' },
     genre: ['Fighting', 'Platform fighter'],
     platforms: ['Windows', 'Linux'],
@@ -67,10 +68,10 @@ export const gameSeo: Record<string, GameSeo> = {
   },
   drawpets: {
     name: 'DrawPets',
-    title: 'DrawPets – Draw Your Own Virtual Pet, Free',
+    title: 'DrawPets – Draw Your Own Virtual Pet',
     description:
-      'A virtual pet you draw part by part, then watch come alive and look after. Free for ' +
-      'Windows, Linux, Android and any browser, with no ads, no accounts and no AI.',
+      'A virtual pet you draw part by part, then watch come alive and look after. No ads ' +
+      'and no AI. Coming soon; play it in your browser now.',
     image: { width: 1200, height: 675, alt: 'The DrawPets title screen.' },
     genre: ['Virtual pet', 'Drawing'],
     platforms: ['Windows', 'Linux', 'Android', 'Web browser'],
@@ -78,10 +79,10 @@ export const gameSeo: Record<string, GameSeo> = {
   },
   'the-last-wizard-survivors': {
     name: 'The Last Wizard: Survivors',
-    title: 'The Last Wizard: Survivors – Free Roguelite Spell Shooter',
+    title: 'The Last Wizard: Survivors – Roguelite Spell Shooter',
     description:
-      'A roguelite auto-shooter: move, survive, and let your spells do the rest. Free for ' +
-      'Windows, Linux and Android.',
+      'A roguelite auto-shooter: move, survive, and let your spells do the rest. Coming ' +
+      'soon; play a 30-second demo in your browser now.',
     image: {
       width: 1200,
       height: 675,
@@ -93,10 +94,10 @@ export const gameSeo: Record<string, GameSeo> = {
   },
   'wizard-wars': {
     name: 'Wizard Wars',
-    title: 'Wizard Wars – Free 4-Player Wizard Battle Game',
+    title: 'Wizard Wars – 4-Player Wizard Battle Game',
     description:
       'Fire, frost, earth or lightning: a wizard battle arena for up to four players. ' +
-      'Free for Windows and Linux.',
+      'Coming soon.',
     image: { width: 1200, height: 750, alt: 'The Wizard Wars title screen.' },
     genre: ['Party', 'Battle arena'],
     platforms: ['Windows', 'Linux'],
@@ -104,10 +105,10 @@ export const gameSeo: Record<string, GameSeo> = {
   },
   'the-farther-we-stray': {
     name: 'The Farther We Stray',
-    title: 'The Farther We Stray – Free Creature Tactics Game',
+    title: 'The Farther We Stray – Creature Tactics Game',
     description:
       'Catch strays, breed and train your beasts, and lead them in turn-based tactics ' +
-      'battles. Free for Windows and Android.',
+      'battles. Coming soon.',
     image: { width: 1200, height: 675, alt: 'The title screen of The Farther We Stray.' },
     genre: ['Tactics', 'Creature collector'],
     platforms: ['Windows', 'Android'],
@@ -135,8 +136,5 @@ export function gameStructuredData(id: string, game: GameSeo) {
       maxValue: game.players.max,
     },
     playMode: game.players.max > 1 ? ['SinglePlayer', 'MultiPlayer'] : ['SinglePlayer'],
-    downloadUrl: `${ORIGIN}/${id}/download`,
-    isAccessibleForFree: true,
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   }
 }

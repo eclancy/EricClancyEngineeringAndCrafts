@@ -1,7 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import type { GamePageProps } from '../types'
-import { downloadPath } from '../../../data/projects'
-import { formatDate, useReleases } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
@@ -85,8 +83,6 @@ const controls: [string, string, string][] = [
 
 export default function WizardWarsPage({ project }: GamePageProps) {
   const { game } = project
-  const releases = useReleases(game)
-  const latest = releases.state === 'ok' ? releases.list[0] : undefined
   const images = project.images ?? []
   const [plate, setPlate] = useState<number | null>(null)
 
@@ -100,14 +96,6 @@ export default function WizardWarsPage({ project }: GamePageProps) {
   useEffect(() => {
     document.title = gameSeo['wizard-wars'].title
   }, [])
-
-  const versionLine = latest
-    ? `Version ${latest.version} · ${formatDate(latest.date)}${
-        latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''
-      } · updates itself`
-    : releases.state === 'none'
-      ? 'Free for Windows and Linux · keeps itself up to date'
-      : ' '
 
   return (
     <div className="ww">
@@ -145,7 +133,7 @@ export default function WizardWarsPage({ project }: GamePageProps) {
                 <ul className="ww-facts" aria-label="At a glance">
                   <li>{game.players}</li>
                   <li>Free-for-All or Teams</li>
-                  <li>{game.platform ?? 'Windows'} · free</li>
+                  <li>{game.platform ?? 'Windows'}</li>
                 </ul>
                 <p className="ww-runes ww-runes--foot" aria-hidden="true">
                   {runeLine(5, 14)}
@@ -172,12 +160,11 @@ export default function WizardWarsPage({ project }: GamePageProps) {
               </div>
             </div>
             <div className="ww-orb-wrap">
-              <a href={downloadPath(project)} className="ww-orb">
-                <span className="ww-orb-start">Start</span>
-                <span className="ww-orb-sub">Play {project.name}</span>
-              </a>
-              <p className="ww-version" aria-live="polite">
-                {versionLine}
+              <p className="ww-orb ww-orb--soon">
+                <span className="ww-orb-start" aria-hidden="true">
+                  Soon
+                </span>
+                <span className="ww-orb-sub">Coming soon</span>
               </p>
               <UpdatesLink className="ww-updates-link" />
             </div>
@@ -340,47 +327,16 @@ export default function WizardWarsPage({ project }: GamePageProps) {
           </div>
         </section>
 
-        {/* ---------- What's new ---------- */}
-        {!game.comingSoon && (
-          <section className="ww-chapter" aria-labelledby="ww-ch-new">
-            <ChapterHead n="VII" id="ww-ch-new" title="What’s new" />
-            {releases.state === 'ok' ? (
-              <ol className="ww-releases">
-                {releases.list.slice(0, 4).map((r) => (
-                  <li key={r.version} className="ww-release">
-                    <p className="ww-release-head">
-                      <a href={r.url}>Version {r.version}</a>{' '}
-                      <span>{formatDate(r.date)}</span>
-                    </p>
-                    {r.notes
-                      .split(/\n\s*\n/)
-                      .filter(Boolean)
-                      .map((para, i) => (
-                        <p key={i}>{para}</p>
-                      ))}
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p className="ww-aside">
-                {releases.state === 'loading'
-                  ? 'Turning the pages…'
-                  : 'The release notes live on GitHub.'}
-              </p>
-            )}
-            <p className="ww-center">
-              <a
-                className="ww-chip-btn"
-                href={`https://github.com/eclancy/${game.repo}/releases`}
-              >
-                Every version
-              </a>
-            </p>
-            <UpdatesSignup game={project.id} name={project.name} className="ww-signup" />
-          </section>
-        )}
+        {/* ---------- Coming soon ---------- */}
+        <section className="ww-chapter" aria-labelledby="ww-ch-soon">
+          <ChapterHead n="VII" id="ww-ch-soon" title="Coming soon" />
+          <p className="ww-aside">
+            {project.name} is coming soon. Sign up below to hear when it launches.
+          </p>
+          <UpdatesSignup game={project.id} name={project.name} className="ww-signup" />
+        </section>
 
-        <section className="ww-finale" aria-label="Download">
+        <section className="ww-finale" aria-label="Coming soon">
           <div className="ww-finale-wizards" aria-hidden="true">
             {wizards.map((w) => (
               <span key={w.id} data-el={w.id}>
@@ -388,17 +344,15 @@ export default function WizardWarsPage({ project }: GamePageProps) {
               </span>
             ))}
           </div>
-          <a href={downloadPath(project)} className="ww-big-btn">
-            Play {project.name}
+          <a href="#get-updates" className="ww-big-btn">
+            Hear when it launches
           </a>
-          <p className="ww-version">{versionLine}</p>
         </section>
       </main>
 
       <footer className="ww-footer">
         <a href="/">ecec.dev</a>
         {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}
-        <a href={`https://github.com/eclancy/${game.repo}/releases`}>All versions</a>
         <a href="/privacy">Privacy</a>
       </footer>
     </div>
