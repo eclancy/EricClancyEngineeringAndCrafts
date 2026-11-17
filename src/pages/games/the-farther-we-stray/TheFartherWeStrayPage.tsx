@@ -1,7 +1,5 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import type { GamePageProps } from '../types'
-import { downloadPath } from '../../../data/projects'
-import { formatDate, useReleases } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
@@ -104,8 +102,6 @@ const heroes = ['s05', 's01', 's06']
 
 export default function TheFartherWeStrayPage({ project }: GamePageProps) {
   const game = project.game
-  const releases = useReleases(game)
-  const latest = releases.state === 'ok' ? releases.list[0] : undefined
   const images = project.images ?? []
   const [shown, setShown] = useState<number | null>(null)
 
@@ -141,7 +137,7 @@ export default function TheFartherWeStrayPage({ project }: GamePageProps) {
       >
         <div className="tfws-hero__inner">
           <div className="tfws-hero__text">
-            <p className="tfws-eyebrow">A creature tactics game · free</p>
+            <p className="tfws-eyebrow">A creature tactics game</p>
             <h1 className="tfws-title">
               <span>The Farther</span> <span>We Stray</span>
             </h1>
@@ -154,31 +150,14 @@ export default function TheFartherWeStrayPage({ project }: GamePageProps) {
               and no two are alike.
             </p>
             <div className="tfws-actions">
-              <a
-                className="tfws-btn tfws-btn--gold tfws-btn--big"
-                href={downloadPath(project)}
-              >
-                <span className="tfws-btn__glyph" aria-hidden="true">
-                  ⬇
-                </span>
-                Download free
-              </a>
+              <p className="tfws-btn tfws-btn--gold tfws-btn--big tfws-soon">
+                Coming soon
+              </p>
               <a className="tfws-btn tfws-btn--cyan" href="#tfws-strays">
                 Meet the strays
               </a>
             </div>
             <p className="tfws-meta">
-              {latest ? (
-                <>
-                  Version {latest.version} · {formatDate(latest.date)}
-                  {latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''}
-                </>
-              ) : releases.state === 'loading' ? (
-                'Checking for the latest version…'
-              ) : (
-                'Free'
-              )}
-              <span aria-hidden="true"> · </span>
               {game.platform} · {game.players} · early build
             </p>
             <UpdatesLink className="tfws-updates-link" />
@@ -382,35 +361,10 @@ export default function TheFartherWeStrayPage({ project }: GamePageProps) {
           </div>
 
           <div className="tfws-panel tfws-news">
-            <h2>What&rsquo;s new</h2>
-            {releases.state === 'loading' && (
-              <p className="tfws-muted">Reading the latest notes…</p>
-            )}
-            {releases.state === 'none' && (
-              <p className="tfws-muted">
-                The release notes are on{' '}
-                <a href={`https://github.com/eclancy/${game.repo}/releases`}>GitHub</a>.
-              </p>
-            )}
-            {releases.state === 'ok' && (
-              <ol className="tfws-news__list">
-                {releases.list.slice(0, 4).map((release) => (
-                  <li key={release.version}>
-                    <p className="tfws-news__head">
-                      <a href={release.url}>v{release.version}</a>
-                      <span>{formatDate(release.date)}</span>
-                    </p>
-                    {release.notes && <p className="tfws-news__notes">{release.notes}</p>}
-                  </li>
-                ))}
-              </ol>
-            )}
-            <a
-              className="tfws-news__all"
-              href={`https://github.com/eclancy/${game.repo}/releases`}
-            >
-              Every version →
-            </a>
+            <h2>Coming soon</h2>
+            <p className="tfws-muted">
+              {project.name} is coming soon. Sign up below to hear when it launches.
+            </p>
             <UpdatesSignup
               game={project.id}
               name={project.name}
@@ -421,18 +375,9 @@ export default function TheFartherWeStrayPage({ project }: GamePageProps) {
 
         <section className="tfws-section tfws-final" aria-labelledby="tfws-final-title">
           <h2 id="tfws-final-title">The strays are waiting</h2>
-          <p>
-            Free for Windows and Android. An early build: the story is still being
-            written.
-          </p>
-          <a
-            className="tfws-btn tfws-btn--gold tfws-btn--big"
-            href={downloadPath(project)}
-          >
-            <span className="tfws-btn__glyph" aria-hidden="true">
-              ⬇
-            </span>
-            Download free
+          <p>Coming soon. The story is still being written.</p>
+          <a className="tfws-btn tfws-btn--gold tfws-btn--big" href="#get-updates">
+            Hear when it launches
           </a>
         </section>
       </main>
@@ -441,10 +386,6 @@ export default function TheFartherWeStrayPage({ project }: GamePageProps) {
         <span className="tfws-footer__rule" aria-hidden="true" />
         <p>
           <a href="/">ecec.dev</a>
-          <span aria-hidden="true"> · </span>
-          {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}
-          <span aria-hidden="true"> · </span>
-          <a href={`https://github.com/eclancy/${game.repo}/releases`}>All versions</a>
           <span aria-hidden="true"> · </span>
           <a href="/privacy">Privacy</a>
         </p>

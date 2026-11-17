@@ -176,6 +176,12 @@
   cursor: not-allowed;
   filter: saturate(0.4);
 }
+/* "Coming soon" in the gold frame: a sign, not a button, so nothing lights up or presses. */
+.tfws-soon {
+  margin: 0;
+  cursor: default;
+  pointer-events: none;
+}
 .tfws-btn__glyph {
   font-size: 1.1em;
   color: var(--gold);

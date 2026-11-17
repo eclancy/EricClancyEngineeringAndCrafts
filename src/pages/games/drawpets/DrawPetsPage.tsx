@@ -1,7 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import type { GamePageProps } from '../types'
-import { downloadPath } from '../../../data/projects'
-import { formatDate, useReleases } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
@@ -109,12 +107,9 @@ const TITLE_COLORS = [
 
 export default function DrawPetsPage({ project }: GamePageProps) {
   const { game } = project
-  const releases = useReleases(game)
-  const latest = releases.state === 'ok' ? releases.list[0] : undefined
   const images = project.images ?? []
   const [expanded, setExpanded] = useState<number | null>(null)
   const [word, setWord] = useState(0)
-  const repoUrl = project.repoUrl ?? `https://github.com/eclancy/${game.repo}`
   const platform = game.platform ?? 'Windows'
 
   useGoogleFonts([
@@ -126,14 +121,6 @@ export default function DrawPetsPage({ project }: GamePageProps) {
   useEffect(() => {
     document.title = gameSeo.drawpets.title
   }, [])
-
-  const versionLine = latest
-    ? `Version ${latest.version} · ${formatDate(latest.date).replace(/ /g, '\u00a0')}${
-        latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''
-      } · updates itself`
-    : releases.state === 'none'
-      ? 'Free · keeps itself up to date once installed'
-      : '\u00a0'
 
   const picked = WORDS[word]
 
@@ -154,11 +141,10 @@ export default function DrawPetsPage({ project }: GamePageProps) {
       </header>
 
       <main id="dp-main">
-        {/* Hero: the name, the download, and a kitten to pet. */}
+        {/* Hero: the name, what's coming, and a kitten to pet. */}
         <section className="dp-hero dp-wrap" aria-labelledby="dp-title">
           <div className="dp-hero-text">
             <ul className="dp-tags" aria-label="At a glance">
-              <li className="dp-tag is-orange">Free</li>
               <li className="dp-tag is-blue">{platform.replace(' and ', ' & ')}</li>
               <li className="dp-tag is-mint">{game.players}</li>
               <li className="dp-tag is-pink">Ages 7+</li>
@@ -188,20 +174,15 @@ export default function DrawPetsPage({ project }: GamePageProps) {
               its own. Every pet is a kid's own drawing.
             </p>
 
-            {game.comingSoon ? (
-              <p className="dp-soon">Coming soon</p>
-            ) : (
-              <div className="dp-cta">
-                <a href={downloadPath(project)} className="dp-btn dp-download">
-                  <span className="dp-download-main">Download free</span>
-                  <span className="dp-download-for">for {platform}</span>
-                </a>
-                <p className="dp-version" aria-live="polite">
-                  {versionLine}
-                </p>
-                <UpdatesLink className="dp-updates-link" />
-              </div>
-            )}
+            <p className="dp-soon">Coming soon</p>
+            {/* The browser version isn't a download, so it stays playable while the rest
+                waits for launch. deploy.yml keeps its files on the server. */}
+            <div>
+              <a href="/drawpets/play/" className="dp-link">
+                Play it in your browser now
+              </a>
+            </div>
+            <UpdatesLink className="dp-updates-link" />
           </div>
 
           <div className="dp-scene dp-sketch">
@@ -376,58 +357,31 @@ export default function DrawPetsPage({ project }: GamePageProps) {
 
             <article className="dp-note dp-sketch is-lilac" aria-labelledby="dp-new">
               <h2 id="dp-new" className="dp-note-title">
-                What's new
+                Coming soon
               </h2>
-              {releases.state === 'loading' && <p className="dp-muted">Checking...</p>}
-              {releases.state === 'none' && (
-                <p className="dp-muted">
-                  {game.comingSoon
-                    ? 'The first version is on its way.'
-                    : 'Release notes will appear here.'}
-                </p>
-              )}
-              {releases.state === 'ok' && (
-                <ol className="dp-releases">
-                  {releases.list.slice(0, 3).map((r) => (
-                    <li key={r.version}>
-                      <p className="dp-release-head">
-                        <a href={r.url} className="dp-release-version">
-                          v{r.version}
-                        </a>
-                        <span className="dp-release-date">{formatDate(r.date)}</span>
-                      </p>
-                      {r.notes && <p className="dp-release-notes">{r.notes}</p>}
-                    </li>
-                  ))}
-                </ol>
-              )}
-              <a href={`${repoUrl}/releases`} className="dp-link">
-                All versions
-              </a>
-              {!game.comingSoon && (
-                <UpdatesSignup
-                  game={project.id}
-                  name={project.name}
-                  className="dp-signup"
-                />
-              )}
+              <p className="dp-muted">
+                {project.name} is coming soon. Sign up below to hear when it launches.
+              </p>
+              <UpdatesSignup
+                game={project.id}
+                name={project.name}
+                className="dp-signup"
+              />
             </article>
           </div>
         </section>
 
-        {!game.comingSoon && (
-          <section className="dp-wrap dp-final" aria-labelledby="dp-final-title">
-            <Heart className="dp-final-heart is-left" />
-            <h2 id="dp-final-title" className="dp-final-title">
-              Ready to draw your first pet?
-            </h2>
-            <a href={downloadPath(project)} className="dp-btn dp-download">
-              <span className="dp-download-main">Download free</span>
-              <span className="dp-download-for">for {platform}</span>
-            </a>
-            <Heart className="dp-final-heart is-right" color="var(--dp-orange)" />
-          </section>
-        )}
+        <section className="dp-wrap dp-final" aria-labelledby="dp-final-title">
+          <Heart className="dp-final-heart is-left" />
+          <h2 id="dp-final-title" className="dp-final-title">
+            Ready to draw your first pet?
+          </h2>
+          <a href="/drawpets/play/" className="dp-btn dp-download">
+            <span className="dp-download-main">Play in your browser</span>
+            <span className="dp-download-for">nothing to install</span>
+          </a>
+          <Heart className="dp-final-heart is-right" color="var(--dp-orange)" />
+        </section>
       </main>
 
       <footer className="dp-footer">
@@ -437,9 +391,6 @@ export default function DrawPetsPage({ project }: GamePageProps) {
             <Sparkle className="dp-footer-sparkle" color="var(--dp-orange)" />
           </p>
           <nav aria-label="More DrawPets links">
-            <a href={downloadPath(project)}>Download</a>
-            <a href={repoUrl}>Source code</a>
-            <a href={`${repoUrl}/releases`}>All versions</a>
             <a href="/">ecec.dev</a>
             <a href="/privacy">Privacy</a>
           </nav>

@@ -16,10 +16,10 @@ export interface Announcement {
 // been dismissed is shown; add new ones at the top. Keep them short - it is one line on a phone.
 export const announcements: Announcement[] = [
   {
-    id: 'games-download-2026-10',
+    id: 'games-coming-2026-11',
     emoji: '🎮',
-    text: 'Try my free games',
-    link: { href: '#projects', label: 'Pick one' },
+    text: 'My games are coming soon',
+    link: { href: '#projects', label: 'See them' },
     href: '#projects',
   },
 ]

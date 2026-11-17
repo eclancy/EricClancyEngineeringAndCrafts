@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import type { GamePageProps } from '../types'
-import { downloadPath } from '../../../data/projects'
-import { formatDate, useReleases } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
@@ -59,8 +57,6 @@ const facts: [string, string][] = [
 
 export default function TheLastWizardSurvivorsPage({ project }: GamePageProps) {
   const game = project.game
-  const releases = useReleases(game)
-  const latest = releases.state === 'ok' ? releases.list[0] : undefined
   const images = project.images ?? []
   const [shown, setShown] = useState<number | null>(null)
   const stars = useRef<HTMLDivElement>(null)
@@ -124,31 +120,12 @@ export default function TheLastWizardSurvivorsPage({ project }: GamePageProps) {
             sound made by code.
           </p>
           <div className="tohm-plaque__actions">
-            <a
-              className="tohm-btn tohm-btn--gold tohm-btn--big"
-              href={downloadPath(project)}
-            >
-              <span className="tohm-btn__glyph" aria-hidden="true">
-                ⬇
-              </span>
-              Download free
-            </a>
+            <p className="tohm-btn tohm-btn--gold tohm-btn--big tohm-soon">Coming soon</p>
             <a className="tohm-btn tohm-btn--stone" href="#tohm-try">
               Play the demo
             </a>
           </div>
           <p className="tohm-plaque__meta">
-            {latest ? (
-              <>
-                Version {latest.version} · {formatDate(latest.date)}
-                {latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''}
-              </>
-            ) : releases.state === 'loading' ? (
-              'Checking for the latest version…'
-            ) : (
-              'Free'
-            )}
-            <span aria-hidden="true"> · </span>
             {game.platform ?? 'Windows'} · {game.players} · keyboard, controller or touch
           </p>
           <UpdatesLink className="tohm-updates-link" />
@@ -297,35 +274,10 @@ export default function TheLastWizardSurvivorsPage({ project }: GamePageProps) {
           </div>
 
           <div className="tohm-panel tohm-news">
-            <h2>What&rsquo;s new</h2>
-            {releases.state === 'loading' && (
-              <p className="tohm-muted">Reading the latest notes…</p>
-            )}
-            {releases.state === 'none' && (
-              <p className="tohm-muted">
-                The release notes are on{' '}
-                <a href={`https://github.com/eclancy/${game.repo}/releases`}>GitHub</a>.
-              </p>
-            )}
-            {releases.state === 'ok' && (
-              <ol className="tohm-news__list">
-                {releases.list.slice(0, 4).map((release) => (
-                  <li key={release.version}>
-                    <p className="tohm-news__head">
-                      <a href={release.url}>v{release.version}</a>
-                      <span>{formatDate(release.date)}</span>
-                    </p>
-                    {release.notes && <p className="tohm-news__notes">{release.notes}</p>}
-                  </li>
-                ))}
-              </ol>
-            )}
-            <a
-              className="tohm-news__all"
-              href={`https://github.com/eclancy/${game.repo}/releases`}
-            >
-              Every version →
-            </a>
+            <h2>Coming soon</h2>
+            <p className="tohm-muted">
+              {project.name} is coming soon. Sign up below to hear when it launches.
+            </p>
             <UpdatesSignup
               game={project.id}
               name={project.name}
@@ -336,15 +288,9 @@ export default function TheLastWizardSurvivorsPage({ project }: GamePageProps) {
 
         <section className="tohm-section tohm-final" aria-labelledby="tohm-final-title">
           <h2 id="tohm-final-title">Step into the circle</h2>
-          <p>Free for Windows, Linux and Android.</p>
-          <a
-            className="tohm-btn tohm-btn--gold tohm-btn--big"
-            href={downloadPath(project)}
-          >
-            <span className="tohm-btn__glyph" aria-hidden="true">
-              ⬇
-            </span>
-            Download free
+          <p>The full game is coming soon. Until then, there&rsquo;s the demo.</p>
+          <a className="tohm-btn tohm-btn--gold tohm-btn--big" href="#tohm-try">
+            Play the demo
           </a>
         </section>
       </main>
@@ -359,15 +305,11 @@ export default function TheLastWizardSurvivorsPage({ project }: GamePageProps) {
         <p>
           <a href="/">ecec.dev</a>
           <span aria-hidden="true"> · </span>
-          {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}
-          <span aria-hidden="true"> · </span>
-          <a href={`https://github.com/eclancy/${game.repo}/releases`}>All versions</a>
-          <span aria-hidden="true"> · </span>
           <a href="/privacy">Privacy</a>
         </p>
         <p className="tohm-footer__small">
-          Made by Eric Clancy. The code is source-available; the art, least of all the
-          Sketchbook&rsquo;s, is not for reuse.
+          Made by Eric Clancy. The art, least of all the Sketchbook&rsquo;s, is not for
+          reuse.
         </p>
       </footer>
     </div>

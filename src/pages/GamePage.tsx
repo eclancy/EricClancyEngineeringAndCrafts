@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { formatDate, useReleases } from '../lib/releases'
-import { downloadPath, type GameInfo, type Project } from '../data/projects'
+import type { GameInfo, Project } from '../data/projects'
 import { gameSeo } from '../data/seo'
 import { EcecLogo } from '../components/EcecLogo'
 import { Footer } from '../components/Footer'
@@ -9,11 +8,9 @@ import { Lightbox } from '../components/Lightbox'
 
 export function GamePage({ project }: { project: Project & { game: GameInfo } }) {
   const { game } = project
-  const releases = useReleases(game)
   const images = project.images ?? []
   const shots = images.slice(1)
   const [expanded, setExpanded] = useState<number | null>(null)
-  const latest = releases.state === 'ok' ? releases.list[0] : undefined
 
   useEffect(() => {
     document.title = gameSeo[project.id]?.title ?? `${project.name} | ECEC`
@@ -38,7 +35,7 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
         >
           <div className="flex flex-col gap-4">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-fuchsia-300">
-              Free · {game.platform ?? 'Windows'} · {game.players}
+              {game.platform ?? 'Windows'} · {game.players}
             </p>
             <h1
               id="game-heading"
@@ -47,40 +44,9 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
               {project.name}
             </h1>
             <p className="text-lg text-violet-300">{project.tagline}</p>
-            {game.comingSoon ? (
-              <p className="mt-2 rounded-xl border border-dashed border-fuchsia-400/50 px-5 py-4 text-center text-lg font-bold text-fuchsia-200 sm:max-w-sm">
-                <span aria-hidden="true">⏳</span> Coming soon
-              </p>
-            ) : (
-              <a
-                href={downloadPath(project)}
-                className="ecec-cta group mt-2 flex items-center justify-center gap-3 rounded-xl px-5 py-4 text-lg font-extrabold tracking-wide text-white transition hover:-translate-y-0.5 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-300 sm:max-w-sm"
-              >
-                <span aria-hidden="true" className="ecec-cta-emoji text-2xl">
-                  🎮
-                </span>
-                <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-                  Play {project.name}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="text-xl transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </a>
-            )}
-            {!game.comingSoon && (
-              <p className="text-sm text-slate-500" aria-live="polite">
-                {latest
-                  ? `Version ${latest.version} · ${formatDate(latest.date)}${
-                      latest.sizeMb ? ` · ${latest.sizeMb} MB` : ''
-                    } · updates itself`
-                  : releases.state === 'none'
-                    ? 'Keeps itself up to date once installed'
-                    : ' '}
-              </p>
-            )}
+            <p className="mt-2 rounded-xl border border-dashed border-fuchsia-400/50 px-5 py-4 text-center text-lg font-bold text-fuchsia-200 sm:max-w-sm">
+              <span aria-hidden="true">⏳</span> Coming soon
+            </p>
             {game.feature && (
               <a
                 href={game.feature.href}
@@ -158,70 +124,17 @@ export function GamePage({ project }: { project: Project & { game: GameInfo } })
                 >
                   Source code on GitHub →
                 </a>
-                <a
-                  href={`https://github.com/eclancy/${game.repo}/releases`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="text-violet-300 underline-offset-4 hover:underline"
-                >
-                  Every version →
-                </a>
               </p>
             )}
           </section>
 
-          <section aria-labelledby="versions-heading">
-            <h2 id="versions-heading" className="text-2xl font-bold text-slate-100">
-              What's new
+          <section aria-labelledby="soon-heading">
+            <h2 id="soon-heading" className="text-2xl font-bold text-slate-100">
+              Coming soon
             </h2>
-            {releases.state === 'loading' && (
-              <p className="mt-4 text-slate-500">Loading…</p>
-            )}
-            {releases.state === 'none' && (
-              <p className="mt-4 text-slate-400">
-                {game.comingSoon
-                  ? `${project.name} is still being made. Check back soon.`
-                  : 'No versions published yet. The first one is on its way.'}
-              </p>
-            )}
-            {releases.state === 'ok' && (
-              <ol className="mt-4 flex flex-col gap-4">
-                {releases.list.map((release, index) => (
-                  <li
-                    key={release.version}
-                    className={`rounded-xl border p-4 ${
-                      index === 0
-                        ? 'border-fuchsia-500/50 bg-fuchsia-500/5'
-                        : 'border-slate-800 bg-slate-900/60'
-                    }`}
-                  >
-                    <p className="flex flex-wrap items-baseline justify-between gap-2">
-                      <a
-                        href={release.url}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="font-semibold text-slate-100 underline-offset-4 hover:underline"
-                      >
-                        Version {release.version}
-                        {index === 0 && (
-                          <span className="ml-2 rounded-full bg-fuchsia-500/20 px-2 py-0.5 text-xs text-fuchsia-200">
-                            latest
-                          </span>
-                        )}
-                      </a>
-                      <time dateTime={release.date} className="text-xs text-slate-500">
-                        {formatDate(release.date)}
-                      </time>
-                    </p>
-                    {release.notes && (
-                      <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-slate-400">
-                        {release.notes}
-                      </p>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            )}
+            <p className="mt-4 text-slate-400">
+              {project.name} is still being made. Check back soon.
+            </p>
           </section>
         </div>
 
