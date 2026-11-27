@@ -49,7 +49,7 @@ export interface Project {
   images?: ProjectImage[]
   /** Set for a game: it gets a page at /games/<id>, and copies already installed check
    *  /<id>/version.json for updates (see nginx.conf). Not downloadable from here until
-   *  launch, so every game page says "Coming soon" instead. */
+   *  launch, so its page says "Coming soon" instead - unless it is `downloadable`. */
   game?: GameInfo
 }
 
@@ -62,7 +62,12 @@ export interface GameInfo {
   about: string[]
   /** Defaults to 'Windows'. */
   platform?: string
-  /** A second headline action for the game page: a big button by "Coming soon", and a band
+  /** Free to download now, from /<id>/download (public/<id>/download/): its page has a
+   *  download button and the release history, its card a Play button. The builds are the
+   *  `repo`'s GitHub Releases, so the repo must be public. */
+  downloadable?: boolean
+  /** A second headline action for the game page: a big button by the download or "Coming
+   *  soon", and a band
    *  explaining it below the intro. */
   feature?: {
     title: string
@@ -75,6 +80,7 @@ export interface GameInfo {
 }
 
 export const gamePath = (project: Project) => `/games/${project.id}`
+export const downloadPath = (project: Project) => `/${project.id}/download`
 /** Where a game runs, from its `platform` ('Windows and Android' -> ['Windows', 'Android']). */
 export const platformsOf = (project: Project) =>
   (project.game?.platform ?? 'Windows').split(/\s+and\s+|,\s*/)
@@ -93,6 +99,7 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/eclancy/DrawFight',
     game: {
       repo: 'DrawFight',
+      downloadable: true,
       platform: 'Windows and Linux',
       players: '1–4 players, local',
       feature: {
@@ -120,8 +127,8 @@ export const projects: Project[] = [
     },
     callsToAction: [
       {
-        href: '/games/drawfight',
-        label: 'See DrawFight',
+        href: '/drawfight/download',
+        label: 'Play DrawFight',
         emoji: '🎮',
       },
     ],

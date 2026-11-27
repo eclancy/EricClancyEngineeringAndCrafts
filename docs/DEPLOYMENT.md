@@ -174,8 +174,8 @@ address. The Last Wizard: Survivors has been renamed twice, and lives at
   "The Last Wizard - Survivors", since a file name cannot hold a colon.
 
 `nginx.conf` keeps four of its old addresses answering directly, forever, exactly as the new
-ones do, in one hop. The game download pages are gone, so the two download addresses go to
-the game page, as the new one does:
+ones do, in one hop. Its download page is gone (only DrawFight's is left), so the two download
+addresses go to the game page, as the new one does:
 
 | Address                                 | Who asks it                               | Answers                                    |
 | --------------------------------------- | ----------------------------------------- | ------------------------------------------ |

@@ -18,6 +18,8 @@ export type Bone =
 export interface Pose {
   hip: [number, number]
   rot: Partial<Record<Bone, number>>
+  /** How far the legs stand on flat feet (1) rather than as posed (0): see standOnFeet. */
+  stand?: number
 }
 
 export const BONES: Bone[] = [
@@ -69,13 +71,15 @@ export const clips = {
 
 export type ClipName = keyof typeof clips
 
-// Every pose is written a quarter smaller than the game shows it (FighterRig.Drama).
-const DRAMA = 1.25
+// The clips the game plays standing on the floor (FighterRig.StandOnFeet). Their leg angles are
+// standing ones: the knees are bent to suit the hips instead, keeping both feet flat on the floor.
+const STANDING = new Set<ClipName>(['idle', 'crouch'])
 
-/** The pose `clip` is in at `frame` (60 Hz), looping. */
+/** The pose `clip` is in at `frame` (60 Hz), looping, as written: see exaggerate. */
 export function sample(name: ClipName, frame: number): Pose {
+  const stand = STANDING.has(name) ? 1 : 0
   const clip: Clip = clips[name]
-  if (clip.length === 1) return scale(clip[0][1])
+  if (clip.length === 1) return { ...clip[0][1], stand }
   const length = clip[clip.length - 1][0]
   const t = ((frame % length) + length) % length
   let i = 0
@@ -84,7 +88,7 @@ export function sample(name: ClipName, frame: number): Pose {
   const [f1, b] = clip[i + 1]
   const k = (t - f0) / (f1 - f0)
   // Ease in and out between keys, as the game's tweens do.
-  return scale(mix(a, b, k * k * (3 - 2 * k)))
+  return { ...mix(a, b, k * k * (3 - 2 * k)), stand }
 }
 
 export function mix(a: Pose, b: Pose, k: number): Pose {
@@ -96,12 +100,31 @@ export function mix(a: Pose, b: Pose, k: number): Pose {
         return [bone, x + ((b.rot[bone] ?? 0) - x) * k]
       }),
     ),
+    stand: (a.stand ?? 0) + ((b.stand ?? 0) - (a.stand ?? 0)) * k,
   }
 }
 
-function scale(pose: Pose): Pose {
+// Every pose is written smaller than the game shows it (FighterRig.Drama, HipDrama): limbs a
+// quarter further, the hips four tenths lower, the body and head only a tenth further - a whole
+// body tipped further reads as falling over. A fighter's own drama (FighterData.AnimationDrama)
+// goes almost all into the legs and hips.
+const DRAMA = 1.25
+const HIP_DRAMA = 1.4
+
+/** A pose as the game shows it, for a fighter with its own drama `fighter`. */
+export function exaggerate(pose: Pose, fighter = 1): Pose {
   return {
-    hip: pose.hip,
-    rot: Object.fromEntries(BONES.map((b) => [b, (pose.rot[b] ?? 0) * DRAMA])),
+    hip: [pose.hip[0] * HIP_DRAMA * fighter, pose.hip[1] * HIP_DRAMA * fighter],
+    rot: Object.fromEntries(
+      BONES.map((b) => {
+        const core = b === 'Torso' || b === 'Head'
+        const leg = b.startsWith('Leg')
+        const k = core
+          ? 1 + (DRAMA - 1) * 0.4
+          : DRAMA * (leg ? fighter : 1 + (fighter - 1) * 0.15)
+        return [b, (pose.rot[b] ?? 0) * k]
+      }),
+    ),
+    stand: pose.stand,
   }
 }

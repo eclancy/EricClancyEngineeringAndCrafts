@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
-import type { PuppetBone, PuppetPart, PuppetRig } from './rigs'
-import type { Bone, Pose } from './poses'
+import type { PuppetBone, PuppetExtra, PuppetPart, PuppetRig } from './rigs'
+import { exaggerate, type Bone, type Pose } from './poses'
+import { isFoot, standOnFeet } from './stand'
 
 const BACK = new Set(['ArmBack_Upper', 'LegBack_Upper'])
 
@@ -18,8 +19,8 @@ interface PuppetProps {
 // the point between the feet, on the ground.
 export function Puppet({ rig, pose, height, bones = false }: PuppetProps) {
   const s = height / (rig.height + rig.legLength)
-  const hipY = -rig.legLength + pose.hip[1] * 0.01 * rig.legLength
-  const hipX = pose.hip[0] * 0.01 * rig.legLength
+  const placed = standOnFeet(rig, exaggerate(pose, rig.drama))
+  const [hipX, hipY] = placed.hip
   const children = (name: string | null) => rig.bones.filter((b) => b.parent === name)
 
   const image = (part: PuppetPart, shade = 1, key?: string) => (
@@ -34,10 +35,16 @@ export function Puppet({ rig, pose, height, bones = false }: PuppetProps) {
     />
   )
 
+  // A foot cut separately stays level on the floor while standing (FighterRig.LevelFeet).
+  const lift = (e: PuppetExtra) => {
+    const turn = placed.feet[e.bone as Bone]
+    return turn && isFoot(e) ? ` rotate(${turn})` : ''
+  }
+
   const render = (bone: PuppetBone): ReactNode => {
     const kids = children(bone.name)
     const extras = rig.extras.filter((e) => e.bone === bone.name)
-    const rot = pose.rot[bone.name as Bone] ?? 0
+    const rot = placed.rot[bone.name as Bone] ?? 0
     const back = kids.filter((k) => BACK.has(k.name))
     const front = kids.filter((k) => !BACK.has(k.name))
     return (
@@ -46,7 +53,7 @@ export function Puppet({ rig, pose, height, bones = false }: PuppetProps) {
         {extras
           .filter((e) => e.behind)
           .map((e, i) => (
-            <g key={`b${i}`} transform={`translate(${e.x} ${e.y})`}>
+            <g key={`b${i}`} transform={`translate(${e.x} ${e.y})${lift(e)}`}>
               {image(e.part)}
             </g>
           ))}
@@ -54,7 +61,7 @@ export function Puppet({ rig, pose, height, bones = false }: PuppetProps) {
         {extras
           .filter((e) => e.onPart && !e.behind)
           .map((e, i) => (
-            <g key={`o${i}`} transform={`translate(${e.x} ${e.y})`}>
+            <g key={`o${i}`} transform={`translate(${e.x} ${e.y})${lift(e)}`}>
               {image(e.part)}
             </g>
           ))}
@@ -62,7 +69,7 @@ export function Puppet({ rig, pose, height, bones = false }: PuppetProps) {
         {extras
           .filter((e) => !e.onPart && !e.behind)
           .map((e, i) => (
-            <g key={`e${i}`} transform={`translate(${e.x} ${e.y})`}>
+            <g key={`e${i}`} transform={`translate(${e.x} ${e.y})${lift(e)}`}>
               {image(e.part, bone.shade)}
             </g>
           ))}

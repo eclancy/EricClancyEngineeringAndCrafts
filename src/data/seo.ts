@@ -16,12 +16,14 @@ export interface PageSeo {
 
 export interface GameSeo extends PageSeo {
   name: string
-  /** The preview image, public/<id>/download/title-screen.jpg. The download pages are gone,
+  /** The preview image, public/<id>/download/title-screen.jpg. Most download pages are gone,
    *  but their pictures stay where they were: shared links already point at them. */
   image: { width: number; height: number; alt: string }
   genre: string[]
   platforms: string[]
   players: { min: number; max: number }
+  /** Free to download now, from /<id>/download (GameInfo.downloadable). */
+  free?: boolean
 }
 
 const person = {
@@ -57,14 +59,15 @@ export const homeStructuredData = [
 export const gameSeo: Record<string, GameSeo> = {
   drawfight: {
     name: 'DrawFight',
-    title: "DrawFight – A Fighting Game Made of Kids' Drawings",
+    title: "DrawFight – Free Fighting Game Made of Kids' Drawings",
     description:
-      "A Smash-style fighting game where every fighter is a kid's drawing. For 1 to 4 " +
-      'players with controllers or the keyboard. Coming soon.',
+      "A Smash-style fighting game where every fighter is a kid's drawing. Free for " +
+      'Windows and Linux, for 1 to 4 players with controllers or the keyboard.',
     image: { width: 1200, height: 675, alt: 'The DrawFight title screen.' },
     genre: ['Fighting', 'Platform fighter'],
     platforms: ['Windows', 'Linux'],
     players: { min: 1, max: 4 },
+    free: true,
   },
   drawpets: {
     name: 'DrawPets',
@@ -136,5 +139,10 @@ export function gameStructuredData(id: string, game: GameSeo) {
       maxValue: game.players.max,
     },
     playMode: game.players.max > 1 ? ['SinglePlayer', 'MultiPlayer'] : ['SinglePlayer'],
+    ...(game.free && {
+      downloadUrl: `${ORIGIN}/${id}/download`,
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    }),
   }
 }
