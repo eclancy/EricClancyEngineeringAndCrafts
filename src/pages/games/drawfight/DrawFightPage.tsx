@@ -1,5 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import type { GamePageProps } from '../types'
+import { downloadPath } from '../../../data/projects'
+import { formatDate, useReleases, type Release } from '../../../lib/releases'
 import { useGoogleFonts } from '../../../lib/useGoogleFonts'
 import { LoopVideo } from '../../../components/LoopVideo'
 import { Lightbox } from '../../../components/Lightbox'
@@ -112,6 +114,8 @@ const KEYS = {
 export default function DrawFightPage({ project }: GamePageProps) {
   const { game } = project
   useGoogleFonts(['Permanent Marker', 'Patrick Hand', 'Lexend:wght@400;500;600;700'])
+  const releases = useReleases(game)
+  const latest = releases.state === 'ok' ? releases.list[0] : undefined
   const images = project.images ?? []
   const [open, setOpen] = useState<number | null>(null)
   const feature = game.feature
@@ -134,7 +138,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
           <a href="#watch">Watch</a>
           <a href="#smack">Try it</a>
           <a href="#controls">Controls</a>
-          <a href="#updates">Updates</a>
+          <a href="#new">What&apos;s new</a>
         </nav>
       </header>
 
@@ -143,7 +147,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
         <section className="df-hero" aria-labelledby="df-title">
           <div className="df-hero-text">
             <p className="df-eyebrow">
-              {game.platform ?? 'Windows'} · {game.players}
+              Free · {game.platform ?? 'Windows'} · {game.players}
             </p>
             <h1 id="df-title" className="df-logo">
               <span className="df-logo-draw">Draw</span>
@@ -156,14 +160,21 @@ export default function DrawFightPage({ project }: GamePageProps) {
             <p className="df-lede">{project.description}</p>
 
             <div className="df-ctas">
-              <p className="df-soon">Coming soon</p>
+              {!game.downloadable ? (
+                <p className="df-soon">Coming soon</p>
+              ) : (
+                <a className="df-download" href={downloadPath(project)}>
+                  <span aria-hidden="true">⬇</span> Play {project.name}
+                </a>
+              )}
               {feature && (
                 <a className="df-submit" href={feature.href}>
                   <span aria-hidden="true">{feature.emoji}</span> {feature.label}
                 </a>
               )}
             </div>
-            <UpdatesLink className="df-updates-link" />
+            {game.downloadable && <VersionLine release={latest} state={releases.state} />}
+            {game.downloadable && <UpdatesLink className="df-updates-link" />}
           </div>
 
           <figure className="df-polaroid df-hero-clip">
@@ -381,18 +392,29 @@ export default function DrawFightPage({ project }: GamePageProps) {
           </div>
         </section>
 
-        {/* -------------------------------------------------------- updates */}
-        <section id="updates" className="df-section" aria-labelledby="df-updates-title">
-          <SectionTitle id="df-updates-title">Coming soon</SectionTitle>
-          <p className="df-small">
-            {project.name} is coming soon. Sign up below to hear when it launches.
-          </p>
-          <UpdatesSignup game={project.id} name={project.name} className="df-signup" />
-        </section>
+        {/* ------------------------------------------------------- releases */}
+        {game.downloadable && (
+          <section id="new" className="df-section" aria-labelledby="df-new-title">
+            <SectionTitle id="df-new-title" note="it updates itself">
+              What&apos;s new
+            </SectionTitle>
+            <Releases
+              state={releases.state}
+              list={releases.state === 'ok' ? releases.list : []}
+              repo={project.repoUrl}
+            />
+            <UpdatesSignup game={project.id} name={project.name} className="df-signup" />
+          </section>
+        )}
 
         <section className="df-end" aria-labelledby="df-end-title">
           <h2 id="df-end-title">Ready to fight?</h2>
           <div className="df-ctas df-ctas-center">
+            {game.downloadable && (
+              <a className="df-download" href={downloadPath(project)}>
+                <span aria-hidden="true">⬇</span> Play {project.name}
+              </a>
+            )}
             {feature && (
               <a className="df-submit" href={feature.href}>
                 <span aria-hidden="true">{feature.emoji}</span> {feature.label}
@@ -408,6 +430,7 @@ export default function DrawFightPage({ project }: GamePageProps) {
         <nav aria-label="More">
           <a href="/">ecec.dev</a>
           {project.repoUrl && <a href={project.repoUrl}>Source on GitHub</a>}
+          {project.repoUrl && <a href={`${project.repoUrl}/releases`}>All versions</a>}
           <a href="/privacy">Privacy</a>
         </nav>
       </footer>
@@ -435,6 +458,87 @@ function SectionTitle({
           ({note})
         </p>
       )}
+    </div>
+  )
+}
+
+function VersionLine({ release, state }: { release?: Release; state: string }) {
+  if (state === 'loading')
+    return <p className="df-version">checking the latest version…</p>
+  if (!release)
+    return <p className="df-version">Windows and Linux · keeps itself up to date</p>
+  return (
+    <p className="df-version">
+      v{release.version}
+      {release.sizeMb !== undefined && <> · {release.sizeMb} MB</>} · updated{' '}
+      {formatDate(release.date)} · keeps itself up to date
+    </p>
+  )
+}
+
+function Releases({
+  state,
+  list,
+  repo,
+}: {
+  state: string
+  list: Release[]
+  repo?: string
+}) {
+  if (state === 'loading')
+    return <p className="df-small">Flipping back through the notebook…</p>
+  if (list.length === 0)
+    return (
+      <p className="df-small">
+        Couldn&apos;t reach GitHub just now.{' '}
+        {repo && <a href={`${repo}/releases`}>See every version there</a>}.
+      </p>
+    )
+  const entry = (r: Release, i: number) => (
+    <li key={r.version}>
+      <p className="df-log-date">
+        <time dateTime={r.date}>{formatDate(r.date)}</time>
+      </p>
+      <div>
+        <h3>
+          <a href={r.url}>v{r.version}</a>
+          {i === 0 && <span className="df-latest">latest!</span>}
+        </h3>
+        <Notes text={r.notes} />
+      </div>
+    </li>
+  )
+  return (
+    <>
+      <ol className="df-log">{list.slice(0, 4).map(entry)}</ol>
+      {list.length > 4 && (
+        <details className="df-older">
+          <summary>Older versions</summary>
+          <ol className="df-log">{list.slice(4).map((r, i) => entry(r, i + 4))}</ol>
+        </details>
+      )}
+    </>
+  )
+}
+
+// Release notes are a few plain paragraphs, or a list of "- " lines.
+function Notes({ text }: { text: string }) {
+  if (!text) return <p className="df-small">Fixes and polish.</p>
+  const lines = text.split(/\r?\n/).filter((l) => l.trim())
+  const bullets = lines.filter((l) => /^\s*[-*] /.test(l))
+  if (bullets.length >= lines.length / 2)
+    return (
+      <ul className="df-notes">
+        {lines.map((l) => (
+          <li key={l}>{l.replace(/^\s*[-*] /, '')}</li>
+        ))}
+      </ul>
+    )
+  return (
+    <div className="df-notes">
+      {lines.map((l) => (
+        <p key={l}>{l}</p>
+      ))}
     </div>
   )
 }

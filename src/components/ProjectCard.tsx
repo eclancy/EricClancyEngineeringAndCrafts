@@ -86,8 +86,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
       )}
-      {/* No game is downloadable from here until launch. */}
-      {project.game && (
+      {/* No game is downloadable from here until launch, but for the free ones. */}
+      {project.game && !project.game.downloadable && (
         <p className="mt-2 rounded-xl border border-dashed border-fuchsia-400/50 px-4 py-3 text-center text-sm font-semibold text-fuchsia-200">
           <span aria-hidden="true">⏳</span> Coming soon
         </p>

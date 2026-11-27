@@ -31,6 +31,8 @@ export interface PuppetRig {
   artist: string
   height: number
   legLength: number
+  /** The fighter's own extra drama, from FighterData.AnimationDrama in the game (not rig.json). */
+  drama?: number
   bones: PuppetBone[]
   extras: PuppetExtra[]
 }
@@ -233,6 +235,7 @@ export const rigs: PuppetRig[] = [
   },
   {
     name: 'Triguy',
+    drama: 1.2,
     artist: 'Elim',
     legLength: 958.9,
     height: 1252.5,
@@ -428,6 +431,7 @@ export const rigs: PuppetRig[] = [
   },
   {
     name: 'DoomBot',
+    drama: 1.15,
     artist: 'Eric',
     legLength: 660,
     height: 1152,
